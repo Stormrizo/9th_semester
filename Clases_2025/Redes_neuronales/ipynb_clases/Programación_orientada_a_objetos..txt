@@ -1,0 +1,60 @@
+Programación orientada a objetos.
+
+Clase Coche.
+
+Escribimos las instrucciones para Coche. Una clase son sólo instrucciones.
+
+Escribimos las instrucciones, ya en el código si queremos usar el Coche:
+
+Hay una función especial en las instrucciones del código llamada *init*:
+
+- def, definimos la función:
+
+def __init__(self, color):  
+
+
+- self representa una variable aún no definida (uno mismo, aún no construida, es una palabra clave). esta función podemos poner lo que
+nosotros queramos. 
+
+
+Tenemos:
+
+
+class Coche:
+    def __init__(self, color):  
+        self.color = color
+    # ...
+
+
+
+Ya usando la variable en el código, creamos un Coche con estas instrucciones anteriores (usa las instrucciones de Coche con argumento rojo).
+
+
+tenemos:
+
+
+mi_coche = coche("rojo")
+mi_coche = Coche("rojo")
+
+print("mi coche es de color %s" % mi_coche.color)
+Esto es lo básico de programación orientada a objetos, Se llama así porque cuando tenemos muchas variables. Podemos acceder a cada una de las variables y funciones internas. No sólo existen variables internas:
+
+tenemos:
+
+
+
+def __init__(self, color):  
+class Coche:
+    def __init__(self, color):  
+        self.color = color
+        # ...
+    def encender(self):
+        print("El coche está encendido")
+
+Por ejemplo, podríamos nosotros decir: 
+
+mi_coche.encender() <- función. (operado punto - funciona como un operador).
+
+
+No hacernos bolas, para eso mejor encapsulamos todas las variables pertenecientes a esos objetos. 
+
