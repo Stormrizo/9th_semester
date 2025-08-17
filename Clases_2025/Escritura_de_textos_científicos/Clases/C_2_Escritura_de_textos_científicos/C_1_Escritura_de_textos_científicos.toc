@@ -1,7 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\contentsline {section}{Instrucciones de los ejercicios}{1}{section*.1}%
-\contentsline {section}{\textcolor {Cinnabar}{\bfseries {Soluciones}} \hspace {1mm} \textcolor {bittersweet}{$\bullet $} \textcolor {Apple Green}{$\bullet $} \textcolor {trueblue}{$\bullet $} \textcolor {Aguamarina}{$\bullet $} \textcolor {Sun}{$\bullet $} \textcolor {orange(colorwheel)}{$\bullet $} \textcolor {Pesto}{$\bullet $} \textcolor {blue-violet}{$\bullet $} \textcolor {ticklemepink}{$\bullet $} \textcolor {Gallery}{$\bullet $} \textcolor {Mantle}{$\bullet $} \textcolor {Nevada}{$\bullet $} \textcolor {onyx}{$\bullet $} }{4}{section*.3}%
-\contentsline {section}{\numberline {1}Clase {\#} 2 }{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Técnicas de parafraseo}{4}{subsection.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.1}Texto de ejemplo}{4}{subsubsection.1.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.2}Segunda técnica}{5}{subsubsection.1.1.2}%

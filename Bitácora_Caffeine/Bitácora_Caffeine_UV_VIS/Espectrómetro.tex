@@ -1,0 +1,232 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soulutf8} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}
+\usepackage{soul} %Paquete para poder subrayar párrafos
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{siunitx} % para unidades como g, mL, etc.
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{85, 100, 19} % Saratoga
+\definecolor{myboxcolor}{RGB}{177, 196, 56} % Earls Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!12, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+
+\begin{list}{}{
+		\leftmargin=80pt % Indentation on the left
+		\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+	\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+			\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+	\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+	\usepackage{graphicx}
+	
+	\usepackage{titling}
+	
+	\input{colores}
+	
+	%%Producir signos de cita textual``Asignatura''
+	
+	\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+	
+	\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Espectroscopía UV-VIS de muestras de cafeína}
+\author{\emph{Espectrómetro} $\boldsymbol{\mid}$ Instrucciones}
+\date{\today}
+
+...
+
+\section{Pasos} \vspace{0.5cm}
+
+\begin{enumerate}
+	\item Prender el espectrómetro:
+	\begin{itemize}
+		\item[a)] Monitor (pantalla y caja)
+		\item[b)] Espectrómetro
+	\end{itemize}
+	
+	\item Establecer \underline{parámetros}\footnote{
+	\textbf{Data mode}: \emph{Absorbance}, 
+	$\lambda_{start}$ = 200 nm, $\lambda_{stop}$ = 350 nm,
+	\textbf{Data interval}: Quant, \textbf{Lamp Change}: 340 nm, \textbf{Smoothing}: Medium.
+	} para absorbancia.
+	
+	\item Línea base con agua desionizada (cubeta de cuarzo limpia).
+	\item Medir estándares y muestras diluidas de cafeína.
+	\item Guardar datos.
+\end{enumerate}
+
+---
+
+\section{Preparación de soluciones estándar de cafeína}
+
+\begin{enumerate}
+	\item \textbf{Solución madre 1000 mg/L}: disolver 100 mg de cafeína pura en 100 mL de agua desionizada. Filtrar (0.45 μm).
+	\item \textbf{Solución intermedia 100 mg/L}: tomar 10.0 mL de la madre y aforar a 100 mL con agua.
+	\item Preparar estándares de 5, 10, 20, 30, 40 y 50 mg/L a partir de la intermedia usando diluciones volumétricas.
+	\item Preparar un blanco con agua desionizada.
+\end{enumerate}
+
+---
+
+\section{Preparación de muestras}
+
+\subsection*{Polvo de cafeína}
+\begin{itemize}
+	\item Pesar $\approx$50 mg, disolver en 50 mL de agua, filtrar.
+	\item Diluir para que la concentración quede en el rango de la curva.
+\end{itemize}
+
+\subsection*{Tabletas de 200 mg}
+\begin{itemize}
+	\item Triturar la tableta en mortero.
+	\item Disolver en $\approx$100 mL de agua a 40 °C, enfriar y filtrar.
+	\item Diluir para entrar en el rango lineal de la curva.
+\end{itemize}
+
+---
+
+\section{Medición y análisis}
+\begin{enumerate}
+	\item Medir absorbancia de todos los estándares a $\lambda$ = 273–275 nm.
+	\item Construir la curva de calibración (A vs concentración).
+	\item Medir muestras y calcular concentración usando la ecuación de la recta.
+\end{enumerate}
+
+---
+
+\begin{table}[H]
+	\centering
+	\caption{Ejemplo de datos de calibración}
+	\label{tabla:pruebas_cafeina}
+	\begin{tabular}{@{}lcc@{}}
+		\toprule
+		Concentración (mg/L) & Absorbancia & Observaciones \\
+		\midrule
+		0  & 0.000 & Blanco \\
+		5  & 0.105 & \\
+		10 & 0.210 & \\
+		20 & 0.420 & \\
+		30 & 0.625 & \\
+		40 & 0.840 & \\
+		50 & 1.050 & Límite alto lineal \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+---
+
+\section*{Notas}
+\begin{itemize}
+	\item La cafeína presenta un $\lambda_{max}$ cercano a 274 nm en agua.
+	\item La solubilidad a 25 °C es $\approx$21.6 mg/mL, por lo que no se requieren disolventes orgánicos.
+	\item Mantener las cubetas limpias y libres de burbujas.
+\end{itemize}
+
+
+Se pesó 0.0264g de cafeína, es decir 26.9mg 
+
+660 mg x L <- concentración de la muestra madre 
+
+\printbibliography[heading=bibintoc]
+
+
+
+
+
+\end{document}
