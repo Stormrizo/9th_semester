@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Instrucciones de los ejercicios}{1}{section.1}%
+\contentsline {section}{Instrucciones de los ejercicios}{1}{section.1}%
+\contentsline {section}{\numberline {2}Nombre del alumno: Julio Alfredo Ballinas García}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}\textcolor {Apple Green}{\textbf {Línea de investigación actual o deseada}}: Estudiar el \textcolor {Mahogany}{\textbf {\underline {café}}} de distintas regiones del país con la finalidad de caracterizar los compuestos presentes en cada una de las fases de producción y lograr obtener una buena calidad de grano.}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}\textbf {Artículo 1:} \textcolor {Cinnabar}{\textbf {Glucosylated forms of serotonin and tryptophan in green coffee beans (2016) - LWT - Food Science and Technology}}}{3}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}\textbf {Artículo 2:} \textcolor {trueblue}{\textbf {Measurement of caffeine in coffee beans with UV/vis spectrometer (2008) - Food Chemistry}}}{3}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}\textbf {Artículo 3:} \textcolor {Sun}{\textbf {Spectrophotometric analysis of caffeine}}}{5}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}\textbf {Artículo 4:} \textcolor {Pesto}{\textbf {Metabolomics fingerprint of coffee species determined (Food Chemistry, 2018)}}}{5}{subsubsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.5}\textbf {Artículo 5:} \textcolor {blue-violet}{\textbf {Degradation kinetics of caffeine in water by UV (2020, Desalination and Water)}}}{5}{subsubsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.2}Vídeo de las búsquedas en las bases de datos}{6}{subsection.2.2}%
