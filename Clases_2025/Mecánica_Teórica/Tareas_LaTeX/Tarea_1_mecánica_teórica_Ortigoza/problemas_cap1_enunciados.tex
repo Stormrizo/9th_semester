@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{letterpaper,margin=1in}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,itemsep=2pt}
+\setlist[enumerate]{topsep=2pt,itemsep=2pt}
+
+\title{\Large Problemas (Sección 8) \\[2mm]
+\small Capítulo I --- Ecuaciones de Lagrange}
+\author{Transcripción a \LaTeX}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{8.\ Problemas}
+
+\paragraph{1.1}\textbf{(Partícula en coordenadas polares)}\;
+Una partícula de masa $m$ se mueve en un plano bajo la influencia de una fuerza que, en coordenadas polares $(r,\theta)$, está dada por
+\begin{equation}
+\label{eq:F11}
+\mathbf F \;=\; \frac{1}{r^{2}}\!\left( 1 - \frac{\dot r^{2} - 2 r \ddot r}{c^{2}} \right)\hat{\mathbf r}.
+\end{equation}
+Determinar el \emph{potencial generalizado} $U(r,\dot r)$ que proporciona esta fuerza y la Lagrangiana que determina la evolución de la partícula en el plano.
+
+\paragraph{1.2}\textbf{(Lagrangiana cuadrática en $x,y$)}\;
+Una Lagrangiana para un sistema físico está dada por
+\begin{equation}
+\label{eq:L12}
+L \;=\; \frac{m}{2}\!\left(a\,\dot x^{2} + 2b\,\dot x \dot y + c\,\dot y^{2}\right)
+- \frac{K}{2}\!\left(a\,x^{2} + 2b\,x y + c\,y^{2}\right).
+\end{equation}
+donde $a,b,c$ son constantes reales arbitrarias tales que $b^{2}-ac\neq 0$.
+\begin{itemize}
+  \item Obtener las ecuaciones de movimiento.
+  \item Estudiar con detalle los casos particulares $a=0=c$ y $b=0,\; c=-a$.
+  \item Físicamente, ¿qué describe la Lagrangiana \eqref{eq:L12}?
+\end{itemize}
+
+\paragraph{1.3}\textbf{(Lagrangiana no usual en 1D)}\;
+Una partícula de masa $m$ se mueve en una dimensión; su Lagrangiana está dada por
+\emph{(véase la figura siguiente, recorte fiel del enunciado en el PDF)}.
+\begin{center}
+\includegraphics[width=.9\linewidth]{problem_1_3.png}
+\end{center}
+\noindent
+\textit{Pedir:} Obtener la ecuación de movimiento y describir la naturaleza física del sistema.
+
+\paragraph{1.4}\textbf{(Invariancia de norma en electromagnetismo)}\;
+Muestre que el electromagnetismo clásico es invariante ante la transformación de \emph{calibre} (gauge) de los potenciales
+\begin{equation}
+\label{eq:gauge}
+\mathbf A \to \mathbf A + \nabla \psi(\mathbf r,t),
+\qquad
+\phi \to \phi - \frac{1}{c}\,\frac{\partial \psi(\mathbf r,t)}{\partial t},
+\end{equation}
+donde $\psi(\mathbf r,t)$ es una función diferenciable.
+Determinar el cambio de la Lagrangiana de una partícula que se mueve en un campo electromagnético ante una transformación de norma. 
+¿El movimiento de la partícula se ve afectado?
+
+\paragraph{1.5}\textbf{(Potencial generalizado $U(r,\mathbf v)=V(r)+\mathbf a\cdot\mathbf L$)}\;
+Una partícula de masa $m$ se mueve en el espacio bajo la influencia de una fuerza derivable del potencial generalizado
+\begin{equation}
+U(\mathbf r,\mathbf v) \;=\; V(r) + \mathbf a \cdot \mathbf L,
+\end{equation}
+donde $\mathbf r$ es el vector de posición de la partícula (respecto a un sistema inercial), $\mathbf L$ es su momento angular y $\mathbf a$ es un vector fijo en el espacio.
+\begin{enumerate}[label=(\alph*)]
+\item Determinar las componentes de la fuerza en coordenadas Cartesianas y en coordenadas esféricas.
+\item Obtener las ecuaciones de movimiento en coordenadas esféricas.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\paragraph{1.6}\textbf{(Péndulo esférico)}\;
+Obtener las ecuaciones de Lagrange de un \emph{péndulo esférico}; es decir, una partícula de masa $m$ suspendida por una varilla de masa despreciable sujeta al campo gravitacional de la Tierra.
+
+\paragraph{1.7}\textbf{(Dos masas unidas por barra rígida)}\;
+Dos partículas puntuales de masa $m$ están unidas por una barra rígida de masa despreciable de longitud $l$, cuyo centro está obligado a moverse en un círculo de radio $a$. El sistema se mueve en el espacio bajo la acción del campo gravitacional de la Tierra.
+Obtener la Lagrangiana del sistema y las ecuaciones de movimiento.
+
+\paragraph{1.8}\textbf{(Derivada total añadida al Lagrangiano)}\;
+Si $L$ es un Lagrangiano para un sistema de $n$ grados de libertad que satisface las ecuaciones de Lagrange, demuestre por sustitución directa que
+\begin{equation}
+L' \;=\; L + \frac{d}{dt}\,F(q_i,t)
+\end{equation}
+también satisface las ecuaciones de Lagrange, donde $F$ es una función arbitraria y diferenciable de sus argumentos.
+
+\paragraph{1.9}\textbf{(Transformación de punto)}\;
+Sea $\{q_i\}_{i=1}^n$ un conjunto de coordenadas generalizadas para un sistema de $n$ grados de libertad, con Lagrangiano $L$.
+Supongamos que transformamos a otro conjunto $\{s_j\}_{j=1}^n$ mediante la transformación de punto
+\begin{equation}
+q_i \;=\; q_i(s_1,\ldots,s_n,t).
+\end{equation}
+Demuestre que, si la función Lagrangiana se expresa como $\tilde L(s,\dot s,t)=L(q(s,t),\dot q(s,\dot s,t),t)$ a través de la ecuación de transformación, entonces $\tilde L$ satisface las ecuaciones de Lagrange con respecto a las coordenadas $s_j$.
+En otras palabras, la forma de las ecuaciones de Lagrange es invariante bajo una transformación de punto.
+
+\paragraph{1.10}\textbf{(Dos ruedas con rodadura sin deslizamiento)}\;
+Dos ruedas de radio $a$ están montadas en los extremos de un eje común de longitud $b$ de manera que las ruedas giran independientemente. El sistema rueda sin resbalar sobre un plano. 
+Muestre que hay dos ecuaciones \emph{no holónomas} de constricción dadas por
+\begin{align}
+\cos\theta\,dx + \sin\theta\,dy &= 0, \\
+\sin\theta\,dx - \cos\theta\,dy &= a\,(d\varphi + d\varphi'),
+\end{align}
+donde $\theta$ es el ángulo entre el eje común de longitud $b$ y el eje $x$ positivo; $\varphi$ y $\varphi'$ son los ángulos medidos alrededor del eje común $b$ que etiquetan los puntos de las ruedas; y $(x,y)$ son las coordenadas del punto medio del eje común entre las dos ruedas.
+\par\noindent
+Además, muestre que existe una ecuación \emph{holónoma} de constricción dada por
+\begin{equation}
+\theta \;=\; C - \frac{a}{b}\,(\varphi - \varphi'),
+\end{equation}
+donde $C$ es una constante.
+
+\end{document}

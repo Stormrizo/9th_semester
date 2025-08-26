@@ -1,0 +1,281 @@
+\input{preamble}
+\input{format}
+\input{commands}
+\input{colores}
+
+\begin{document}
+
+% ================== PORTADA / ENCABEZADO ==================
+\begin{Large}
+    \textsf{\textbf{Tarea 1: Mecánica Teórica}}\\
+    
+    \textcolor{trueblue}{\textbf{Primeros 5 ejercicios}}\\
+    
+    \textcolor{Apple Green}{\textbf{\textit{22 de agosto de 2025}}}
+    
+\end{Large}\vspace{0.5cm}
+
+\textsf{\textbf{Integrantes:}} \text{Integrante 1}, \text{Integrante 2}, \text{Integrante 3}, \text{Integrante 4}, \text{Integrante 5}, \text{Integrante 6}\\
+\textsf{\textbf{Profesor:}} \text{Dr. Gilberto Silva Ortigoza}
+
+\vspace{2ex}
+
+% ================== PROBLEMA 1.1 ==================
+\begin{problema}{1.1}{prob-1-1}
+Una partícula de masa $m$ se mueve en un plano bajo la influencia de una fuerza tal que, en coordenadas polares $(r,\theta)$, está dada por
+\[
+\mathbf F=\frac{1}{r^{2}}\left(1-\frac{\dot r^{2}-2\,\ddot r\, r}{c^{2}}\right)\,\hat{\mathbf r}.
+\]
+Determinar el \textit{potencial generalizado} $U(r,\dot r)$ que proporciona esta fuerza y la \textit{Lagrangiana} que determina la evolución de la partícula en el plano.
+\end{problema}
+
+% ================== PROBLEMA 1.2 ==================
+\begin{problema}{1.2}{prob-1-2}
+Una Lagrangiana para un sistema físico está dada por
+\[
+L=\frac{m}{2}\,(a\,\dot x^{2}+2b\,\dot x\,\dot y+c\,\dot y^{2})-\frac{K}{2}\,(a\,x^{2}+2b\,x\,y+c\,y^{2}),
+\]
+donde $a,b,c$ son constantes reales arbitrarias tales que $b^{2}-ac\neq 0$. \textbf{Obtener} las ecuaciones de movimiento. Estudiar con detalle los casos particulares $a=0=c$ y $b=0,\;c=-a$. \textbf{Físicamente,} ¿qué describe la Lagrangiana anterior?
+\end{problema}
+
+% ================== PROBLEMA 1.3 ==================
+\begin{problema}{1.3}{prob-1-3}
+Una partícula de masa $m$ se mueve en una dimensión; su Lagrangiana está dada por
+\[
+L=\frac{m^{2}}{12}\,\dot x^{4}+m\,\dot x^{2}\,V(x)-\big[V(x)\big]^{2},
+\]
+donde $V(x)$ es una función diferenciable de $x$. \textbf{Obtener} la ecuación de movimiento y \textbf{describir} la naturaleza física del sistema.
+\end{problema}
+
+% ================== PROBLEMA 1.4 ==================
+\begin{problema}{1.4}{prob-1-4}
+El campo electromagnético es invariante ante la transformación de norma de los potenciales escalar y vectorial
+\[
+\mathbf A \;\to\; \mathbf A+\nabla\psi(\mathbf r,t),\qquad
+\phi \;\to\; \phi-\frac{1}{c}\,\frac{\partial \psi(\mathbf r,t)}{\partial t},
+\]
+donde $\psi(\mathbf r,t)$ es una función diferenciable. \textbf{Determinar} el cambio de la Lagrangiana de una partícula que se mueve en un campo electromagnético ante una transformación de norma. ¿\textbf{Se ve afectado} el movimiento de la partícula?
+\end{problema}
+
+% ================== PROBLEMA 1.5 ==================
+\begin{problema}{1.5}{prob-1-5}
+Una partícula de masa $m$ se mueve en el espacio bajo la influencia de una fuerza derivable del potencial generalizado
+\[
+U(\mathbf r,\mathbf v)=V(r)+\mathbf a\cdot\mathbf L,
+\]
+donde $\mathbf r$ es el vector de posición de la partícula respecto a un sistema inercial, $\mathbf L$ es su momento angular, y $\mathbf a$ es un vector fijo en el espacio.
+\begin{enumerate}[(a)]
+    \item Determinar las \textbf{componentes de la fuerza} en coordenadas \textbf{cartesianas} y en \textbf{esféricas}.
+    \item \textbf{Obtener} las ecuaciones de movimiento en coordenadas esféricas.
+\end{enumerate}
+\end{problema} 
+
+% ================== PROBLEMA 1.6 ==================
+\begin{problema}{1.6}{prob-1-6}
+Obtener las ecuaciones de Lagrange de un péndulo esférico. Es decir, una partícula de masa $m$ suspendida por una varilla de masa despreciable sujeta al campo gravitacional de la Tierra.
+\end{problema}
+
+% ================== PROBLEMA 1.7 ==================
+\begin{problema}{1.7}{prob-1-7}
+Dos partículas puntuales de masa $m$ están unidas por una barra rígida de masa despreciable de longitud $l$, cuyo centro está obligado a moverse en un círculo de radio $a$. El sistema se mueve en el espacio bajo la acción del campo gravitacional de la tierra. Obtener la Lagrangiana del sistema y las ecuaciones de movimiento.
+\end{problema}
+
+% ================== PROBLEMA 1.8 ==================
+\begin{problema}{1.8}{prob-1-8}
+Si $L$ es un Lagrangiano para un sistema de $n$ grados de libertad que satisface las ecuaciones de Lagrange, demuestre por sustitución directa que
+\[
+L' = L + \frac{dF(q_i,t)}{dt},
+\]
+también satisface las ecuaciones de Lagrange donde $F$ es una función arbitraria y diferenciable en cada uno de sus argumentos.
+\end{problema}
+
+% ================== PROBLEMA 1.9 ==================
+\begin{problema}{1.9}{prob-1-9}
+Sea $\{q_i\}_{i=1}^{n}$ un conjunto de coordenadas generalizadas independientes para un sistema de $n$ grados de libertad, con Lagrangiano $L$. Supongamos que transformamos a otro conjunto de coordenadas independientes $\{s_i\}_{i=1}^{n}$ mediante las ecuaciones de transformación
+\[
+q_i = q_i(s_j,t), \quad i,j = 1,2,\ldots,n.
+\]
+(Tal transformación se llama transformación de punto.) Demuestre que si la función Lagrangiana se expresa como una función de $s_j$, $\dot s_j$ y $t$ a través de las ecuaciones de transformación, entonces $L$ satisface las ecuaciones de Lagrange con respecto a las coordenadas $s_j$. En otras palabras, la forma de las ecuaciones de Lagrange es invariante bajo una transformación de punto.
+\end{problema}
+
+% ================== PROBLEMA 1.10 ==================
+\begin{problema}{1.10}{prob-1-10}
+Dos ruedas de radio $a$ están montadas en los extremos de un eje común de longitud $b$ de manera que las ruedas giren independientemente. El sistema rueda sin resbalar sobre un plano. Muestre que hay dos ecuaciones no holónomas de constricción, dadas por
+\[
+\cos\theta\,dx + \sin\theta\,dy = 0,\qquad
+\sin\theta\,dx - \cos\theta\,dy = a\,(d\phi + d\phi'),
+\]
+(donde $\theta$, es el ángulo entre el eje común de longitud $b$ y el eje $x$ positivo, $\phi$ y $\phi'$ son ángulos que se miden alrededor el eje común $b$ que son usados para etiquetar los puntos de las ruedas, $(x,y)$ son las coordenadas del punto medio del eje común entre las dos ruedas) y una ecuación holónoma de constricción dada por
+\[
+\theta = C - \frac{a}{b}\,(\phi - \phi'),
+\]
+donde $C$ es una constante.
+\end{problema}
+
+% ===================================================
+% ============= PROBLEMAS DEL EXAMEN ================
+% ===================================================
+
+% ================== EXAMEN 9.1 ==================
+\begin{problema}{9.1}{prob-9-1}
+Una partícula de masa $m$ se mueve sobre el eje real bajo la influencia de una fuerza, tal que usando la coordenada $x$, está dada por
+\[
+\mathbf F = (\beta\,\ddot x + \alpha\,t)\,\hat{\mathbf x},
+\]
+donde $\alpha$ y $\beta$ son dos constantes reales. Determinar el potencial generalizado $U(x,\dot x,t)$ que proporciona esta fuerza y la Lagrangiana que determina la evolución de la partícula sobre el eje real. [3 puntos].
+\end{problema}
+
+% ================== EXAMEN 9.2 ==================
+\begin{problema}{9.2}{prob-9-2}
+Dos partículas puntuales de masa $m$ están unidas por una barra rígida de masa despreciable de longitud $l$, cuyo centro está obligado a moverse en un círculo de radio $a$ sobre el plano $x=0$. El sistema se mueve bajo la acción del campo gravitacional de la tierra dado por $\mathbf g=-g\,\hat{\mathbf z}$. Obtener: las ecuaciones de constricción [1 punto], la Lagrangiana del sistema [2 puntos] y las ecuaciones de movimiento [2 puntos].
+\end{problema}
+
+% ================== EXAMEN 9.3 ==================
+\begin{problema}{9.3}{prob-9-3}
+Si $L$ es un Lagrangiano para un sistema de un grado de libertad que satisface la ecuación de Lagrange, demuestre por sustitución directa que
+\[
+L' = L + \frac{dF(q,t)}{dt},
+\]
+también satisface la ecuación de Lagrange donde $F$ es una función arbitraria y diferenciable en cada uno de sus argumentos. [1 punto].
+\end{problema}
+
+% ================== EXAMEN 9.4 ==================
+\begin{problema}{9.4}{prob-9-4}
+Sea $q$ una coordenada generalizada para un sistema de un grado de libertad, con Lagrangiano $L$. Supongamos que transformamos a otra coordenada $s$ mediante la ecuación de transformación
+\[
+q = q(s,t).
+\]
+(Tal transformación se llama transformación de punto.) Demuestre que si la función Lagrangiana se expresa como una función de $s$, $\dot s$ y $t$ a través de la ecuación de transformación, entonces $L$ satisface la ecuación de Lagrange con respecto a la coordenada $s$. En otras palabras, la forma de la ecuación de Lagrange es invariante bajo una transformación de punto. [1 punto].
+\end{problema}
+
+
+
+
+\tableofcontents \newpage
+
+% ---------- Solución 1.6 ----------
+\subsection*{Solución 1.6 (péndulo esférico)}
+Coordenadas: $(\theta,\phi)$ con radio fijo $r=l$.
+\[
+T=\frac{m l^2}{2}\big(\dot\theta^2+\sin^2\theta\,\dot\phi^2\big),\qquad
+V=mgl(1-\cos\theta),\qquad L=T-V.
+\]
+E–L para $\phi$ (cíclica):
+\[
+p_\phi=\pdv{L}{\dot\phi}=m l^2\sin^2\theta\,\dot\phi=\text{cte}.
+\]
+E–L para $\theta$:
+\[
+m l^2\,\ddot\theta - m l^2\sin\theta\cos\theta\,\dot\phi^2 + mgl\sin\theta=0
+\quad\Rightarrow\quad
+\ddot\theta-\sin\theta\cos\theta\,\dot\phi^2+\frac{g}{l}\sin\theta=0.
+\]
+Energía:
+\[
+E=\frac{m l^2}{2}(\dot\theta^2+\sin^2\theta\,\dot\phi^2)+mgl(1-\cos\theta).
+\]
+
+% ---------- Solución 1.7 ----------
+\subsection*{Solución 1.7 (dos masas con barra, CM en círculo)}
+Posiciones: $\vb r_{1,2}=\vb R\pm \tfrac{l}{2}\,\hat{\vb u}(\theta,\phi)$,
+con $\vb R=a(\cos\psi,\sin\psi,0)$ (elegimos ejes para que el círculo sea horizontal; esto no pierde generalidad).
+Entonces
+\[
+\dot{\vb R}^{\,2}=a^2\dot\psi^2,\qquad
+\dot{\hat{\vb u}}^{\,2}=\dot\theta^2+\sin^2\theta\,\dot\phi^2.
+\]
+Cinética total:
+\[
+T=\frac{2m}{2}\dot{\vb R}^{\,2}+\frac{1}{2}\big[2m(l/2)^2\big]\dot{\hat{\vb u}}^{\,2}
+= m a^2\dot\psi^2+\frac{m l^2}{4}\big(\dot\theta^2+\sin^2\theta\,\dot\phi^2\big).
+\]
+Potencial gravitatorio:
+\[
+V=mg(z_1+z_2)=2mg\,Z_{\rm CM}.
+\]
+Como el círculo es horizontal, $Z_{\rm CM}$ es constante $\Rightarrow V=\text{cte}$ (se puede omitir).
+\[
+L= m a^2\dot\psi^2+\frac{m l^2}{4}\big(\dot\theta^2+\sin^2\theta\,\dot\phi^2\big).
+\]
+E–L:
+\[
+\ddot\psi=0,\qquad
+\ddot\theta-\sin\theta\cos\theta\,\dot\phi^2=0,\qquad
+\dv{t}\!\big(\sin^2\theta\,\dot\phi\big)=0.
+\]
+(Si el círculo estuviera en un plano vertical, $V=2mga\sin\psi$ y
+$\ddot\psi+\frac{g}{a}\cos\psi=0$.)
+
+% ---------- Solución 1.8 ----------
+\subsection*{Solución 1.8 (invariancia bajo $\frac{dF}{dt}$)}
+Sea $L'=L+\dv{F(q_i,t)}{dt}$. Entonces
+\[
+\pdv{L'}{\dot q_i}=\pdv{L}{\dot q_i}+\pdv{F}{q_i},\qquad
+\pdv{L'}{q_i}=\pdv{L}{q_i}.
+\]
+Por tanto
+\[
+\dv{t}\!\left(\pdv{L'}{\dot q_i}\right)-\pdv{L'}{q_i}
+=\Big[\dv{t}\!\left(\pdv{L}{\dot q_i}\right)-\pdv{L}{q_i}\Big]
++\Big[\dv{t}\!\left(\pdv{F}{q_i}\right)-\dv{t}\!\left(\pdv{F}{q_i}\right)\Big]=0.
+\]
+Equivalente: $S'=\int L'dt=S+F|^{t_f}_{t_i}$, término de frontera que no afecta E–L.
+
+% ---------- Solución 1.9 ----------
+\subsection*{Solución 1.9 (invariancia bajo transformación de punto)}
+Con $q_i=q_i(s,t)$ y
+$\dot q_i=\sum_j (\partial q_i/\partial s_j)\dot s_j+\partial q_i/\partial t$,
+defina $\tilde L(s,\dot s,t)=L(q,\dot q,t)$. Entonces
+\[
+\pdv{\tilde L}{\dot s_k}=\sum_i \pdv{L}{\dot q_i}\pdv{q_i}{s_k},\qquad
+\pdv{\tilde L}{s_k}=\sum_i \pdv{L}{q_i}\pdv{q_i}{s_k}
++\sum_i \pdv{L}{\dot q_i}\Big[\sum_j \pdv[2]{q_i}{s_k}{s_j}\dot s_j+\pdv[2]{q_i}{s_k}{t}\Big].
+\]
+Derivando la primera y restando la segunda:
+\[
+\dv{t}\!\left(\pdv{\tilde L}{\dot s_k}\right)-\pdv{\tilde L}{s_k}
+=\sum_i\Big[\dv{t}\!\left(\pdv{L}{\dot q_i}\right)-\pdv{L}{q_i}\Big]\pdv{q_i}{s_k}=0.
+\]
+Luego $\tilde L$ satisface E–L en $s_k$ si $L$ las satisface en $q_i$.
+
+% ---------- Solución 1.10 ----------
+\subsection*{Solución 1.10 (dos ruedas: restricciones)}
+Denote $(x,y)$ el punto medio del eje, $\theta$ el ángulo del eje con $+x$,
+y $\phi,\phi'$ los ángulos de giro de cada rueda (radio $a$; separación $b$).
+Sea $\hat{\vb e}_\parallel=(\cos\theta,\sin\theta)$ a lo largo del eje y
+$\hat{\vb e}_\perp=(-\sin\theta,\cos\theta)$ perpendicular al eje.
+\paragraph{(i) Sin deslizamiento lateral:}
+velocidad del punto medio sin componente a lo largo del eje:
+\[
+\hat{\vb e}_\parallel\cdot d\vb r=0
+\;\Rightarrow\;
+\cos\theta\,dx+\sin\theta\,dy=0.
+\]
+\paragraph{(ii) Rodadura pura:}
+el avance a lo largo de $\hat{\vb e}_\perp$ iguala la suma de arcos de ambas ruedas:
+\[
+\hat{\vb e}_\perp\cdot d\vb r=a\,(d\phi+d\phi')
+\;\Rightarrow\;
+\sin\theta\,dx-\cos\theta\,dy=a\,(d\phi+d\phi').
+\]
+Ambas son \emph{no holónomas} (formas de Pfaff).
+\paragraph{(iii) Relación holónoma (geometría del giro diferencial):}
+al cambiar el ángulo del eje en $d\theta$, la diferencia de arcos recorridos por las ruedas es
+la separación $b$ por $d\theta$:
+\[
+a\,d\phi-a\,d\phi'=b\,d\theta
+\;\Rightarrow\;
+\theta=C-\frac{a}{b}(\phi-\phi').
+\]
+	
+
+
+
+ \newpage
+
+% \vfill
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}
