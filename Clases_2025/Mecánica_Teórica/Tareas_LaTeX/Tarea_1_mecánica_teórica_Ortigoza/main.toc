@@ -2,3 +2,13 @@
 \contentsline {paragraph}{(i) Sin deslizamiento lateral:}{6}{tcb@cnt@problema.14}%
 \contentsline {paragraph}{(ii) Rodadura pura:}{6}{tcb@cnt@problema.14}%
 \contentsline {paragraph}{(iii) Relación holónoma (geometría del giro diferencial):}{6}{tcb@cnt@problema.14}%
+\contentsline {section}{\numberline {1}problema - 9}{6}{section.1}%
+\contentsline {paragraph}{Datos.}{6}{section.1}%
+\contentsline {paragraph}{Velocidades transformadas.}{7}{equation.1}%
+\contentsline {paragraph}{Lagrangiano en las nuevas coordenadas.}{7}{equation.2}%
+\contentsline {paragraph}{Paso 1: derivada de $\tilde L$ respecto a $\dot s_k$.}{7}{equation.3}%
+\contentsline {paragraph}{Paso 2: derivada de $\tilde L$ respecto a $s_k$.}{7}{equation.5}%
+\contentsline {paragraph}{Paso 3: derivada temporal de \eqref {Aboxed}.}{8}{equation.7}%
+\contentsline {paragraph}{Paso 4: resta (C)–(B). Cancelación término a término.}{8}{equation.9}%
+\contentsline {paragraph}{Conclusión.}{8}{equation.10}%
+\contentsline {paragraph}{Notas finales.}{8}{equation.10}%
