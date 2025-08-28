@@ -268,6 +268,175 @@ a\,d\phi-a\,d\phi'=b\,d\theta
 \theta=C-\frac{a}{b}(\phi-\phi').
 \]
 	
+\section{problema - 9} \vspace{0.5cm}
+
+% ============================================================
+%  Problema 1.9 — Invariancia de Euler–Lagrange bajo
+%  transformaciones de punto q_i = q_i(s,t)
+%  Demostración exhaustiva por sustitución directa
+% ============================================================
+
+\subsection*{Solución 1.9 (demostración exhaustiva, sin pérdida de generalidad)}
+
+% ============================================================
+% Problema 1.9 — Invariancia de Euler–Lagrange bajo
+% transformación de punto q_i = q_i(s,t)
+% Demostración paso a paso (sustitución directa)
+% ============================================================
+
+\subsection*{Solución 1.9 (versión desarrollada)}
+
+\paragraph{Datos.}
+Tenemos $n$ coordenadas $q_1,\dots,q_n$ y un Lagrangiano
+\[
+L(q,\dot q,t)=L(q_1,\ldots,q_n;\,\dot q_1,\ldots,\dot q_n;\,t).
+\]
+Se introduce una \emph{transformación de punto} (posiblemente dependiente de $t$)
+\begin{equation}
+\label{T}
+q_i=q_i(s_1,\ldots,s_n,t),\qquad i=1,\ldots,n,
+\end{equation}
+con Jacobiano $J_{ik}:=\partial q_i/\partial s_k$ no singular (invertible) en el dominio de interés.
+
+\paragraph{Velocidades transformadas.}
+Aplicando la regla de la cadena a $q_i(s(t),t)$:
+\begin{equation}
+\label{qd}
+\dot q_i=\sum_{j=1}^n \frac{\partial q_i}{\partial s_j}\,\dot s_j
++\frac{\partial q_i}{\partial t}\,.
+\end{equation}
+
+\paragraph{Lagrangiano en las nuevas coordenadas.}
+Definimos
+\begin{equation}
+\label{Ltilde}
+\tilde L(s,\dot s,t):=L\!\big(q(s,t),\,\dot q(s,\dot s,t),\,t\big),
+\end{equation}
+donde $q$ y $\dot q$ están dados por \eqref{T} y \eqref{qd}.
+
+Nuestro objetivo es probar que, para cada $k=1,\ldots,n$,
+\[
+\frac{d}{dt}\!\left(\frac{\partial \tilde L}{\partial \dot s_k}\right)
+-\frac{\partial \tilde L}{\partial s_k}=0
+\quad \text{si $L$ satisface}\quad
+\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q_i}\right)-\frac{\partial L}{\partial q_i}=0\ \ \forall i.
+\]
+
+%-------------------------
+\paragraph{Paso 1: derivada de $\tilde L$ respecto a $\dot s_k$.}
+$\tilde L$ depende de $\dot s_k$ \emph{únicamente} a través de $\dot q_i$:
+\begin{equation}
+\label{A}
+\frac{\partial \tilde L}{\partial \dot s_k}
+=\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\,
+\frac{\partial \dot q_i}{\partial \dot s_k}.
+\end{equation}
+Con \eqref{qd}, manteniendo $s$ y $t$ fijos al derivar por $\dot s_k$,
+\[
+\frac{\partial \dot q_i}{\partial \dot s_k}
+=\frac{\partial q_i}{\partial s_k}.
+\]
+Sustituyendo en \eqref{A} obtenemos
+\begin{equation}
+\label{Aboxed}
+\boxed{\ \frac{\partial \tilde L}{\partial \dot s_k}
+=\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\,
+\frac{\partial q_i}{\partial s_k}\ } \qquad\text{(A)}
+\end{equation}
+
+%-------------------------
+\paragraph{Paso 2: derivada de $\tilde L$ respecto a $s_k$.}
+Ahora sí, $\tilde L$ depende de $s_k$ a través de $q_i$ y de $\dot q_i$:
+\begin{equation}
+\label{Bstart}
+\frac{\partial \tilde L}{\partial s_k}
+=\sum_{i=1}^n \frac{\partial L}{\partial q_i}\,\frac{\partial q_i}{\partial s_k}
++\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\,
+\frac{\partial \dot q_i}{\partial s_k}.
+\end{equation}
+Derivando \eqref{qd} respecto a $s_k$ (con $t$ fijo y tratando $\dot s_j$ como independientes):
+\[
+\frac{\partial \dot q_i}{\partial s_k}
+=\sum_{j=1}^n \frac{\partial^2 q_i}{\partial s_k\,\partial s_j}\,\dot s_j
++\frac{\partial^2 q_i}{\partial s_k\,\partial t}.
+\]
+Por tanto,
+\begin{equation}
+\label{Bboxed}
+\boxed{\ \frac{\partial \tilde L}{\partial s_k}
+=\sum_{i=1}^n \frac{\partial L}{\partial q_i}\,\frac{\partial q_i}{\partial s_k}
++\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\!\left[
+\sum_{j=1}^n \frac{\partial^2 q_i}{\partial s_k\,\partial s_j}\,\dot s_j
++\frac{\partial^2 q_i}{\partial s_k\,\partial t}\right]\ } \qquad\text{(B)}
+\end{equation}
+
+%-------------------------
+\paragraph{Paso 3: derivada temporal de \eqref{Aboxed}.}
+Aplicando producto y cadena:
+\begin{align}
+\frac{d}{dt}\!\left(\frac{\partial \tilde L}{\partial \dot s_k}\right)
+&=\sum_{i=1}^n \frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q_i}\right)
+\frac{\partial q_i}{\partial s_k}
++\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\,
+\frac{d}{dt}\!\left(\frac{\partial q_i}{\partial s_k}\right).
+\label{Cstart}
+\end{align}
+Pero
+\[
+\frac{d}{dt}\!\left(\frac{\partial q_i}{\partial s_k}\right)
+=\sum_{j=1}^n \frac{\partial^2 q_i}{\partial s_k\,\partial s_j}\,\dot s_j
++\frac{\partial^2 q_i}{\partial s_k\,\partial t}.
+\]
+Sustituyendo en \eqref{Cstart}:
+\begin{equation}
+\label{Cboxed}
+\boxed{\ \frac{d}{dt}\!\left(\frac{\partial \tilde L}{\partial \dot s_k}\right)
+=\sum_{i=1}^n \frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q_i}\right)
+\frac{\partial q_i}{\partial s_k}
++\sum_{i=1}^n \frac{\partial L}{\partial \dot q_i}\!\left[
+\sum_{j=1}^n \frac{\partial^2 q_i}{\partial s_k\,\partial s_j}\,\dot s_j
++\frac{\partial^2 q_i}{\partial s_k\,\partial t}\right]\ } \qquad\text{(C)}
+\end{equation}
+
+%-------------------------
+\paragraph{Paso 4: resta (C)–(B). Cancelación término a término.}
+Restando \eqref{Bboxed} de \eqref{Cboxed} desaparecen exactamente los corchetes:
+\begin{align*}
+\frac{d}{dt}\!\left(\frac{\partial \tilde L}{\partial \dot s_k}\right)
+-\frac{\partial \tilde L}{\partial s_k}
+&=\sum_{i=1}^n \left[
+\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q_i}\right)
+-\frac{\partial L}{\partial q_i}
+\right]\frac{\partial q_i}{\partial s_k}.
+\end{align*}
+Definiendo el operador de Euler--Lagrange
+\(
+E_i(L):=\dfrac{d}{dt}\!\left(\dfrac{\partial L}{\partial \dot q_i}\right)
+-\dfrac{\partial L}{\partial q_i},
+\)
+queda la identidad de \emph{covariancia}
+\begin{equation}
+\label{ELcov}
+\boxed{\ E_k(\tilde L)=\sum_{i=1}^n E_i(L)\,\frac{\partial q_i}{\partial s_k}\ }.
+\end{equation}
+
+\paragraph{Conclusión.}
+Si $q(t)$ satisface Euler--Lagrange para $L$ (esto es, $E_i(L)=0$ para todo $i$),
+entonces por \eqref{ELcov} se sigue $E_k(\tilde L)=0$ para todo $k$:
+\[
+\frac{d}{dt}\!\left(\frac{\partial \tilde L}{\partial \dot s_k}\right)
+-\frac{\partial \tilde L}{\partial s_k}=0,\qquad k=1,\ldots,n.
+\]
+Por lo tanto, las ecuaciones de Lagrange \emph{conservan su forma} en las coordenadas $s$
+bajo cualquier transformación de punto $q=q(s,t)$ suave e invertible.
+
+\paragraph{Notas finales.}
+(1) La \emph{dependencia explícita en $t$} se usa en los términos
+$\partial q_i/\partial t$ y $\partial^2 q_i/(\partial s_k\,\partial t)$ de \eqref{qd}, \eqref{Bboxed} y \eqref{Cboxed}.\\
+(2) En derivadas parciales respecto a $s_k$ se mantiene fijo $t$ y las variables $\dot s_j$
+(se tratan como independientes en el formalismo lagrangiano).\\
+(3) Si el Jacobiano $J$ se anula (puntos singulares de coordenadas), el argumento puede fallar localmente.
+	
 
 
 

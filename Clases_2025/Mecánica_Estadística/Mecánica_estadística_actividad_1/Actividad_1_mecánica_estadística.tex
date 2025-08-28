@@ -1,0 +1,317 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{\textcolor{Apple Green}{\textbf{Actividad 1}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ 202107583}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica Estadística}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ========= Encabezado tipo artículo + Abstract box =========
+% Metadatos simples (rellénalos en el cuerpo)
+\newcommand{\PaperTitle}{}        % \PaperTitle{...}
+\newcommand{\PaperAuthors}{}      % \PaperAuthors{Autor1$^{a}$, Autor2$^{b}$}
+\newcommand{\PaperAffils}{}       % \PaperAffils{$^{a}$ Afiliación A\\ $^{b}$ Afiliación B}
+\newcommand{\PaperDates}{}        % \PaperDates{Recibido..., Revisado..., Aceptado...}
+\newcommand{\PaperJournal}{}      % \PaperJournal{Food Chemistry 108 (2008) 310–315}
+
+% Caja de encabezado (título, autores, afiliaciones, fechas)
+\newtcolorbox{articleheader}{
+  enhanced, colback=white, colframe=black!60,
+  boxrule=0.6pt, arc=0pt,
+  left=6mm, right=6mm, top=4mm, bottom=4mm,
+  borderline west={2mm}{0pt}{black!70},
+  before skip=6pt, after skip=10pt
+}
+
+% Caja de Abstract (con título “Abstract” al estilo revista)
+\newtcolorbox{abstractbox}[1][]{
+  enhanced, colback=black!3, colframe=black!60,
+  boxrule=0.6pt, arc=0pt,
+  left=6mm, right=6mm, top=4mm, bottom=4mm,
+  title=\textbf{Abstract}, fonttitle=\bfseries,
+  attach boxed title to top left={xshift=6mm, yshift*=-2mm},
+  boxed title style={colback=white, colframe=black!60, boxrule=0.6pt, arc=0pt},
+  before skip=6pt, after skip=6pt,
+  #1
+}
+
+% Comando para “Keywords”
+\newcommand{\keywords}[1]{%
+  \par\smallskip\noindent\textbf{Keywords:} \textit{#1}\par
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Jorge Velazquez Castro\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{EMA4}} /  \textcolor{trueblue}{\bfseries{409}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\section{Instrucciones de la tarea}
+\addcontentsline{toc}{section}{Instrucciones de la tarea}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2}
+
+    \begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=1]
+        \item Encuentra las 3 ecuaciones de estado del sistema descrito por la siguiente relación fundamental:
+     \[    \]
+    \end{enumerate}
+
+    \begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=2]
+        \item \textbf{Actividad de la semana}
+        \begin{enumerate}
+            \item Simulación de participación en un congreso.
+            \item Redactar un resumen con base en el interés personal.
+            \item Traducirlo al inglés y presentarlo como si fuese enviado a un evento académico.
+        \end{enumerate}
+    \end{enumerate}
+
+\end{multicols}
+
+
+\tableofcontents \newpage
+
+
+\section{Resumen en español}
+
+% ====== Encabezado estilo congreso ======
+\renewcommand{\PaperJournal}{European Congress of Physics 2025, Heraklion, Crete, Greece, 2025}
+\renewcommand{\PaperTitle}{Caracterización espectroscópica de muestras de café mexicano mediante técnicas ópticas}
+\renewcommand{\PaperAuthors}{Julio Alfredo Ballinas García$^{a,*}$}
+\renewcommand{\PaperAffils}{$^{a}$Laboratorio de Caracterización de Materiales, \\
+Facultad de Ciencias Físico Matemáticas, \\
+Benemérita Universidad Autónoma de Puebla (BUAP), Puebla, México}
+\renewcommand{\PaperDates}{Correo de correspondencia: \texttt{julio.ballinas@alumno.buap.mx}}
+
+\begin{articleheader}
+  {\small\PaperJournal\par}
+  {\Large\bfseries \PaperTitle\par}
+  \vspace{4pt}
+  {\normalsize \PaperAuthors\par}
+  {\footnotesize \PaperAffils\par}
+  {\scriptsize \PaperDates\par}
+\end{articleheader}
+
+% ====== Abstract box estructurado ======
+\begin{abstractbox}[title=\textbf{Resumen}]
+El café es una bebida de gran importancia económica y cultural cuya calidad depende de una matriz compleja de compuestos bioactivos como cafeína, ácidos clorogénicos (CGA), trigonelina, diterpenos (cafestol y kahweol) y melanoidinas. Se sabe que \textit{C. arabica} contiene tanto cafestol como kahweol, mientras que en \textit{C. canephora} el kahweol es muy bajo y aparecen marcadores como 16-\textit{O}-metil-cafestol; sin embargo, el tueste es el principal factor que modula el contenido de estos compuestos. En este trabajo se caracterizaron muestras de café de distintas regiones de México mediante espectroscopía UV–Vis, fluorescencia, reflectancia y FRX. Las extracciones se realizaron en prensa francesa a diferentes concentraciones (7.5, 15, 18 y 22.5 g en 200 mL de agua), mientras que para fluorescencia se emplearon pastillas sólidas de café verde, tostado, mucílago y cafeína pura.  
+
+Los espectros UV–Vis de los extractos mostraron una banda intensa en 220--240 nm (CGA y compuestos aromáticos) y un hombro en 270--280 nm característico de cafeína, confirmado por la señal de cafeína pura en $\lambda_{\max}\sim$273 nm. A partir de 300 nm se observó un descenso progresivo hasta 360 nm atribuible a fenoles y productos de Maillard, con mayor definición de la meseta 320--340 nm en las concentraciones más altas. En fluorescencia, el café verde presentó un máximo en 450--470 nm y un hombro en 670 nm asociado a clorofilas, ausente en cafés tostados (Chiapas, Guerrero, Oaxaca, Mixteca Alta), los cuales exhibieron bandas más anchas y desplazadas hacia 480--520 nm. El café comercial Illy mostró un espectro intenso y simétrico en 470--500 nm, reflejando un tueste homogéneo, mientras que el mucílago presentó un máximo en 500--520 nm vinculado a polisacáridos oxidados. La cafeína sólida, en contraste, emitió intensamente en 360--380 nm sin señales en el rango verde o rojo.  
+
+Estos resultados confirman la utilidad de las técnicas ópticas para diferenciar compuestos y estados de procesamiento en café, estableciendo una base para correlacionar perfil espectral, grado de tueste y calidad sensorial.
+\end{abstractbox}
+
+\keywords{Absorbancia; Fluorescencia; Reflectancia; Cafeína; Café mexicano; Espectroscopía}
+
+\section{Resumen en inglés}
+
+\section{Abstract}
+
+% ====== Conference Header ======
+\renewcommand{\PaperJournal}{European Congress of Physics 2025, Heraklion, Crete, Greece, 2025}
+\renewcommand{\PaperTitle}{Spectroscopic characterization of mexican coffee samples through optical techniques}
+\renewcommand{\PaperAuthors}{Julio Alfredo Ballinas García$^{a,*}$}
+\renewcommand{\PaperAffils}{$^{a}$Laboratory of Materials Characterization, \\
+Faculty of Physical-Mathematical Sciences, \\
+Benemérita Universidad Autónoma de Puebla (BUAP), Puebla, Mexico}
+\renewcommand{\PaperDates}{Corresponding author: \texttt{julio.ballinas@alumno.buap.mx}}
+
+\begin{articleheader}
+  {\small\PaperJournal\par}
+  {\Large\bfseries \PaperTitle\par}
+  \vspace{4pt}
+  {\normalsize \PaperAuthors\par}
+  {\footnotesize \PaperAffils\par}
+  {\scriptsize \PaperDates\par}
+\end{articleheader}
+
+% ====== Abstract box ======
+\begin{abstractbox}[title=\textbf{Abstract}]
+Coffee is a beverage of major economic and cultural relevance, whose quality relies on a complex matrix of bioactive compounds such as caffeine, chlorogenic acids (CGA), trigonelline, diterpenes (cafestol and kahweol), and melanoidins. It is known that \textit{C. arabica} contains both cafestol and kahweol, whereas in \textit{C. canephora} the kahweol content is very low and markers such as 16-\textit{O}-methyl-cafestol appear. However, roasting remains the main factor modulating the content and spectral expression of these compounds. In this work, coffee samples from different regions of Mexico were characterized by UV–Vis spectroscopy, fluorescence, reflectance, and X-ray fluorescence (XRF). Extractions were performed using a French press at different concentrations (7.5, 15, 18, and 22.5 g in 200 mL of water), while solid pellets of green coffee, roasted coffee, mucilage, and pure caffeine were employed for fluorescence and reflectance measurements.  
+
+The UV–Vis spectra of the extracts showed an intense band at 220--240 nm (CGA and aromatic compounds) and a shoulder at 270--280 nm characteristic of caffeine, confirmed by the pure caffeine signal at $\lambda_{\max}\sim$273 nm. Beyond 300 nm, a progressive decrease up to 360 nm was observed, attributed to phenolics and Maillard products, with clearer definition of the 320--340 nm plateau at higher concentrations. In fluorescence, green coffee displayed a maximum at 450--470 nm and a shoulder near 670 nm linked to chlorophylls, which was absent in roasted coffees (Chiapas, Guerrero, Oaxaca, Mixteca Alta). These roasted samples exhibited broader bands shifted toward 480--520 nm. The commercial Illy coffee presented an intense and symmetric spectrum at 470--500 nm, reflecting a uniform industrial roasting, while mucilage exhibited a maximum at 500--520 nm associated with oxidized polysaccharides. In contrast, solid caffeine emitted strongly at 360--380 nm, with no signals in the green or red regions.  
+
+These results demonstrate the usefulness of optical techniques in differentiating compounds and processing stages in coffee, establishing a foundation to correlate spectral profiles with roasting degree and sensory quality.
+\end{abstractbox}
+
+\keywords{Absorbance; Fluorescence; Reflectance; Caffeine; Mexican coffee; Spectroscopy}
+
+
+
+
+\end{document}
