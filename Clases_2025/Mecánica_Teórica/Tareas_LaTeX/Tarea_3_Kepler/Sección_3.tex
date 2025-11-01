@@ -1,0 +1,289 @@
+% soluciones_3_x.tex
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,physics,bm,geometry}
+\geometry{margin=2.5cm}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\setlength{\parskip}{0.8em}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+    \LARGE \textbf{Soluciones Sección 3}\\
+    \Large Problemas 3.1, 3.3, 3.4, 3.6--3.12
+\end{center}
+
+\vspace{1em}
+
+\section*{Problema 3.1 — Momento lineal y momento angular total para dos partículas libres}
+\subsection*{Enunciado resumido}
+Para un sistema de dos partículas sin fuerzas externas (o partículas libres), mostrar que
+\[
+\mathbf{P} = m_1\dot{\mathbf r}_1 + m_2\dot{\mathbf r}_2,
+\qquad
+\mathbf{L} = \mathbf r_1\times\mathbf p_1 + \mathbf r_2\times\mathbf p_2,
+\]
+y que \(\mathbf P\) y \(\mathbf L\) son constantes de movimiento.
+
+\subsection*{Solución}
+Definimos \(\mathbf p_i = m_i\dot{\mathbf r}_i\). Por tanto la suma es
+\[
+\mathbf P = \mathbf p_1 + \mathbf p_2 = m_1\dot{\mathbf r}_1 + m_2\dot{\mathbf r}_2.
+\]
+
+Tomando derivada temporal:
+\[
+\dot{\mathbf P} = \dot{\mathbf p}_1 + \dot{\mathbf p}_2 = \mathbf F_1 + \mathbf F_2.
+\]
+Si no hay fuerzas externas, las únicas fuerzas son internas \(\mathbf F_{1\leftarrow2}\) y \(\mathbf F_{2\leftarrow1}\) con
+\(\mathbf F_{1\leftarrow2} = -\mathbf F_{2\leftarrow1}\). Por tanto \(\dot{\mathbf P}=\mathbf0\), y \(\mathbf P\) es constante.
+
+Para el momento angular total definimos
+\[
+\mathbf L = \mathbf r_1\times\mathbf p_1 + \mathbf r_2\times\mathbf p_2.
+\]
+Derivando:
+\[
+\dot{\mathbf L} = \dot{\mathbf r}_1\times \mathbf p_1 + \mathbf r_1\times\dot{\mathbf p}_1
++ \dot{\mathbf r}_2\times \mathbf p_2 + \mathbf r_2\times\dot{\mathbf p}_2.
+\]
+Pero \(\dot{\mathbf r}_i\times\mathbf p_i=\dot{\mathbf r}_i\times m_i\dot{\mathbf r}_i=\mathbf0\). Entonces
+\[
+\dot{\mathbf L} = \mathbf r_1\times\mathbf F_1 + \mathbf r_2\times\mathbf F_2.
+\]
+Con fuerzas internas iguales y opuestas, y si además son centrales (alineadas con \(\mathbf r_2-\mathbf r_1\)), los torques se cancelan. En particular si no hay fuerzas externas (o fuerzas centrales internas), \(\dot{\mathbf L}=\mathbf0\). Concluye la conservación de \(\mathbf L\).
+
+\section*{Problema 3.6 — Energía potencial para dos partículas (Newton + Coulomb)}
+\subsection*{Enunciado resumido}
+Dos partículas con masas \(m_1,m_2\) y cargas \(e_1,e_2\) interactúan mediante gravedad y Coulomb. Determinar la energía potencial total.
+
+\subsection*{Solución}
+La energía potencial gravitatoria:
+\[
+U_{\text{grav}}(r) = -\frac{G m_1 m_2}{r}.
+\]
+La energía potencial eléctrica (SI):
+\[
+U_{\text{Coul}}(r) = \frac{1}{4\pi\varepsilon_0}\frac{e_1 e_2}{r} \equiv k\frac{e_1 e_2}{r}.
+\]
+Suma:
+\[
+\boxed{U(r) = -\frac{G m_1 m_2}{r} + k\frac{e_1 e_2}{r} = \frac{1}{r}\bigl(k e_1 e_2 - G m_1 m_2\bigr).}
+\]
+
+\section*{Problema 3.7 — Relación \(F_G/F_Q\) protón-electrón (cálculo numérico)}
+\subsection*{Planteamiento}
+Calcular
+\[
+\frac{F_G}{F_Q} = \frac{G m_p m_e / r^2}{k e^2 / r^2} = \frac{G m_p m_e}{k e^2}.
+\]
+
+\subsection*{Cálculo numérico}
+Usamos valores SI:
+\[
+\begin{aligned}
+G &= 6.67430\times10^{-11}\ \mathrm{m^3\,kg^{-1}s^{-2}},\\
+m_p &= 1.6726219\times10^{-27}\ \mathrm{kg},\\
+m_e &= 9.10938356\times10^{-31}\ \mathrm{kg},\\
+k &= 8.9875517923\times10^9\ \mathrm{N\,m^2/C^2},\\
+e &= 1.602176634\times10^{-19}\ \mathrm{C}.
+\end{aligned}
+\]
+Numerador:
+\[
+G m_p m_e \approx 6.67430\times10^{-11}\cdot 1.6726219\times10^{-27}\cdot 9.10938356\times10^{-31}
+\approx 1.01693335\times10^{-67}.
+\]
+Denominador:
+\[
+k e^2 \approx 8.9875517923\times10^9\cdot(1.602176634\times10^{-19})^2
+\approx 2.30707755\times10^{-28}.
+\]
+División:
+\[
+\frac{F_G}{F_Q} \approx \frac{1.01693\times10^{-67}}{2.30708\times10^{-28}}
+\approx 4.41\times10^{-40}.
+\]
+Conclusión: la fuerza gravitatoria es \(\sim 10^{-40}\) veces la fuerza eléctrica entre protón y electrón: insignificante para la física atómica.
+
+\section*{Problema 3.8 — Lagrangiana del átomo de hidrógeno (clásica, Coulomb)}
+\subsection*{Planteamiento}
+Escribir la Lagrangiana para protón y electrón interactuando por Coulomb (despreciando gravedad).
+
+\subsection*{Solución}
+Posiciones \(\mathbf r_1,\mathbf r_2\). Energía cinética:
+\[
+T = \tfrac12 m_1\dot{\mathbf r}_1^2 + \tfrac12 m_2\dot{\mathbf r}_2^2.
+\]
+Potencial Coulomb (protón-electrón, con \(\alpha=k e^2\)):
+\[
+V(r) = -\frac{\alpha}{r},\qquad r=|\mathbf r_2-\mathbf r_1|.
+\]
+Lagrangiana:
+\[
+\boxed{L = T - V = \tfrac12 m_1\dot{\mathbf r}_1^2 + \tfrac12 m_2\dot{\mathbf r}_2^2 + \frac{\alpha}{|\mathbf r_2-\mathbf r_1|}.}
+\]
+
+\section*{Problema 3.9 — Coordenadas cíclicas (sin usar CM aún) y conservación de \(L_z\)}
+\subsection*{Planteamiento}
+Mostrar que la coordenada angular común es cíclica y deducir la constante de movimiento asociada (momento angular total).
+
+\subsection*{Desarrollo (sin reducción)}
+Pasar a cilíndricas para cada partícula:
+\[
+\mathbf r_i = (\rho_i\cos\phi_i,\ \rho_i\sin\phi_i,\ z_i),\quad
+\dot{\mathbf r}_i^2=\dot\rho_i^2+\rho_i^2\dot\phi_i^2+\dot z_i^2.
+\]
+Lagrangiana:
+\[
+L=\tfrac12 m_1(\dot\rho_1^2+\rho_1^2\dot\phi_1^2+\dot z_1^2)
++\tfrac12 m_2(\dot\rho_2^2+\rho_2^2\dot\phi_2^2+\dot z_2^2)
+- V(r_{12}),
+\]
+con
+\[
+r_{12}^2 = \rho_1^2+\rho_2^2-2\rho_1\rho_2\cos(\phi_2-\phi_1)+(z_2-z_1)^2,
+\]
+de modo que \(V\) depende sólo de \(\Delta\phi=\phi_2-\phi_1\).
+
+Bajo rotación global \(\phi_i\mapsto\phi_i+\varepsilon\) (constante), \(V\) no cambia y \(\dot\phi_i\) tampoco. Por Noether, la cantidad conservada es
+\[
+J_z = \frac{\partial L}{\partial\dot\phi_1} + \frac{\partial L}{\partial\dot\phi_2}
+= m_1\rho_1^2\dot\phi_1 + m_2\rho_2^2\dot\phi_2,
+\]
+que es el momento angular total alrededor de \(z\).
+
+\section*{Problema 3.10 — Centro de masa y coordenada relativa; separación de la Lagrangiana}
+\subsection*{Definiciones}
+\[
+\mathbf R = \frac{m_1\mathbf r_1 + m_2\mathbf r_2}{M},\qquad
+\mathbf r = \mathbf r_2 - \mathbf r_1,\qquad
+M=m_1+m_2,\qquad \mu=\frac{m_1m_2}{M}.
+\]
+Inversas:
+\[
+\mathbf r_1 = \mathbf R - \frac{m_2}{M}\mathbf r,\qquad
+\mathbf r_2 = \mathbf R + \frac{m_1}{M}\mathbf r.
+\]
+
+\subsection*{Energía cinética}
+Sustituyendo las velocidades:
+\[
+\dot{\mathbf r}_1 = \dot{\mathbf R} - \frac{m_2}{M}\dot{\mathbf r},\qquad
+\dot{\mathbf r}_2 = \dot{\mathbf R} + \frac{m_1}{M}\dot{\mathbf r},
+\]
+se obtiene (álgebra estándar)
+\[
+T=\tfrac12 M\dot{\mathbf R}^2 + \tfrac12 \mu\dot{\mathbf r}^2.
+\]
+
+\subsection*{Lagrangiana separada}
+Como \(V=V(r)\) depende sólo de \(r=|\mathbf r|\),
+\[
+\boxed{L = \tfrac12 M\dot{\mathbf R}^2 + \tfrac12 \mu\dot{\mathbf r}^2 + \frac{\alpha}{r}.}
+\]
+Así se separa \(L=L_{\text{CM}}(\mathbf R)+L_{\text{rel}}(\mathbf r)\).
+
+\section*{Problema 3.11 — Conservación del momento angular de la masa reducida}
+\subsection*{Lagrangiana relativa en polares}
+En el plano (o en coordenadas polares para \(\mathbf r\)):
+\[
+L_{\text{rel}} = \tfrac12\mu(\dot r^2 + r^2\dot\phi^2) + \frac{\alpha}{r}.
+\]
+\(\phi\) no aparece explícitamente, por tanto es coordenada cíclica. El momento conjugado
+\[
+p_\phi = \frac{\partial L}{\partial\dot\phi} = \mu r^2\dot\phi \equiv \ell
+\]
+es constante: \(\ell=\) momento angular de la partícula reducida (conservado).
+
+\section*{Problema 3.12 — Ecuación de la órbita, relación \(e(E,\ell)\), casos \(E<0,=0,>0\)}
+\subsection*{Ecuación de la energía}
+La energía total relativa:
+\[
+E = \tfrac12\mu\dot r^2 + \tfrac12\mu r^2\dot\phi^2 - \frac{\alpha}{r}
+= \tfrac12\mu\dot r^2 + \frac{\ell^2}{2\mu r^2} - \frac{\alpha}{r}.
+\]
+Definimos el potencial efectivo
+\[
+V_{\mathrm{eff}}(r) = \frac{\ell^2}{2\mu r^2} - \frac{\alpha}{r}.
+\]
+
+\subsection*{Cambio a variable \(u(\phi)=1/r\) (ecuación de Binet)}
+Relación:
+\[
+\dot r = \frac{dr}{dt} = \frac{dr}{d\phi}\dot\phi = \frac{dr}{d\phi}\frac{\ell}{\mu r^2}.
+\]
+Con \(u=1/r\), \(dr/d\phi = -u^{-2} du/d\phi\) y
+\[
+\dot r = -\frac{\ell}{\mu}\frac{du}{d\phi}.
+\]
+Sustituyendo en \(E\) y manipulando,
+\[
+\Bigl(\frac{du}{d\phi}\Bigr)^2 + u^2 - \frac{2\mu\alpha}{\ell^2}u = \frac{2\mu E}{\ell^2}.
+\]
+Derivando esta identidad respecto. a \(\phi\) y reordenando (o usando derivación Newtoniana) se obtiene la ecuación lineal:
+\[
+\frac{d^2 u}{d\phi^2} + u = \frac{\mu\alpha}{\ell^2}.
+\]
+Solución general:
+\[
+u(\phi) = \frac{\mu\alpha}{\ell^2}\Bigl[1 + e\cos(\phi-\phi_0)\Bigr],
+\]
+o en la forma clásica de la cónica:
+\[
+\boxed{\displaystyle r(\phi) = \frac{p}{1+e\cos(\phi-\phi_0)},\qquad p=\frac{\ell^2}{\mu\alpha}.}
+\]
+
+\subsection*{Relación entre \(e\) y \(E\)}
+Sustituyendo la solución en la identidad previa se llega a:
+\[
+A^2 e^2 = A^2 + \frac{2\mu E}{\ell^2},
+\qquad A=\frac{\mu\alpha}{\ell^2}.
+\]
+Despejando,
+\[
+\boxed{e^2 = 1 + \frac{2E\ell^2}{\mu\alpha^2}.}
+\]
+Por tanto:
+\begin{itemize}
+    \item \(E<0 \Rightarrow e<1\) (elipse),
+    \item \(E=0 \Rightarrow e=1\) (parábola),
+    \item \(E>0 \Rightarrow e>1\) (hipérbola).
+\end{itemize}
+
+\subsection*{Parámetros orbitales}
+Semieje mayor \(a\) (para elipses, \(E<0\)):
+\[
+\frac{E}{\mu} = -\frac{\alpha}{2a} \quad\Rightarrow\quad a = -\frac{\mu\alpha}{2E}.
+\]
+Relaciones:
+\[
+p = a(1-e^2),\qquad r_{\min} = a(1-e),\qquad r_{\max}=a(1+e).
+\]
+
+\subsection*{Determinación de \(e\) y fase desde condiciones iniciales}
+Dado \(r_0\) y \(\dot r_0\) en \(\phi=\phi_{\mathrm{init}}\), con \(u_0=1/r_0\),
+\[
+\begin{cases}
+u_0 = A\bigl(1 + e\cos\delta\bigr),\\[4pt]
+\dot r_0 = \dfrac{\ell}{\mu}A e\sin\delta,
+\end{cases}
+\quad \delta = \phi_{\mathrm{init}} - \phi_0.
+\]
+De aquí:
+\[
+e^2 = \Bigl(\frac{u_0}{A}-1\Bigr)^2 + \Bigl(\frac{\mu\dot r_0}{\ell A}\Bigr)^2,
+\quad
+\delta = \operatorname{atan2}\!\Bigl(\frac{\mu\dot r_0}{\ell A},\,\frac{u_0}{A}-1\Bigr).
+\]
+
+%\section*{Comentarios finales}
+%\begin{itemize}
+%    \item Hemos mostrado explícitamente la separación de variables que convierte el problema de dos cuerpos en un problema eficaz de una partícula de masa reducida \(\mu\) en un potencial central \(V(r)=-\alpha/r\).
+%    \item La conservación del momento angular surge por la invarianza rotacional (teorema de Noether) y puede verse tanto sin reducción (sumando los momentos angulares individuales) como después de la reducción (momento angular relativo).
+%    \item En el contexto del átomo de hidrógeno clásico, \(\mu\approx m_e\) y las órbitas elípticas descritas arriba son análogas a las órbitas de Kepler; la física cuántica reemplaza estas órbitas por estados estacionarios discretos.
+%\end{itemize}
+
+\end{document}

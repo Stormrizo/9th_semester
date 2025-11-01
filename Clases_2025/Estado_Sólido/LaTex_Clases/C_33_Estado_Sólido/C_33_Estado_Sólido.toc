@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Teorías de electrones en cristales}{1}{section.1}%
+\contentsline {section}{\numberline {2}Ejercicio 1}{3}{section.2}%
+\contentsline {section}{\numberline {3}EJercicio 2}{4}{section.3}%
+\contentsline {section}{\numberline {4}Ejercicio 2}{4}{section.4}%

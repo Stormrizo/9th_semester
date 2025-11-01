@@ -1,0 +1,546 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 32 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{área de una Elipse}
+
+\[ \pi{a} \]
+
+\textbf{Segunda ley}: Existe una relación del área barrida del radio vector y el tiempo. (\underline{Velocidad areal})
+
+El período es el tiempo que recorre un área total:
+
+Viene en las notas.
+
+Hasta acá hemos cubierto la mitad del curso, ahora vamos a entrar a un nuevo tema.
+
+\section{Capítulo IV: Ecuaciones de Hamilton}
+
+Supongamos que estamos en un laboratorio, somos grandes experimentadores, aunque no seamos de física aplicada, tenemos el siguiente sistema formado por diferentes partículas. Cada una de esas partículas tiene si vector de posición.
+
+\subsection{Grados de libertad}
+
+SI no existen constricción, es decir al menos le es accesible a la partícula una región del espacio $\mathbb{R}^{3}$. Tiene 3 grados de libertad, es decir, tiene la posibilida de evolucionar en cualquir dirección en cualquier velocidad.
+
+De tal manera que estando en un punto puede llegar a un punto que se encuentra dentro del volumen. Cuando eso ocurre significa que tenemos una partícula con 3 grados de libertad, es a lo máximo que puede aspirar una partícula en 3-D.
+
+\[  n=3N-\cancelto{0}{K} \]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+
+\subsubsection{Constricciones holonomas}
+
+Son las únicas a las cuales nos estamos enfocando en este curso.
+
+
+
+Las 3 coordenadas para describir a este sistema son:
+
+\begin{equation}
+\begin{split}
+\underbrace{3N}_{.} \left\{\begin{array}{ccc}
+ x_{a}, & y_{a}, & z_{a}
+\end{array} \right\}_{a=1}^{N} \longleftrightarrow  \left\{\begin{array}{ccc}
+ q_{1}, & q_{2}, \ldots, & q_{n}
+\end{array} \right\}
+\end{split}
+\end{equation}
+
+
+\[  \boxed{\vec{r}_{a}(t) = \vec{r}_{a}\left( q_{i},t \right) } \]
+
+La configuración del sistema cambia en forma continua, no abrupta.
+
+\subsection{Espacio de configuraciones}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{2.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+Este espacio de configuraciones viene parametrizado por $q_{i}$ que dependen del tiempo. Si las metemos en las ecuaciones de $Euler-Lagrange$ tendremos una de las soluciones.
+
+
+La lagrangiana se conoce como lagrangiana natural. Es decir:
+
+\[ L = T-V  \quad \to \quad L = L(q_{i},\dot{q}_{i},t)\]
+
+
+\begin{equation}
+\begin{split}
+ \frac{d}{dt} \left( \frac{ \partial L }{\partial \dot{q}_{i}}  \right) - \frac{ \partial L}{\partial q_{i}} &= 0, \quad \{i\}_{i=1}^{n}
+\end{split}
+\end{equation}
+
+\subsection{Principio de Hamilton}
+
+La primera variación de la acción que depende de la lagrangiana es $0$:
+
+Esto es 
+
+
+\[ \delta \int\limits_{t_{1}}^{t_{2}} L( q_{i}, \dot{q}_{i}, t )dt =0  \]
+
+Cuando las contricciones son holonomas, que esto sea cierto si y solo si se cumplen las condiciones de lagrange.
+
+\[   \frac{d}{dt} \left( \frac{ \partial L }{\partial \dot{q}_{i}}  \right) - \frac{ \partial L}{\partial q_{i}} = 0, \quad \{i\}_{i=1}^{n} \quad \Longleftrightarrow \quad \delta \int\limits_{t_{1}}^{t_{2}} L( q_{i}, \dot{q}_{i}, t )dt =0   \]
+
+
+\subsubsection{Momento generalizado}
+
+No me puedes dar el momento generalizado si no me das la lagrangiana.
+
+\[  \boxed{  p_{i} = \frac{\partial L}{\partial \dot{q_{i}}}    } \]
+
+Teniendo la lagrangian, podemos nosotros conocer el \underline{momento generalizado}.
+
+\textbf{Momento lineal}
+
+Coordenada cartesiana $x$:
+
+
+\[ L = \frac{1}{2}m\dot{x}^{2} \quad \to \quad \frac{\partial L}{\partial \dot{x}} = m\dot{x}=0  \]
+
+\subsection{Formulación hamiltoniana}
+
+El sistema clásico se pone \emph{feliz} cuando pasamos a este sistema.
+
+
+Es decir pasamos de $n\, \text{grados de libertad}$ a \underline{Dim $n$}.
+
+Pasamos de dimensión $n$ a dimensión $2n$.
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{3.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+La formulación hamiltoniana según los libros es otra formulación de la mecánica equivalente al de la formulación \underline{Lagrangiana}. Según ortigoza esto no es totalmente cierto, la riqueza en espacio de dimensión $2n$ es más amplia, entonces no es totalmente equivalente.
+
+La información entre dos puntos a distintos tiempos se pueden escribir por medio de la posición y velocidad inicial o la posición a dos tiempo distintos.
+
+\[  \underbrace{(q_{i},p_{i})}_{ \left.(x,m\dot{x})\right|_{t=t_{1}}  } \]
+
+Es decir en el espacio fase es suficiente con tener posición y momento inicial para un sólo tiempo.
+
+\subsection{Espacio fase}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{4.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+Tenemos.
+
+Esta $L$ es función de:
+
+Para poder construir la lagrangiana, tenemos que delimitar los vectores de posición de cada una de las partículas, poner las contricciones, elegir las coordenadas generalizadas y poner el vector en esas coordenadas generalizadas y el tiempo:
+
+\[ L = L(q_{i},\dot{q}_{i},t) \]
+
+
+\[ \vec{r}_{a} = \vec{r}_{a}(q_{i},t)  \]
+
+Acá no aparecen velocidades, aparecen cuando calculamos la velocidades de la partícula, es decir, primero debemos de dar las coordendas generalizadas. En la formulación lagrangiana, son como secundarias, son derivables, aparecen cuando tomamos las derivadas de las coordendas generalizadas, no aparecen de la nada.
+
+Tú me das una función que para poderla conocer necesitamos saber $q_{i}$, $\dot{q_{i}}$ y $t$.
+
+\[\underbrace{(q_{i},\dot{q}_{i},t)}_{\text{Localmente}\, \mathbb{R}^{2n+1} }  \to \text{una función que toma valores en un espacio que tiene esas coordenadas y lo asocia a una función escalar} \]
+
+Es decir:
+
+\[ \overbrace{(q_{i}, \dot{q}_{i},t)}^{\text{Localmente}\, \mathbb{R}^{2n+1}} \quad \to \quad L(q_{i},\dot{q}_{i},t) \]
+
+Localmente es $\mathbb{R}^{2n+1}$ tiene $n$ posiciones $+n$ velocidades $+1$ tiempo.
+
+\[  \overbrace{(q_{i}, \dot{q}_{i}, t)}^{2n+1} \quad \to \quad \overbrace{(q_{i},p_{i},t)}^{2n+1} \]
+
+Cuando agrega,os tiempo es el espacio \textbf{fase extendido}. En el espacio fase extendido está definido el hamiltoniano.
+
+Dada la lagrangiana vamos a definir una función $H$ que depende de $q_{i}$, $p_{i}$ y $t$. Una vez que fuimos capaces de dar una lagrangiana; ¿cómo yo construyo la hamiltoniana?
+
+\textcolor{Cerulean}{\textbf{Respuesta:}} Mediante una \textbf{transformada de Legendre}.
+
+\section{Transformación de Legengre}
+
+\textbf{DEF.} Sea $f(x)$ una función de valores reales, la \underline{transformación} de \textbf{Legendre} o \underline{tranformada} de \textbf{Legendre} es una \textcolor{Cinnabar}{\underline{\textcolor{onyx}{\textbf{nueva función}}}}, de una nueva variable $p$ que se determina de la siguiente forma:
+
+
+\emph{Dado}
+
+\[ f(x) \quad \to \quad F(x,p) \equiv px-f(x) \]
+
+$F$ mayúscula depende de la variable y la variable que queremos determinar (variable nueva) $q$.
+
+Dada esta función, imponemos lo siguiente:
+
+\[ \frac{ \partial F }{\partial x} =0 \quad \Rightarrow \quad p - \frac{df}{dx} =0 \quad \Rightarrow \quad \boxed{  p=\frac{df}{dx} } \]
+
+Caso cuando $\boxed{x=x(p)}$, si esto ocurre, la transformación de Legendra de $f(x)$ se determina de la siguiente forma:
+
+\[  g(p) \equiv F(x(p),p) = px(p)-f(x(p)) \]
+
+\subsection{Ejemplos}
+
+\subsubsection{Ejemplo 1}
+
+En este ejemplo vamos a considerar que $f(x) = x^{2}$.
+
+Sabemos que es una parábola y queremos construir la \textbf{transformada de Legendre}, que denotamos como $g(p)$.
+
+Construimos la función auxiliar:
+\[
+F(x,p) \equiv px - x^{2}
+\]
+\hfill $\leftarrow$ \underline{seguimos la receta: } $f(x) \to F(x,p) = px - f(x)$
+
+Imponemos la condición de estacionariedad:
+\[
+\frac{\partial F}{\partial x} = 0 
+\quad \Rightarrow \quad 
+p - 2x = 0 
+\quad \Rightarrow \quad 
+\boxed{p = 2x}.
+\]
+
+De aquí despejamos:
+\[
+x = \frac{p}{2}.
+\]
+
+Sustituyendo este valor en $F(x,p)$ obtenemos la función transformada:
+\[
+g(p) \equiv F(x(p),p) = p\left(\frac{p}{2}\right) - \left(\frac{p}{2}\right)^{2}.
+\]
+
+Simplificamos:
+\[
+g(p) = \frac{p^{2}}{2} - \frac{p^{2}}{4} = \frac{p^{2}}{4}.
+\]
+
+Por lo tanto:
+\[
+\boxed{g(p) = \frac{p^{2}}{4}}.
+\]
+
+\subsection{Ejemplo $f(x) = \dfrac{x^{3}}{3}$}
+
+Denotamos como $g(p)$ a la \textbf{transformada de Legendre}.
+
+Construimos la función auxiliar:
+\[
+F(x,p) = px - \frac{x^{3}}{3}.
+\]
+
+Imponemos la condición de estacionariedad:
+\[
+\frac{\partial F}{\partial x} = 0 
+\quad \Rightarrow \quad 
+p - x^{2} = 0 
+\quad \Rightarrow \quad 
+\boxed{p = x^{2}}.
+\]
+
+De aquí despejamos:
+\[
+x = \pm \sqrt{p}.
+\]
+
+Sustituyendo este valor en $F(x,p)$ obtenemos la función transformada:
+\[
+g(p) \equiv F(x(p),p) = p(\pm \sqrt{p}) - \frac{(\pm \sqrt{p})^{3}}{3}.
+\]
+
+Calculamos cada término:
+\[
+g(p) = \pm p^{3/2} - \frac{\pm p^{3/2}}{3}.
+\]
+
+Simplificamos:
+\[
+g(p) = \pm \frac{2}{3} p^{3/2}.
+\]
+
+Por lo tanto, la transformada de Legendre tiene dos ramas:
+\[
+\boxed{g(p) = \frac{2}{3} p^{3/2}} 
+\quad \text{para } x > 0,
+\qquad
+\boxed{g(p) = -\frac{2}{3} p^{3/2}} 
+\quad \text{para } x < 0.
+\]
+
+\begin{itemize}
+    \item La función original $f(x) = \dfrac{x^{3}}{3}$ es \emph{impar} y tiene pendiente $p = x^{2} \ge 0$.
+    \item Por ello, para un mismo valor de $p$, existen dos posibles valores de $x$: uno positivo y otro negativo.
+    \item Cada rama de $g(p)$ corresponde al segmento de $f(x)$ en el que $x>0$ o $x<0$.
+    \item La nueva función $g(p)$ describe cómo cambia el área asociada al plano tangente de $f(x)$ al variar la pendiente $p$.
+\end{itemize}
+
+La transformada de Legendre de $f(x)=x^{3}/3$ es
+\[
+g(p) = \pm \frac{2}{3} p^{3/2},
+\]
+donde el signo depende del dominio de $x$.
+
+
+La $p$ nos da la pendiente de la recta tangente a mi función en ese punto.
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{5.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+Fijarnos en la envolvente de la curva: transformada de legendre de esa función, tiene un pico. Tiene una singularidad en tipo cúspide. VIene en los problemas de tarea.
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{6.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+\subsection{Otro ejemplo}
+
+\[ L = \frac{1}{2} m\dot{x}^{2} \quad \to \quad F(\dot{x}, p) \equiv \dot{x}p-L  \]
+
+
+\[ F(\dot{x},p) =\dot{x}p-\frac{1}{2}m\dot{x}^{2}   \]
+
+\[ \frac{ \partial F }{\partial \dot{x}} =0 \quad \Rightarrow \quad p-m\dot{x}=0 \quad \Rightarrow \quad \boxed{p=m\dot{x}}\]
+
+
+Tenemos despejando $x$:
+
+\[ \dot{x}(p) = \frac{p}{m} \]
+
+
+
+
+Tenemos así:
+
+
+
+
+
+\begin{equation}
+\begin{split}
+H(p) &= F(\dot{x}(p), p) \\
+&= \left[ \dot{x}(p)\right] p - \frac{1}{2} m \left[  \dot{x}(p) \right]^{2}\\
+&= \frac{p^{2}}{m}- \frac{p^{2}}{2m}\\
+&= \frac{p^{2}}{2m}
+\end{split}
+\end{equation}
+
+Entonces el hamiltoniano es:
+
+\[ \boxed{ H = \frac{p^{2}}{2m} } \]
+
+Hamiltoniano de \textbf{partícula libre}.
+
+Después de varios casos, ya no hace caso definir esa función intermedia/auxiliar ($F$). $p$ es la recta tange a la grafica del lagrangiano como función de la velocidad. 
+
+Este capítulo se acab en dos semanas
+
+\end{document}

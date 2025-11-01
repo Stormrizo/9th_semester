@@ -1,0 +1,329 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+	\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+		\leftmargin=80pt % Indentation on the left
+		\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+	\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+			\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+	\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+	\usepackage{graphicx}
+	
+	\usepackage{titling}
+	
+	\input{colores.tex}
+	
+	%%Producir signos de cita textual``Asignatura''
+	
+	\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+	
+	\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Tarawera}{\textbf{T-\textcolor{Sun}{\textbf{8}}}}: \textcolor{Cinnabar}{\textbf{Resúmenes del capítulo 1: \textcolor{orange(colorwheel)}{\textbf{Construcciones de la Experiencia Humana}}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ 202107583}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Enseñanza de la física }
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+	\let \footnote \thanks
+	{\LARGE \@title \par}%
+	\vskip 1em%
+	%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+	\noindent\begin{tabular}{@{}ll}
+		{\bfseries{Profesor}} & Dr. Apolonio Juárez Nuñez\\
+		\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+		\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{1FM4}} /  \textcolor{trueblue}{\bfseries{104}}   
+	\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\section*{Instrucciones de la actividad}
+\addcontentsline{toc}{section}{Instrucciones de la actividad}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2} % Comienza las dos columnas
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=1]
+		\item De este texto: \textbf{marcelo-pakman-construcciones-de-la-experiencia-humana-vol-1 (Recomendado-Cap1).pdf} \\
+		\url{https://drive.google.com/drive/folders/1keoF6AIdzV2HiNHyBvZTAUEgQg7BkvEk}
+		
+		\item Para el \textbf{miércoles 17 de septiembre}, leer la \textbf{introducción} y realizar un \textbf{resumen} con su opinión de cada una de las \textbf{7 secciones del capítulo 1}.
+		
+		\item La extensión de cada resumen con su opinión debe ser de \textbf{una cuartilla}.
+	\end{enumerate}
+\end{multicols}
+
+\vspace{2cm}
+
+
+\tableofcontents  \vspace{2cm}
+
+\section*{Capítulo 1: Principios del constructivismo}
+\addcontentsline{toc}{section}{Capítulo 1: Principios del constructivismo}
+
+\textbf{Resumen:}  
+El constructivismo radical se plantea como un esfuerzo por eliminar la presunción de un conocimiento absoluto. No niega la posibilidad de conocer, pero afirma que el saber no es una mercancía objetiva, sino una construcción activa del sujeto cognoscente. Esta perspectiva rompe con la tradición filosófica occidental que ha concebido el conocimiento como reflejo fiel de una realidad externa e independiente.
+
+Sus dos principios centrales son:
+\begin{enumerate}
+\item El conocimiento no se recibe pasivamente ni a través de los sentidos o de la comunicación; es el propio sujeto quien lo construye.
+\item La cognición cumple una función adaptativa: organiza el mundo de la experiencia del sujeto para hacerlo viable, sin pretender descubrir una realidad ontológica definitiva.
+\end{enumerate}
+
+Aceptar estos postulados exige abandonar la idea de una “Verdad” objetiva y repensar los esquemas habituales del pensamiento. Implica reconocer que las construcciones conceptuales solo tienen sentido en el marco de la experiencia individual. Esta postura cuestiona la noción de que el conocimiento deba representar un mundo independiente del observador y, en cambio, lo entiende como un proceso continuo de interpretación.
+
+El constructivismo radical, así, desplaza la meta de buscar la realidad última y propone concentrarse en la viabilidad de nuestras representaciones, entendiendo que conocer es una tarea de permanente reorganización cognitiva y no de descubrimiento de un mundo en sí.
+
+\textbf{Opinión personal:}  
+Al leer este apartado sentí que me hablaba directamente como estudiante. Me hace pensar que todo lo que aprendo en clase o en la vida diaria no es un reflejo perfecto de “la realidad”, sino una construcción que voy armando a partir de lo que vivo y entiendo en cada momento. Me gusta la idea de que el conocimiento sea algo que se ajusta y se prueba con la experiencia, porque me quita la presión de buscar respuestas definitivas y me anima a seguir preguntando. También me hace ver que cuando comparto ideas con otras personas no estoy transmitiendo verdades fijas, sino comparando y afinando mis propias interpretaciones. En ese sentido, este capítulo me recuerda que aprender no es llegar a una meta final, sino mantenerme en un proceso constante de diálogo y revisión de lo que creo saber.
+
+\section*{Capítulo 2: La naturaleza del conocimiento}
+\addcontentsline{toc}{section}{Capítulo 2: La naturaleza del conocimiento}
+
+\textbf{Resumen:}  
+Ernst von Glasersfeld retoma la idea central de Giambattista Vico: “\textit{Dios es el artífice de la naturaleza, el hombre el dios de los artefactos}”. Para Vico, los agentes epistémicos solo pueden conocer lo que han construido; conocer significa “saber cómo hacer”. Solo Dios conoce el mundo real porque lo creó, mientras que el ser humano únicamente puede conocer lo que él mismo elabora en su experiencia.
+
+El constructivismo radical sostiene que el conocimiento no representa una realidad objetiva independiente del observador, sino que se refiere a \textbf{estructuras conceptuales viables} dentro de la experiencia del sujeto. Esta postura rompe con la tradición filosófica que buscaba verdades absolutas y demuestra, como señala Glasersfeld, que no podemos concebir “ser” o “existir” fuera del espacio y tiempo de nuestra experiencia.
+
+Autores como Berkeley ya intuían esta visión cuando afirmaba “\textit{esse est percipi}” (ser es ser percibido), indicando que la permanencia del ser depende de la percepción. Berkeley vinculaba esa unidad a la percepción divina, mientras que Vico la situaba en la mente humana y su capacidad de construcción.
+
+El constructivismo radical, más pragmático que metafísico, niega que podamos acceder a una realidad “en sí”, no porque tal realidad no exista, sino porque todo conocimiento está mediado por nuestras propias construcciones cognitivas. Así, lo que llamamos conocimiento es el \textbf{mapa de nuestros caminos de acción y pensamiento}, válido solo mientras nos resulte útil en nuestra experiencia.
+
+Las reflexiones de Rorty refuerzan esta postura al afirmar que la ciencia moderna no busca una correspondencia exacta con la realidad, sino maneras de “manejarnos” eficazmente en el mundo. La neurofisiología contemporánea también coincide: como señaló Hebb (1958), no hay realidad en el nivel fisiológico más allá del disparo neuronal, y Von Foerster (1970) demostró que los receptores sensoriales solo envían respuestas indistinguibles, lo que confirma que el conocimiento surge de la organización interna del sujeto, no de características del ambiente.
+
+En conjunto, este apartado muestra que la \textbf{naturaleza del conocimiento} es radicalmente constructiva y adaptativa: una actividad del sujeto que edifica significados viables, sin aspirar a revelar una verdad absoluta del universo.
+
+\textbf{Opinión personal:}  
+Mientras leía este capítulo me di cuenta de cuánto solemos dar por hecho que existe una “realidad pura” esperando a ser descubierta. La idea de que cada uno solo puede conocer lo que construye me hace ver el aprendizaje como un proceso creativo, más que como la búsqueda de una verdad escondida. Me recuerda que, al estudiar ciencia, lo importante no es alcanzar una definición definitiva del mundo, sino construir explicaciones que me permitan orientarme y actuar mejor. Esta perspectiva me libera un poco de la obsesión por “tener la razón” y me anima a valorar más la flexibilidad de mis ideas y la posibilidad de ajustarlas conforme mi experiencia crece.
+
+
+\section*{Capítulo 3: El conocimiento como una función adaptativa}
+\addcontentsline{toc}{section}{Capítulo 3: El conocimiento como una función adaptativa}
+
+Jean Piaget, figura clave del constructivismo, afirma que la \textbf{cognición debe entenderse como una función adaptativa}, es decir, un proceso que nos permite ``manejarnos'' en el mundo. Ernst von Glasersfeld destaca que el interés del constructivismo, a diferencia del pragmatismo, se centra en \textbf{cómo llegamos a tener el conocimiento que nos resulta viable}, más que en una supuesta correspondencia con una realidad objetiva.
+
+Piaget insiste en que el conocimiento no es una representación del mundo real, sino una colección de \textbf{estructuras conceptuales adaptadas} a la experiencia del sujeto. La adaptación, en sentido piagetiano, se toma de la biología: refiere al estado de los organismos capaces de sobrevivir en un entorno dado. Como aclara Pittendrigh (1958), la naturaleza ``no selecciona al más apto'' sino que deja vivir a quienes poseen las características para manejarse, y mueren aquellos que no. \textbf{Estar adaptado significa, simplemente, ser viable en un momento histórico determinado}.
+
+El constructivismo adopta este enfoque: el conocimiento cumple la función de eliminar perturbaciones y mantener el \textbf{equilibrio interno} del sistema cognitivo. En el dominio de la cognición, el equilibrio no es estático, sino dinámico, como el de un ciclista que se ajusta constantemente. La viabilidad del conocimiento se liga así a la estabilidad de las estructuras conceptuales que un agente epistémico construye.
+
+Glasersfeld subraya que la experiencia humana implica siempre \textbf{interacción social}. Siguiendo a Piaget, la construcción de conocimiento no ocurre en aislamiento: la educación y el intercambio con otros sujetos son fundamentales para generar y modificar estructuras cognitivas. Sin embargo, desde la perspectiva constructivista, los ``otros'' no existen como datos ontológicos independientes; son parte de la red de experiencias que el sujeto organiza.
+
+\textbf{Opinión personal:}  
+Este capítulo me ayudó a ver el conocimiento como algo vivo: un proceso de ajuste constante más que un conjunto de verdades fijas. Me llama la atención la comparación con el ciclista que se mantiene en equilibrio moviéndose; entender el aprendizaje así me hace pensar en cómo, en la universidad, no solo memorizo datos, sino que cambio mis ideas para seguir avanzando. También me gustó que destaque la interacción con otras personas: me recuerda que mis conversaciones, las discusiones en clase o incluso los desacuerdos con amigos son parte de cómo reorganizo mis propios conceptos. Es una visión práctica y motivadora, porque muestra que aprender es, en esencia, adaptarse y seguir afinando ese equilibrio en cada nueva experiencia.
+
+\section*{Capítulo 4: El contexto de la teoría del esquema}
+\addcontentsline{toc}{section}{Capítulo 4: El contexto de la teoría del esquema}
+
+En la teoría piagetiana de la cognición, \textbf{asimilación} y \textbf{acomodación} son conceptos esenciales. Piaget los utiliza en un sentido más técnico que el lenguaje común. La asimilación es el proceso por el cual elementos del ambiente se incorporan en las estructuras del organismo, mientras que la acomodación es el ajuste que el organismo hace para adaptarse a la naturaleza de lo asimilado, estableciendo un nuevo equilibrio.
+
+Piaget explica que los \textbf{esquemas} se construyen en tres pasos: \textit{reconocimiento} de una situación, \textit{asociación} de una actividad con los objetos y \textit{expectativa de un resultado}. Un ejemplo clásico es el bebé que sacude un sonajero para producir un sonido. Si al intentar hacerlo con una cuchara el sonido no ocurre, se genera una \textbf{perturbación} que impulsa el cambio cognitivo. Esta frustración es clave: prepara el terreno para una nueva acomodación, es decir, para la modificación del esquema mental.
+
+La \textbf{teoría de los esquemas} implica que el aprendizaje es dinámico y se basa en la interacción entre asimilación y acomodación. El aprendizaje y el conocimiento resultante son \textbf{instrumentales}. En el nivel sensoriomotor, los esquemas de acción ayudan a lograr metas en el mundo experiencial; en el nivel de abstracción reflexiva, los esquemas operativos forman redes conceptuales que guían el pensamiento. Piaget distingue una \textbf{instrumentalidad “utilitaria”}, orientada a la acción, y otra \textbf{“epistémica”}, que busca coherencia conceptual y comprensión.
+
+Este enfoque transforma la idea de conocimiento: sustituye la búsqueda de una Verdad absoluta por la \textbf{viabilidad en la experiencia}, aplicando inferencias inductivas y generalizaciones. Como resaltan Beth y Piaget (1961), la certeza lógica y matemática no se ve afectada, pero el conocimiento se entiende como una construcción activa que se reequilibra ante las perturbaciones.
+
+En suma, el contexto de la teoría del esquema muestra que \textbf{conocer es un proceso de equilibrio dinámico}, donde cada perturbación en la experiencia impulsa la reconstrucción de estructuras cognitivas más coherentes y viables.
+
+\textbf{Opinión personal:}  
+Este capítulo me hizo pensar en cuántas veces un error me ha obligado a reorganizar lo que creía saber. La idea de que una frustración es en realidad el punto de partida para una comprensión más sólida me resulta muy cercana: es lo que vivo al estudiar física, cuando un problema difícil me obliga a replantear mis métodos. Me gusta ver el aprendizaje como un movimiento constante de ajuste, donde cada tropiezo no es una falla, sino una oportunidad para que mi mente encuentre un equilibrio más profundo y creativo.
+
+\section*{Capítulo 5: El componente social: los “otros”}
+\addcontentsline{toc}{section}{Capítulo 5: El componente social: los “otros”}
+
+La interacción social desempeña un papel esencial en la \textbf{viabilidad del conocimiento}, tanto en su dimensión “utilitaria” como en la “epistémica”. A diferencia de las interacciones con objetos del entorno, la interacción social entre seres humanos \textbf{involucra el lenguaje} y posee un carácter único dentro del campo de experiencia.
+
+El constructivismo evita suponer categorías cognitivas innatas, por lo que busca explicar cómo los niños construyen la noción de los “otros”. En el nivel sensoriomotor, el niño forma esquemas a partir de objetos familiares: muñecas, osos de peluche, bloques o incluso animales como gatos y perros. Con la experiencia, el niño comienza a \textbf{atribuir propiedades especiales} a estos seres vivos: capacidad de moverse, de ver, escuchar o sentir dolor. Estas atribuciones surgen de la interacción y no pueden reducirse a simples esquemas de acción, pues requieren reconocer intenciones y reacciones impredecibles.
+
+A medida que estas experiencias se multiplican, se desarrollan \textbf{esquemas más complejos} para comprender a los otros seres humanos, quienes, a diferencia de los objetos, tienen intenciones y planes. Esta complejidad lleva a que el niño proyecte capacidades cognitivas en los demás, generando así un modelo mental de los “otros” que se refuerza cuando sus predicciones sobre su conducta se cumplen.
+
+Ernst von Glasersfeld cita a Kant para ilustrar esta reciprocidad: \emph{“Si se quiere imaginar a un ser pensante, uno deberá ponerse en su lugar e imputar nuestro propio sujeto al objeto que se desea considerar”} (Kant, 1781). Esta idea resalta que comprender a los otros implica \textbf{reconocer en ellos procesos similares a los propios}. Cuando una predicción sobre la acción de otro se confirma, se agrega un segundo nivel de viabilidad que fortalece la realidad que el sujeto ha construido para sí mismo.
+
+En síntesis, este apartado muestra que el concepto de los “otros” se edifica gradualmente mediante interacciones sociales que desafían y enriquecen las estructuras cognitivas, consolidando nuestra experiencia compartida de la realidad.
+
+\textbf{Opinión personal:}  
+Este capítulo me hizo pensar en la cantidad de veces que aprendo de las personas a mi alrededor sin darme cuenta. Desde las discusiones en clase hasta una plática casual con amigos, cada encuentro ajusta la forma en que entiendo a los demás y a mí mismo. Me gustó la idea de que para comprender a alguien tengo que imaginarme en su lugar, porque refleja lo que muchas veces hago de manera intuitiva: tratar de sentir lo que la otra persona siente. Me deja claro que el conocimiento no se construye solo, sino que se alimenta de cada relación y de cada intento por interpretar las intenciones de quienes me rodean.
+
+
+\section*{Capítulo 6: Una perspectiva de la comunicación}
+\addcontentsline{toc}{section}{Capítulo 6: Una perspectiva de la comunicación}
+
+Glasersfeld señala que la distinción entre \textbf{entrenamiento} y \textbf{enseñanza}, reconocida desde los días de Sócrates, sigue siendo crucial en educación: el primero busca reproducir conductas, mientras que el segundo apunta a la \textbf{comprensión}. Aunque ambos usan comunicación, el significado de “comunicación” no es el mismo.
+
+Los primeros estudios, como el esquema de Cherry (1966), mostraron una visión conductista: el éxito dependía de estímulos y respuestas observables entre emisor y receptor. Este enfoque, aplicado a la enseñanza, se limita a provocar conductas y no a generar comprensión, por lo que el entrenamiento rara vez la produce.
+
+Shannon (1948) propuso un modelo técnico en el que las señales son instrucciones para seleccionar significados, pero \textbf{no contienen el significado en sí}. Desde una perspectiva constructivista, esta característica evidencia que cada usuario del lenguaje \textbf{construye individualmente} el significado de palabras y oraciones a través de interacción prolongada con otros. La comunicación no transfiere conceptos listos; permite que se ajusten mutuamente las estructuras cognitivas de los interlocutores.
+
+El texto ilustra cómo un niño adquiere el significado de “copa”: primero debe \textbf{focalizar señales sensoriales}, después aislarlas y coordinarlas para formar un objeto, y finalmente asociar el patrón visual con la palabra pronunciada por el adulto. Este proceso implica acomodación y ajuste continuo; el significado se edifica sobre la propia experiencia del niño y se ajusta conforme interactúa con hablantes competentes.
+
+Incluso en adultos, el uso del lenguaje requiere \textbf{acomodar el significado} en cada situación, ya que la comprensión no consiste solo en reproducir lo dicho, sino en que el receptor construya una estructura conceptual compatible. Richard Rorty (1982) resume esta idea al señalar que \emph{“la actividad de articular oraciones es una de las cosas que las personas hacen para manejar su entorno”}.
+
+En conclusión, la comunicación, vista desde el constructivismo, es un proceso \textbf{interactivo y subjetivo}: no transmite significados fijos, sino que posibilita la co-construcción de sentido entre hablantes, ajustando continuamente las estructuras conceptuales individuales.
+
+\textbf{Opinión personal:}  
+Al leer este capítulo pensé en la cantidad de veces que una conversación cambia mi forma de ver las cosas. No basta con repetir palabras: cada quien entiende desde su propia experiencia, y ahí es donde ocurre el verdadero intercambio. Me hace valorar mucho más la escucha activa y la paciencia para aclarar ideas, porque comunicar no es pasar “datos” como si fueran archivos, sino ir puliendo significados juntos. Esta idea me recuerda que cuando explico algo en clase o con amigos, en realidad todos estamos construyendo el mensaje a la vez, y eso le da más sentido a cada diálogo.
+
+\section*{Capítulo 7: Resistencias en contra del modelo constructivista}
+\addcontentsline{toc}{section}{Capítulo 7: Resistencias en contra del modelo constructivista}
+
+Glasersfeld describe un patrón casi universal: \textbf{conservar categorías, conceptos y teorías} aun cuando la experiencia los pone en duda. Desde la mirada constructivista esto ocurre porque, si una teoría ha sido útil, aparecen intereses por \textbf{mantener el statu quo}; así, sus defensores asimilan las novedades “todo lo posible”, incluso ante perturbaciones evidentes. Ilustra esta inercia con la anécdota de \textbf{Silvio Ceccato}: tras exponer su teoría, oyó a un filósofo mayor decir “\emph{si Ceccato tuviese razón, el resto de nosotros seríamos unos tontos}”, reflejo de la defensa emocional del andamiaje conceptual.
+
+Muchos lectores de \textbf{Piaget} y de constructivistas actuales, señala, no hablan “claro y sin pelos en la lengua”; intentan torcer los términos para que encajen en sus nociones y, cuando no pueden, acusan al autor de contradicción. Otra resistencia común es descalificar al constructivismo radical como “\textbf{mentalista}” o materialismo barato. Ambas imputaciones son erróneas: su \textbf{instrumentalismo} no equivale al materialismo y su segundo principio—\textbf{la función adaptativa de la cognición}—sitúa la viabilidad en el \textbf{dominio cognitivo}, no como ajuste con un “mundo en sí”.
+
+Para precisar la idea, se recuerda a \textbf{Jakob von Uexküll (1933)}: todo organismo constituye dos ámbitos coordinados, un \emph{mundo de acciones (Wirkwelt)} y un \emph{mundo de percepciones (Merkwelt)}, ambos inevitablemente subjetivos porque dependen de la capacidad de actuar y del equipo sensorial. De aquí se deduce que siempre hay \textbf{más de un camino viable} para alcanzar una meta; el éxito repetido no prueba haber descubierto el funcionamiento del objeto. Los problemas no son cosas “ahí afuera”; surgen cuando algo bloquea \textbf{nuestros fines}.
+
+También inquieta el análisis constructivista del \textbf{lenguaje}: si todo conocimiento es construcción individual, ¿cómo no sería el significado puramente privado? La “paradoja” se disuelve al concebir la comunicación como \textbf{interacción coordinada}, semejante a dos bailarines que ajustan sus movimientos. La literatura lingüística muestra el mecanismo: el niño que dice “perro” a una oveja recibe corrección, sufre \textbf{perturbación}, acomoda el concepto y reconstruye el significado; ambos ítems comparten componentes de la \textbf{experiencia del sujeto}.
+
+Lo que hace parecer “inaceptable” este enfoque es su choque con la noción tradicional de que las palabras \textbf{transportan significados}. Para el constructivismo, solo podemos afirmar \textbf{compatibilidad} entre interpretaciones, no identidad interna. En suma, nuestro saber del lenguaje y de los otros no es distinto de nuestro saber del mundo: resultado de \textbf{reflexión y abstracción} sobre lo percibido y concebido. Renunciar a la “Verdad ontológica” no deja vacío, sino que lleva a una \textbf{teoría coherente y operativa del conocimiento}, centrada en la viabilidad de lo que hacemos en la experiencia.
+
+\textbf{Opinión personal:}  
+Este último capítulo me hizo pensar en lo difícil que es soltar ideas que sentimos parte de nuestra identidad. Entendí que muchas discusiones académicas no son solo sobre datos, sino también sobre el apego que tenemos a nuestras propias teorías. Me gustó la comparación de la comunicación con dos personas bailando, porque muestra que hablar y entendernos implica moverse juntos, ajustando cada paso. Me quedo con la idea de que aprender y dialogar requiere humildad: aceptar que mis conceptos no son verdades finales, sino construcciones que pueden cambiar si estoy dispuesto a escucharlo todo de nuevo.
+
+
+
+\end{document}

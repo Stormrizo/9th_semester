@@ -1,0 +1,622 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 38 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase de hoy: Transformaciones canónicas}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{1.png}
+    \caption{Esquema introductorio al tema de transformaciones canónicas.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+Las \textbf{ecuaciones de constricción} constituyen otra forma de incorporar el efecto de las fuerzas que no se conocen explícitamente.  
+Como hemos visto, el número de grados de libertad de un sistema se reduce de acuerdo con:
+
+\[
+n = 3N - k
+\]
+
+donde \( N \) es el número de partículas y \( k \) el número de restricciones independientes.
+
+Las constricciones más simples o triviales que hemos estudiado son las \textbf{holónomas}, las cuales pueden expresarse mediante ecuaciones entre coordenadas. Por ejemplo:
+
+\[
+x_{1}^{2} + y_{1}^{2} = a^{2}, \quad z_{1}=b
+\]
+
+A partir de este tipo de relaciones, demostramos que cualquier vector de posición de una partícula en el sistema puede escribirse como función de un conjunto de \textbf{coordenadas generalizadas}:
+
+\[
+\vec{r}_{a}(t) = \vec{r}_{a}(q_{i},t)
+\]
+
+Estas coordenadas \(q_i\) son independientes y satisfacen las ecuaciones de constricción del sistema.  
+En este marco, llegamos a las \textbf{ecuaciones de Euler–Lagrange}, las cuales determinan la evolución dinámica del sistema:
+
+\[
+\frac{d}{dt}\left( \frac{\partial L}{\partial \dot{q_i}} \right) - \frac{\partial L}{\partial q_i} = 0
+\]
+
+\subsection{Espacio de configuraciones y espacio fase}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{2.png}
+    \caption{Representación del espacio de configuraciones y su relación con el espacio tangente y el espacio fase.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+Dada una trayectoria, ésta debe cumplir con las condiciones impuestas por las ecuaciones de Euler–Lagrange.  
+Las \textbf{velocidades generalizadas} viven en el \textbf{espacio tangente} al espacio de configuraciones, el cual se denomina \textit{haz tangente}.  
+Por otro lado, el \textbf{espacio fase} —que incluye tanto las coordenadas \(q_i\) como sus momentos conjugados \(p_i\)— se conoce como el \textit{haz fase}.  
+
+El concepto de \textbf{espacio de configuraciones} fue formalizado por Hamilton, quien estableció la base para la formulación canónica de la mecánica clásica y, posteriormente, para las transformaciones canónicas.
+
+
+
+Al espacio de configuraciones por ejemplo fuese $\mathbb{R}^{3}$ tendriamos coordenadas cartesianas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{3.png}
+    \caption{Planos en $\mathbb{R}^{3}$ fijando algunas coordenadas}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+
+O también podríamos nosotros introducir coordenadas cílindricas o esféricas. Entonces cuando nosotros realizamos una transformación por ejemplo:
+
+
+\[  x = r\cos\phi\sen\theta  \]
+
+
+\[ y= r\sen\phi\sen\theta \]
+
+\[ z = r\cos\theta \]
+
+Esto representa un cambio de coordenadas. 
+
+Los planos anteriores corresponden a fijar una coordenada como su fuese constante. 
+
+
+Podemos cambiar $\theta$, podemos cambiar $r$, pero dejo fijo $\phi$. Vamos a generar un plano diferente, es decir, obviamente las superficies que generamos son distintas. Las esferas no son planos. Cerramos el plano desde infinito a un punto. 
+
+
+A todos los puntos de $\mathbb{R}^{3}$ los estamos etiquetando, mientras que si construimos una esfera de radio 10 cm, para eso necesitamos ciertos \underline{trabajadores}. Para antes de eso tenemos una infinidad de planos que trabajan con $(r,\theta, \phi)$.
+
+Los frentes de onda planos son precisamente planos, cuando vimos ondas esféricas, los frentes de onda eran precisamente esféricos. Para tner un frente de onda plano, lo que tenemos que hacer es fijar un punto y extenderlo hasta el infinito. 
+
+
+Por ejemplo si lo extendemos hasta la posición de BUzz Lightyear, entonces este diría que se trata de una esfera porque tiene radio infinito.
+
+
+Para describir un frente de onda esférica es más sencillo utilizar frentes de onda esféricos. 
+
+¿Qué tiene que ver esto con lo que vermos a continuación?
+
+Sucede que si nosotros no seleccionamos un correcto sistema de ecuaciones, entonces las ecuaciones que trabajaríamos serían equivalente. 
+
+Resulta que alguno de los problemas que tenemos por ahí, nos pidió demostrar algo parecido a lo siguiente:
+
+\textbf{Primera}
+
+SI $L$ es una lagrangiana tal que cumple con las ecuaciones de Lagrange, es decir.
+
+\[   L^{\prime} \equiv L + \frac{ dF(q,t  }{dt}  \]
+
+\textbf{Segunda}
+
+Si se cumple las ecuaciones de Lagrange en la primera, entocences se cumplen es estas:
+
+
+\[ Q=Q(q,t)  \]
+
+Siempre y cuando:
+
+\[\frac{\partial Q}{\partial q} \neq 0  \]
+
+Entonces vamos a suponer lo siguiente:
+
+
+\[   \frac{d}{dt} \left( \frac{ \partial L  }{\partial \dot{q}_{i}} \right) - \frac{ \partial L }{\partial q_{i}} = 0, \quad \left\{ i \right\}_{i=1}^{n}    \]
+
+\[ Q_{j} = Q_{j}(q_{i},t) \]
+
+\[q_{i} = q_{i}(Q_{j},t)  \]
+
+
+El jacobiano de la transofrmación debe de ser distinto de cero para garantizar que existe la transformción inversa.
+
+Tendriamos ahora una nueva forma para las ecuaciones de Euler-Lagrange con una lagrangiana que aparece de forma garigoleada que aparece en las notas del Dr. Ortigoza.
+
+
+\[ \frac{d}{dt} \left(   \frac{\partial \mathcal{L} }{\partial \dot{Q}_{i}} \right) - \frac{\partial \mathcal{L}}{\partial Q_{i}} =0, \quad \left\{ i \right\}_{i=1}^{n}   \]
+
+Con:
+
+\[ \mathcal{L}(\dot{Q_{i}},Q_{i},t) \equiv \]
+
+
+A esto anterior se le conoce como: \textbf{Transformaciones de punto}
+
+\subsection{Ejemplo ilustrativo de las transformaciones canónicas}
+
+En esta sección analizamos un ejemplo concreto del concepto discutido anteriormente.  
+Consideremos una partícula en coordenadas esféricas, tal como se muestra en la Fig.~\ref{fig:espacio_configuracion}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{4.png}
+    \caption{Espacio de configuración en coordenadas esféricas.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+La posición de la partícula puede expresarse como:
+\[
+\vec{r} = r\,\hat{r}(\theta,\phi)
+\]
+
+La \textbf{Lagrangiana} asociada al sistema es:
+\begin{equation}
+L = \frac{1}{2}m\left(\dot{r}^{2} + r^{2}\dot{\theta}^{2} + r^{2}\sin^{2}\theta\,\dot{\phi}^{2}\right)
+\label{eq:lagrangiana_esferica}
+\end{equation}
+
+De las ecuaciones de \textbf{Euler–Lagrange} se obtiene:
+\begin{equation}
+\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot{q}_{i}}\right)
+- \frac{\partial L}{\partial q_{i}} = 0,
+\qquad
+i = 1,2,3,
+\quad
+(q_{1},q_{2},q_{3}) = (r,\theta,\phi)
+\label{eq:euler_lagrange}
+\end{equation}
+
+---
+
+\textbf{Cambio de coordenadas.}  
+Introduzcamos ahora una transformación al sistema de coordenadas cartesianas:
+\begin{equation}
+\begin{split}
+x &= r\cos\phi\,\sin\theta,\\
+y &= r\sin\phi\,\sin\theta,\\
+z &= r\cos\theta
+\end{split}
+\label{eq:cambio_coord}
+\end{equation}
+
+Bajo esta transformación, la Lagrangiana \eqref{eq:lagrangiana_esferica} se convierte en una forma más compleja, que aquí denotamos por $\mathcal{L}$, tal como se ilustra en la Fig.~\ref{fig:lagrangiana_transformada}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{5.png}
+    \caption{Representación esquemática de la transformación de coordenadas.}
+    \label{fig:lagrangiana_transformada}
+\end{figure}
+
+---
+
+\textbf{Grados de libertad y simetrías.}  
+En general, dada una Lagrangiana con $n$ grados de libertad, siempre puede existir una transformación adecuada de coordenadas en la que algunas de ellas resulten \textbf{cíclicas}.  
+Este hecho está íntimamente relacionado con la \textbf{teoría de grupos} y la \textbf{teoría de simetrías}, puesto que las coordenadas cíclicas corresponden a cantidades conservadas a través del teorema de Noether.
+
+Las transformaciones de este tipo se denominan \textbf{transformaciones de punto}, y son precisamente las que nos permiten pasar del formalismo lagrangiano al formalismo hamiltoniano, ampliando el espacio de estudio desde el \textbf{espacio de configuraciones} (de dimensión $n$) hasta el \textbf{espacio fase} (de dimensión $2n$):
+\[
+n \;\longrightarrow\; 2n
+\]
+
+---
+
+\textbf{Transformaciones en el espacio fase.}  
+En este espacio fase, las variables pueden transformarse según:
+\[
+Q_{j} = Q_{j}(q_{i},p_{i},t),
+\qquad
+P_{j} = P_{j}(q_{i},p_{i},t)
+\]
+donde $Q_{j}$ y $P_{j}$ representan las nuevas coordenadas y momentos, respectivamente.  
+La única condición necesaria para que esta transformación sea válida es que su \textbf{jacobiano} sea distinto de cero:
+\[
+\det\!\left(\frac{\partial(Q,P)}{\partial(q,p)}\right) \neq 0
+\]
+
+En el espacio fase únicamente pueden realizarse transformaciones de punto de este tipo, pero en el espacio de configuraciones existe una \textbf{mayor riqueza geométrica}, permitiendo una infinidad de posibles transformaciones:
+\[
+\boxed{\,Q_{j} = Q_{j}(q_{i},t)\,}
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{6.png}
+    \caption{Representación esquemática del espacio de configuraciones y el espacio fase.}
+    \label{fig:espacio_fase}
+\end{figure}
+
+
+\subsection{Corchetes de Poisson}
+
+Los \textbf{corchetes de Poisson} constituyen una herramienta fundamental dentro de la formulación hamiltoniana de la mecánica clásica.  
+Su definición general para dos funciones $Q_i(q,p)$ y $Q_j(q,p)$ del espacio fase es:
+
+\begin{equation}
+\left[ Q_i, Q_j \right]
+= \sum_{k=1}^{n}
+\left(
+\frac{\partial Q_i}{\partial q_k}\frac{\partial Q_j}{\partial p_k}
+- 
+\frac{\partial Q_i}{\partial p_k}\frac{\partial Q_j}{\partial q_k}
+\right)
+\label{eq:poisson_general}
+\end{equation}
+
+Esta expresión surge naturalmente al calcular la \textbf{derivada total del hamiltoniano}, donde el movimiento del sistema se expresa en términos de las coordenadas generalizadas $q_k$ y los momentos conjugados $p_k$.  
+
+---
+
+\textbf{Estructura del espacio fase.}  
+Los corchetes de Poisson definen una estructura algebraico–geométrica sobre el espacio fase llamada \textbf{estructura simpléctica}.  
+De forma análoga a como una variedad diferenciable posee una estructura que determina qué funciones son diferenciables, el espacio fase hamiltoniano adquiere, gracias a los corchetes de Poisson, una estructura que permite comparar y clasificar las transformaciones que preservan dicha geometría.  
+
+En este sentido, los corchetes de Poisson introducen una relación fundamental entre las variables dinámicas del sistema.  
+Cuando se multiplican por $i\hbar$, dan lugar al \textbf{conmutador cuántico}:
+\[
+\left[ A, B \right]_{\text{cuántica}} = i\hbar \, [A, B]_{\text{clásica}}
+\]
+lo cual muestra cómo la mecánica cuántica hereda su estructura algebraica directamente de la mecánica clásica.
+
+---
+
+\textbf{Condiciones de canonicidad.}  
+Supongamos que se realiza una transformación en el espacio fase:
+\[
+(q_i, p_i) \longrightarrow (Q_i, P_i)
+\]
+donde las nuevas variables $(Q_i, P_i)$ representan nuevas coordenadas y momentos (las letras mayúsculas).  
+La transformación será \textbf{canónica} si y sólo si los nuevos corchetes satisfacen las mismas relaciones que las variables originales:
+
+\begin{equation}
+\left[ Q_i, Q_j \right] = 0,
+\qquad
+\left[ P_i, P_j \right] = 0,
+\qquad
+\left[ Q_i, P_j \right] = \delta_{ij}
+\label{eq:canonicas}
+\end{equation}
+
+Estas condiciones garantizan que la estructura simpléctica del espacio fase se conserva bajo la transformación, es decir, que las nuevas variables describen la misma física que las originales, pero posiblemente en una forma más conveniente para el análisis del sistema.
+
+
+\subsection{Ejemplo de aplicaicón de los paréntesis de poisson}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{7.png}
+    \caption{.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+Estos parentésis son fundamentales y deben de aprenderse de memoria para aprobar el curso. 
+
+
+\subsection{Ejemplos no tan triviales}
+
+Consideremos las transformaciones canónicas definidas por:
+\begin{equation}
+Q = \frac{mx}{p} - t,
+\qquad
+P = \frac{p^{2}}{2m}
+\label{eq:def_QP}
+\end{equation}
+
+Queremos demostrar que el conjunto de variables $\{Q, P\}$ forma un sistema \textbf{canónico}, es decir, que cumple las relaciones de Poisson:
+\begin{equation}
+\left[ Q_i, Q_j \right] = 0,
+\qquad
+\left[ P_i, P_j \right] = 0,
+\qquad
+\left[ Q_i, P_j \right] = \delta_{ij}
+\label{eq:condiciones_canonicas}
+\end{equation}
+
+---
+
+\textbf{Cálculo de derivadas parciales.}  
+A partir de la definición en \eqref{eq:def_QP}, tenemos:
+\begin{equation}
+\frac{\partial Q}{\partial x} = \frac{m}{p},
+\qquad
+\frac{\partial Q}{\partial p} = -\frac{mx}{p^{2}},
+\qquad
+\frac{\partial P}{\partial p} = \frac{p}{m},
+\qquad
+\frac{\partial P}{\partial x} = 0
+\label{eq:partials}
+\end{equation}
+
+---
+
+\textbf{Cálculo del corchete de Poisson.}  
+El corchete general entre dos variables $A$ y $B$ está definido por:
+\[
+[A, B] = 
+\frac{\partial A}{\partial x}\frac{\partial B}{\partial p}
+- \frac{\partial A}{\partial p}\frac{\partial B}{\partial x}
+\]
+Por tanto:
+\begin{equation}
+[Q, P]
+= \frac{\partial Q}{\partial x}\frac{\partial P}{\partial p}
+- \frac{\partial Q}{\partial p}\frac{\partial P}{\partial x}
+= \left(\frac{m}{p}\right)\left(\frac{p}{m}\right)
+- \left(-\frac{mx}{p^{2}}\right)\cdot 0
+= 1
+\label{eq:QP}
+\end{equation}
+
+---
+
+\textbf{Verificación de las demás condiciones.}  
+Análogamente:
+\begin{equation}
+[Q, Q] = 0,
+\qquad
+[P, P] = 0
+\label{eq:QQ_PP}
+\end{equation}
+
+Por lo tanto, las variables $\{Q, P\}$ satisfacen las relaciones de Poisson de la ecuación \eqref{eq:condiciones_canonicas}, demostrando que constituyen un \textbf{conjunto canónico de coordenadas y momentos}.
+
+
+\subsection{Nuevo ejemplo}
+
+Ahora definimos:
+
+
+\[ Q = Q(q,p,t) \]
+
+\[ \frac{dQ}{dt} = \frac{\partial Q}{\partial q} \frac{dq}{dt} + \frac{\partial Q}{\partial p} \frac{dp}{dt} + \frac{\partial Q}{\partial t}   \]
+
+\[ = \frac{\partial Q}{\partial q} \dot{q} + \frac{\partial Q}{\partial p} \dot{p} + \frac{\partial Q}{\partial t} \]
+
+\[ \dot{q} = \frac{\partial H}{\partial p}; \quad \dot{p} = -\frac{\partial H}{\partial q} \]
+
+
+Tenemos:
+
+\[ \frac{d Q}{dt} = \frac{\partial Q}{\partial q} \frac{\partial H}{\partial p} - \frac{\partial Q}{\partial p} \frac{\partial H}{\partial q} + \frac{\partial Q}{\partial t} = \left[ Q,H \right] + \frac{\partial Q}{\partial t}\]
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{8.png}
+    \caption{.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+Tenemos:
+
+
+\[ \left[ Q_{i},Q_{j} \right] =0, \quad \left[ P_{i},P_{j}  \right] =0, \quad \left[  Q_{i},P_{j} \right] = \delta{ij}\]
+
+
+\[ \left[  f,g \right] = \sum\limits_{i=1}^{n} \left[  \frac{ \partial f  }{\partial q_{i}} \frac{\partial g}{\partial p_{i}} - \frac{\partial f}{\partial p_{i}} \frac{\partial g}{\partial q_{i}} \right] \]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{9.png}
+    \caption{.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+\subsection{Definición formal de paréntesis de poisson y propiedades}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{10.png}
+    \caption{.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{11.png}
+    \caption{.}
+    \label{fig:espacio_configuracion}
+\end{figure}
+
+
+	
+
+\end{document}

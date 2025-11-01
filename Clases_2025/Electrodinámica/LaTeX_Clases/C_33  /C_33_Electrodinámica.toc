@@ -1,0 +1,24 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Unit 2: Electric fields in dielectric media}{2}{section.1}%
+\contentsline {section}{\numberline {2}Unit 2: Electric fields in dielectric media}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Energía electrostática: sistema discreto}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Paso al continuo}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Protocolo de carga con un parámetro $\alpha $}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}¿Cómo se relaciona $\delta q$ con $\delta \alpha $?}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Trabajo incremental y energía total}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Resumen operativo}{5}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Notas sobre medios dieléctricos}{5}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Densidad de carga superficial a partir de $\vec D$}{9}{subsection.2.8}%
+\contentsline {paragraph}{Cargas ligadas (polarización).}{9}{section*.7}%
+\contentsline {paragraph}{Relación con $\vec E$.}{9}{section*.8}%
+\contentsline {paragraph}{Conclusión práctica.}{9}{section*.9}%
+\contentsline {subsection}{\numberline {2.9}De $\rho \,U$ a $\vec D$ (paso a paso)}{12}{subsection.2.9}%
+\contentsline {paragraph}{Paso 1: Sustituir \(\rho _{\text {libre}}\) por \(\nabla \!\cdot \!\vec D\).}{12}{section*.13}%
+\contentsline {paragraph}{Paso 2: Identidad vectorial clave.}{12}{section*.14}%
+\contentsline {paragraph}{Paso 3: Teorema de la divergencia.}{12}{section*.15}%
+\contentsline {paragraph}{Paso 4: Relación con el campo eléctrico.}{12}{section*.16}%
+\contentsline {paragraph}{Paso 5: Reunir términos de \eqref {eq:W_rho_sigma}.}{12}{section*.17}%
+\contentsline {paragraph}{Paso 6: Interpretación del término superficial.}{12}{section*.18}%
+\contentsline {paragraph}{Conclusión 1 (forma campo).}{13}{section*.19}%
+\contentsline {paragraph}{Conclusión 2 (medio lineal isótropo).}{13}{section*.20}%
+\contentsline {paragraph}{Lo pedido en el enunciado.}{13}{section*.21}%

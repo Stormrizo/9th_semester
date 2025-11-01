@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Repaso de temas de microcanónico}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Tamaño de las fluctuaciones}{4}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Teorema del virial y teorema de equipartición}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Caso particular $\alpha =2$}{12}{subsection.2.1}%

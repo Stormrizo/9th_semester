@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Recordamos}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Método de Laplace para integrales de la forma $I = \DOTSI \intop \ilimits@ \limits _{a}^{b} e^{\mu f(x)} dx \hskip 1em\relax \mu >> 1 $}{1}{subsection.1.1}%

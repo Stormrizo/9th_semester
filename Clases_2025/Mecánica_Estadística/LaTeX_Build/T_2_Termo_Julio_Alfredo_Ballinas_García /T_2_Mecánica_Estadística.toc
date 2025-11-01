@@ -1,0 +1,19 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Instrucciones de la tarea}{1}{section.1}%
+\contentsline {section}{Instrucciones de la tarea}{1}{section.1}%
+\contentsline {section}{Problema 1}{2}{section*.2}%
+\contentsline {paragraph}{Ecuación fundamental y representaciones.}{2}{section*.3}%
+\contentsline {paragraph}{Postulado microcanónico.}{2}{section*.4}%
+\contentsline {paragraph}{Gas ideal clásico 2D.}{3}{section*.5}%
+\contentsline {paragraph}{Planteamiento.}{8}{section*.6}%
+\contentsline {paragraph}{\(\Omega \): ¿qué es y por qué?}{8}{section*.7}%
+\contentsline {paragraph}{Relación fundamental.}{8}{section*.8}%
+\contentsline {paragraph}{Ecuaciones de estado.}{9}{section*.9}%
+\contentsline {paragraph}{Capacidad calorífica y chequeos.}{9}{section*.10}%
+\contentsline {paragraph}{Planteamiento.}{10}{section*.11}%
+\contentsline {paragraph}{¿Qué es \(\Omega \) y por qué la usamos?}{10}{section*.12}%
+\contentsline {paragraph}{Conteo microcanónico.}{10}{section*.13}%
+\contentsline {paragraph}{Relación fundamental (exacta y versión Stirling).}{11}{section*.14}%
+\contentsline {paragraph}{Ecuación térmica (microcanónica).}{11}{section*.15}%
+\contentsline {paragraph}{Capacidad calorífica y límites.}{11}{section*.16}%
+\contentsline {paragraph}{Potencial químico (a \(U\) fijo).}{12}{section*.17}%

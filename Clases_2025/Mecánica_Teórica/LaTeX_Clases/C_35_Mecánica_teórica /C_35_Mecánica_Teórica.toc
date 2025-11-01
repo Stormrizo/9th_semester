@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase 35: Formulación Hamiltoniana}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Sobre la función generatriz}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ejemplo introductorio}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Sobre la singularidad de la Lagrangiana y la transformada de Legendre}{3}{subsection.1.3}%
+\contentsline {paragraph}{Caso no singular (regular).}{3}{section*.3}%
+\contentsline {paragraph}{Caso singular (degenerado).}{3}{section*.4}%
+\contentsline {subsection}{\numberline {1.4}¿Cuántos grados de libertad tiene el fotón?}{4}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Nos fijamos en ele ejemplo}{4}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Calculando las ecuaciones de hamilton}{5}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Ejemplo: Partícula de masa m y carga q sujeta la interacción dada por un campo magnético uniforme}{6}{subsection.1.7}%
+\contentsline {section}{\numberline {2}Principio de Hamilton}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Espacio fase}{10}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Principio de Hamilton modificado}{11}{subsubsection.2.1.1}%

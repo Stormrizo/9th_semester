@@ -1,0 +1,673 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 34 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Lagrangiana de la clase anterior}
+
+Tenemos: 
+
+\[ L = L(q,\dot{q}, t)  \]
+
+\[H(q,p,t) = p\dot{q} (q,p,t)  - L(q, \dot{q}(q,p,t),t) \]
+
+\[ p \equiv \frac{ \partial L }{ \partial \dot{q} } \quad \Rightarrow \quad \dot{q} = \dot{q} (q,p,t)  \]
+
+
+\[dH = \frac{\partial H}{\partial q}  dq + \frac{\partial H}{\partial p}dp+\frac{\partial H}{\partial t}dt\]
+
+
+Tenemos:
+
+\begin{equation}
+\begin{split}
+dH &= pd\dot{q} + \dot{q}dp-\frac{\partial L}{\partial q}dq - \frac{\partial L}{\partial \dot{q}}d\dot{q}-\frac{\partial L}{\partial t}dt \\
+&= \left[ p - \frac{\partial L}{\partial \dot{q}} \right]d\dot{q} - \frac{\partial L}{\partial q}dq + \dot{q}dp - \frac{\partial L}{\partial t}dt
+\end{split}
+\end{equation}
+
+
+Tenemos:
+
+
+
+\[ dH = - \frac{ \partial L}{\partial q}  dq + \dot{q} dp - \frac{\partial L}{\partial t}dt \]
+
+\[  \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}}  \right) = \frac{ \partial L }{\partial q}  \]
+
+\[ \dot{p} = \frac{\partial L}{\partial q}  \]
+
+
+\begin{equation}
+\begin{split}
+ dH  &= - \dot{p} dq + \dot{q} dp-\frac{\partial L}{\partial t}dt\\
+ dH &= \frac{\partial H}{\partial q} dq + \frac{\partial H}{\partial p}dp + \frac{\partial H}{\partial t} dt
+\end{split}
+\end{equation}
+
+\[ \boxed{\dot{p} = - \frac{  \partial H }{\partial q}, \quad \dot{q} = \frac{\partial H}{\partial p}    } \quad \leftarrow \quad \text{ecuaciones de Hamilton; 2 ecuaciones diferenciales de $1^{er}$ orden} \]
+
+Oro punto importante es: 
+
+\[ \boxed{- \frac{\partial L}{\partial t} = \frac{\partial H}{\partial t}}  \]
+
+SI tenemos un lagrangiano que no depende explicitamente del tiempo, su función $H$ asociada es una constante de moviemiento que a veces coincide con la energía total del sistema.
+
+\[ \boxed{ \color{Cinnabar} \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}} = \frac{\partial L}{\partial q} \right)   }  \quad \leftarrow \quad \text{Ecuación diferencial de $2^{do}$ orden para $q$, 2 C.I.}\]
+
+\subsection{Ejemplo}
+
+
+Tenemos la lagrangiana siguiente:
+
+
+\[  L = \frac{1}{2} m \dot{x}^{2} \quad \overbrace{\to}^{T. Legendre} \quad H = \frac{p^{2}}{2m} \]
+
+Tenemos:
+
+\[\frac{d}{dt} \left(  \frac{ \partial L }{\partial \dot{x}} \right)- \frac{\partial L}{\partial x}   =0\]
+
+\[ m\ddot{x} =0 \quad \Rightarrow \quad x(t) = x_{0}+v_{0}t\]
+
+\[ p = m\dot{x}  \]
+
+
+\[ v_{0} = \frac{p_{0}}{m} \]
+
+
+Tenemos
+
+
+\[ H = \frac{p^{2} }{2m}  \]
+
+
+\[ \boxed{\dot{p} = - \frac{ \partial H }{\partial q}  =0 } \]
+
+\[   \boxed{ \color{Apple Green} \dot{x} = \frac{\partial H}{\partial p} = \frac{p}{m}  }  \]
+
+
+
+\[  \boxed{ \color{Cerulean} \ddot{x} = \frac{\dot{p}}{m} =0  } \]
+
+\[ \color{Apple Green} p(t) = p_{0} \]
+
+
+\[ \dot{x} = \frac{ p_{0} }{m} \quad \Rightarrow \quad x(t) = x_{0} + \frac{p_{0}}{m}t \]
+
+\subsection{Segundo ejercicio}
+
+
+Tenemos la siguiente lagrangiana:
+
+
+\[L = \frac{1}{2} m\dot{x}^{2} - \frac{1}{2} kx^{2}    \]
+
+
+\[\frac{d}{dt} \left( \frac{\partial L  }{\partial \dot{x}} \right) - \frac{\partial L}{\partial x}  =0 \]
+
+
+\[  m\ddot{x} + kx =0    \]
+
+
+\[  \ddot{x} + \omega^{2}x =0 \]
+
+\[ \omega^{2} \equiv \frac{k}{m} \]
+
+\[ \boxed{x(t) = x_{0} \cos(\omega{t}) + \frac{v_{0} }{\omega} \sen(\omega{t})    } \]
+
+\[ x(t) = a\cos(\omega{t}) + b\sen(\omega{t}) \]
+
+\[ x(0) = x_{0}=a \]
+
+
+\[ \dot{x} = -a\omega \sen(\omega{t}) + b\omega \cos(\omega{t}) \]
+
+
+\[ \dot{x} (0) = v_{0} = b\omega \quad \Rightarrow \quad b = \frac{v_{0}}{\omega} \]
+
+% --- Lagrangiano y momento canónico ---
+\section*{Legendre \texorpdfstring{$(L\to H)$}{(L->H)} para el oscilador armónico}
+
+\[
+L(x,\dot{x})=\frac{1}{2}m\dot{x}^{2}-\frac{1}{2}k x^{2}, 
+\qquad
+p \equiv \frac{\partial L}{\partial \dot{x}}=m\dot{x}.
+\]
+
+% --- Transformada de Legendre ---
+\subsection*{Hamiltoniano}
+La transformada de Legendre está dada por
+\[
+H(x,p)=p\,\dot{x}-L(x,\dot{x})\quad\text{con}\quad \dot{x}=\dot{x}(x,p)=\frac{p}{m}.
+\]
+Sustituyendo:
+\[
+H(x,p)=p\left(\frac{p}{m}\right)-\left[\frac{1}{2}m\left(\frac{p}{m}\right)^{2}-\frac{1}{2}k x^{2}\right]
+=\frac{p^{2}}{m}-\left(\frac{p^{2}}{2m}-\frac{1}{2}k x^{2}\right)
+=\boxed{\,\frac{p^{2}}{2m}+\frac{1}{2}k x^{2}\,}.
+\]
+
+% --- Identidad diferencial y ecuaciones de Hamilton ---
+\subsection*{Identidad diferencial y ecuaciones de Hamilton}
+Partiendo de
+\[
+dH=d(p\dot{x})-dL=\dot{x}\,dp+p\,d\dot{x}-
+\left(\frac{\partial L}{\partial x}\,dx+\frac{\partial L}{\partial \dot{x}}\,d\dot{x}\right),
+\]
+y usando \(p=\frac{\partial L}{\partial \dot{x}}\), se cancela \(p\,d\dot{x}\):
+\[
+dH=\dot{x}\,dp-\frac{\partial L}{\partial x}\,dx.
+\]
+Como \(dH=\frac{\partial H}{\partial x}dx+\frac{\partial H}{\partial p}dp\), identificamos
+\[
+\boxed{\;\frac{\partial H}{\partial p}=\dot{x}\;},\qquad
+\boxed{\;\frac{\partial H}{\partial x}=-\frac{\partial L}{\partial x}\;}.
+\]
+Para nuestro \(L\), \(\frac{\partial L}{\partial x}=-kx\), de modo que
+\[
+\boxed{\;\dot{x}=\frac{\partial H}{\partial p}=\frac{p}{m}\;},\qquad
+\boxed{\;\dot{p}=-\frac{\partial H}{\partial x}=-(-kx)=-kx\;}.
+\]
+
+% --- Ecuaciones de movimiento ---
+\subsection*{Ecuación de movimiento y solución}
+Derivando \(\dot{x}=\frac{p}{m}\):
+\[
+\ddot{x}=\frac{\dot{p}}{m}=-\frac{k}{m}x \;\;\Rightarrow\;\;
+\boxed{\,\ddot{x}+\omega^{2}x=0\,},\qquad \omega\equiv\sqrt{\frac{k}{m}}.
+\]
+Solución general:
+\[
+x(t)=A\cos(\omega t)+B\sin(\omega t),\qquad
+p(t)=m\dot{x}(t)=-m\omega A\sin(\omega t)+m\omega B\cos(\omega t).
+\]
+
+% --- Conservación de la energía ---
+\subsection*{Conservación de la energía}
+El Hamiltoniano no depende explícitamente del tiempo, por lo que es constante:
+\[
+\frac{dH}{dt}=\{H,H\}+\frac{\partial H}{\partial t}=0.
+\]
+Explícitamente,
+\[
+H=\frac{p^{2}}{2m}+\frac{1}{2}k x^{2}=\text{constante}.
+\]
+
+% --- Forma matricial (conexión con lo anterior) ---
+\subsection*{Forma matricial (para usar $e^{Mt}$)}
+Definiendo \( \mathbf{y}=(x,p)^{T}\), el sistema es
+\[
+\dot{\mathbf{y}}=M\,\mathbf{y},\qquad
+M=
+\begin{pmatrix}
+0 & \tfrac{1}{m}\\[2pt]
+-\,k & 0
+\end{pmatrix},
+\]
+cuyo exponencial se puede escribir como
+\[
+e^{Mt}=
+\cos(\omega t)\,\mathbb{I}+\frac{\sin(\omega t)}{\omega}\,M.
+\]
+
+
+
+Tenemos:
+
+\subsection{Otro ejemplo}
+
+\[\dot{x} = \frac{p}{m} \]
+
+\[ \dot{p} = -kx \]
+
+
+\begin{equation}
+\begin{split}
+\frac{d}{dt}\left(   \begin{array}{c}
+x\\
+p
+\end{array} \right) &=  \left(   \begin{array}{cc}
+0 & \frac{1}{m}\\
+-K & 0
+\end{array} \right)  \left(   \begin{array}{c}
+p\\
+x
+\end{array} \right) 
+\end{split}
+\end{equation}
+
+
+Tenemos
+
+
+\[\frac{d \vec{x}}{dt} = M\vec{x} \quad \to \quad \vec{x}(t) = e^{Mt}\vec{x_{0}}  \]
+
+\[ \frac{du}{dt} = \alpha u  \]
+
+\[ \frac{du}{u} = \alpha dt \]
+
+\[ \int\limits d \ln u = \int\limits \alpha dt\]
+
+\[ \ln u = \alpha t + C \quad \to \quad u = e^{\alpha t}D \]
+
+Nosotros queremos calcular:
+
+
+\[ e^{Mt} = \sum\limits_{n=0}^{\infty} \frac{(Mt)^{n} }{n!} = \mathbb{I} + \frac{Mt}{1!} + \frac{M^{2}t^{2}}{2!} + \frac{ M^{3}t^{3} }{3!} + \frac{M^{4}t^{4}}{4!} + \ldots \]
+
+Tenemos:
+
+
+
+\begin{equation}
+\begin{split}
+M &= \left(   \begin{array}{cc}
+0 & \frac{1}{m}\\
+-K & 0
+\end{array} \right) 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+M^{2}&= \left(   \begin{array}{cc}
+0 & \frac{1}{m}\\
+-K & 0
+\end{array} \right) \left(   \begin{array}{cc}
+0 & \frac{1}{m}\\
+-K & 0
+\end{array} \right) \\
+&= \left(   \begin{array}{cc}
+- \frac{k}{m} & 0\\
+0 & -\frac{k}{m}
+\end{array} \right) \\
+&= - \frac{k}{m}\left(   \begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array} \right) 
+\end{split}
+\end{equation}
+
+
+\[ M^{2} = - \frac{k}{m} \mathbb{I} \]
+
+Desarrollando toda la expansión tenemos:
+
+\[ e^{Mt} = \sum\limits_{n=0}^{\infty} \frac{(Mt)^{n} }{n!} = \mathbb{I} + \frac{Mt}{1!} + \frac{M^{2}t^{2}}{2!} + \frac{ M^{3}t^{3} }{3!} + \frac{M^{4}t^{4}}{4!} + \ldots \]
+
+
+\[
+M=\begin{pmatrix}
+0 & \tfrac{1}{m}\\[2pt]
+-\,k & 0
+\end{pmatrix},\qquad
+M^2=-\frac{k}{m}\,\mathbb{I}\equiv -\omega^2\,\mathbb{I},\quad
+\omega=\sqrt{\frac{k}{m}}.
+\]
+
+\[
+\begin{aligned}
+M^3&=M\,M^2=-\frac{k}{m}\,M=-\omega^2\,M,\\
+M^4&=(M^2)^2=\left(-\frac{k}{m}\right)^{\!2}\mathbb{I}=+\omega^4\,\mathbb{I},\\
+M^5&=M^4\,M=\left(-\frac{k}{m}\right)^{\!2}M=+\omega^4\,M,\\
+M^6&=(M^2)^3=\left(-\frac{k}{m}\right)^{\!3}\mathbb{I}=-\omega^6\,\mathbb{I},\\
+&\;\;\vdots
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+e^{Mt}
+&=\mathbb{I}+\frac{Mt}{1!}+\frac{M^2t^2}{2!}+\frac{M^3t^3}{3!}
++\frac{M^4t^4}{4!}+\frac{M^5t^5}{5!}+\frac{M^6t^6}{6!}+\cdots\\[4pt]
+&=\mathbb{I}
++\frac{Mt}{1!}
+-\frac{\omega^2\mathbb{I}\,t^2}{2!}
+-\frac{\omega^2 M\,t^3}{3!}
++\frac{\omega^4\mathbb{I}\,t^4}{4!}
++\frac{\omega^4 M\,t^5}{5!}
+-\frac{\omega^6\mathbb{I}\,t^6}{6!}
++\cdots\\[6pt]
+&=\Bigg[\mathbb{I}-\frac{(\omega t)^2}{2!}\mathbb{I}
++\frac{(\omega t)^4}{4!}\mathbb{I}
+-\frac{(\omega t)^6}{6!}\mathbb{I}+\cdots\Bigg]
++\Bigg[\,\frac{Mt}{1!}-\frac{(\omega t)^2}{3!}Mt
++\frac{(\omega t)^4}{5!}Mt-\cdots\Bigg]\\[6pt]
+&=\cos(\omega t)\,\mathbb{I}+\frac{\sin(\omega t)}{\omega}\,M.
+\end{aligned}
+\]
+
+% Forma matricial explícita (opcional)
+\[
+e^{Mt}=
+\begin{pmatrix}
+\cos(\omega t) & \dfrac{\sin(\omega t)}{m\omega}\\[8pt]
+-\dfrac{k}{\omega}\sin(\omega t) & \cos(\omega t)
+\end{pmatrix}.
+\]
+
+\[
+M^{2} = 
+\left(
+\begin{array}{cc}
+0 & \tfrac{1}{m}\\[2pt]
+-\,k & 0
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+0 & \tfrac{1}{m}\\[2pt]
+-\,k & 0
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+-\tfrac{k}{m} & 0\\[2pt]
+0 & -\tfrac{k}{m}
+\end{array}
+\right)
+= -\frac{k}{m}\,\mathbb{I}
+\]
+
+\[
+M^{3} = M\,M^{2}
+=
+\left(
+\begin{array}{cc}
+0 & \tfrac{1}{m}\\[2pt]
+-\,k & 0
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+-\tfrac{k}{m} & 0\\[2pt]
+0 & -\tfrac{k}{m}
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+0 & -\tfrac{k}{m^{2}}\\[2pt]
+\tfrac{k^{2}}{m} & 0
+\end{array}
+\right)
+= -\frac{k}{m}M
+\]
+
+\[
+M^{4}=M^{2}M^{2}
+=
+\left(-\frac{k}{m}\right)^{2}\mathbb{I}
+=
+\frac{k^{2}}{m^{2}}\mathbb{I}
+\]
+
+\[
+M^{5}=M^{4}M
+=
+\frac{k^{2}}{m^{2}}M
+\]
+
+\[
+M^{6}=M^{2}M^{4}
+=
+\left(-\frac{k}{m}\right)\!\left(\frac{k^{2}}{m^{2}}\right)\mathbb{I}
+=
+-\frac{k^{3}}{m^{3}}\mathbb{I}
+\]
+
+\[
+M^{7}=M^{6}M
+=
+-\frac{k^{3}}{m^{3}}M
+\]
+
+\[
+\boxed{
+M^{2n}=(-1)^{n}\!\left(\frac{k}{m}\right)^{n}\mathbb{I},
+\qquad
+M^{2n+1}=(-1)^{n}\!\left(\frac{k}{m}\right)^{n}M.
+}
+\]
+
+Esto es finalmente:
+
+
+\[
+e^{Mt}=
+\begin{pmatrix}
+\cos(\omega t) & \dfrac{\sin(\omega t)}{m\omega}\\[8pt]
+-\dfrac{k}{\omega}\sin(\omega t) & \cos(\omega t)
+\end{pmatrix}.
+\]
+
+
+Este vector $X$ que de entradas tiene $x$ y $p$
+
+
+Nuevo ejemplo:
+
+
+\section{Nuevo ejemplo}
+
+
+ $L(q_{i}, \dot{q}_{i},t) \equiv T-U$ 
+
+\[ L \quad \to \quad \boxed{L^{\prime}} \equiv L + \frac{dF(q,t)}{dt}\]
+
+Tenemos que realizar la transformación de Legendre en las velocidades $\boxed{\dot{q}_{i}}$
+
+
+EN algunos textos el hamiltoniano que describe esta lagrangiana se llama \textbf{hamiltoniano natural}.
+
+\[ H(q,p,t) = \sum\limits_{i=1}^{n} \dot{q}p_{i}-L \]
+
+
+\[ \boxed{ p_{j} \equiv \frac{\partial L}{\partial \dot{q}_{j}}  } \quad \Rightarrow \quad \dot{q}_{j} = \dot{q}_{j}(q_{i},p_{i},t) \]
+
+
+Tenemos:
+
+
+\[ dH = \sum\limits_{i=1}^{n} \left[  \frac{ \partial H }{\partial q_{i}} dq_{i} + \frac{ \partial H }{\partial p_{i}} dp_{i}  \right]  + \frac{\partial H}{\partial t}dt\]
+
+Esta anterior sale suponiendo que depende de las variables anteriores.
+
+POr otro lado tenemos:
+
+Esta sale de la definición de $H$
+
+
+\[ dH = \sum\limits_{i=1}^{n} \left[  p_{i} dq_{i} + q_{i}d\dot{p_{i}}_{i} \right] - \sum\limits_{i}^{n} \left[   \frac{\partial L}{\partial q_{i}} dq_{i} + \frac{\partial L}{\partial \dot{q}_{i}} dq_{i} \right] - \frac{\partial L}{\partial t}dt \]
+
+
+
+
+
+\end{document}

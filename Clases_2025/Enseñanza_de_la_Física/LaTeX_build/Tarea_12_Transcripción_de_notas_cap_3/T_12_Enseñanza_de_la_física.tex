@@ -1,0 +1,313 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+	\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+		\leftmargin=80pt % Indentation on the left
+		\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+	\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+			\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+	\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+	\usepackage{graphicx}
+	
+	\usepackage{titling}
+	
+	\input{colores.tex}
+	
+	%%Producir signos de cita textual``Asignatura''
+	
+	\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+	
+	\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Tarawera}{\textbf{T-\textcolor{Sun}{\textbf{12}}}}: \textcolor{Cinnabar}{\textbf{Transcripción de notas (\underline{Cap 3}): \textcolor{orange(colorwheel)}{\textbf{Aprender y enseñar ciencia. Del conocimiento cotidiano al conocimiento científico$^{ \textcolor{trueblue}{\text{J. I. Pozo; M. A. Gómez Crespo}} }$    }}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ 202107583}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Enseñanza de la física }
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+	\let \footnote \thanks
+	{\LARGE \@title \par}%
+	\vskip 1em%
+	%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+  \noindent\begin{tabular}{@{}ll}
+    {\bfseries{Profesor}} & Dr. Apolonio Juárez Nuñez\\
+    \textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+    \textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    &   \textcolor{prussianblue}{\bfseries{1FM4}} /  \textcolor{trueblue}{\bfseries{104}}   
+  \end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\section*{Instrucciones de la actividad}
+\addcontentsline{toc}{section}{Instrucciones de la actividad}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=1]
+  \item \textbf{De este texto:} \emph{Aprender y enseñar ciencia. Del conocimiento cotidiano al conocimiento científico} (Capítulo 3).\\[4pt]
+        Elaborar una lista con \textbf{20 ideas principales} ; 10 del primer subcapítulo y 10 del segundo subcapítulo, seleccionadas directamente del libro:
+        \begin{enumerate}[label=\alph*)]
+          \item Cada idea debe corresponder a un fragmento o afirmación relevante del texto.
+        \end{enumerate}
+\end{enumerate}
+
+\end{multicols}
+
+\vspace{2cm}
+
+
+
+
+
+
+
+\tableofcontents  \vspace{2cm}
+
+\subsection*{La naturaleza de los procedimientos como contenidos de aprendizaje	}
+
+\begin{enumerate}
+  \item \begin{quote}
+ Muchos profesores e incluso muchos alumnos están convencidos de que las dificultades en el saber hacer se deben a la incapacidad de aplicar lo que se sabe decir, por lo que la teoría debe preceder siempre a la práctica, que no sería sino la aplicación de lo previamente aprendido.
+  \end{quote}
+
+  \item \begin{quote}
+  [$\ldots$] la moderna psicología cognitiva del aprendizaje ha mostrado que se trata de dos tipos de conocimiento que se adquieren por procesos diferentes y hasta cierto punto independientes.
+  \end{quote}
+
+  \item \begin{quote}
+ Numerosos 	estudios han mostrado, por ejemplo, que los alumnos no saben convertir sus conocimientos científicos descriptivos y conceptuales en acciones o predicciones eficaces. A la inversa, a veces ejecutamos acciones que nos costaría mucho describir o definir. 
+  \end{quote}
+
+  \item \begin{quote}
+  En el aprendizaje cotidiano realizamos diariamente numerosas acciones que seríamos incapaces de describir (intente el lector decir lo que hace para atarse los zapatos o lo que hace para vocalizar la $r$ o la $t$).
+  \end{quote}
+
+  \item \begin{quote}
+ [$\ldots$] El conocimiento declarativo es fácilmente verbalizable, puede adquirirse por exposición verbal y suele ser consciente. En cambio, el conocimiento procedimental no siempre somos capaces de verbalizarlo, se adquiere más eficazmente a través de la acción y se ejecuta a menudo de modo automático, sin que seamos conscientes de ello.
+  \end{quote}
+
+  \item \begin{quote}
+[$\ldots$] El uso eficaz de una estrategia depende en  buena medida del dominio de las técnicas que la componen, por lo que, como veremos más adelante, la enseñanza de estrategias no sólo no está reñida con un buen dominio de técnicas o rutinas automatizadas por los alumnos, sino que debe apoyarse en ellas.
+  \end{quote}
+
+  \item \begin{quote}
+  Difícilmente puede aplicarse una estrategia 	en un dominio dado sin unos \textit{conocimientos temáticos específicos} sobre el área al que ha de aplicarse la estrategia. Esos conocimientos incluirán no sólo información verbal sino también un conocimiento conceptual o comprensión de ese área.   
+  \end{quote}
+
+  \item \begin{quote}
+  Cuanto mayor sea nuestra comprensión de ese dominio, cuanto más elaborados y ecplicítos sean nuestros coneptos, en lugar de movernos por difusas teorías implícitas, más probable será el éxito de la estrategia. De hecho, ese conocimiento conceptual específico es un factor determinante de la eficacia en el uso de estrategias de razonamiento y aprendizaje.
+  \end{quote}
+
+  \item \begin{quote}
+  [$\ldots$] Podemos considerar una estrategia como un uso deliberado y planificado de una secuencia compuesta de procedimientos dirigida a alcanzar una meta establecida. En este sentido, el dominio estratégico de una tarea requerirá previamente un dominio técnico, sin el cual la estrategia no será posible. Así, la distinción entre técnica y estrategia será funcional, o dicho en otras palabras, un mismo procedimiento -sea realizar una medición, dibujar una gráfica o comprobar una hipótesis- puede realizarse de modo rutinario o de modo estratégico, dependiendo de las condiciones del aprendizaje establecidas por la tarea a la que se enfrenta el alumno.
+  \end{quote}
+
+  \item \begin{quote}
+  En otras palabras, mientras que las técnicas servirían para afrontar ejercicios, tareas rutinarias siempre iguales a sí mismas, las estrategias serían necesarias para resolver problemas, si entendemos por problema una situación relativamente abierta en la que sabemos dónde estamos y adónde queremos ir pero no cómo se va exactamente. 
+  \end{quote}
+\end{enumerate}
+
+\subsection*{Adquisición de procedimientos: de la técnica a la estrategia}
+
+\begin{enumerate}
+  \setcounter{enumi}{10}
+
+  \item \begin{quote}
+  En general la adquisición de procedimientos parece seguir una secuencia desde el establecimiento de un conocimiento técnico, en forma de rutinas más o menos automatizadas usadas en situaciones de ejercicio, hasta el uso estratégico de esas técnicas nuevas combinaciones para enfrentarse a problemas realmente nuevos.
+  \end{quote}
+
+  \item \begin{quote}
+  En concreto, pueden identificarse cuatro fases principales en la adquisición de un procedimiento, desde la técnica a la estrategia. Mientras las dos primeras fases estarían dirigidas a promover el uso técnico del procedimiento, las dos últimas fomentarían su aplicación en el marco de estrategias más amplias.  
+  \end{quote}
+
+  \item \begin{quote}
+[$\ldots$] Aunque estas cuatro fases respondan a una secuencia de construcción, y por tanto deberían orientar la secuenciación de los contenidos procedimentales en el currículo de ciencias, no deben entenderse como fases sucesivas, sino debe existir un cierto solapamiento en incluso continuo ir y venir entre estas fases, a medida que se vayan detectando deficiencias en su aprendizaje. 
+  \end{quote}
+
+  \item \begin{quote}
+  La primera fase de entrenamiento técnico suele inciarse con la \textit{presentación} de unas \textit{instrucciones} y/o un \textit{modelo} de acción. Las instrucciones servirían no sólo para fijar el objetivo de la actividad (la meta a la que se orienta el procedimiento, según la definición) sino sobre todo para especificar con detalle la secuencia de pasos o acciones que deben realizarse  
+  \end{quote}
+
+  \item \begin{quote}
+  Puede presentarse verbalmente, como un listado de instrucciones, y/o mediante un modelo de cómo se ejecuta la acción desplegado por el propio profesor o apoyado en material audiovisual. Cuanto más compleja sea la secuencia de acciones que debe realizarse más conveniente será apoyar su instrucción en un aprendizaje por modelado. 
+  \end{quote}
+
+\end{enumerate}
+
+
+\begin{enumerate}
+  \setcounter{enumi}{15}
+
+  \item \begin{quote}
+  En todo caso, sea mediante instrucciones, modelo, o mejor mediante ambos, en esta primera fase de entrenamiento se debe \textit{descomponer} la técnica en las unidades mínimas componentes, atrayendo la atención sobre los elementos relevantes en cada paso y sobre el propio orden secuencial en sí. Ello requiere por parte del maestro o entrenador no sólo hacer un análisis de la tarea en cuestión, descomponiéndola en movimientos o secuencias de acciones, sino también saber , los conocimientos (o procedimientos) previos de que disponen ya los aprendices.
+  \end{quote}
+
+  \item \begin{quote}
+  Inicialmente seguimos al detalle los pasos establecidos en las instrucciones y, sólo cuando dominamos bastante la técnica, estamos en condiciones de inventar soluciones propias a los problemas que nos encontramos o incluso que nosotros mismos nos vamos creando.
+  \end{quote}
+
+  \item \begin{quote}
+  Suponiendo que las instrucciones sean adecuadas, la segunda fase, la más crucial en el entrenamiento técnico, implica la \textit{automatización} de la \textit{técnica} a través de la práctica repetida. Los alumnos deben poner en práctica repetidamente la secuencia bajo la supervisión del profesor. La función de esta fase es \textit{condensar} y automatizar la secuencia de acciones en una técnica o rutina sobreaprendida. Por un lado se trata de \textbf{componer} o condensar en una acción todos los pasos que anteriormente han sido descompuestos o separados como instrucciones, de forma que, como consecuencia de la práctica repetida, el aprendiz acabe ejecutándolos como una sola acción y no como una serie de acciones consecutivas.
+  \end{quote}
+
+  \item \begin{quote}
+  Cuando el alumno dispone ya de ciertas técnicas suficientemente dominadas para una tarea, puede comenzar a usarlas dentro de un plan estratégico. Ésa es la función de la tercera y cuarta fase del entrenamiento procedimental que de hecho pueden aplicarse conjuntamente. La aplicación de los procedimientos aprendidos a nuevas tareas y contextos conllevará una progresiva reflexión sobre los éxitos y fracasos en esa aplicación. La función de esa descontextualización o uso cada vez más variado de las técnicas aprendidas es no sólo facilitar su transferencia o uso en situaciones nuevas, lo que es en sí ya muy importante, ya que como veíamos en el Capítulo Primero ésta suele ser una de las dificultades más comunes en el aprendizaje de procedimientos, sino sobre todo promover en los alumnos una reflexión consciente sobre su uso, que vayan tomando conciencia de las condiciones mejores para su aplicación, de las dificultades que plantea y de los resultados que produce. 
+  \end{quote}
+
+  \item \begin{quote}
+  En pocos casos se ve tan clara como en el entrenamiento de estrategias la idea de que la función última de todo profesor -y su verdadero éxito educativo- consiste en hacerse cada vez más innecesario, porque el alumno vaya logrando hacer solo lo que antes únicamente podía hacer con ayuda del profesor. Ésa es la idea última que debe guiar la educación, de acuerdo con el principio de transferencia del control, como un proceso de interiorización de la cultura.  
+  \end{quote}
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

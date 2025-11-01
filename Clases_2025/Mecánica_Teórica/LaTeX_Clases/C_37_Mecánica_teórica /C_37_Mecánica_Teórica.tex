@@ -1,0 +1,547 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 37 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Ejemplo de la clase de hoy}
+
+\textbf{Lagrangiana}
+
+\[ L = \frac{m}{2} \left( \dot{x}^{2}+ \dot{y}^{2}+\dot{z}^{2}\right)  + \frac{m\omega_{0}}{2}\left( x\dot{y}-y\dot{x}\right)  \]
+
+Tenemos:
+
+\[\vec{r} = x \hat{x} + y\hat{y}+z\hat{z} \]
+
+
+\[ \vec{v} = \dot{x}\hat{x}+\dot{y}\hat{y}+\dot{z}\hat{z} \]
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{1.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+
+La cantidad de $L_{x}$ será el generador de rotaciones al rededor de y unitario y $L_{z}$ va a hacer otro generador de rotaciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{3.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+
+
+Esto último nos dice que el sistema será invariante ante rotaciones. Ante rotaciones la magnitud de una cantidad no cambia. 
+
+\subsection{Calculo del hamiltoniano}
+
+\textbf{Lagrangiana considerada:}
+\[
+L = \frac{m}{2}\left(\dot{x}^{2}+\dot{y}^{2}+\dot{z}^{2}\right)
++ \frac{m\omega_{0}}{2}\left(x\dot{y}-y\dot{x}\right)
+\]
+
+\textbf{Interpretación física.}
+La primera parte,
+\[
+\frac{m}{2}\left(\dot{x}^{2}+\dot{y}^{2}+\dot{z}^{2}\right),
+\]
+representa la \textbf{energía cinética} de una partícula libre, mientras que el segundo término,
+\[
+\frac{m\omega_{0}}{2}\left(x\dot{y}-y\dot{x}\right),
+\]
+corresponde a un \textbf{acoplamiento magnético} equivalente a la interacción
+\[
+\frac{q}{c}\,\mathbf{A}\cdot\dot{\mathbf{r}},
+\]
+donde \(\mathbf{A}\) es el \textbf{potencial vector magnético}. En este caso, dicho potencial está dado en el \textbf{gauge simétrico} por
+\[
+\mathbf{A} = \frac{B_0}{2}(-y,\,x,\,0),
+\]
+con la relación
+\[
+\omega_0 = \frac{qB_0}{m}.
+\]
+
+\textbf{Nombre e interpretación.}
+Esta Lagrangiana se conoce como la \textbf{Lagrangiana de una partícula cargada en un campo magnético uniforme} (en \textbf{gauge simétrico}), o también como la \textbf{Lagrangiana del oscilador de Landau} en el contexto cuántico.
+
+\textbf{Resumen conceptual:}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Término} & \textbf{Interpretación} & \textbf{Comentario} \\
+\hline
+\(\tfrac{m}{2}(\dot{x}^2+\dot{y}^2+\dot{z}^2)\) & Energía cinética & Movimiento libre \\
+\hline
+\(\tfrac{m\omega_0}{2}(x\dot{y}-y\dot{x})\) & Acoplamiento con campo magnético & Proviene de \(\tfrac{q}{c}\mathbf{A}\cdot\dot{\mathbf{r}}\) \\
+\hline
+\(\omega_0 = \tfrac{qB_0}{m}\) & Frecuencia ciclotrón & Describe órbitas de Larmor \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Interpretación geométrica y familias de trayectorias en la teoría de Hamilton--Jacobi}
+
+En la formulación de Hamilton--Jacobi aparece un elemento \textbf{extraordinario}: 
+la posibilidad de describir la evolución del sistema no mediante ecuaciones de movimiento 
+para cada coordenada, sino a través de una \textbf{única función escalar} \(S(q_i,t)\),
+la \textbf{función principal de Hamilton}.  
+
+Esta función \(S\) introduce un \textbf{orden sobre el conjunto de trayectorias} del sistema.  
+Cada valor constante de \(S\) define una \textbf{superficie} en el espacio de configuraciones, 
+y las \textbf{trayectorias dinámicas} del sistema son curvas que se encuentran 
+perpendiculares a esas superficies de nivel.
+
+\[
+H\!\left(q_i,\,\frac{\partial S}{\partial q_i},\,t\right)
++ \frac{\partial S}{\partial t} = 0,
+\qquad
+p_i = \frac{\partial S}{\partial q_i}
+\]
+
+\textbf{Familias de trayectorias.}  
+Si se elige un conjunto particular de trayectorias que satisfacen la ecuación anterior, 
+estas pueden organizarse en una \textbf{familia} que genera una superficie.  
+Por ejemplo, si las trayectorias se eligen de tal manera que todas ellas 
+sean normales a una superficie esférica de radio \(a\), 
+entonces la función \(S\) permanece constante sobre dicha superficie:
+\[
+S(q_i,t) = S_0 = \text{cte.} \quad \Rightarrow \quad
+\text{Superficie esférica de radio } a.
+\]
+No cualquier conjunto de curvas puede formar una superficie así; 
+solo aquellas que cumplen con la condición de que \(S\) sea función potencial común 
+para toda la familia.
+
+\textbf{Interpretación.}  
+Así, la teoría de Hamilton--Jacobi no sólo determina las ecuaciones de movimiento, 
+sino que introduce una \textbf{estructura de orden} sobre las trayectorias posibles: 
+las \textbf{superficies de acción constante}, que pueden visualizarse como “frentes de onda” 
+en el espacio de configuraciones.  
+El movimiento de la partícula sigue entonces las líneas normales a esos frentes,
+de modo análogo a cómo los rayos ópticos son normales a las ondas de luz 
+en la \textbf{óptica geométrica}.
+
+\subsection{Separabilidad de la ecuación de Helmholtz}
+
+La \textbf{ecuación de Helmholtz} en tres dimensiones se escribe como:
+\[
+\nabla^{2}\psi + k^{2}\psi = 0,
+\]
+donde \(k\) es el número de onda y \(\psi\) una función escalar (por ejemplo, un campo de presión o una componente del campo eléctrico).
+
+Esta ecuación es una generalización de la \textbf{ecuación de Laplace},
+\(\nabla^{2}\psi = 0\),
+y por tanto comparte muchas de sus propiedades matemáticas.  
+
+En particular, la ecuación de Helmholtz es \textbf{separable} en aquellos sistemas de coordenadas donde la ecuación de Laplace también lo es.
+
+\textbf{Conjuntos de coordenadas separables:}
+\begin{itemize}
+  \item \textbf{Coordenadas cartesianas} \((x,y,z)\)
+  \item \textbf{Coordenadas cilíndricas} \((r,\phi,z)\)
+  \item \textbf{Coordenadas esféricas} \((r,\theta,\phi)\)
+  \item \textbf{Coordenadas parabólicas}
+  \item \textbf{Coordenadas elípticas o elipsoides de revolución}
+\end{itemize}
+
+\textbf{Ejemplos típicos:}
+\begin{enumerate}
+  \item En coordenadas cartesianas, se asume una solución del tipo
+  \[
+  \psi(x,y,z) = X(x)\,Y(y)\,Z(z),
+  \]
+  lo que conduce a tres ecuaciones ordinarias del tipo
+  \(\frac{d^{2}X}{dx^{2}} + k_x^{2}X = 0\), etc.
+
+  \item En coordenadas esféricas, 
+  \[
+  \psi(r,\theta,\phi) = R(r)\,\Theta(\theta)\,\Phi(\phi),
+  \]
+  se obtiene la \textbf{ecuación radial de Bessel esférica} y las 
+  \textbf{armónicas esféricas} \(Y_{\ell}^{m}(\theta,\phi)\).
+
+  \item En coordenadas cilíndricas,
+  \[
+  \psi(r,\phi,z) = R(r)\,\Phi(\phi)\,Z(z),
+  \]
+  aparecen las \textbf{funciones de Bessel} \(J_{m}(kr)\) como soluciones naturales.
+\end{enumerate}
+
+\textbf{Conclusión.}  
+La ecuación de Helmholtz es separable en todos los sistemas de coordenadas que admiten separación de variables en la ecuación de Laplace, lo cual incluye trece familias ortogonales conocidas (según el resultado clásico de \textit{Morse y Feshbach, 1953}).  
+Cada sistema de coordenadas conduce a un conjunto característico de \textbf{funciones especiales} (senos, cosenos, Bessel, Legendre, etc.) que describen las soluciones modales del problema físico.
+
+
+
+\subsubsection{A continuaciones escribirmos el \textbf{hamiltoniano}} 
+
+\textbf{Momento angular orbital} = $(x\dot{y}-y\dot{x})$
+
+\[ L = \frac{m}{2} \left( \dot{x}^{2} + \dot{y}^{2} + \dot{z}^{2}  \right)  + \frac{\omega_{0} }{2}L_{z}  \]
+
+
+Tenemos:
+
+\begin{equation}
+\begin{split}
+  \bar{x} &=  x \cos \bar\phi+ y\sen \bar\phi\\
+   \bar{y}  &= -x\sen \bar{\phi} + y\cos \bar{\phi}\\
+   \bar{z} &= z
+\end{split}
+\end{equation}
+
+
+Estas tranformaaciones, si la lagrangiana queda invariante, entonces podríamos decir que podemos llevar a cab experimentos de este problema, etonces no encontramos diferencia. Para un experimentador, los dos observadores llevan a cabo experimentos, me da exaactamento los mismo datos, eso sjnfnidca que no es invariante.
+
+Esa lagraniana es invariante ante transformaciones en el eje $z$.
+
+Introducimos un nuevo sistema de coordenadas en donde la simetría sea totalmente evidente,
+
+Tenemos así:
+
+
+\begin{equation}
+\begin{split}
+x &= \rho \cos \phi\\
+y &= \rho \sen \phi\\
+z &= z
+\end{split}
+\end{equation}
+
+
+Tenemos la \textbf{lagrangiana}
+
+\[ L = \frac{m}{2} \left(    \dot{\rho}^{2} + \rho^{2} \dot{\phi}^{2} +\dot{z}^{2}      \right)    \]
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{4.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+
+Acá la coordenada $\phi$ vemos que es cíclica o ignorable. 
+
+Tenemos entonces
+
+\[  \frac{\partial L}{\partial \phi} =0 \]
+
+
+Tenemos:
+
+
+\[  p_{\phi} = \frac{\partial L}{\partial \dot{\phi}} = m\rho^{2} \dot{\phi} + \frac{mw_{0}}{2}\rho^{2}  \]
+
+Tenemos:
+
+\[ \frac{  \partial \vec{r} }{\partial \phi} = \vec{r} \times \hat{z}  \]
+
+
+Una vez que me dices cuáles son las constantes de movimiento de la lagrangiana, entonces hemos avanzado lo sufiente, pero no hemos terminado.
+
+Tenemos:
+
+\[ \vec{r} = \rho \hat{\rho} + z\hat{z} \]
+
+\[ \dot{\vec{r}} = \dot{\rho} \hat{\rho} + \rho \dot{\phi} \hat{\phi} + \dot{z}\hat{z} \]
+
+\[   \vec{L} = \vec{r} \times m \dot{\vec{r}} \]
+
+$\phi$ nos describe rotaciones a lo largo del eje $z$.
+
+\[  = m \left[  \rho \hat{\rho} +z\hat{z}   \right] \times \left[  \dot{\rho} \hat{\rho} + \rho \dot{\phi} \hat{\phi}+ \dot{z}\hat{z}  \right]  \] 
+
+\[  ()\hat{\rho} + ()\hat{\phi} +\underbrace{ \rho^{2}\dot{\phi}m}_{L_{z}} \hat{z} \]
+
+
+\[ \frac{d}{dt} \left(  \frac{\partial U}{\partial \dot{\phi}} - \frac{\partial U}{\partial \phi} \right) \]
+
+
+El campo magnético tiene un momento lineal y un momento angular orbital. 
+
+
+Energía potencial depende de las velocidades:
+
+\[  U(x,y,\dot{x},\dot{y})  = - \frac{m\omega_{0}}{2} \left( x\dot{y}-y\dot{x}  \right) \]
+
+
+Tenemos:
+
+\[ \nabla_{\vec{v}} U \equiv \frac{\partial U}{\partial \dot{x}} \hat{x} + \frac{\partial U}{\partial \dot{y}} \hat{y} + \ldots  + \]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{5.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+
+\[ \left( \overbrace{\rho \hat{\rho} + z\hat{z}}^{\vec{r} en coord. cilin}  \right)  \]
+
+Tenemos:
+
+\[ \hat{z} \cdot \left( \vec{r} \times \nabla_{\vec{v}} U \right) \]
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{6.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{7.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+\[ \mathcal{\vec{P}}= \vec{p} - \nabla_{\vec{v}}U; \quad U = \text{potencial generalizado} \]
+
+Desarrollando esto anterior es:
+
+\[ \mathcal{\vec{P}} =   \vec{p} + \frac{eB}{2c}\rho \hat{\phi}  \]
+
+
+Entonces el momento angular tiene asociado un momento angular orbital. Descubrir las constantes de movimiento no es algo simple. 
+
+
+\[ \vec{r} = \rho \hat{\rho} +z \hat{z}  \]
+
+\[  \vec{r} = \rho \hat{\rho} (\phi) +z \hat{z} \]
+
+Eso hace que la velocidad:
+
+\[  \dot{\vec{r}} = \dot{\rho} \hat{\rho} +\rho \underbrace{\frac{d\hat{\rho}}{d\phi}}_{\hat{\phi}} \frac{d\phi}{dt} + \dot{z}\hat{z}  \]
+
+\[ = \left( \vec{r} \times \vec{\rho}  \right) \cdot \hat{z} \]
+
+\subsubsection{Transformada de Legendre}
+
+Si ahora elegimos:
+
+\[ (\dot{x},\dot{y},\dot{z}) \longleftrightarrow (p_{x},p_{y},p_{z}) \]
+
+Mediante una transformada de legendre (realizar las cuentas en casa)
+
+\[ H (\vec{r},\vec{p}, t  ) = \frac{1}{2m} \left[ p_{\rho}^{2} + \frac{p_{\phi}^{2}}{\rho^{2}} + p_{z}^{2}  \right]  - \frac{w_{0}}{2} p_{\phi} + \left( \frac{mw_{0}^{2}}{8}\right)\rho^{2}  \]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{8.png}
+    \caption{.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+
+El tema de la próxima sesión iniciamos el capítulo 5, en total tendríamos 6 capítulos rematando con teoría de Hamilton Jacobi y si hay tiempo ver la relación entre H-J con la ec. de Schrodinger.
+
+
+
+\end{document}

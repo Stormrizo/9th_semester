@@ -1,0 +1,558 @@
+ \documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \#34 - Electrodinámica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Electrodinámica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Iván Fuentecilla Cárcamo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{EMA4}} /  \textcolor{trueblue}{\bfseries{409}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+
+
+
+	
+
+
+
+
+
+\begin{MyColorPar}{orange(colorwheel)}
+
+\end{MyColorPar}
+
+
+\tableofcontents \newpage
+
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{2cm}
+
+
+
+
+\section{Unit 2: Electric fields in dielectric media: hoy terminamos de ver este tema}
+
+
+
+
+
+
+Tenemos que, de forma aditiva contruimos los elementos de carga, entonces de acuerdo a lo visto en la clase pasada tenemos:
+
+
+\[ W=\frac{1}{2} \int\limits_{\text{volume}} U\rho(\vec{r}^{ \prime}) dv^{\prime} + \frac{1}{2} \int\limits_{S} U(\vec{r}^{\prime}) \sigma(\vec{r}^{\prime}da^{\prime}) \]
+
+En el desplazamineto tenemos el campo eléctrico y una polarización por ahí, acá estamos suponeindoq ue eestamos en un región diélectrica.
+
+
+La carga reside en la suerfiei de conductor, obtuvimos una forma alternativa, tenemos:
+
+
+\textbf{Ley de Gauss}:
+
+
+\[  \oint_{S} \vec{D} \cdot d^{a} =Q_{f}  \]
+
+
+Tenemos:
+
+
+\[ \sigma(\vec{r}^{\prime}) =\vec{D}\cdot \hat{n} \]
+
+\[  \rho = \nabla \cdot \vec{D} \]
+
+
+
+Tenemos que la integral es:
+
+
+\[  w= \frac{1}{2}\int\limits_{S+S^{\prime}} U\vec{D} \cdot \hat{n}da + \frac{1}{2} \int\limits_{V} \vec{D} \cdot \vec{E}dv^{\prime} + \frac{1}{2} \int\limits_{S} U\vec{D}\cdot \hat{n} da \]
+
+
+La $S$ y $S^{\prime}$ serían:
+
+S es la superficie de todo el sistema y la $S^{\prime}$ va a ser las paredes del salón, es una superficie que limita a toda la configuración de dielectricos cargados, normalmanete se elige como una superficie al infinito.
+
+Entonces si nos fijamos en el primr término, tenemos un D punto n, esa normal es saliendo de esa superficie, como las paredes de este salón, entonces la $\hat{n}$ apunta saliendo del.
+
+
+
+
+Lo anterior sería el volumen V, el teorema de la divergencia lo aplicamos anteriomente, de tal forma que la normal de los conductores va a a apuntar hacia el interior del conductor, eso esimportante ya que ese parte de integrales de supercidie, suena como si tivieras una contribución positiva o negativa, en realidad no dado que la pultima integral resulta ser una integral sobre todas las supercies cargadas. Esto aplica para la última integral, de tal forma que bajo esa observación la ultima integral se cancel y solo sobrevive una solo integral de superficie. 
+
+
+
+Tendríamos nosotros que:
+
+
+\[  = \frac{1}{2} \int\limits_{S^{\prime}} U\vec{D} \cdot \hat{n} da + \frac{1}{2} \int\limits_{V}\vec{D}\cdot \vec{E}dv^{\prime}  \]
+
+Debemos considerar que tenemos una superficie al infinito, es decir los leading terms, es decir el comportamiento asintotico que domina. 
+
+i.e si vemos una distribución de masa, vemos un comportamiento límite cuando la vemos de lejos, es como si fuese una masa puntual. 
+
+¿Cuál sería el \underline{leading beheaviour} para la $U$?
+
+POr ejemplo la atracción gravitacional que siente una masa lejos, va a tener un comportamiento en términos de sus fuerza como el factor:
+
+
+\[  F \propto \frac{1}{r^{2}} \quad \text{es decir} \quad F = G \frac{m_{a}M}{r^{2}}  \]
+
+Osea vemos que tenemos un comportamiento de esta forma, dado que es algo puntual.
+
+¿Entonces que comportamiento vamos a tener para la $U$?
+
+Entonces tendríamos:
+
+
+\[ U \propto \frac{1}{r}  \]
+
+Y para el vector desplazamiento tenemos:
+
+\[  \vec{D} \propto  \]
+
+MNos hemos alejado de la dsitribución de carga, lo vemos desde un punto muy lejos, queremos calcular la dependencia de $D$ a una distancia muy lejos entonces:
+
+
+\[ \vec{D} \propto \frac{1}{r^{2}} \]
+
+Tenemso ahora las dos dependencias, tenemos el integrando:
+
+
+\[ \vec{D} = \epsilon \vec{E} \]
+
+La integral anterior al infinito no se vuelve cero, sino que tiene un término muy grande, la dependecia en el área dentro de la superficie gigante sería:
+
+
+
+\[  A \propto r^{2} \quad \text{suponiendo que es una superficie al infinito} \]
+
+Ahora juntamos todo:
+
+
+Tenemos \underline{ocupando los leading terms} haciendo esa integral al infinito, cuando la $r$ tiene al infinito esto se hacer cero.
+
+Resulta que este trabajo que debemos aplicar para colocar la dsitribución de carga en su posicipón final es:
+
+Es la conclusión:
+
+
+\[  \boxed{  W = \frac{1}{2}  \int\limits_{V} \vec{D} \cdot \vec{E} dv^{\prime}  }  \]
+
+Esto tiene la forma de una integral con cierta densidad
+
+ 
+\[ W = \int\limits_{V} \left( \frac{1}{2}  \vec{D} \cdot \vec{E}\right)dv^{\prime} \] 
+ 
+ EL término entre parentesis es la densidad de energía.
+ 
+ \textbf{Guías onda}. En las \underline{guías de onda} tenemos una región más coloreada en el interior e el exterior, indicando que tenemos más carga que dentro que de fuera.
+ 
+Si nosotros calcularamos la densidad de energía, tendríamos nosotros una densidd más grande en comparación con las regiones periféricas.
+ 
+Si nosotros hablamos de nuevos materiales, aunque son muy utiles ahora, la tecnología ya no se puede miniaturizar más, por ejemplo en los transistorres, tenemos nosotros los transitores, están formados por un semiconductos, tenemos nosogros la fuente la salida, y tenems nosotros como un switch, como una imagen, por ejemplo: 
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+\textbf{Transistor}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{2.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+La imagen anterior describe la forma de un transitor, entonces puede existir tunelamiento cuántico, entonces pensemos que si el switch está apagado, pues no existe corriente. \textbf{Tunelamiento cuántico}, clásicamente es la porpiedad de que una partícula pueda atravesar un potencial cuántico. 
+
+
+La región accesible en una analogía a un carrito en una montaña rusa, tiene muchas regiones accesibles si empieza desde cierta altura, cosa que no podría si existe muchas colinas.
+
+La partícula tiene una región que no es accesible, es decir cuanticamente tiene una región que no le es accesible, a esto le conocemos como tunelamiento cuántico.
+
+
+EL transistor es un switch, el switch es un material cupantico, existe tunelamiento cuantico en una analogía con un switch de una pagador para la luz.
+
+
+Se buscan nuevos materiales como los mmateriales 2D, para tener una generación de transitores.
+
+
+
+COmo si fuese una hoja de papel, tendremos una parte interna, si tivieramos una guía de onda nanometrica, ese enrrollamiento se da en el orden de los nanometros, esa se da muy focalizada, la densidad de energía será mayor en el intero que el exteior, tenemos ahora una nueva generación de guías de onda, tenemos bosotros una versipon para el campo electromagnetico, teemos expresión para la densidad de ennergía, tenemos jstamento eso, mayor densidad en el exterior que en el onterior. 
+
+Haremos rapidamente u ejercicio, endonde vamos a calcular nosotros una densidad de energía.
+
+
+Vamos a ocular todo el conocimiento para el caso electrostatico, nos piden calcular:
+
+
+
+\emph{La energía total de una esfera dieléctrica} (dielectric sphere) .
+
+
+\subsection{Ejercicio de clase: Compute the total energy of a dielectric sphere (charged)  that produces an electric field in the outside and inside regions.}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{3.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+
+\[ Q = \int\limits_{sphere}  \rho(\vec{r}^{\prime})dv^{\prime}  \]
+
+Resulta que existe un campo eléctrico como en el interior como en el exterior, suponemos que la densidad volumétrica de carga es una constate y existe también un potencial interior y exterior.
+
+Cuando tenemos esa densidad de carga decimos que está carga uniformemente, entonces tiene las siguiente líneas de campo del \textbf{campo eléctrico}, estamos suponiedo que tenemos un material lineal, entonces en esa suposicón de que la $\rho(\vec{r}^{\prime})$ es una cantidad constante.
+
+\[\rho = cte \]
+
+Y también:
+
+
+\[ \vec{D} = \epsilon \vec{E}  \]
+
+¿Cuál va a ser la densidad de energía asociada al campo electrico asociada a esta esfera dielectrica? 
+
+
+¿Que tenemos que hacer si queremos calcular la energía total?
+
+
+\textbf{R} = Debemos integrar, pero primero que nada debemos de calcular la densidad de energía en el interior, sería de cero a r en la primera integral y luego la integral en el exterior de la esfera desde r hasta el infinito.
+
+
+Entonces lo que tenemos que encontrar es lo siguiente:
+
+
+\[ \int\limits_{0}^{R} \underbrace{w_{in}}_{\text{minusc}}dv + \int\limits_{R}^{\infty} w_{out} dv = W   \]
+
+Los chinos ahora están en la computación cuántica de los cuales están estudiando los flying cubics, 
+
+\subsection{Ejercicio de clase: Compute the total energy of a charged dielectric sphere that produces an electric field in the outside and inside regions}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{3.png}
+    \caption{Esfera dieléctrica de radio $R$ con densidad de carga volumétrica uniforme \(\rho\), inmersa en un medio lineal}
+    \label{fig:esfera_dielec}
+\end{figure}
+
+\noindent\textbf{Hipótesis y datos}
+\begin{itemize}
+  \item Esfera de radio \(R\) con densidad de carga \(\rho=\text{cte}\) en su volumen
+  \item Materiales lineales, isótropos y homogéneos: \(\vec D=\varepsilon \vec E\)
+  \item Permitividad dentro de la esfera \(\varepsilon_{\text{in}}\), fuera \(\varepsilon_{\text{out}}\)
+  \item Carga total \(Q=\displaystyle\int_{\text{esfera}}\rho(\vec r\,')\,d v'=\frac{4\pi R^{3}}{3}\,\rho\)
+\end{itemize}
+
+\paragraph{1) Campos \(\vec D\) y \(\vec E\) por simetría esférica (Ley de Gauss)}
+Para \(r<R\) la carga libre encerrada es \(Q_{\text{enc}}(r)=\rho\,\frac{4\pi r^{3}}{3}\). Con \(\oint \vec D\cdot d\vec a=Q_{\text{enc}}\) se obtiene
+\[
+D_{\text{in}}(r)=\frac{\rho\,r}{3}\,\hat{\boldsymbol r},\qquad
+E_{\text{in}}(r)=\frac{D_{\text{in}}}{\varepsilon_{\text{in}}}
+=\frac{\rho\,r}{3\,\varepsilon_{\text{in}}}\,\hat{\boldsymbol r}
+\]
+
+Para \(r>R\), la carga libre encerrada es \(Q\), de modo que
+\[
+D_{\text{out}}(r)=\frac{Q}{4\pi r^{2}}\,\hat{\boldsymbol r}
+=\frac{\rho R^{3}}{3}\,\frac{1}{r^{2}}\,\hat{\boldsymbol r},\qquad
+E_{\text{out}}(r)=\frac{D_{\text{out}}}{\varepsilon_{\text{out}}}
+=\frac{\rho R^{3}}{3\,\varepsilon_{\text{out}}}\,\frac{1}{r^{2}}\,\hat{\boldsymbol r}
+\]
+
+\paragraph{2) Densidad de energía electrostática}
+En un dieléctrico lineal \(w=\tfrac12\,\vec E\cdot\vec D=\tfrac{1}{2}\,\frac{D^{2}}{\varepsilon}\). Por tanto
+\[
+w_{\text{in}}(r)=\frac{1}{2}\frac{D_{\text{in}}^{2}}{\varepsilon_{\text{in}}}
+=\frac{1}{2}\frac{1}{\varepsilon_{\text{in}}}\left(\frac{\rho r}{3}\right)^{2},\qquad
+w_{\text{out}}(r)=\frac{1}{2}\frac{D_{\text{out}}^{2}}{\varepsilon_{\text{out}}}
+=\frac{1}{2}\frac{1}{\varepsilon_{\text{out}}}\left(\frac{\rho R^{3}}{3r^{2}}\right)^{2}
+\]
+
+\paragraph{3) Energía total \(W\) como suma de las contribuciones interior + exterior}
+Usamos \(d v=4\pi r^{2}\,dr\)
+\[
+W=W_{\text{in}}+W_{\text{out}}
+=\int_{0}^{R} w_{\text{in}}(r)\,4\pi r^{2}dr
++\int_{R}^{\infty} w_{\text{out}}(r)\,4\pi r^{2}dr
+\]
+
+\emph{Parte interior}
+\[
+W_{\text{in}}=\int_{0}^{R}\frac{1}{2\varepsilon_{\text{in}}}
+\left(\frac{\rho r}{3}\right)^{2}4\pi r^{2}\,dr
+=\frac{2\pi\rho^{2}}{9\,\varepsilon_{\text{in}}}\int_{0}^{R}r^{4}\,dr
+=\frac{2\pi\rho^{2}}{9\,\varepsilon_{\text{in}}}\,\frac{R^{5}}{5}
+=\frac{2\pi\rho^{2}R^{5}}{45\,\varepsilon_{\text{in}}}
+\]
+
+\emph{Parte exterior}
+\[
+W_{\text{out}}=\int_{R}^{\infty}\frac{1}{2\varepsilon_{\text{out}}}
+\left(\frac{\rho R^{3}}{3r^{2}}\right)^{2}4\pi r^{2}\,dr
+=\frac{2\pi\rho^{2}R^{6}}{9\,\varepsilon_{\text{out}}}\int_{R}^{\infty}\frac{dr}{r^{2}}
+=\frac{2\pi\rho^{2}R^{6}}{9\,\varepsilon_{\text{out}}}\,\frac{1}{R}
+=\frac{2\pi\rho^{2}R^{5}}{9\,\varepsilon_{\text{out}}}
+\]
+
+\paragraph{4) Resultado total en función de \(\rho\) y \(R\)}
+\[
+\boxed{\,W
+=\frac{2\pi\rho^{2}R^{5}}{45\,\varepsilon_{\text{in}}}
++\frac{2\pi\rho^{2}R^{5}}{9\,\varepsilon_{\text{out}}}\,}
+\]
+
+\paragraph{5) Resultado equivalente en función de la carga total \(Q=\frac{4\pi R^{3}}{3}\rho\)}
+Usando \(\rho=\dfrac{3Q}{4\pi R^{3}}\)
+\[
+\boxed{\,W
+=\frac{Q^{2}}{40\pi R\,\varepsilon_{\text{in}}}
++\frac{Q^{2}}{8\pi R\,\varepsilon_{\text{out}}}
+=\frac{Q^{2}\big(5\,\varepsilon_{\text{in}}+\varepsilon_{\text{out}}\big)}
+{40\pi R\,\varepsilon_{\text{in}}\varepsilon_{\text{out}}}\,}
+\]
+
+\paragraph{6) Chequeos y casos límite}
+\begin{itemize}
+  \item \(\varepsilon_{\text{in}}=\varepsilon_{\text{out}}=\varepsilon\) (mismo material dentro y fuera): 
+  \(\displaystyle W=\frac{3}{20}\frac{Q^{2}}{\pi\varepsilon R}\), que coincide con la energía de una esfera con carga uniformemente distribuida en un medio homogéneo
+  \item Medio exterior vacío: \(\varepsilon_{\text{out}}=\varepsilon_{0}\), interior con \(\varepsilon_{\text{in}}\) arbitraria, queda la expresión general de arriba
+\end{itemize}
+
+\paragraph{7) Comentarios}
+\begin{itemize}
+  \item Usar \(w=\tfrac12 \vec E\cdot\vec D\) evita contar doble la energía de polarización en medios lineales, pues \(\vec D\) contabiliza la carga libre
+  \item Alternativamente, puede obtenerse \(W\) integrando \(\tfrac12 \rho V\) en el volumen de la esfera, con los potenciales interior/exterior consistentes con las condiciones de frontera en \(r=R\)
+\end{itemize}
+
+
+\subsection{Avazamos en el siguiente paso}
+
+Resulta que la energía total es:
+
+\[ w =\frac{1}{2} \epsilon E^{2} \]
+
+Calulremos nosotros la densidad de energía y obtendremos el resultado para una esfera dielectrica. 
+
+
+Tenemos:
+
+
+\begin{equation}
+\begin{split}
+w &= \frac{1}{2} \vec{D} \cdot \vec{E}\\
+&= \frac{1}{2} \epsilon \vec{E} \cdot \vec{E}\\
+&= \frac{1}{2} \epsilon \vec{E}^{2}\\
+\boxed{\int\limits_{S} \vec{D} \cdot da = Q_{f}} &= \frac{1}{2}\epsilon E^{2}
+\end{split}
+\end{equation}
+
+
+EL paso 2 de tarea es justamente que vemos que la densidad de energía es calculando el campo electrico interior y exterior, el interior es imple, la del exterior es usando la ley de gauss en su forma integral
+
+
+\subsubsection{Semana y media para ver los ejercicios. }
+
+
+  
+\end{document}

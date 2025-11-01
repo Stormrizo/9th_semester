@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Unit 2: Electric fields in dielectric media}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Depolarizing electric field}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Campo molecular}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Depolarizing electric field (vía Gauss)}{5}{subsection.1.3}%

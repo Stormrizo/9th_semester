@@ -1,0 +1,1173 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 36 - Estado Sólido}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Estado sólido}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dra. Ana Lilia González Ronquillo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{301}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+
+\section*{Clase del día de hoy}
+
+Nos habíamos quedado en ejemplo de aplicabilidad del modelo de drude, que es un modelo que trata de explicar el movimiento de los electrones en un metal, cristal.
+
+A partir de tener una corriente de electrones y de aplicar un campo magnético a esa corriente, aparecía un potencial de hall.
+
+
+\[ P_{H}(H) = \frac{E_{x}}{J_{x}} \]
+
+Y otra es el coeficiente de hall:
+
+Vamos a tratar de ver con lo visto del experimento con el modelo de drude. Trabajamos de manera general.
+
+
+Una componente en $x$ y una componente en $y$, idealmente también podemos aplicar el componente $z$, pero como tenemos una placa, entonces en algún momento la componente $z$ será cero.
+
+
+
+Ecuación de movimiento vectoria, además consideramos el modelo estacionario.
+
+Tenemos dos ecuaciones:
+
+
+\[ x: \quad 0 = -eE_{x}-\frac{e}{mc}p_{y}H_{z}-\frac{p_{x}}{\tau} \]
+
+
+\[ y: \quad 0 = -eE_{y}+\frac{e}{mc}p_{x}H_{z}-\frac{p_{y}}{\tau}, \quad \text{se define la frecuencia del ciclotrón} \quad \boxed{\omega_{c} = \frac{eH_{z}}{mc}} \]
+
+
+En el ciclotrón no es necesario que sean perpendiculares, se le conoce como frecuencia de ciclotrón.
+
+
+Hace un movimiento circular, es una fenómeno que se aprovecha mucho en los aceleradores de partículas. 
+
+Aparece este frecuencia de ciclotrón, depende de la carga y de las unidades, depende de la carga del electrón y es proporcional a la magnitud de ese campo magnético.
+
+Vamos a tener una mayor frecuencia de ciclotón. Vamos a trabajar con las ecuaciones anteriores:
+
+
+Entonces una de las sugerencias por el tiempo de relajación y dividir entre la masa:
+
+Se hace todo esto por justamente aparece la frecuencia de ciclotrón:
+
+\[ \frac{\eta e\tau}{m} \]
+
+Hay cargas y se aplica un campo magnético. 
+
+Tenemos:
+
+
+\begin{equation}
+\begin{split}
+ x:  \quad \frac{\eta e^{e}\tau}{m}E_{x} &= - \frac{\eta e\tau}{m}\omega_{c}p_{y} - \frac{\eta e}{m}p_{x}\\
+ y: \quad \frac{\eta e^{2}\tau}{m}E_{y} &= \frac{\eta e \tau}{m}\omega_{c}p_{x}-\frac{\eta e}{m}p_{y}
+\end{split}
+\end{equation}
+
+Recordando que:
+
+\[ \text{conductividad} \quad \sigma_{DC} = \frac{ \eta e^{2}\tau }{m}  \]
+
+
+y además:
+
+
+
+\[  J_{x} = -\eta ev_{x} = - \eta e \frac{p_{x}}{m}; \quad J_{y} = -\eta ev_{y} = -\eta e\frac{p_{y}}{m} \]
+
+
+Tenemos que se reescribe las ecuaciones para $x$ y $y$:
+
+
+\[ x: \quad \sigma_{DC} E_{x} = \tau \omega_{c}J_{y}+J_{x} \]
+
+\[y: \quad \sigma_{DC}E_{y} = -\tau \omega_{c}J_{x}+J_{y}\]
+
+COnsiderando las condiciones del experimento de hall. el campo $E_{y}$ existe pero no hay corriente transversal, es decir $J_{y}=0$
+
+
+
+De acá tenemos, podemos despejar el campo de hall:
+
+\[  E_{y} = - \frac{ \omega_{c}\tau }{\sigma_{DC}}J_{x} = - \frac{ \frac{e H_{z}}{mc}\tau }{\eta e^{2}\tau/m} \]
+
+
+luegego de sumplificar obtenemos:
+
+
+\[ \boxed{  R_{H} = \frac{E_{y}}{J_{x}H} = - \frac{1}{\eta e c} } \quad \text{el coeficiente siempre es una cantidadnegativa}  \]
+
+Este es un claro ejemplo del modelo de drude de algunas de las propiedades en los metales. Este modelo tiene dos modelos: \underline{clásico} y \underline{cuántico}. El \underline{clásico} funciona muy bien en los metales. 
+
+
+Con el paso del tiempo se logran hacer experimentos y se ve que cuando las nmuestras no son tan conductoras, en varios de los materiales el coeficiente puede ser positivo. 
+
+
+LO que ahora se sabe es que los materiales tiene dos tipos de portadores de carga:
+
+\textbf{Huecos} y se les asocia una carga positiva, no son partículas, pero describen bien las cargas.
+
+\textbf{Electrones}.
+
+
+EN una metal la densidad de corriente en los materiales, sería la suma de la densidad de \textbf{huecos} + la suma de los \textbf{electrones}. Para semiconductores es necesario que nos introduzcamos en el modelo cuántico.
+
+
+\section{Conductividad térmica}
+
+Cuando calentamos mucho el material emite una radiación de color roja, mientras que si estpa frio emite con un color azulado, eso es un gradiente, resultal entonces que esto se puede estudiar precisamente con la conductividad térmica. 
+
+
+Para pequeños gradientes de tempertatusa, hay una relació lineal entre corriente ...
+
+(Nos dejerá una tarea).
+
+
+Se ve que el modelo de drude funciona bien para este experimento.
+
+
+\section{Ya vimos el modelo clásico, ahora vemos el modelo de drude en el modelo cuántico}
+
+
+Una variable para introducir el modelo \textbf{cuántico} es considerando el efecto de temperatura. 
+
+Para poder entender el calor espercífico de los electrones es mediante el modelo cuántico, hoy sube las diapositivas. 
+
+\subsection{Modelo de Sommerfeld}
+
+
+La idea se basa en estudiar los niveles de energía de un electrón. Ahora considera un \underline{gas cuántico}. La velocidades promedio se podrían calcular usando la estadística de \textbf{Maxwell Boltmann}, en el caso de Fermi-Dirac es de manera cuántica. 
+
+
+
+\subsubsection{Examen de fonones es el próximo miércoles dado que el día lunes y viernes lo van a dar como puente.}
+
+El examen consiste en los ejercicios prueba que va a subir a teams. 
+
+
+\subsection{Distribuciones importantes: tarea para mañana 30/oct}
+
+De las preguntas que nos va dejar tiene que ver con partículas que son \textbf{Fermiones} y partículas que son \textbf{Bosones}. 
+
+Hay dos distribuciones
+
+Indagar, cuando hablamos de estadśiitca podemos tener cantidades promedio, a veces el promedio no es la cantidad representativa de una muestra, hay que irnos a otros parámetros. Cuando se quería modelar el comportamiento de un sistema como un gas clásico, al principio se calculaba el comportamiento promedio. Usaban Maxwell-Boltzmann, entonces tiene mucha dependencia en la temperatura, hay gases que bajo ciertas condiciones sus propiedades promedio se pueden modelar con esta distribución, sin embargo si la temperatura es demasiado alta entonces puede ser que se comporte como un gas cuántico, entonces resulta que desde el punto de vista cuántico ya es importante la naturaleza de las partículas que tenemos.
+
+
+Si las partículas se comportan como fermiones, entonces la estadística se modela bien considerando la distribución de fermi dirac. MIentras que si se comportan diferenten como un bosón, entonces considerar la estadística de \textbf{Bose- EInstein}.
+
+
+Que caracteristicas tiene los bosones y cuáles tiene los fermiones. ¿Qué define a los fermiones, más ejemplos?
+
+Podría ser buscar en pdg: Particle data group. 
+
+\subsection{Cuál sería la idea ahora}
+
+
+Vamos a utlizar la mecánica cuántica, en algún momento usaremos la distribución de fermi dirac, en la mecánica cuaníca vamos a resolver.
+
+
+\[  \hat{H} \mathcal{X} = \epsilon \mathcal{X}  \]
+
+
+Esto es un problema de eigenvalores y eigenvectores. 
+
+
+EL operador $\hat{H} = T+V$
+
+
+Esto es igual a:
+
+\[ \hat{T} + \hat{V} = - \frac{\hbar^{2}}{2m} \nabla^{2} + \hat{v}  \]
+
+EL campo megnético está relacionado con un campo vectorial.
+
+EL campo eléctrico con un campo escalar.
+
+Le ec. anterior nos da (es una expresión importante):
+
+
+
+\[ - \frac{\hbar^{2}}{2m} \nabla^{2} \mathcal{X} + \hat{V}\mathcal{X} = \epsilon{\mathcal{X}}  \]
+
+
+Vamos a resolver esta ecuación para un solo electrón, es algo parecido a lo que hizo sommerfeld.
+
+Necesitamos la energía total.
+
+Tenemos:
+
+
+Para un electrón libre tenemos:
+
+Vamos a suponer que tenemos electrones libres, es decir que la fuerza total sobre ellos es cero, entonces podemos despreciar el potencial. 
+
+ \[ - \frac{\hbar}{2m} \left( \frac{ \partial^{2} }{\partial x^{2}} + \frac{ \partial^{2} }{\partial y^{2}} + \frac{\partial^{2}}{\partial z^{2}} \right) \psi(\boldsymbol{r}) = \epsilon \psi(\boldsymbol{r})    \]
+
+
+La función de onda normalizada es:
+
+
+\[ \psi(\boldsymbol{r}) = \frac{1}{ \sqrt{V} } e^{i\boldsymbol{k}\cdot \boldsymbol{r}} \]
+
+Queremos modelar un electrón que se encuetra en una caja, ese electrón se encuentra confinado a moverse dentro de ese volumen. 
+
+Está confinado a moverse dentro de la caja.
+
+\[ {\int\limits}{\int\limits}{\int\limits} \psi^{\ast}\psi dV =1 \]
+
+
+Esta función de onda nos describe en un punto en el espacio:
+
+\[ \psi^{\ast} \psi = \left|\psi \right|^{2} \quad \text{densidad de probabilidad}\]
+
+NOs toca hacer ahora es recordando:
+
+\[- \frac{\hbar^{2}}{2m} \nabla^{2} \psi = \epsilon \psi \]
+
+
+\[ T = \frac{1}{2} mv^{2} = \frac{1}{2} m \left( \frac{p}{m}\right)^{2} = \frac{1}{2}\frac{p^{2}}{m}\]
+
+P-momento linea en mecánica cuántica cuántica es un operador:
+
+
+\[  \hat{p} \to \nabla \]
+
+\[ \hat{p} = -i \hbar \nabla \]
+
+Con eigenvalores:
+
+\[ \epsilon{\boldsymbol{k}} = \frac{ \hbar^{2}k^{2} }{2m} \]
+
+\subsection{Otra cosa para mañana}
+
+¿Por qué un electrón se puede representar su movimiento como una onda plana? 
+
+¿Por qué esto funciona para revolver este problema? 
+
+¿Qué explica el comportamiento del electrón cuando está dentro de una caja?
+
+\subsection{Tarea también}
+
+MUchas de las cosas que usamos para fonones las usamos acá:
+
+Tenemos la función de onda que tenemos que usar: 
+
+Vamos a utlizar condiciones de fontera periódicas:
+
+
+Tenemos la funion evaluada en $x$, $y$, $z$:
+
+Vamos a hacer que cumpla  con las condiciones de frontera en el caso de los fonones. vamos a evaluarlos como dice en la ecuación. 
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+¿Qué valores puede tener $k_{x}$
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{2.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+\subsection{Actividades}
+
+% ===================== PR. 1 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.1}}}, start=1]
+  \item \textcolor{Cerulean}{\textbf{Drude y efecto Hall (un solo tipo de portador)}}
+  Partiendo del régimen estacionario con campo magnético $H_z$ y tiempo de relajación $\tau$, considere
+  \begin{equation}\label{eq:drude-xy}
+    \begin{aligned}
+      0 &= -eE_x - \frac{e}{mc}p_y H_z - \frac{p_x}{\tau}\\
+      0 &= -eE_y + \frac{e}{mc}p_x H_z - \frac{p_y}{\tau}
+    \end{aligned}
+  \end{equation}
+  con $J_x=-ne\,p_x/m$, $J_y=-ne\,p_y/m$ y $\sigma_{DC}=\dfrac{ne^2\tau}{m}$. 
+  \textbf{Tareas:}
+  (i) Obtenga el tensor de conductividad $\boldsymbol\sigma$ y sus componentes $\sigma_{xx}$, $\sigma_{xy}$
+  (ii) Imponga $J_y=0$ y derive el campo de Hall $E_y$ y el coeficiente $R_H=\dfrac{E_y}{J_x H_z}$ en unidades con $c$ y en SI
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+Partimos de \eqref{eq:drude-xy} y definimos la frecuencia de ciclotrón $\omega_c\equiv \dfrac{eH_z}{mc}$. Al reorganizar, las ecuaciones quedan como
+\begin{equation}\label{eq:sistema-p}
+\begin{aligned}
+\frac{1}{\tau}\,p_x + \omega_c\,p_y &= -eE_x\\
+-\omega_c\,p_x + \frac{1}{\tau}\,p_y &= -eE_y
+\end{aligned}
+\end{equation}
+
+Este es un sistema lineal para $(p_x,p_y)$. Escribimos la matriz
+\[
+M=\begin{pmatrix}
+\frac{1}{\tau} & \ \omega_c\\[2pt]
+-\omega_c & \ \frac{1}{\tau}
+\end{pmatrix},
+\qquad
+\Delta=\det M=\left(\frac{1}{\tau}\right)^2+\omega_c^2
+\]
+La inversa es
+\[
+M^{-1}=\frac{1}{\Delta}\begin{pmatrix}
+\frac{1}{\tau} & -\omega_c\\[2pt]
+\ \omega_c & \frac{1}{\tau}
+\end{pmatrix}
+\]
+y de \eqref{eq:sistema-p} se obtiene
+\begin{equation}\label{eq:px-py}
+\begin{aligned}
+p_x &= -e\,\frac{1}{\Delta}\!\left(\frac{1}{\tau}E_x-\omega_c E_y\right)\\
+p_y &= -e\,\frac{1}{\Delta}\!\left(\ \omega_c E_x+\frac{1}{\tau}E_y\right)
+\end{aligned}
+\end{equation}
+
+Usamos ahora $J_x=-ne\,p_x/m$ y $J_y=-ne\,p_y/m$. Definimos la conductividad de \textcolor{Cerulean}{\textbf{corriente directa}} $\sigma_{DC}\equiv \dfrac{ne^2\tau}{m}$ y notamos que
+\[
+\Delta=\left(\frac{1}{\tau}\right)^2+\omega_c^2=\frac{1}{\tau^2}\Big[1+(\omega_c\tau)^2\Big],
+\qquad
+\frac{1}{\Delta}=\frac{\tau^2}{1+(\omega_c\tau)^2}
+\]
+Sustituyendo \eqref{eq:px-py} en las corrientes y simplificando, se llega a
+\begin{equation}\label{eq:Jx-Jy}
+\begin{aligned}
+J_x &= \sigma_{DC}\,\frac{E_x-\tau\omega_c\,E_y}{1+(\omega_c\tau)^2}\\
+J_y &= \sigma_{DC}\,\frac{\tau\omega_c\,E_x+E_y}{1+(\omega_c\tau)^2}
+\end{aligned}
+\end{equation}
+
+De \eqref{eq:Jx-Jy} se leen directamente los elementos del \textcolor{Cerulean}{\textbf{tensor de conductividad}} en el plano $xy$,
+\begin{equation}\label{eq:tensor-sigma}
+\sigma_{xx}=\frac{\sigma_{DC}}{1+(\omega_c\tau)^2},
+\qquad
+\sigma_{xy}=\frac{\sigma_{DC}\,\omega_c\tau}{1+(\omega_c\tau)^2}
+\end{equation}
+
+Para obtener el campo de Hall imponemos la condición experimental $J_y=0$. A partir de \eqref{eq:Jx-Jy} esto implica
+\begin{equation}\label{eq:Ey-de-Ex}
+\tau\omega_c\,E_x+E_y=0
+\quad\Rightarrow\quad
+E_y=-\,\tau\omega_c\,E_x
+\end{equation}
+Luego, de \eqref{eq:Jx-Jy} la componente longitudinal se reduce a $J_x=\sigma_{DC}\,E_x$, por lo que $E_x=\dfrac{J_x}{\sigma_{DC}}$. Sustituyendo en \eqref{eq:Ey-de-Ex} se obtiene
+\begin{equation}\label{eq:Ey-de-Jx}
+E_y=-\,\frac{\omega_c\tau}{\sigma_{DC}}\,J_x
+\end{equation}
+
+Con la definición del \textcolor{Cerulean}{\textbf{coeficiente de Hall}} $R_H\equiv\dfrac{E_y}{J_x H_z}$ se llega a
+\begin{equation}\label{eq:RH-final}
+R_H=-\,\frac{\omega_c\tau}{\sigma_{DC}\,H_z}
+\end{equation}
+y al sustituir $\omega_c=\dfrac{eH_z}{mc}$ y $\sigma_{DC}=\dfrac{ne^2\tau}{m}$ resulta
+\begin{equation}\label{eq:RH-cgs}
+R_H=-\,\frac{1}{n e c}
+\end{equation}
+en las unidades donde aparece $c$ a través de $\omega_c=\dfrac{eH_z}{mc}$. En unidades SI se usa $\omega_c=\dfrac{eB_z}{m}$ y se obtiene
+\begin{equation}\label{eq:RH-SI}
+R_H=-\,\frac{1}{n e}
+\end{equation}
+
+En \eqref{eq:tensor-sigma} y \eqref{eq:RH-SI} se observa que el signo negativo refleja que las portadoras son de carga negativa; al repetir el análisis con portadoras positivas el signo del \textcolor{Cerulean}{\textbf{Hall}} cambia de acuerdo con la carga efectiva
+
+
+% ===================== PR. 2 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.2}}}, start=2]
+  \item \textcolor{Cerulean}{\textbf{Coeficiente de Hall con dos portadores}}
+  Considere electrones $(n,\mu_e)$ y huecos $(p,\mu_h)$. 
+  \textbf{Tareas:}
+  (i) Escriba $\mathbf J=\mathbf J_e+\mathbf J_h$ y el tensor de conductividad total
+  (ii) Con $J_y=0$, obtenga
+  \begin{equation}\label{eq:RH-2carriers}
+    R_H=\frac{p\mu_h^2-n\mu_e^2}{e\,(p\mu_h+n\mu_e)^2}
+  \end{equation}
+  (iii) Analice el signo de $R_H$ en los límites $p\to 0$ y $n\to 0$
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+Trabajamos en el régimen de campo débil (lineal en $B_z$), donde $\omega_c\tau\ll1$ y es equivalente a $\mu B_z\ll1$, con $\mu$ la \textcolor{Cerulean}{\textbf{movilidad}}. Para cada tipo de portador usamos la matriz de conductividad en el plano $xy$ hasta primer orden en $B_z$:
+\begin{equation}\label{eq:sigma-e-h}
+\begin{aligned}
+\text{electrones:}\quad &\sigma^{(e)}_{xx}=n e \mu_e,\qquad \sigma^{(e)}_{xy}=-\,n e \mu_e^{2}\,B_z\\
+\text{huecos:}\quad &\sigma^{(h)}_{xx}=p e \mu_h,\qquad \sigma^{(h)}_{xy}=+\;p e \mu_h^{2}\,B_z
+\end{aligned}
+\end{equation}
+
+La conductividad total es la suma de ambas contribuciones. Definimos
+\begin{equation}\label{eq:defs-S-a-b}
+S\equiv ne\mu_e+pe\mu_h,\qquad 
+a\equiv -ne\mu_e^{2}B_z+pe\mu_h^{2}B_z
+\end{equation}
+De forma compacta, las componentes de la densidad de corriente quedan
+\begin{equation}\label{eq:JxJy-primero}
+\begin{aligned}
+J_x&=S\,E_x+a\,E_y\\
+J_y&=-a\,E_x+S\,E_y
+\end{aligned}
+\end{equation}
+donde la estructura antisimétrica entre $E_x$ y $E_y$ proviene de la fuerza magnética y el signo en $a$ distingue electrones de huecos
+
+Para la geometría de Hall se impone $J_y=0$. A partir de \eqref{eq:JxJy-primero} obtenemos
+\begin{equation}\label{eq:Ey-vs-Ex}
+S\,E_y=a\,E_x
+\qquad\Rightarrow\qquad
+E_y=\frac{a}{S}\,E_x
+\end{equation}
+
+Sustituyendo \eqref{eq:Ey-vs-Ex} en la primera de \eqref{eq:JxJy-primero} se halla
+\begin{equation}\label{eq:Jx-vs-Ex}
+J_x=S\,E_x+a\,\frac{a}{S}E_x
+= \left(S+\frac{a^2}{S}\right)E_x
+\end{equation}
+y, como estamos trabajando lineal en $B_z$, el término $a^2\propto B_z^2$ es de orden superior y se descarta en esta aproximación. Por lo tanto
+\begin{equation}\label{eq:Ex-aprox}
+E_x\simeq \frac{J_x}{S}
+\end{equation}
+
+Usando \eqref{eq:Ey-vs-Ex} y \eqref{eq:Ex-aprox} se obtiene
+\begin{equation}\label{eq:Ey-vs-Jx}
+E_y=\frac{a}{S}\,\frac{J_x}{S}
+=\frac{a}{S^{2}}\,J_x
+\end{equation}
+La definición del \textcolor{Cerulean}{\textbf{coeficiente de Hall}} en SI es $R_H\equiv\dfrac{E_y}{J_x B_z}$. Dividiendo \eqref{eq:Ey-vs-Jx} entre $B_z$ queda
+\begin{equation}\label{eq:RH-pre}
+R_H=\frac{a}{S^{2}}\;\frac{1}{B_z}
+\end{equation}
+y al sustituir \eqref{eq:defs-S-a-b} explícitamente
+\begin{equation}\label{eq:RH-SI-final}
+R_H=\frac{p e \mu_h^{2}-n e \mu_e^{2}}{\big(ne\mu_e+pe\mu_h\big)^{2}}
+=\frac{p\mu_h^{2}-n\mu_e^{2}}{e\,(p\mu_h+n\mu_e)^{2}}
+\end{equation}
+
+La expresión \eqref{eq:RH-SI-final} muestra cómo el signo de $R_H$ depende de qué contribución pese más. Si $n\mu_e^{2}\gg p\mu_h^{2}$ entonces $R_H<0$ (comportamiento dominado por electrones). En cambio, si $p\mu_h^{2}\gg n\mu_e^{2}$, se obtiene $R_H>0$, consistente con \textcolor{Cerulean}{\textbf{portadores tipo hueco}}. Los límites $p\to 0$ y $n\to 0$ recuperan los casos de un solo tipo de portador:
+\begin{equation}\label{eq:limites}
+\begin{aligned}
+p\to 0 &\ \Rightarrow\ R_H\to -\frac{1}{ne}\\
+n\to 0 &\ \Rightarrow\ R_H\to +\frac{1}{pe}
+\end{aligned}
+\end{equation}
+
+
+% ===================== PR. 3 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.3}}}, start=3]
+  \item \textcolor{Cerulean}{\textbf{Conductividad térmica y Wiedemann–Franz}}
+  \textbf{Tareas:}
+  (i) Plantee la ley de Fourier $\mathbf J_Q=-\kappa\nabla T$ para gradientes pequeños
+  (ii) Dentro de Sommerfeld, muestre que
+  \begin{equation}\label{eq:WF}
+    \frac{\kappa}{\sigma T}=L_0,\qquad L_0=\frac{\pi^2}{3}\left(\frac{k_B}{e}\right)^2
+  \end{equation}
+  indicando los supuestos usados
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+
+Como punto de partida se usa la \textcolor{Cerulean}{\textbf{ley de Fourier}} para gradientes pequeños de temperatura, donde el flujo de calor es proporcional al gradiente
+\begin{equation}\label{eq:fourier}
+\mathbf J_Q=-\,\kappa\,\nabla T
+\end{equation}
+
+Para relacionar la \textcolor{Cerulean}{\textbf{conductividad térmica}} $\kappa$ con la \textcolor{Cerulean}{\textbf{conductividad eléctrica}} $\sigma$ dentro del modelo de Sommerfeld, se considera que los mismos electrones llevan carga y calor. En régimen lineal y cerca del nivel de Fermi, la respuesta se escribe en términos de integrales ponderadas por la derivada de la distribución de equilibrio. Definimos los momentos de transporte
+\begin{equation}\label{eq:Ln}
+L_n \equiv \frac{1}{3}\int_{0}^{\infty} v^2(\varepsilon)\,\tau(\varepsilon)\,g(\varepsilon)\,(\varepsilon-\mu)^{n}\left(-\frac{\partial f}{\partial \varepsilon}\right)\,d\varepsilon
+\end{equation}
+donde $v(\varepsilon)$ es la velocidad, $\tau(\varepsilon)$ un tiempo de relajación efectivo, $g(\varepsilon)$ la densidad de estados, $f$ la función de equilibrio y $\mu$ el potencial químico
+
+Con estas definiciones, la conductividad eléctrica y la contribución electrónica al transporte de calor toman la forma
+\begin{equation}\label{eq:sigmaL0}
+\sigma = e^{2} L_0
+\end{equation}
+\begin{equation}\label{eq:kappaL}
+\kappa = \frac{1}{T}\left(L_2-\frac{L_1^{\,2}}{L_0}\right)
+\end{equation}
+La combinación $L_2-\dfrac{L_1^{\,2}}{L_0}$ aparece porque el flujo de calor se evalúa en la condición de corriente eléctrica neta nula, que elimina la parte de transporte asociada a un arrastre eléctrico
+
+Para avanzar, se usa la \textcolor{Cerulean}{\textbf{expansión de Sommerfeld}} en el límite degenerado $k_B T \ll E_F$. En este límite la función $-\dfrac{\partial f}{\partial \varepsilon}$ está fuertemente concentrada alrededor de $\varepsilon=\mu\simeq E_F$, de modo que la variación suave de $v^2(\varepsilon)\tau(\varepsilon)g(\varepsilon)$ permite aproximarla por su valor en el Fermi. Bajo el supuesto estándar de que $\tau(\varepsilon)$ es aproximadamente constante en una ventana de unos pocos $k_B T$ alrededor de $E_F$, se obtiene
+\begin{equation}\label{eq:sommerfeld-L0}
+L_0 \simeq \frac{1}{3}\,v_F^{2}\,\tau_F\,g(E_F)
+\end{equation}
+\begin{equation}\label{eq:sommerfeld-L1}
+L_1 \simeq 0
+\end{equation}
+\begin{equation}\label{eq:sommerfeld-L2}
+L_2 \simeq \frac{\pi^{2}}{3}\,(k_B T)^{2}\,L_0
+\end{equation}
+donde $v_F$ y $\tau_F$ son la velocidad y el tiempo de relajación evaluados en el Fermi
+
+Sustituyendo \eqref{eq:sommerfeld-L1} y \eqref{eq:sommerfeld-L2} en \eqref{eq:kappaL} se llega a
+\begin{equation}\label{eq:kappa-final}
+\kappa = \frac{1}{T}\,L_2 \simeq \frac{1}{T}\,\frac{\pi^{2}}{3}\,(k_B T)^{2}\,L_0
+= \frac{\pi^{2}}{3}\,k_B^{2}\,T\,L_0
+\end{equation}
+y usando \eqref{eq:sigmaL0} para escribir $L_0=\dfrac{\sigma}{e^{2}}$ se obtiene inmediatamente
+\begin{equation}\label{eq:WF-derivada}
+\frac{\kappa}{\sigma\,T}=\frac{\pi^{2}}{3}\left(\frac{k_B}{e}\right)^{2}
+\end{equation}
+que coincide con \eqref{eq:WF}, mostrando que el \textcolor{Cerulean}{\textbf{número de Lorenz}} $L_0$ es universal dentro de las hipótesis usadas
+
+En la deducción anterior se han usado supuestos explícitos que conviene recordar para el contexto de validez
+\begin{equation}\label{eq:hipotesis}
+\begin{aligned}
+&\text{(i) Régimen degenerado }k_B T \ll E_F\\
+&\text{(ii) Dispersión elástica dominante y } \tau(\varepsilon) \text{ aproximadamente constante cerca de } E_F\\
+&\text{(iii) Misma población electrónica transporta carga y calor}\\
+&\text{(iv) Contribución de fonones a }\kappa\text{ despreciada en la ventana de }T\text{ considerada}
+\end{aligned}
+\end{equation}
+Bajo estas condiciones aparece la \textcolor{Cerulean}{\textbf{relación de Wiedemann–Franz}} con $L_0=\dfrac{\pi^{2}}{3}\left(\dfrac{k_B}{e}\right)^{2}$, independiente de $v_F$, $\tau_F$ y del detalle de $g(E_F)$
+
+
+
+% ===================== PR. 4 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.4}}}, start=4]
+  \item \textcolor{Cerulean}{\textbf{Electrón libre con condiciones periódicas (PBC)}}
+  Con $\psi_{\mathbf k}(\mathbf r)=V^{-1/2}e^{i\mathbf k\cdot\mathbf r}$ y
+  \begin{equation}\label{eq:Sch-free}
+    -\frac{\hbar^2}{2m}\nabla^2\psi=\varepsilon\psi
+  \end{equation}
+  \textbf{Tareas:}
+  (i) Normalice $\psi_{\mathbf k}$ en $V=L_xL_yL_z$
+  (ii) Imponga PBC
+  \begin{equation}\label{eq:PBC}
+    \psi(x,y,z)=\psi(x+L_x,y,z),\ \psi(x,y,z)=\psi(x,y+L_y,z),\ \psi(x,y,z)=\psi(x,y,z+L_z)
+  \end{equation}
+  y muestre
+  \begin{equation}\label{eq:k-grid}
+    k_x=\frac{2\pi}{L_x}n_x,\quad k_y=\frac{2\pi}{L_y}n_y,\quad k_z=\frac{2\pi}{L_z}n_z
+  \end{equation}
+  (iii) Obtenga $\varepsilon(\mathbf k)=\hbar^2k^2/2m$ y el volumen elemental $(2\pi)^3/V$ en espacio-$k$
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+Partimos de suponer una solución de onda plana en el recinto de volumen $V=L_xL_yL_z$ y dejamos explícito el factor de normalización $A$ para deducirlo más adelante
+\begin{equation}\label{eq:psi-A}
+\psi_{\mathbf k}(\mathbf r)=A\,e^{i\mathbf k\cdot\mathbf r},
+\qquad
+\mathbf r=(x,y,z),\quad \mathbf k=(k_x,k_y,k_z)
+\end{equation}
+
+Primero verificamos que \eqref{eq:psi-A} satisface la ecuación de Schrödinger libre \eqref{eq:Sch-free}. Para ello calculamos el \textcolor{Cerulean}{\textbf{Laplaciano}} de $e^{i\mathbf k\cdot\mathbf r}$ derivando coordenada por coordenada. De la regla de la cadena se tiene
+\begin{equation}\label{eq:deriv-1x}
+\frac{\partial}{\partial x}\,e^{i(k_x x+k_y y+k_z z)}
+= i\,k_x\,e^{i(k_x x+k_y y+k_z z)}
+= i\,k_x\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+y análogamente
+\begin{equation}\label{eq:deriv-1y1z}
+\frac{\partial}{\partial y}\,e^{i\mathbf k\cdot\mathbf r}=i\,k_y\,e^{i\mathbf k\cdot\mathbf r},
+\qquad
+\frac{\partial}{\partial z}\,e^{i\mathbf k\cdot\mathbf r}=i\,k_z\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+Aplicando una segunda derivada a cada término se obtiene
+\begin{equation}\label{eq:deriv-2x}
+\frac{\partial^2}{\partial x^2}\,e^{i\mathbf k\cdot\mathbf r}
+=\frac{\partial}{\partial x}\Big(i\,k_x\,e^{i\mathbf k\cdot\mathbf r}\Big)
+=i\,k_x\Big(i\,k_x\,e^{i\mathbf k\cdot\mathbf r}\Big)
+=(i\,k_x)^2\,e^{i\mathbf k\cdot\mathbf r}
+=-k_x^2\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+y de forma idéntica
+\begin{equation}\label{eq:deriv-2y2z}
+\frac{\partial^2}{\partial y^2}\,e^{i\mathbf k\cdot\mathbf r}=-k_y^2\,e^{i\mathbf k\cdot\mathbf r},
+\qquad
+\frac{\partial^2}{\partial z^2}\,e^{i\mathbf k\cdot\mathbf r}=-k_z^2\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+Al sumar las tres contribuciones se llega a
+\begin{equation}\label{eq:laplaciano-explicito}
+\nabla^2 e^{i\mathbf k\cdot\mathbf r}
+=\left(\frac{\partial^2}{\partial x^2}
++\frac{\partial^2}{\partial y^2}
++\frac{\partial^2}{\partial z^2}\right)e^{i\mathbf k\cdot\mathbf r}
+=-(k_x^2+k_y^2+k_z^2)\,e^{i\mathbf k\cdot\mathbf r}
+=-k^2\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+donde $k^2\equiv \mathbf k\cdot\mathbf k=k_x^2+k_y^2+k_z^2$. Como $A$ de \eqref{eq:psi-A} no depende de $\mathbf r$, se factoriza fuera del Laplaciano y resulta
+\begin{equation}\label{eq:laplace-psiA}
+\nabla^2\psi_{\mathbf k}(\mathbf r)=A\,\nabla^2 e^{i\mathbf k\cdot\mathbf r}
+=-A\,k^2\,e^{i\mathbf k\cdot\mathbf r}
+=-k^2\,\psi_{\mathbf k}(\mathbf r)
+\end{equation}
+Sustituyendo \eqref{eq:laplace-psiA} en \eqref{eq:Sch-free} queda
+\begin{equation}\label{eq:energia-libre}
+-\frac{\hbar^2}{2m}\,\nabla^2\psi_{\mathbf k}
+=\frac{\hbar^2 k^2}{2m}\,\psi_{\mathbf k}
+\end{equation}
+y por comparación con el lado derecho de \eqref{eq:Sch-free} se identifica la energía de un \textcolor{Cerulean}{\textbf{electrón libre}}
+\begin{equation}\label{eq:E-of-k}
+\varepsilon(\mathbf k)=\frac{\hbar^2 k^2}{2m}
+\end{equation}
+
+Determinamos ahora el \textcolor{Cerulean}{\textbf{factor de normalización}} $A$ imponiendo que la probabilidad total en el recinto sea la unidad
+\begin{equation}\label{eq:norma-cond}
+\int_V|\psi_{\mathbf k}(\mathbf r)|^2\,d^3 r
+=\int_{0}^{L_x}\!\!\int_{0}^{L_y}\!\!\int_{0}^{L_z}
+|A|^2\,\big|e^{i\mathbf k\cdot\mathbf r}\big|^2\,dx\,dy\,dz
+=1
+\end{equation}
+El módulo de la exponencial compleja es $1$, de modo que la integral triple separa en el producto de las longitudes del recinto
+\begin{equation}\label{eq:norma-eval}
+|A|^2\,
+\left(\int_{0}^{L_x}dx\right)
+\left(\int_{0}^{L_y}dy\right)
+\left(\int_{0}^{L_z}dz\right)
+=|A|^2\,L_xL_yL_z
+=|A|^2\,V
+=1
+\end{equation}
+y por tanto
+\begin{equation}\label{eq:A-valor}
+A=\frac{1}{\sqrt V}
+\end{equation}
+con lo que se recupera la forma usada habitualmente en \eqref{eq:def-psi}
+
+Mostramos ahora que \eqref{eq:def-psi} cumple las \textcolor{Cerulean}{\textbf{condiciones periódicas}} \eqref{eq:PBC} y, a partir de ellas, la cuantización de los números de onda. En la dirección $x$ la condición $\psi(x+L_x,y,z)=\psi(x,y,z)$ se convierte, usando \eqref{eq:def-psi}, en
+\begin{equation}\label{eq:PBC-x}
+\frac{1}{\sqrt V}\,e^{i\big[k_x(x+L_x)+k_y y+k_z z\big]}
+=\frac{1}{\sqrt V}\,e^{i\big[k_x x+k_y y+k_z z\big]}
+\end{equation}
+Al cancelar factores comunes se obtiene una condición únicamente sobre la fase en $x$
+\begin{equation}\label{eq:fase-x}
+e^{i k_x L_x}=1
+\end{equation}
+La única manera de que \eqref{eq:fase-x} se cumpla para números reales $k_x$ es que $k_xL_x$ sea un múltiplo de $2\pi$, es decir $k_xL_x=2\pi n_x$ con $n_x\in\mathbb Z$. Luego
+\begin{equation}\label{eq:kx-grid}
+k_x=\frac{2\pi}{L_x}\,n_x,\qquad n_x\in\mathbb Z
+\end{equation}
+Repitiendo el mismo argumento con $\psi(x,y+L_y,z)=\psi(x,y,z)$ y con $\psi(x,y,z+L_z)=\psi(x,y,z)$ se llega a
+\begin{equation}\label{eq:kykz-grid}
+k_y=\frac{2\pi}{L_y}\,n_y,\qquad
+k_z=\frac{2\pi}{L_z}\,n_z,\qquad
+n_y,n_z\in\mathbb Z
+\end{equation}
+que es precisamente la malla de \eqref{eq:k-grid}, es decir, las componentes de $\mathbf k$ quedan \textcolor{Cerulean}{\textbf{cuantizadas}} por el tamaño del recinto
+
+Con \eqref{eq:kx-grid} y \eqref{eq:kykz-grid} se leen los incrementos mínimos entre valores permitidos de cada componente
+\begin{equation}\label{eq:delta-ks}
+\Delta k_x=\frac{2\pi}{L_x},\qquad
+\Delta k_y=\frac{2\pi}{L_y},\qquad
+\Delta k_z=\frac{2\pi}{L_z}
+\end{equation}
+De aquí se construye el \textcolor{Cerulean}{\textbf{volumen elemental en el espacio-$k$}} como el volumen del paralelepípedo formado por los tres incrementos
+\begin{equation}\label{eq:cell-k}
+\Delta k_x\,\Delta k_y\,\Delta k_z
+=\frac{2\pi}{L_x}\cdot\frac{2\pi}{L_y}\cdot\frac{2\pi}{L_z}
+=\frac{(2\pi)^3}{L_xL_yL_z}
+=\frac{(2\pi)^3}{V}
+\end{equation}
+
+Adicionalmente es útil registrar la \textcolor{Cerulean}{\textbf{ortogonalidad}} de estos estados. Si $\mathbf k\neq \mathbf k'$ pero ambos satisfacen las PBC, al integrar el producto $\psi_{\mathbf k}^*(\mathbf r)\psi_{\mathbf k'}(\mathbf r)$ sobre el volumen aparecen integrales del tipo
+\begin{equation}\label{eq:orto-1D}
+\frac{1}{L_x}\int_{0}^{L_x} e^{i(k'_x-k_x)x}\,dx
+=\frac{1}{L_x}\,\frac{e^{i(k'_x-k_x)L_x}-1}{i(k'_x-k_x)}
+\end{equation}
+La cuantización \eqref{eq:kx-grid} hace que $(k'_x-k_x)L_x=2\pi(n'_x-n_x)$ y, entonces, el numerador se anula a menos que $n'_x=n_x$. El mismo argumento vale para $y$ y $z$, con lo cual se obtiene la ortonormalidad discreta
+\begin{equation}\label{eq:ortonormalidad}
+\int_V \psi_{\mathbf k}^{*}(\mathbf r)\,\psi_{\mathbf k'}(\mathbf r)\,d^3 r
+=\delta_{n_x,n'_x}\,\delta_{n_y,n'_y}\,\delta_{n_z,n'_z}
+\end{equation}
+Esta propiedad, junto con \eqref{eq:cell-k}, permite el conteo de estados en regiones del espacio-$k$ mediante celdas de volumen $(2\pi)^3/V$ y, combinada con la relación energía–momento \eqref{eq:E-of-k}, servirá para construir la densidad de estados en ejercicios posteriores
+
+
+
+
+% ===================== PR. 5 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.5}}}, start=5]
+  \item \textcolor{Cerulean}{\textbf{Esfera y energía de Fermi en 3D}}
+  Con degeneración de espín $g_s=2$, cuente estados hasta $k_F$ y demuestre
+  \begin{equation}\label{eq:n-kF}
+    n=\frac{k_F^3}{3\pi^2},\qquad k_F=(3\pi^2 n)^{1/3},\qquad E_F=\frac{\hbar^2 k_F^2}{2m}
+  \end{equation}
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+% ===================== PR. 6 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.6}}}, start=6]
+  \item \textcolor{Cerulean}{\textbf{¿Por qué ondas planas para el electrón libre?}}
+  Justifique que para $\hat H=-\hbar^2\nabla^2/2m$ los estados pueden elegirse de momento definido usando simetría de traslación y $[\hat H,\hat{\mathbf p}]=0$. 
+  \textbf{Tareas:}
+  (i) Verifique que
+  \begin{equation}\label{eq:plane-wave}
+    \psi_{\mathbf k}(\mathbf r)=\frac{1}{\sqrt{V}}\,e^{i\mathbf k\cdot\mathbf r}
+  \end{equation}
+  satisface
+  \begin{equation}\label{eq:free-schrodinger}
+    -\frac{\hbar^2}{2m}\nabla^2\psi=E\psi
+  \end{equation}
+  (ii) Explique por qué son autoestados del momento y apropiados para un sistema invariante por traslación
+  (iii) Interprete el confinamiento en caja: cuantización de $(k_x,k_y,k_z)$ y normalización en $V$
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}\textcolor{Cinnabar}{\textbf{Solución:}}
+
+Partimos del Hamiltoniano libre
+\begin{equation}\label{eq:H-libre}
+\hat H=-\frac{\hbar^2}{2m}\,\nabla^2
+\end{equation}
+y del hecho físico clave de que un electrón libre no “siente” ningún potencial, por lo que el sistema es homogéneo en el espacio. Esta homogeneidad equivale a \textcolor{Cerulean}{\textbf{invariancia por traslaciones}} y, en mecánica cuántica, las traslaciones están generadas por el operador momento
+
+Para verificar qué funciones respetan mejor esa simetría consideramos la onda plana
+\begin{equation}\label{eq:psi-plane}
+\psi_{\mathbf k}(\mathbf r)=\frac{1}{\sqrt V}\,e^{i\mathbf k\cdot\mathbf r}
+\end{equation}
+y comprobamos dos propiedades fundamentales: que satisface la ecuación de Schrödinger libre y que es estado propio del momento lineal
+
+De \eqref{eq:psi-plane} calculamos explícitamente su Laplaciano, como ya se hizo en la actividad anterior. Usando
+\[
+\nabla^2 e^{i\mathbf k\cdot\mathbf r}=-k^2\,e^{i\mathbf k\cdot\mathbf r}
+\]
+se obtiene
+\begin{equation}\label{eq:laplace-psi}
+\nabla^2 \psi_{\mathbf k}=-k^2\,\psi_{\mathbf k}
+\end{equation}
+Sustituyendo \eqref{eq:laplace-psi} en \eqref{eq:H-libre} se llega a
+\begin{equation}\label{eq:Sch-libre-resuelta}
+-\frac{\hbar^2}{2m}\,\nabla^2\psi_{\mathbf k}
+=\frac{\hbar^2 k^2}{2m}\,\psi_{\mathbf k}
+\end{equation}
+y, al comparar con \eqref{eq:free-schrodinger}, se identifica la energía
+\begin{equation}\label{eq:E-k}
+E(\mathbf k)=\frac{\hbar^2 k^2}{2m}
+\end{equation}
+con lo que \eqref{eq:plane-wave} satisface efectivamente la ecuación de movimiento
+
+Mostramos ahora que las ondas planas son \textcolor{Cerulean}{\textbf{autofunciones del momento}}. En representación de posición, el operador momento es
+\begin{equation}\label{eq:p-operator}
+\hat{\mathbf p}=-\,i\hbar\,\nabla
+\end{equation}
+Aplicándolo sobre \eqref{eq:psi-plane} y derivando componente a componente
+\begin{equation}\label{eq:p-sobre-psi}
+\hat{\mathbf p}\,\psi_{\mathbf k}
+=-\,i\hbar\,\nabla\!\left(\frac{1}{\sqrt V}e^{i\mathbf k\cdot\mathbf r}\right)
+=-\,i\hbar\,\frac{1}{\sqrt V}\,(i\mathbf k)\,e^{i\mathbf k\cdot\mathbf r}
+=\hbar\,\mathbf k\,\psi_{\mathbf k}
+\end{equation}
+lo cual muestra que $\psi_{\mathbf k}$ es estado propio de $\hat{\mathbf p}$ con autovalor $\hbar\mathbf k$
+
+La conexión con la \textcolor{Cerulean}{\textbf{simetría de traslación}} se establece recordando que el operador que desplaza una función de onda por un vector $\mathbf a$ es
+\begin{equation}\label{eq:traslador}
+\hat T(\mathbf a)=\exp\!\left(-\frac{i}{\hbar}\,\mathbf a\cdot\hat{\mathbf p}\right)
+\end{equation}
+Si el Hamiltoniano es invariante por traslaciones, se cumple $[\hat H,\hat T(\mathbf a)]=0$ para toda $\mathbf a$, lo que implica $[\hat H,\hat{\mathbf p}]=0$. En el caso libre esto es inmediato porque \eqref{eq:H-libre} contiene sólo derivadas espaciales y, usando \eqref{eq:p-operator}, se verifica que
+\begin{equation}\label{eq:conmutador}
+[\hat H,\hat{\mathbf p}]=\mathbf 0
+\end{equation}
+Cuando dos operadores conmutan, es posible elegir una base común de autoestados. Por tanto, podemos elegir los estados de energía de \eqref{eq:H-libre} como estados de momento bien definido. Las ondas planas \eqref{eq:psi-plane} cumplen precisamente esa condición y respetan la simetría de traslación, pues bajo \eqref{eq:traslador} se transforman en
+\begin{equation}\label{eq:traslada-psi}
+\hat T(\mathbf a)\,\psi_{\mathbf k}(\mathbf r)
+=\frac{1}{\sqrt V}\,e^{-\frac{i}{\hbar}\mathbf a\cdot\hat{\mathbf p}}\,e^{i\mathbf k\cdot\mathbf r}
+=\frac{1}{\sqrt V}\,e^{i\mathbf k\cdot(\mathbf r+\mathbf a)}
+=\psi_{\mathbf k}(\mathbf r+\mathbf a)
+\end{equation}
+como corresponde a un estado que “se traslada” sin deformarse
+
+Interpretamos ahora el \textcolor{Cerulean}{\textbf{confinamiento en caja}} de volumen $V=L_xL_yL_z$. Para hacerlo consistente con la homogeneidad del cristal grande, se adoptan condiciones de frontera periódicas
+\begin{equation}\label{eq:PBC-6}
+\psi(x+L_x,y,z)=\psi(x,y,z),\quad
+\psi(x,y+L_y,z)=\psi(x,y,z),\quad
+\psi(x,y,z+L_z)=\psi(x,y,z)
+\end{equation}
+Sustituyendo \eqref{eq:psi-plane} en \eqref{eq:PBC-6} aparece la condición de fase $e^{ik_xL_x}=1$ y sus análogas en $y$ y $z$. Ello obliga a que
+\begin{equation}\label{eq:cuantizacion-k}
+k_x=\frac{2\pi}{L_x}n_x,\qquad
+k_y=\frac{2\pi}{L_y}n_y,\qquad
+k_z=\frac{2\pi}{L_z}n_z,\qquad
+n_x,n_y,n_z\in\mathbb Z
+\end{equation}
+que es la cuantización de $(k_x,k_y,k_z)$ inducida por el tamaño del recinto. El factor $V^{-1/2}$ de \eqref{eq:psi-plane} asegura, además, la normalización
+\begin{equation}\label{eq:norma-caja}
+\int_V |\psi_{\mathbf k}(\mathbf r)|^2\,d^3 r
+=\frac{1}{V}\int_0^{L_x}\!\!\int_0^{L_y}\!\!\int_0^{L_z} dx\,dy\,dz
+=\frac{1}{V}\,L_xL_yL_z
+=1
+\end{equation}
+Finalmente, la cuantización \eqref{eq:cuantizacion-k} determina una malla uniforme en el espacio-$k$ con celdilla elemental
+\begin{equation}\label{eq:celda-k-6}
+\Delta k_x\,\Delta k_y\,\Delta k_z
+=\frac{2\pi}{L_x}\,\frac{2\pi}{L_y}\,\frac{2\pi}{L_z}
+=\frac{(2\pi)^3}{V}
+\end{equation}
+lo que permite contar estados de manera directa y, combinando con \eqref{eq:E-k}, relacionar niveles de energía y volumen ocupado en $k$ de forma transparente
+
+En resumen, las ondas planas \eqref{eq:psi-plane} son naturales para el electrón libre porque simultáneamente resuelven \eqref{eq:H-libre}, son estados propios del momento según \eqref{eq:p-sobre-psi} y respetan la simetría de traslación reflejada en \eqref{eq:conmutador} y \eqref{eq:traslada-psi}, mientras que el confinamiento en caja impone la discretización \eqref{eq:cuantizacion-k} y la normalización \eqref{eq:norma-caja}
+
+
+% ===================== PR. 7 =====================
+\begin{AGbox}[8]
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.7}}}, start=7]
+  \item \textcolor{Cerulean}{\textbf{Distribuciones estadísticas: MB, FD y BE}}
+  Investigue y compare las tres distribuciones más importantes:
+  \begin{itemize}
+    \item Maxwell–Boltzmann (MB)
+    \item Fermi–Dirac (FD)
+    \item Bose–Einstein (BE)
+  \end{itemize}
+  \textbf{Tareas:}
+  (a) Defina qué tipo de partículas describe cada una
+  (b) Liste ejemplos de fermiones y bosones (consultar PDG)
+  (c) Elabore una tabla comparativa con: función de ocupación, límite clásico, ocupación máxima y ejemplos físicos
+  (d) Redacte un párrafo sobre el dominio de validez de cada estadística
+\end{enumerate}
+\end{AGbox}
+
+\vspace{0.5cm}
+\textcolor{Cinnabar}{\textbf{Solución:}}
+
+Comenzamos recordando el principio de \textcolor{Cerulean}{\textbf{espín–estadística}}:
+\begin{equation}\label{eq:spin-stat}
+\text{espín entero} \ \Rightarrow \ \text{bosón, obedece BE}
+\qquad\qquad
+\text{espín semi-entero} \ \Rightarrow \ \text{fermión, obedece FD}
+\end{equation}
+En el límite de gas ralo y no degenerado, ambas estadísticas cuánticas recuperan la de \textcolor{Cerulean}{\textbf{Maxwell–Boltzmann}} (MB)
+
+Las funciones de ocupación para un nivel de energía $\varepsilon$ con potencial químico $\mu$ y temperatura $T$ son
+\begin{equation}\label{eq:nMB}
+\overline{n}_{\text{MB}}(\varepsilon)
+=\exp\!\left[-\frac{\varepsilon-\mu}{k_B T}\right]
+\end{equation}
+\begin{equation}\label{eq:nFD}
+\overline{n}_{\text{FD}}(\varepsilon)
+=\frac{1}{\exp\!\left[\frac{\varepsilon-\mu}{k_B T}\right]+1}
+\end{equation}
+\begin{equation}\label{eq:nBE}
+\overline{n}_{\text{BE}}(\varepsilon)
+=\frac{1}{\exp\!\left[\frac{\varepsilon-\mu}{k_B T}\right]-1}
+\end{equation}
+donde para BE se requiere $\mu\le 0$ para que el denominador no se anule en niveles con $\varepsilon\ge 0$
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{¿Qué tipo de partículas describe cada una?}}
+\begin{itemize}
+  \item \textbf{MB}: partículas distinguibles o indistinguibles con ocupaciones muy pequeñas por estado, sin restricciones de simetría relevantes en el régimen considerado
+  \item \textbf{FD}: \textbf{fermiones} indistinguibles que satisfacen el principio de exclusión de Pauli, como electrones, protones, neutrones, muones, quarks
+  \item \textbf{BE}: \textbf{bosones} indistinguibles con estados simétricos, como fotones, fonones, polaritones, gluones, átomos de $^{87}$Rb o $^{23}$Na en gases diluidos enfriados
+\end{itemize}
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Ejemplos (PDG y física de la materia condensada)}}
+\begin{itemize}
+  \item \textbf{Fermiones}: $e^{-}$, $p$, $n$, $\mu^{\pm}$, $\tau^{\pm}$, quarks $u,d,s,c,b,t$, neutrinos. En sólidos: electrones y huecos efectivos en bandas de conducción y valencia
+  \item \textbf{Bosones}: $\gamma$ (fotón), gluones $g$, $W^{\pm}$ y $Z$ son bosones vectoriales, excitaciones colectivas en sólidos como \textit{fonones} y \textit{magnones}, y átomos bosónicos en condensados BE
+\end{itemize}
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Tabla comparativa}} \\
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{3.1cm}|p{4.2cm}|p{3.2cm}|p{3.2cm}|p{4.6cm}|}
+\hline
+\centering Estadística & \centering Función de ocupación & \centering Límite clásico & \centering Ocupación máxima por estado & \centering Ejemplos típicos \tabularnewline
+\hline
+\textbf{Maxwell--Boltzmann (MB)} &
+$\displaystyle \overline{n}=\exp\!\Big[-\frac{\varepsilon-\mu}{k_BT}\Big]$ &
+--- &
+No hay límite intrínseco, pero en el régimen de validez $\overline{n}\ll 1$ &
+Gas ideal clásico, gas de iones diluidos, impurezas térmicas en semiconductores a $T$ alta \tabularnewline
+\hline
+\textbf{Fermi--Dirac (FD)} &
+$\displaystyle \overline{n}=\frac{1}{e^{(\varepsilon-\mu)/k_BT}+1}$ &
+Cuando $e^{(\varepsilon-\mu)/k_BT}\gg 1$ se reduce a MB &
+$\overline{n}\le 1$ por \textcolor{Cerulean}{\textbf{Pauli}} &
+Electrones en metales y semiconductores, gas electrónico en 2D, electrones en grafeno, neutrones en estrellas de neutrones \tabularnewline
+\hline
+\textbf{Bose--Einstein (BE)} &
+$\displaystyle \overline{n}=\frac{1}{e^{(\varepsilon-\mu)/k_BT}-1}$, con $\mu\le 0$ &
+Cuando $e^{(\varepsilon-\mu)/k_BT}\gg 1$ se reduce a MB &
+No acotada superiormente, puede haber ocupación macroscópica &
+Fotones en cavidad, fonones en sólidos, polaritones, condensados BE atómicos, superfluido de $^4$He \tabularnewline
+\hline
+\end{tabular}
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Límite clásico y conexión entre estadísticas}} \\
+Tomando el régimen de \textit{baja ocupación} o \textit{no degenerado}, es decir
+\begin{equation}\label{eq:clasico}
+e^{(\varepsilon-\mu)/k_B T}\gg 1 \quad\Longrightarrow\quad
+\overline{n}_{\text{FD}}\approx e^{-(\varepsilon-\mu)/k_BT},\ \
+\overline{n}_{\text{BE}}\approx e^{-(\varepsilon-\mu)/k_BT}
+\end{equation}
+las tres se vuelven indistinguibles y se usa MB. Esto ocurre para densidades pequeñas y temperaturas suficientemente altas, cuando la \textcolor{Cerulean}{\textbf{longitud térmica de onda}} es mucho menor que la distancia media entre partículas
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Fermiones: estructura de Fermi y degeneración}} \\
+Para FD a temperatura cero, la ocupación es un \textit{escalón}:
+\begin{equation}\label{eq:FD-T0}
+\overline{n}_{\text{FD}}(\varepsilon)=
+\begin{cases}
+1,& \varepsilon<E_F\\
+0,& \varepsilon>E_F
+\end{cases}
+\end{equation}
+donde $E_F$ es la \textcolor{Cerulean}{\textbf{energía de Fermi}}. A temperaturas bajas $k_B T\ll E_F$, sólo una fina capa de estados alrededor de $E_F$ cambia su ocupación y determina propiedades como el calor específico electrónico y la conductividad en metales
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Bosones: posibilidad de condensación}} \\
+Para BE, al disminuir $T$ a densidad fija, $\mu$ se acerca a $0^{-}$ y puede ocurrir \textcolor{Cerulean}{\textbf{condensación Bose–Einstein}}: una fracción macroscópica ocupa el estado fundamental, con manifestaciones como superfluidez o coherencia de fase a gran escala
+
+\medskip
+
+\noindent\textcolor{Cerulean}{\textbf{Dominio de validez de cada estadística}} \\
+La elección depende de dos ingredientes: indistinguibilidad cuántica y la restricción de simetría. Si las partículas son distinguibles o la ocupación por estado es muy baja, \eqref{eq:clasico} asegura que MB es suficiente. Si las partículas son \textit{fermiones} indistinguibles (espín semi-entero) y la densidad o el descenso de temperatura hace que los estados comiencen a “competir”, la exclusión de Pauli vuelve esencial y se debe usar FD, con un nivel de Fermi que organiza las propiedades del sistema. Si, en cambio, el sistema es de \textit{bosones} indistinguibles (espín entero), las ocupaciones pueden crecer sin límite y emerger fenómenos colectivos; entonces la estadística correcta es BE, que predice, entre otras cosas, condensación a bajas temperaturas. En sólidos, fotones y fonones siempre se tratan con BE, mientras que los electrones de bandas se tratan con FD y, cuando se trabaja a alta temperatura o baja densidad, ambos regresan a MB de forma controlada
+
+\medskip
+
+En síntesis, \textcolor{Cerulean}{\textbf{MB}} describe el régimen clásico ralo, \textcolor{Cerulean}{\textbf{FD}} rige a los portadores con \textbf{Pauli} y estructura de Fermi, y \textcolor{Cerulean}{\textbf{BE}} gobierna excitaciones colectivas y bosones elementales con posibilidad de ocupación macroscópica del mismo estado
+
+
+
+
+
+
+
+\end{document}

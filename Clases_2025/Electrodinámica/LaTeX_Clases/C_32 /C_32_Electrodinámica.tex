@@ -1,0 +1,473 @@
+ \documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \#32 - Electrodinámica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Electrodinámica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Iván Fuentecilla Cárcamo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{EMA4}} /  \textcolor{trueblue}{\bfseries{409}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+
+
+
+	
+
+
+
+
+
+\begin{MyColorPar}{orange(colorwheel)}
+
+\end{MyColorPar}
+
+
+\tableofcontents \newpage
+
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{2cm}
+
+
+
+
+\section{Unit 2: Electric fields in dielectric media}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+
+Potencial:
+
+\[U = - \vec{P} \cdot \vec{E} \]
+
+Potencial asociado a una polarización. 
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{2.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+Caso extremo cuando tenemos un campo eléctrico bajo, temperatura alta, hace que haya una alineación muy random.
+
+\textbf{Polarización aosciada a un elemento de volumen}
+
+\[ \vec{P} = \frac{1}{\Delta{v}} \sum\limits_{i=!}^{n}\vec{P}_{m}  \]
+
+Como están dispuestos aleatoriamente lo anterior obtiene un valor de $0$. 
+
+\textbf{Polarización en esos casos} es cercano a cero o es cero.
+
+Cuando hablamos de algo que es aleatoria tenemos distribuciones de probabilidad, el problema es tremendamente grande.
+
+\[ \psi_{i} \quad E_{i} \quad \left. P(E_{i}) \right|_{T}  \]
+
+(Mecánica estadística)
+
+\textbf{Boltzmann distribution}
+
+Pasamos ahora a la parte forma, a la parte de cálculo:
+
+El objetivo final de esto anterior es:
+
+\textbf{Plarizabilidad}
+
+\[ \vec{P}_{m} = \alpha \vec{E}_{m} \]
+
+\[ \alpha(R_{0}) \]
+
+
+La polarizabilidad es una cantidad molecular.
+
+El objetivo de ahora es observar la dependencia de la \textbf{polarizabilidad}, la temperatura debe de tener un papel muy importante.
+
+
+Podemos encontrar una relación entre la \textbf{constante dieléctrica}, la \textbf{ polarizabilidad} y la \textbf{temperatura}. 
+
+\section{Polar molecules in electric field}
+
+Ahora las moléculas tienen un momento dipolar permanente. 
+
+Tenemos la polarización $P$ dada como:
+
+
+\[ \vec{P} = \frac{1}{\Delta{V}} \sum\limits_{m} \vec{P}_{m}  \]
+
+Esto anterior puede tener un valor límite que se le denomina de saturación, el cual recibe el siguiente tratamiento o resultado:
+
+
+Llegar a ese valor es ideal.
+
+\[ \vec{P}_{s} \quad \to \quad \text{Saturation polarization}  \]
+
+
+Vamos a resolver la siguiente integral.
+
+
+Tenemos una energía potencial asociado a ese dipolo inmerso en el campo eléctrico.
+
+Para cada molécula, vamos a tener un momento dipolar. Entonces el campo eléctrico anterior es microscópico.
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{3.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+El ángulo $\theta$ se forma entre el vector de \textbf{momento dipolar} y el \textbf{campo eléctrico}. 
+
+
+El momento dipolar tendrá las componentes de:
+
+\[ x,y,z \]
+
+Tenemos el elemento de aleatoriedad, estocasticidad, entonces tenemos que considerar que no será exacto, entonces tendremos diferentes ángulos.
+
+
+\[ \underbrace{\langle P_{0} \cos \theta \rangle}_{\text{valor esperado}} =  \int\limits  \]
+
+
+
+\textbf{Boltzmann distribution}
+
+\[ \alpha(T) \quad \Bigg{|} \quad  P(E_{i}) \alpha e^{ -\frac{E}{K_{B}T} }  \quad K_{B}=\text{Boltzmann constant}  \]
+
+
+Tenemos así que el \textbf{valor esperado} es la siguiente integral considerando el \textbf{ángulo sólido} $\Omega$
+
+
+\[ \langle P_{0}\cos\theta \rangle = \frac { \int\limits P_{0}\cos\theta e^{ \frac{ P_{0}E_{m}\cos\theta }{K_{B}T}  } d\Omega  }{ \int\limits e^{\frac{P_{0}E_{m}\cos\theta }{K_{B}T}  d\Omega }  } \]
+
+Tenemos el siguiente resultado:
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{4.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{5.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+Realizamos la siguiente integración, tenemos:
+
+
+Tenemos: 
+
+\[ \frac{ 2\pi P_{0}  \int\limits_{0}^{\pi} \cos \theta e^{y\cos \theta}\sen\theta d\theta  }{ 2\pi \int\limits e^{y\cos\theta}\sen\theta d\theta  }  \]
+
+
+Tenemos:
+
+
+\[\left[ \int\limits_{0}^{\pi}  e^{y\cos\theta}\sen\theta d\theta = -\frac{1}{y}e^{y\cos\theta} \right]_{0}^{\pi} = -\frac{1}{y} \left[ e^{-y}   -e^{y}\right]  \]
+
+Con los cambios de variable:
+
+
+\[ u=\cos\theta \quad du=-\sen\theta d\theta  \]
+
+\[ \sen{hx} = \frac{ e^{x}-e^{-x} }{2} \]
+
+\[ \cos{hx} = \frac{e^{x}+e^{-x}}{2} \]
+
+La segunda integral es:
+
+
+\[ \int\limits_{0}^{\pi}  \cos\theta e^{y\cos\theta}\sen\theta d\theta  = \left. - \cos\theta \frac{e^{y\cos\theta}}{y} + \frac{e^{y\cos\theta}}{y^{2}} \right]^{\pi}_{0}  \]
+
+Con los cambios de variable:
+
+
+\[ u=\cos\theta, du = -\sen\theta d\theta  \]
+
+\[\int\limits \cos\theta e^{y\cos\theta}\sen\theta d\theta = - \int\limits u e^{yu}du \]
+
+
+\[ \frac{1}{y} e^{yu}du = v \quad (v^{\prime}=e^{yu})= - \left[ \frac{ue^{yu}}{y} - \int\limits \frac{e^{yu}}{y}du  \right]   \]
+
+
+Tenemos:
+
+
+\[ = - \frac{e^{yu}}{y} + \frac{1}{y^{2}} e^{yu} = - \frac{ \cos\theta e^{y\cos\theta} }{y} + \frac{e^{y\cos\theta}}{y^{2}}  \]
+
+
+
+
+\[ \int\limits_{0}^{\pi}  \cos\theta e^{y\cos\theta}\sen\theta d\theta  = \left. - \cos\theta \frac{e^{y\cos\theta}}{y} + \frac{e^{y\cos\theta}}{y^{2}} \right]^{\pi}_{0} = \frac{e^{-y}}{y} + \frac{e^{-y}}{y^{2}} + \frac{e^{y}}{y}  - \frac{e^{y}}{y^{2}}\]
+
+\[ \frac{2}{y}\cos{hy} - \frac{2}{y^{2}}\sen{hy}  \]
+
+\[ \langle P_{0}\cos\theta \rangle = P_{0} \left[ \frac{ \cos{hy} }{\sen{hy}} - \frac{1}{y} \right] \]
+
+\[ \boxed{\langle P_{0}\cos\theta  \rangle}  = P_{0} \left[ cot{hy} - \frac{1}{y}  \right] \]
+
+Ecuación 5.21
+
+
+Tarea problema 5.4.
+
+\textbf{Activity}: Using the expansion:
+
+\[\cot{hx} = \frac{1}{x} + \frac{x}{3} + \ldots +  \]
+
+At the smallets order, obtain from \textbf{Langevin equation}
+
+\[  \langle P_{0} \cos\theta  \rangle = \frac{P_{0}^{2}E_{m} }{3K_{B}T} \]
+
+
+\[ \boxed{ \langle P_{0}\cos\theta \rangle  } = \frac{ P_{0}^{2} }{3} \frac{E_{m}}{K_{B}T} \]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{6.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura2}
+\end{figure}
+
+
+\[
+\textbf{Tenemos:} \qquad 
+\langle P_{0}\cos\theta\rangle = \frac{P_{0}^{2}}{3}\frac{E_{m}}{k_{B}T}
+\]
+
+Sabemos además que la polarización inducida (por partícula) puede escribirse como:
+
+\[
+P_{m} = \alpha E_{m}
+\]
+
+Comparando ambas expresiones, observamos que el término que acompaña a \(E_{m}\) 
+en la primera ecuación corresponde directamente a la \textbf{polarizabilidad}:
+
+\[
+\boxed{ \alpha(T) = \frac{P_{0}^{2}}{3k_{B}T} }
+\]
+
+\vspace{0.5cm}
+
+Si existen \(N\) dipolos por unidad de volumen, la \textbf{polarización macroscópica} es:
+
+\[
+\vec{P} = N \langle P_{0}\cos\theta\rangle = N \alpha(T) \vec{E}_{m}
+\]
+
+Finalmente, usando la relación 
+\(\vec{P} = \varepsilon_{0}\chi_{e}\vec{E}_{m}\),
+se obtiene la \textbf{susceptibilidad eléctrica}:
+
+\[
+\boxed{ \chi_{e}(T) = \frac{N P_{0}^{2}}{3\varepsilon_{0}k_{B}T} }
+\]
+
+
+
+ 
+\end{document}

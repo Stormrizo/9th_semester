@@ -1,0 +1,53 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Instrucciones de la tarea}{1}{section.1}%
+\contentsline {section}{Instrucciones de la tarea}{1}{section.1}%
+\contentsline {section}{Problema 1}{4}{section*.2}%
+\contentsline {section}{Problema 2}{5}{section*.4}%
+\contentsline {subsection}{Planteamiento del problema}{6}{section*.5}%
+\contentsline {subsection}{1) Ecuaciones de estado}{6}{section*.6}%
+\contentsline {subsection}{2) Homogeneidad}{7}{section*.7}%
+\contentsline {subsection}{3) Relación de Euler}{7}{section*.8}%
+\contentsline {section}{Problema 3}{7}{section*.9}%
+\contentsline {subsection}{Planteamiento}{7}{section*.10}%
+\contentsline {subsection}{1) Relación entre U y V}{8}{section*.11}%
+\contentsline {subsection}{2) Relación entre U y S}{8}{section*.12}%
+\contentsline {subsection}{3) Condición de extensividad}{9}{section*.13}%
+\contentsline {subsection}{4) Forma entropía}{9}{section*.14}%
+\contentsline {subsection}{5) Verificación}{9}{section*.15}%
+\contentsline {subsection}{Resultado final}{10}{section*.16}%
+\contentsline {section}{Problema 4}{10}{section*.22}%
+\contentsline {subsection}{1) Variables intensivas por diferenciación}{10}{section*.23}%
+\contentsline {subsection}{2) Eliminación de $S$}{10}{section*.24}%
+\contentsline {subsection}{3) Expresión de $\mu (P,T)$}{10}{section*.25}%
+\contentsline {subsection}{Resultado final}{11}{section*.26}%
+\contentsline {section}{Problema 5}{11}{section*.28}%
+\contentsline {subsection}{Ej. 5.1: Función de Massieu $S[1/T,V,N]$}{11}{section*.29}%
+\contentsline {subsection}{Ej. 5.2: Función de Massieu $S[1/T,V,\mu /T]$}{12}{section*.30}%
+\contentsline {subsection}{Resultado final}{12}{section*.31}%
+\contentsline {section}{Problema 6}{12}{section*.33}%
+\contentsline {subsection}{1) Energía interna del gas ideal monoatómico}{12}{section*.34}%
+\contentsline {subsection}{2) Calor específico a volumen constante}{13}{section*.35}%
+\contentsline {subsection}{3) Calor específico a presión constante}{13}{section*.36}%
+\contentsline {subsection}{4) Relación de Mayer}{13}{section*.37}%
+\contentsline {subsection}{Resultado final}{14}{section*.38}%
+\contentsline {section}{Problema 7}{14}{section*.39}%
+\contentsline {subsection}{1) Relaciones termodinámicas}{14}{section*.40}%
+\contentsline {subsection}{2) Expresión de la temperatura}{14}{section*.41}%
+\contentsline {subsection}{3) Expresión de la presión}{14}{section*.42}%
+\contentsline {subsection}{4) Relación entre T, P y v}{15}{section*.43}%
+\contentsline {subsection}{5) Expansión adiabática (s=cte)}{15}{section*.44}%
+\contentsline {subsection}{6) Cálculo de T final}{15}{section*.45}%
+\contentsline {subsection}{7) Resultado final}{16}{section*.46}%
+\contentsline {section}{Problema 8}{16}{section*.47}%
+\contentsline {subsection}{1) Identificación de las energías}{16}{section*.48}%
+\contentsline {subsection}{2) Condiciones de equilibrio}{16}{section*.49}%
+\contentsline {subsection}{3) Expresiones en equilibrio}{16}{section*.50}%
+\contentsline {subsection}{4) Resolución de la temperatura de equilibrio}{17}{section*.51}%
+\contentsline {subsection}{5) Energías finales}{17}{section*.52}%
+\contentsline {subsection}{Resultado final}{17}{section*.53}%
+\contentsline {section}{Problema 9}{17}{section*.55}%
+\contentsline {subsection}{1) Potencial químico del gas}{17}{section*.56}%
+\contentsline {subsection}{2) Potencial químico en la superficie}{18}{section*.57}%
+\contentsline {subsection}{3) Condición de equilibrio}{18}{section*.58}%
+\contentsline {subsection}{4) Relación final}{18}{section*.59}%
+\contentsline {subsection}{Resultado final}{18}{section*.60}%

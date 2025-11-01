@@ -1,0 +1,13 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Unit 2: Electric fields in dielectric media: hoy terminamos de ver este tema}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Ejercicio de clase: Compute the total energy of a dielectric sphere (charged) that produces an electric field in the outside and inside regions.}{7}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ejercicio de clase: Compute the total energy of a charged dielectric sphere that produces an electric field in the outside and inside regions}{9}{subsection.1.2}%
+\contentsline {paragraph}{1) Campos \(\vec D\) y \(\vec E\) por simetría esférica (Ley de Gauss)}{10}{section*.6}%
+\contentsline {paragraph}{2) Densidad de energía electrostática}{10}{section*.7}%
+\contentsline {paragraph}{3) Energía total \(W\) como suma de las contribuciones interior + exterior}{10}{section*.8}%
+\contentsline {paragraph}{4) Resultado total en función de \(\rho \) y \(R\)}{10}{section*.9}%
+\contentsline {paragraph}{5) Resultado equivalente en función de la carga total \(Q=\frac {4\pi R^{3}}{3}\rho \)}{10}{section*.10}%
+\contentsline {paragraph}{6) Chequeos y casos límite}{11}{section*.11}%
+\contentsline {paragraph}{7) Comentarios}{11}{section*.12}%
+\contentsline {subsection}{\numberline {1.3}Avazamos en el siguiente paso}{11}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Semana y media para ver los ejercicios. }{11}{subsubsection.1.3.1}%

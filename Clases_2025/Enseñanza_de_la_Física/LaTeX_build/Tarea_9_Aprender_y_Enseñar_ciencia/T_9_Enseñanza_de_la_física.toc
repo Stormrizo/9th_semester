@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Instrucciones de la actividad}{1}{section*.1}%
+\contentsline {section}{Capítulo 1 — Aprender y enseñar ciencia}{2}{section*.3}%
+\contentsline {section}{Características principales}{3}{section*.4}%
+\contentsline {section}{Implicaciones científicas}{4}{section*.5}%

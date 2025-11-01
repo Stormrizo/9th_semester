@@ -1,0 +1,223 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=1in]{geometry}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\title{Problema 3.5 - Análisis de Cónicas}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\textbf{Problema 3.5}.
+Determinar los focos, vertices y todos los par´ametros que caracterizan a las conicas dadas por las Ecs.(101), (102) y (104)
+
+Respuesta:
+Estas tres ecuaciones se derivan de la ecuación general de la cónica en el sistema de coordenadas rotado $(\xbar, \ybar)$\textsuperscript{2}. Dicha ecuación base es la siguiente:
+
+\begin{equation}
+    \sqrt{\xbar^{2}+\ybar^{2}}+e\xbar=\frac{1}{C} 
+    \label{eq:base}
+\end{equation}
+
+
+\subsection{Caso 1: Parábola ($e=1$)}
+
+Se comienza con la Ecuación \eqref{eq:base} y se sustituye el valor de excentricidad $e=1$.
+
+\begin{align}
+    \sqrt{\xbar^{2}+\ybar^{2}}+\xbar &= \frac{1}{C} \\
+    %
+    \intertext{Se procede a aislar la raíz cuadrada:}
+    \sqrt{\xbar^{2}+\ybar^{2}} &= \frac{1}{C}-\xbar \\
+    %
+    \intertext{Elevando al cuadrado ambos lados de la ecuación:}
+    \xbar^{2}+\ybar^{2} &= \left(\frac{1}{C}-\xbar\right)^{2} \\
+    \xbar^{2}+\ybar^{2} &= \frac{1}{C^{2}} - \frac{2\xbar}{C} + \xbar^{2} \\
+    %
+    \intertext{Simplificamos la expresión, cancelando el término $\xbar^{2}$ de ambos lados:}
+    \ybar^{2} &= \frac{1}{C^{2}} - \frac{2\xbar}{C} \\
+    %
+    \intertext{Finalmente, se despeja $\xbar$:}
+    \frac{2\xbar}{C} &= \frac{1}{C^{2}} - \ybar^{2} \\
+    \xbar &= \frac{C}{2} \left(\frac{1}{C^{2}} - \ybar^{2}\right) \\
+    \xbar &= \frac{1}{2C} - \frac{C}{2}\ybar^{2}
+\end{align}
+
+\paragraph{Resultado:} El desarrollo anterior conduce exactamente a la Ecuación (101):
+\begin{equation}
+    \xbar = \frac{1}{2C} - \frac{C}{2}\ybar^{2}
+    \label{eq:101}
+\end{equation}
+
+\subsubsection*{Parámetros de la Parábola}
+
+\paragraph{Forma canónica:} La forma estándar de una parábola que abre horizontalmente es $(\ybar - k)^{2} = 4p(\xbar - h)$, donde $(h, k)$ es el vértice y $p$ es la distancia focal (del vértice al foco).
+
+\paragraph{Reordenar Ec. \eqref{eq:101}:} Se reordena la ecuación \eqref{eq:101} para ajustarla a la forma canónica:
+\begin{align*}
+    \xbar - \frac{1}{2C} &= -\frac{C}{2}\ybar^{2} \\
+    \ybar^{2} &= -\frac{2}{C}\left(\xbar - \frac{1}{2C}\right)
+\end{align*}
+
+\paragraph{Identificación de parámetros:} Comparando las formas, se obtiene:
+\begin{itemize}
+    \item \textbf{Vértice $(h, k)$:} Se observa que $h = 1/2C$ y $k = 0$. Por lo tanto, el vértice es $(1/2C, 0)$.
+    \item \textbf{Distancia Focal $p$:} Se tiene la igualdad $4p = -2/C$, de donde se despeja $p = -1/(2C)$.
+    \item \textbf{Foco:} La coordenada del foco es $(h+p, k)$. Sustituyendo los valores encontrados:
+    \[
+        \text{Foco} = \left(\frac{1}{2C} + \left(-\frac{1}{2C}\right), 0\right) = (0, 0)
+    \]
+    Esto confirma que el foco está en el origen (0, 0), tal como se esperaba, ya que el centro de fuerzas está en el origen.
+\end{itemize}
+
+\subsection{Caso 2: Elipse ($e<1$)}
+
+Se comienza nuevamente con la Ecuación \eqref{eq:base}, considerando ahora que $e<1$ (y por tanto, el término $1-e^{2}$ es positivo). El proceso inicial de aislar la raíz y elevar al cuadrado es análogo al caso anterior:
+
+\begin{align}
+    \sqrt{\xbar^{2}+\ybar^{2}} &= \frac{1}{C}-e\xbar \\
+    \xbar^{2}+\ybar^{2} &= \left(\frac{1}{C}-e\xbar\right)^{2} \\
+    \xbar^{2}+\ybar^{2} &= \frac{1}{C^{2}} - \frac{2e}{C}\xbar + e^{2}\xbar^{2} \\
+    %
+    \intertext{A continuación, se agrupan los términos en $\xbar$ y $\ybar$:}
+    \xbar^{2} - e^{2}\xbar^{2} + \frac{2e}{C}\xbar + \ybar^{2} &= \frac{1}{C^{2}} \\
+    \xbar^{2}(1-e^{2}) + \frac{2e}{C}\xbar + \ybar^{2} &= \frac{1}{C^{2}} \\
+    %
+    \intertext{Se procede a completar el cuadrado para la variable $\xbar$. Primero, se factoriza $(1-e^{2})$:}
+    (1-e^{2}) \left[\xbar^{2} + \frac{2e}{C(1-e^{2})}\xbar\right] + \ybar^{2} &= \frac{1}{C^{2}} \\
+    %
+    \intertext{Se añade y resta el término $\left(\frac{\text{coef. } \xbar}{2}\right)^{2} = \left(\frac{e}{C(1-e^{2})}\right)^{2} = \frac{e^{2}}{C^{2}(1-e^{2})^{2}}$ dentro del corchete:}
+    (1-e^{2}) \left[\xbar^{2} + \frac{2e}{C(1-e^{2})}\xbar + \frac{e^{2}}{C^{2}(1-e^{2})^{2}}\right] + \ybar^{2} &= \frac{1}{C^{2}} + (1-e^{2})\left[\frac{e^{2}}{C^{2}(1-e^{2})^{2}}\right] \\
+    %
+    \intertext{Simplificamos el lado derecho (LD) de la ecuación:}
+    \text{LD} = \frac{1}{C^{2}} + \frac{e^{2}}{C^{2}(1-e^{2})} = \frac{1(1-e^{2}) + e^{2}}{C^{2}(1-e^{2})} &= \frac{1-e^{2}+e^{2}}{C^{2}(1-e^{2})} = \frac{1}{C^{2}(1-e^{2})} \\
+    %
+    \intertext{Escribiendo el lado izquierdo como un binomio al cuadrado, se obtiene:}
+    (1-e^{2}) \left[\xbar + \frac{e}{C(1-e^{2})}\right]^{2} + \ybar^{2} &= \frac{1}{C^{2}(1-e^{2})} \\
+    %
+    \intertext{Ahora, se utiliza la definición de $a$ (Ec. 103) dada por $a = \frac{1}{C(1-e^{2})}$.}
+    \intertext{Sustituimos esto en el término dentro del paréntesis: $\frac{e}{C(1-e^{2})} = e \cdot a$.}
+    \intertext{Sustituimos esto en el lado derecho: $\frac{1}{C^{2}(1-e^{2})} = \frac{1-e^{2}}{C^{2}(1-e^{2})^{2}} = (1-e^{2}) \cdot a^{2}$.}
+    %
+    \intertext{Asi la ecuación queda:}
+    (1-e^{2})[\xbar + ea]^{2} + \ybar^{2} &= a^{2}(1-e^{2}) \\
+    %
+    \intertext{Finalmente, se divide toda la expresión por $a^{2}(1-e^{2})$ para normalizar la ecuación:}
+    \frac{(1-e^{2})[\xbar + ea]^{2}}{a^{2}(1-e^{2})} + \frac{\ybar^{2}}{a^{2}(1-e^{2})} &= 1
+\end{align}
+
+\paragraph{Resultado:} Al cancelar el factor $(1-e^{2})$ en el primer término, se obtiene la Ecuación (102):
+\begin{equation}
+    \frac{(\xbar+ea)^{2}}{a^{2}}+\frac{\ybar^{2}}{a^{2}(1-e^{2})}=1
+    \label{eq:102}
+\end{equation}
+
+\subsubsection*{Parámetros de la Elipse (Ec. 102)}
+
+\paragraph{Forma canónica:} La ecuación canónica de una elipse es $\frac{(\xbar - h)^{2}}{a^{2}} + \frac{(\ybar - k)^{2}}{b^{2}} = 1$.
+
+\paragraph{Identificación de parámetros:} Comparando la Ec. \eqref{eq:102} con la forma canónica, se identifican los siguientes parámetros:
+\begin{itemize}
+    \item \textbf{Centro $(h, k)$:} Se deduce que $h = -ea$ y $k = 0$. El centro es $(-ea, 0)$.
+    \item \textbf{Semi-eje mayor:} $a = \frac{1}{C(1-e^{2})}$.
+    \item \textbf{Semi-eje menor $b$:} Se define $b^{2} = a^{2}(1-e^{2})$, por lo que $b = a\sqrt{1-e^{2}}$.
+    \item \textbf{Distancia focal $c$:} Para una elipse, la relación es $c^{2} = a^{2} - b^{2}$. Sustituyendo $b^2$:
+    \[
+        c^{2} = a^{2} - a^{2}(1-e^{2}) = a^{2} - a^{2} + a^{2}e^{2} = a^{2}e^{2}
+    \]
+    De este modo, se obtiene $c = ae$.
+    \item \textbf{Focos:} Las posiciones de los focos son $(h \pm c, k)$.
+    \begin{itemize}
+        \item Foco 1: $(h+c, k) = (-ea + ae, 0) = (0, 0)$.
+        \item Foco 2: $(h-c, k) = (-ea - ae, 0) = (-2ea, 0)$.
+    \end{itemize}
+    Esto confirma los focos en $(0, 0)$ y $(-2ea, 0)$.
+    \item \textbf{Vértices:} Las posiciones de los vértices son $(h \pm a, k)$.
+    \begin{itemize}
+        \item Vértice 1: $(h+a, k) = (-ea + a, 0) = (a(1-e), 0)$.
+        \item Vértice 2: $(h-a, k) = (-ea - a, 0) = (-a(1+e), 0)$.
+    \end{itemize}
+    Esto confirma los vértices en $(a(1-e), 0)$ y $(-a(1+e), 0)$.
+\end{itemize}
+
+
+\subsection{Caso 3: Hipérbola ($e>1$)}
+
+El desarrollo algebraico es muy similar al caso de la elipse, peroo en este caso $e>1$, lo que implica que el término $e^{2}-1$ es positivo.
+
+Se retoma el desarrollo desde el paso de agrupación de términos:
+\begin{align}
+    \xbar^{2}(1-e^{2}) + \frac{2e}{C}\xbar + \ybar^{2} &= \frac{1}{C^{2}} \\
+    %
+    \intertext{Se multiplica por -1 y se reordena usando el factor $(e^{2}-1)$:}
+    -\xbar^{2}(e^{2}-1) + \frac{2e}{C}\xbar + \ybar^{2} &= \frac{1}{C^{2}} \\
+    \xbar^{2}(e^{2}-1) - \frac{2e}{C}\xbar - \ybar^{2} &= -\frac{1}{C^{2}} \\
+    %
+    \intertext{Nuevamente, se completa el cuadrado para $\xbar$. Primero, se factoriza $(e^{2}-1)$:}
+    (e^{2}-1) \left[\xbar^{2} - \frac{2e}{C(e^{2}-1)}\xbar\right] - \ybar^{2} &= -\frac{1}{C^{2}} \\
+    %
+    \intertext{Añadimos y restamos $(\frac{\text{coef. } \xbar}{2})^{2} = (\frac{-e}{C(e^{2}-1)})^{2} = \frac{e^{2}}{C^{2}(e^{2}-1)^{2}}$:}
+    (e^{2}-1) \left[\xbar^{2} - \frac{2e}{C(e^{2}-1)}\xbar + \frac{e^{2}}{C^{2}(e^{2}-1)^{2}}\right] - \ybar^{2} &= -\frac{1}{C^{2}} + (e^{2}-1)\left[\frac{e^{2}}{C^{2}(e^{2}-1)^{2}}\right] \\
+    %
+    \intertext{Se simplifica el lado derecho (LD):}
+    \text{LD} = -\frac{1}{C^{2}} + \frac{e^{2}}{C^{2}(e^{2}-1)} = \frac{-(e^{2}-1) + e^{2}}{C^{2}(e^{2}-1)} &= \frac{-e^{2}+1+e^{2}}{C^{2}(e^{2}-1)} = \frac{1}{C^{2}(e^{2}-1)} \\
+    %
+    \intertext{Escribiendo el lado izquierdo como un binomio, la ecuación resulta en:}
+    (e^{2}-1) \left[\xbar - \frac{e}{C(e^{2}-1)}\right]^{2} - \ybar^{2} &= \frac{1}{C^{2}(e^{2}-1)} \\
+    %
+    \intertext{Para este caso, se usa la definición de $b$ (Ec. 105) dada por $b = \frac{1}{C(e^{2}-1)}$.}
+    \intertext{Sustituimos esto en el paréntesis: $\frac{e}{C(e^{2}-1)} = e \cdot b$.}
+    \intertext{Sustituimos esto en el lado derecho: $\frac{1}{C^{2}(e^{2}-1)} = \frac{e^{2}-1}{C^{2}(e^{2}-1)^{2}} = (e^{2}-1) \cdot b^{2}$.}
+    %
+    \intertext{La ecuación queda:}
+    (e^{2}-1)[\xbar - eb]^{2} - \ybar^{2} &= b^{2}(e^{2}-1) \\
+    %
+    \intertext{Finalmente, se divide toda la expresión por $b^{2}(e^{2}-1)$ para normalizar:}
+    \frac{(e^{2}-1)[\xbar - eb]^{2}}{b^{2}(e^{2}-1)} - \frac{\ybar^{2}}{b^{2}(e^{2}-1)} &= 1
+\end{align}
+
+\paragraph{Resultado:} Al cancelar el factor $(e^{2}-1)$ en el primer término, se obtiene la Ecuación (104):
+\begin{equation}
+    \frac{(\xbar-eb)^{2}}{b^{2}}-\frac{\ybar^{2}}{b^{2}(e^{2}-1)}=1
+    \label{eq:104}
+\end{equation}
+
+\subsubsection*{Parámetros de la Hipérbola (Ec. 104)}
+
+\paragraph{Forma canónica:} La ecuación canónica de una hipérbola es $\frac{(\xbar - h)^{2}}{a_{h}^{2}} - \frac{(\ybar - k)^{2}}{b_{h}^{2}} = 1$. (Se usan $a_h, b_h$ para evitar confusión con el parámetro $b$).
+
+\paragraph{Identificación de parámetros:} Comparando la Ec. \eqref{eq:104} con la forma canónica, se identifican los siguientes parámetros:
+\begin{itemize}
+    \item \textbf{Centro $(h, k)$:} Se deduce que $h = eb$ y $k = 0$. El centro es $(eb, 0)$.
+    \item \textbf{Semi-eje transverso $a_h$:} Se tiene $a_{h}^{2} = b^{2}$, por lo que $a_h = b$.
+    \item \textbf{Semi-eje conjugado $b_h$:} Se tiene $b_{h}^{2} = b^{2}(e^{2}-1)$, por lo que $b_h = b\sqrt{e^{2}-1}$.
+    \item \textbf{Distancia focal $c$:} Para una hipérbola, la relación es $c^{2} = a_{h}^{2} + b_{h}^{2}$. Sustituyendo los valores:
+    \[
+        c^{2} = b^{2} + b^{2}(e^{2}-1) = b^{2} + b^{2}e^{2} - b^{2} = b^{2}e^{2}
+    \]
+    De este modo, se obtiene $c = be$.
+    \item \textbf{Focos:} Las posiciones de los focos son $(h \pm c, k)$.
+    \begin{itemize}
+        \item Foco 1: $(h-c, k) = (eb - be, 0) = (0, 0)$.
+        \item Foco 2: $(h+c, k) = (eb + be, 0) = (2eb, 0)$.
+    \end{itemize}
+    Esto confirma los focos en $(0, 0)$ y $(2eb, 0)$.
+    \item \textbf{Vértices:} Las posiciones de los vértices son $(h \pm a_h, k)$.
+    \begin{itemize}
+        \item Vértice 1: $(h-a_h, k) = (eb - b, 0) = (b(e-1), 0)$.
+        \item Vértice 2: $(h+a_h, k) = (eb + b, 0) = (b(e+1), 0)$.
+    \end{itemize}
+    Esto confirma los vértices en $(b(e-1), 0)$ y $(b(e+1), 0)$.
+\end{itemize}
+
+\end{document}

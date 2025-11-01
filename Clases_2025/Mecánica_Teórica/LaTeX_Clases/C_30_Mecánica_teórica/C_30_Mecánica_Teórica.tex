@@ -1,0 +1,459 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 30 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Secciones cónicas}
+
+tenemos:
+
+
+\[  \frac{1}{r} = \frac{mk}{ \ell^{2} } \left[  1 + \sqrt{  1 + \frac{2E\ell^{2}  }{mk^{2}}  }  \cos (\phi - \bar{\phi}  )\right] \]
+
+
+Tenemos
+
+\[\frac{1}{r} = C \left[  1 + e \cos (\phi - \bar\phi) \right] \]
+
+
+\[ C = \frac{mk}{\ell^{2}}; \quad e = \sqrt{ 1 + \frac{ 2E\ell^{2} }{mk^{2}}  }  \]
+
+
+\begin{enumerate}
+\item $e=0 \quad \Rightarrow \quad E = - \frac{mk^{2}}{2\ell^{2}}=E_{0} \quad \textbf{Círculo}$
+\item $e<1, \quad E_{0}<E<0 \quad \textbf{Elipse}$
+\item $e=1$, $E=0$ \textbf{Parábola}
+\item $e>1$, $E>0$ \textbf{Hipérbola}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{1.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+\textbf{Masa reducida}:
+
+\[  m = \frac{ m_{T} \cdot m_{s} }{ m_{T} + m_{s} } \]
+
+\[ \vec{r} = \vec{r}_{T} - \vec{r}_{S} \]
+
+\textbf{Primera Ley de Kepler:}
+
+\emph{Los planetas se mueven en órbitas elípticas con el sol en uno de sus focos}
+
+
+Tenemos:
+
+
+\[  m = \frac{m_{s} m_{T} }{ m_{s}+m_{T} } = \frac{ m_{T} }{1 + \frac{ m_{T} }{m_{s}}}  \]
+
+
+\begin{equation}
+\begin{split}
+\left. \begin{array}{cc}
+m_{T} &= 5\text{.}972\times 10^{24} kg\\
+m_{S} &= 1\text{.}989\times 10^{30} kg
+\end{array} \right\} \frac{m_{T} }{m_{s}} \approx 3\text{.}00251\times10^{-6}
+\end{split}
+\end{equation}
+
+\emph{En este tercer examen si nos aprender de memoria, pero tenemos que sabernos las 3 leyes de Kepler, no deben de venir escritas}.
+
+\textbf{Segunda Ley de Kepler}
+
+\emph{Los planetas barren áreas iguales en tiempos iguales.}
+
+Esta ley está íntimamente ligada al \textbf{momento angular orbital} del planeta. 
+En efecto, la constancia del área barrida implica que el momento angular se conserva; 
+por tanto, el planeta se mueve en un plano fijo y su velocidad varía de modo que, 
+cuando está más cerca del Sol (perihelio), se mueve más rápido, y cuando está más lejos (afelio), más lento.
+
+\smallskip
+
+\textbf{¿Quién determina la forma de la órbita del planeta?}
+
+La forma de la órbita está determinada por la \textbf{energía total del sistema} y el 
+\textbf{momento angular orbital}. Dado un valor de momento angular $L$, la energía $E$ 
+define el tipo de trayectoria que el cuerpo sigue en el plano:
+\[
+E < 0 \Rightarrow \text{elipse}, \quad
+E = 0 \Rightarrow \text{parábola}, \quad
+E > 0 \Rightarrow \text{hipérbola.}
+\]
+Por tanto, la \textbf{excentricidad $e$} está fijada por los valores de $E$ y $L$.
+
+\smallskip
+
+\textbf{Caso especial: $L = 0$}
+
+Si el momento angular orbital vale cero, eso significa que la posición y la velocidad son 
+\textbf{paralelas o antiparalelas}, es decir, el cuerpo se mueve directamente hacia o desde el centro. 
+En este caso no existe una órbita en sentido kepleriano: no hay área barrida ni trayectoria elíptica, 
+sino un \textbf{movimiento radial puro}.\textbf{Caso especial: $L=0$ — Demostración}
+
+\begin{equation}
+\vec{L}=\vec{r}\times m\vec{v}=m r^{2}\,\dot{\theta}\,\hat{\mathbf{z}}
+\end{equation}
+
+\begin{equation}
+L=0 \quad\Rightarrow\quad r^{2}\dot{\theta}=0
+\end{equation}
+
+\begin{equation}
+r>0 \ \text{(partícula no en el origen)} \quad\Rightarrow\quad \dot{\theta}=0
+\end{equation}
+
+\begin{equation}
+\theta(t)=\theta_{0}=\text{cte.} \quad\Rightarrow\quad \vec{r}(t)=r(t)\,\hat{\mathbf{e}}_{r}(\theta_{0})
+\end{equation}
+
+\begin{equation}
+\vec{v}=\dot{r}\,\hat{\mathbf{e}}_{r}+r\dot{\theta}\,\hat{\mathbf{e}}_{\theta}
+\end{equation}
+
+\begin{equation}
+\dot{\theta}=0 \quad\Rightarrow\quad \vec{v}=\dot{r}\,\hat{\mathbf{e}}_{r}\ \ (\parallel\ \vec{r})
+\end{equation}
+
+\begin{equation}
+\Rightarrow\ \ \text{la velocidad es radial (paralela o antiparalela a }\vec{r}\text{): movimiento radial puro.}
+\end{equation}
+
+\begin{equation}
+\dot{A}=\frac{1}{2}r^{2}\dot{\theta}=\frac{L}{2m}=0 \quad\Rightarrow\quad \text{no se barre área (no hay órbita kepleriana).}
+\end{equation}
+
+\begin{equation}
+\text{Ecuaciones en polares (fuerza central):}\quad
+\begin{cases}
+\ddot{r}-r\dot{\theta}^{2}=\dfrac{F(r)}{m}\\[6pt]
+r\ddot{\theta}+2\dot{r}\dot{\theta}=0
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\dot{\theta}=0 \ \Rightarrow\ 
+\begin{cases}
+\ddot{r}=\dfrac{F(r)}{m}\\[6pt]
+0=0
+\end{cases}
+\quad\Rightarrow\quad \text{dinámica 1D puramente radial.}
+\end{equation}
+
+\begin{equation}
+\text{Energía:}\quad 
+E=\frac{1}{2}m\dot{r}^{2}+\underbrace{\frac{L^{2}}{2mr^{2}}}_{\text{término centrífugo}}+V(r)
+\end{equation}
+
+\begin{equation}
+L=0 \quad\Rightarrow\quad E=\frac{1}{2}m\dot{r}^{2}+V(r)\ \ \text{(sin barrera centrífuga) → caída/escape radial.}
+\end{equation}
+
+\begin{equation}
+\text{Ley } \frac{1}{r^{2}}:\ \ r(\theta)=\frac{p}{1+e\cos(\theta-\theta_{0})},\quad 
+p=\frac{L^{2}}{mk}
+\end{equation}
+
+\begin{equation}
+L=0 \Rightarrow p=0 \Rightarrow \text{la cónica degenera en la recta }\theta=\theta_{0}\ (\text{trayectoria radial}).
+\end{equation}
+
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{2.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+¿Cómo era la eplise de acuerdo a los datos de nuestra trayectoria (psoiblemente ejercicio en clases)? 
+
+R =  (imagen)
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{3.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+
+Tenemos:
+
+
+\textbf{Área infinitesimal}
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{4.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+\textbf{Interpretación del producto cruz}
+
+\[ \left| \vec{A} \times \vec{B}  \right| \]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{5.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{6.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+\textbf{Momento angular orbital}
+
+\begin{equation}
+\begin{split}
+ \vec{L}&= \vec{r} \times \vec{\mathcal{P}}\\
+ &= \vec{r} \times m \frac{ d\vec{r} }{dt}\\
+\end{split}
+\end{equation}
+
+
+Tenemos: 
+
+
+\begin{equation}
+\begin{split}
+ \vec{L} dt &= m\vec{r} \times d\vec{r}\\
+  \frac{\left| \vec{L} dt  \right|}{2} &= \frac{m}{2}  \left|\vec{r} \times d\vec{r} \right|\end{split}
+\end{equation}
+
+\textbf{Período orbital}
+
+Cuando barremos toda el área, entonces podremos calcular el período orbital. 
+
+\emph{ Tercera Ley de Kepler }
+
+
+\[ \tau^{2} \approx a^{3} \]
+
+\textbf{Área de una elipse}: lo que barre la trayectoria del planeta.
+
+\[ A_{elipse} = \pi{ab} \]
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{7.png} % ajusta el ancho según convenga
+    \caption{Descripción clara y concisa de la figura.}
+    \label{fig:mi_figura} % opcional: para usar con \ref{fig:mi_figura}
+\end{figure}
+
+\[ \Delta{A} = \frac{ \ell }{2m} \Delta{t}\]
+
+
+Tenemos:
+
+
+\[ \boxed{  \tau^{2} = \left( \frac{ 4\pi^{2} m }{k}  \right) a^{3}  } \]
+
+
+
+Cuando Newton, se percató de esto pudo percatarse de toda la teoría que desarrolla la evolución temporal de los planetas. 
+
+Esencialmente, hemos terminado con el tema en cuestión.
+
+En este modelo, no existe nada más que la interacción entre el sol y la tierra.
+
+ 
+
+\end{document}

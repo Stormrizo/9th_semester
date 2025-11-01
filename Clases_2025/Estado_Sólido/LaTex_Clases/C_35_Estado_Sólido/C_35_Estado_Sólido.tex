@@ -1,0 +1,683 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 35 - Estado Sólido}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Estado sólido}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dra. Ana Lilia González Ronquillo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{301}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+
+Nos quedamos en la parte de Derivado del modelo de Drude:
+
+\[  \frac{d \boldsymbol{p}(t) }{dt} = - \frac{ \boldsymbol{p}(t) }{\tau} + \boldsymbol{F}_{ext}(t)  \]
+
+La fuerza externa es el campo eléctrico que podemos estar aplicando a los electrones libres que luego se conberten en electrones de conducción.
+
+Si no existe fuerza externa, de todos modos los electrones siente una fuerza proporcionla al momento.
+
+Resulta que al inverso del tiempo de relajación se le conoce como $\gamma = \frac{1}{\tau}$
+
+Nos dijo que nos encargaba que fuerzas hay en la naturaleza que son fuerzas que son proporcionales a la velocidad.  
+
+
+Fuerzas de fricción del aire, son fuerzas que son proporcionales a la velocidad. La $\gamma$ corresponde a las \textbf{constante de amortiguamiento}, existe una fuerza 
+
+A mayor velocidad, mayor será la fuerza de amortiguamiento, en este esquema es lo que nosotros tenemos acá. 
+
+Un diagrama que nos ayuda es ver que tenemso una muestra sólida y nosotros tenemos iones:
+
+No  confundir con los nuclesos, también tenemos a los electrones de conducción, lo que hace drude es reemplazar este modelo a electrones libres que se tienen confinados. 
+
+
+Si hay una probabilidad de colisionar, cómo metemos esa información que no hay ambiente vacío, ese background positivo genera esta fuerza, sobre cada uno de estos electrones. Entonces digamos que estos electones se viene moviendo en línea recta. Va depender.
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Promedio de tiempo de relajación o del camino libre medio. 
+
+\section{Ahora vamos con el análisis de la corriente alterna}
+
+
+¿Qué pasaría si nosotros palicamos una deendecia en funcipon de senos y cosenos en función del tiempo, no el espacio? Esto quiere decir que es uniforme en el espacio, pero no temporalmente. 
+
+
+Usemos el modelo de Drude para estimar la corriente alterna que se produc acuando se hae indicos sobre el alabres un campo externo variable.
+
+
+Supongamos un campo externo de la forma :
+
+
+\[ E_{ext} (t) = E_{0} (\omega) e^{-i\omega{t}} \]
+
+Y que el momento de los electrones es:
+
+
+\[ \boldsymbol{P}(t) = \boldsymbol{P_{0} (\omega) e^{-i\omega{t}}}  \]
+
+Lo que nos interesa es la denpendecia temporal. 
+
+
+Calculamos:
+
+\[\frac{d\boldsymbol{p}(t)}{dt} = - \frac{p(t)}{\tau}  \]
+
+Desarrollando tenemos (checar notas de teams):
+
+
+\[ \boldsymbol{p_{0}} (\omega) =  - \frac{eE_{0}(\omega)  }{1/\tau - i\omega} \]
+
+Se nos va la dependecia temporal y nos quedamos con el vector de amplitud que depende de omega, podemos despejar. 
+
+
+o bien:
+
+
+\[  \boldsymbol{J} = \left[  \frac{ \eta e^{2} }{ m(1/\tau - i\omega)   }  \right] E_{0}(\omega)  \]
+
+
+POr lo que:
+
+\[   \sigma_{AC} = \frac{ \eta e^{2} }{ m(1/\tau - i\omega) } = \frac{ \sigma_{DC} }{1-i\omega\tau}     \]
+
+Con:
+
+\[ \boxed{  \sigma_{DC} = \frac{ \eta e^{2}\tau }{m} } \]
+
+
+Se nos queda de tarea que esto tiene unidades de conductividad, todo eso lo tenemos que hacer, es decir anailisi dimensional.
+
+¿Qué esperamos, qué pasa cuando la frecuencia es 0?
+
+\[ \sigma_{AC} = \sigma_{DC} \]
+
+La conductividad tiene una parte real y una parte imaginaria. Todo lo que aprendimos en variable compleja, si trabajamos en matelaes seguiremos trabajando con número complejos, qué significa que tengamos una conductividad compleja?
+
+EN otros experimentos qué medimos, medimos la resistividad o la resistencia? indagamos eso.
+
+¿Cómo relaciono una cantidad compleja con una cantidad real? 
+
+¿Qué hacen los aparatos de medición?
+
+\[ \boxed{\vec{J} = \sigma \vec{E}} \]
+
+
+
+\[ \sigma_{AC} = \sigma_{DC}\]
+
+\[ \sigma = \sigma_{r} + i \sigma_{i}   \]
+
+
+En una ecuación hay variables conocidas y desconocidas, conocemos el modelos y tiempo de relacjación, es decir a través de una manera indetecta podemos estimar el tiempo de relajación.
+
+Pero hay muestras que es tratar de resolver la ecuación tratando de ver cuál es la incógnita. 
+
+Todo esto que acabsmo de ver se puede aplicar si aplicamos una onda electromagnética, son cosas que nosotros podemos ver, interpretar.
+
+
+En la fuerza externa agregamos la fuerza debido al campo externo más debida al campo magnético, lo que vamos a encontrar digamos en el visible, aplicamos una onda electromagnética quien contribuye más es el campo eléctrico, entonces el magnético se puede desprecuar un poco:
+
+\textcolor{orange(colorwheel)}{\textbf{Obsrevaciones}}
+
+$\bullet$ En la fuerza externa no se tomó en cuneta la fuerza del campo magnético, esto es:
+
+Justifica considerando que... A ver cuál estpa en CGS y cuál en MKS?
+
+EN el CGS la mayoróa de las veces encontramos a c, si está metida la c, nos da la idea de que podría ser CGS. SI en una está la c metida, puede ser CGS. Es muy importante indentificar si estamos en uno y otro, Revisar las unidades de fuerza y comparar CGS y MKS.
+
+\[ \boldsymbol{F_{H}}  = - \frac{e\boldsymbol{p}}{mc} \times \boldsymbol{H} \propto \frac{v}{c} \boldsymbol{E}\]
+
+
+Usualmente la velocidad de los electrones en metales es del orde de 0.1 cm/s, por lo que: 
+
+\[ \boldsymbol{F_{H}} \approx 10^{-10}\boldsymbol{F_{E}} \]
+
+Así que puede ser despreciada.
+
+Vamos a ver un ejemplo de aplicación del \textbf{modelo de Drude}.
+
+\textbf{Efecto Hall}: OBservación exoerimental, que se hicieron con diferentes materiales. Existe el efecto hall clásico y el efecto hall cuántico. 
+
+¿Para que sirve?
+
+Es un montaje experimental cuando se aplica un campo magnético. El efecto hall se utiliza para determinar los tipos de portadores de carga. POdemos usar el efecto hall clásico. Para semiconductores tienen conductores de carga conductores o cargas, huecos son los positivos. 
+
+EL modelo que vamos a ver ahorita aunque con algunas limitaciones nos reproduce el modelos clásico en metales, todo esto aplicado a electrones y pensando ene metales. 
+
+
+\textbf{¿En qué consiste?}
+
+
+Imaginemos que tenemos una placa delgada larga, el grosor es pequeño. Pensesmos que es un metal y hay electrones moviendose, el campo apunta en dirección $x$. La fuerza hace que los electrones se muevan en otra dirección. 
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{2.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Tenemos:
+
+\[ \vec{J} = nq\vec{v}  \]
+
+
+\[ \vec{J} = n(-e)\vec{v} \]
+
+¿Qué se ve en el experimento?
+
+Se aplica inicialmente un campo $x$, este señor Hall aplica un campo magnético perpendicular a la placa.
+
+Establecesmo el sistema de referencia. $x$ es érpendicular a la placa. Hubo una redistribución de la carga. En el resto del material se tiene carga positiva. 
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{3.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Analisis de la regla de la mano derecha.
+
+Veamos a la placa desde arriba. había un electrón que se movía y debido a la fuerza del campo magnético, lo que le ocurre eventualmente es que se tiene una suma de fuerzas.
+
+
+\textbf{Fuerza de Lorentz}:
+
+\[  \vec{\boldsymbol{F}} = q\cdot \vec{\boldsymbol{v}} \times \vec{\boldsymbol{B}} \]
+
+Las corazas del modelo de drude.
+
+Estos no se ven alterados por el movimiento de los dos campos, eso no altera la corriente, son campos electricos y magético.
+
+¿Cuál es el valor del campo eléctrico que se emplea? 
+
+COnsecuencia de la estructura, la mayor cantidad los electrones quedan en un lugar confinados exceso de carga negativa, en otro extremo queda exceso de carga positiva, 
+
+
+En la parte de enmedio igual quedan portadores de carga, hay como un juego.
+
+
+NO interesa el fenómeno general. Pensemos como un capacitor, como dipolo. 
+
+
+La fuerza devida al campo de Hall eventualmente se equilibra con la fuerza de lorentz, lo que provoca que solo se observe una corriente en dirección $x$.
+
+
+\textbf{Magnetoresistencia}
+
+Inicialmente o en la mayoría de los experimentos se veía que esto no dependía en la dirección. 
+
+
+Lo que nosotros vamos a hacer usando el modelo de drude estimaremos estas cosas $R_{H}$
+
+Vamos a usar el modelo de drude para estimar el factor de Hall o coeficiente de Hall.
+
+
+Usemos el modelo de Drude para tratar de explicar el efecto Hall.
+
+SUpongamos un campo eléctrico con componentes $E_{x}$ y $E_{y}$ que generan densidades de corriente $J_{x}$ y $J_{y}$ respectivamente. Además, consideremos un campo magnético $H_{z}$
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{4.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Tenemos:
+
+
+\begin{equation}
+\begin{split}
+ \frac{d \vec{p} }{dt}  &=- \frac{\vec{p}}{\tau} - e\vec{E}_{ext} - 
+\end{split}
+\end{equation}
+
+El concepto para el mipercoles, ¿qué ocurre sore una particula cargada cuando le aplicamos para un campo magnético?
+
+
+En qué condiciones aparece el fenomeno o fecuencia del cinclotrón, frecuencia de qué, debemos revisar eso.
+
+Es un concepto que se suele ver. 
+
+
+% ==========================================================
+% MODELO DE DRUDE Y EFECTO HALL – DESARROLLO COMPLETO
+% ==========================================================
+
+\section{Aplicaciones y extensiones del modelo de Drude}
+
+El modelo de Drude constituye la primera descripción microscópica del transporte eléctrico
+en metales, donde los electrones se comportan como un gas clásico de partículas cargadas
+que colisionan con iones fijos o impurezas.  
+En esta sección se desarrollan las tareas asignadas sobre la \textbf{conductividad compleja}, el
+\textbf{efecto Hall} y la \textbf{frecuencia de ciclotrón}, siguiendo una secuencia lógica y con
+análisis dimensional, conceptual y experimental.
+
+\begin{enumerate}[label=\textbf{Actividad \arabic*.}, leftmargin=*]
+
+% -------------------------------------------------------------
+\item \textbf{Fuerzas proporcionales a la velocidad: ejemplos y origen físico}
+
+En muchos sistemas físicos, la fuerza de arrastre que experimenta un cuerpo moviéndose en un medio es proporcional a su velocidad:
+\begin{equation}
+\boxed{\mathbf{F}_{\mathrm{fric}} = -\gamma\,\mathbf{v}}
+\label{eq:fric}
+\end{equation}
+donde \(\gamma\) es la constante de amortiguamiento (o coeficiente de fricción viscosa).
+Esta relación se obtiene al considerar el límite de bajas velocidades, donde los efectos inerciales del fluido pueden despreciarse.
+
+\medskip
+\textbf{Ejemplos naturales:}
+\begin{itemize}
+    \item \emph{Fricción viscosa en fluidos:} una esfera de radio \(r\) moviéndose lentamente en un fluido de viscosidad \(\eta\) experimenta la \textbf{ley de Stokes}:
+    \[
+    F = -6\pi \eta r v
+    \]
+    que es lineal en \(v\), de la forma \eqref{eq:fric}.
+    \item \emph{Fuerza de arrastre en el aire:} a bajas velocidades (régimen laminar), el arrastre del aire también se aproxima por \(F = -\gamma v\). A altas velocidades, el término cuadrático \(F \propto v^2\) domina.
+    \item \emph{Amortiguadores mecánicos y osciladores:} la fuerza de amortiguamiento en resortes o suspensiones hidráulicas se modela linealmente en la velocidad del pistón.
+    \item \emph{Electrones en metales:} el modelo de Drude incluye una fuerza efectiva de fricción proporcional al momento \( \mathbf{p} \), que refleja la pérdida de momento por colisiones con la red cristalina.
+\end{itemize}
+
+Esta fuerza representa disipación de energía y aparece como el término
+\(-\mathbf{p}/\tau\) en la ecuación de movimiento de Drude:
+\[
+\frac{d\mathbf{p}}{dt} = -\frac{\mathbf{p}}{\tau} + \mathbf{F}_{\mathrm{ext}}(t)
+\]
+donde \(\tau\) es el \textbf{tiempo de relajación}, inversamente proporcional a \(\gamma\).
+
+% -------------------------------------------------------------
+\item \textbf{Análisis dimensional de la conductividad DC y AC}
+
+En el modelo de Drude, la conductividad está dada por:
+\begin{equation}
+\sigma_{DC} = \frac{n e^2 \tau}{m}
+\label{eq:sigma-dc}
+\end{equation}
+donde:
+\begin{itemize}
+    \item \(n\): densidad de electrones [\(\mathrm{m^{-3}}\)]
+    \item \(e\): carga eléctrica [\(\mathrm{C}\)]
+    \item \(\tau\): tiempo de relajación [\(\mathrm{s}\)]
+    \item \(m\): masa del electrón [\(\mathrm{kg}\)]
+\end{itemize}
+
+\textbf{Análisis dimensional paso a paso:}
+\[
+[\sigma_{DC}] = \frac{[\mathrm{C}]^2 [\mathrm{s}]}{[\mathrm{kg}]\,[\mathrm{m^3}]}
+\]
+Sabemos que \(1~\mathrm{C} = 1~\mathrm{A\,s}\), así que:
+\[
+[\sigma_{DC}] = \frac{(\mathrm{A\,s})^2\,\mathrm{s}}{\mathrm{kg\,m^3}}
+= \frac{\mathrm{A^2\,s^3}}{\mathrm{kg\,m^3}}
+\]
+y considerando la equivalencia de unidades de voltaje
+\([V] = \mathrm{kg\,m^2\,s^{-3}\,A^{-1}}\),
+entonces:
+\[
+[\sigma_{DC}] = \frac{\mathrm{A}}{\mathrm{V\,m}} = \mathrm{S/m}
+\]
+confirmando que la unidad correcta de conductividad en el SI es el \textbf{siemens por metro}.
+
+\medskip
+Para la conductividad alterna:
+\begin{equation}
+\sigma_{AC}(\omega) = \frac{n e^2}{m(1/\tau - i\omega)}
+= \frac{\sigma_{DC}}{1 - i\omega\tau}
+\label{eq:sigma-ac}
+\end{equation}
+el denominador es adimensional, de modo que \([\sigma_{AC}] = [\sigma_{DC}] = \mathrm{S/m}\).
+
+% -------------------------------------------------------------
+\item \textbf{Interpretación física de la conductividad compleja}
+
+La ecuación \eqref{eq:sigma-ac} implica que la conductividad tiene una parte real y una imaginaria:
+\begin{equation}
+\boxed{\sigma(\omega) = \frac{\sigma_{0}}{1+(\omega\tau)^2} + i\,\frac{\sigma_{0}\,\omega\tau}{1+(\omega\tau)^2}}
+\label{eq:sigma-compleja}
+\end{equation}
+donde \(\sigma_{0} = \sigma_{DC}\).
+
+\begin{itemize}
+\item \textbf{Parte real} \(\sigma_r(\omega)\): describe la \emph{dissipación ohmica}, responsable de la conversión de energía eléctrica en calor (efecto Joule).  
+A bajas frecuencias \((\omega\tau \ll 1)\), \(\sigma_r \approx \sigma_0\).
+\item \textbf{Parte imaginaria} \(\sigma_i(\omega)\): representa la \emph{respuesta fuera de fase}, asociada al almacenamiento temporal de energía cinética de los electrones; análogo a la susceptibilidad imaginaria en dieléctricos.
+\end{itemize}
+
+A frecuencias altas \((\omega\tau \gg 1)\), los electrones no logran seguir el campo oscilante y la parte real de la conductividad disminuye drásticamente, indicando comportamiento más “reactivo” que conductor.
+
+% -------------------------------------------------------------
+\item \textbf{Resistencia, resistividad y conductividad: medición práctica}
+
+Las tres magnitudes se relacionan mediante:
+\begin{align}
+R &= \frac{V}{I}, \quad [R]=\Omega \label{eq:resistencia}\\[4pt]
+\rho &= R\,\frac{A}{L}, \quad [\rho]=\Omega\cdot \mathrm{m} \label{eq:resistividad}\\[4pt]
+\sigma &= \frac{1}{\rho}, \quad [\sigma]=\mathrm{S/m} \label{eq:conductividad}
+\end{align}
+
+\textbf{Interpretación:}
+\begin{itemize}
+\item \(R\) depende del tamaño y forma del material.
+\item \(\rho\) caracteriza la propiedad intrínseca del material (independiente de la geometría).
+\item \(\sigma\) es la facilidad con la que los electrones se desplazan en el material.
+\end{itemize}
+
+\textbf{Mediciones experimentales:}
+\begin{itemize}
+\item Método de cuatro puntas o de Van der Pauw para eliminar resistencia de contacto.
+\item En AC, se usa un \textbf{puente de impedancia} o un \textbf{analizador vectorial} para obtener \(\sigma_r\) y \(\sigma_i\).
+\end{itemize}
+
+% -------------------------------------------------------------
+\item \textbf{Comparación de unidades MKS y CGS; presencia del factor \(c\)}
+
+En SI (MKS):
+\begin{equation}
+\mathbf{F} = q\,(\mathbf{E} + \mathbf{v}\times\mathbf{B})
+\label{eq:lorentz-SI}
+\end{equation}
+
+En CGS (gaussiano):
+\begin{equation}
+\mathbf{F} = q\left(\mathbf{E} + \frac{\mathbf{v}}{c}\times\mathbf{B}\right)
+\label{eq:lorentz-CGS}
+\end{equation}
+La presencia explícita de \(c\) en \eqref{eq:lorentz-CGS} distingue el sistema CGS.
+Las magnitudes \(\mathbf{E}\) y \(\mathbf{B}\) tienen diferentes dimensiones en CGS, de modo que no hay una constante de proporcionalidad entre las unidades eléctricas y magnéticas.  
+En MKS, la unificación se logra mediante la constante \(\mu_0\), y las unidades resultan más consistentes para análisis dimensional.
+
+% -------------------------------------------------------------
+\item \textbf{Efecto Hall clásico: descripción cualitativa y ecuaciones}
+
+Cuando una corriente fluye por una lámina metálica bajo un campo magnético perpendicular, los electrones sufren una fuerza lateral:
+\[
+\mathbf{F}_L = -e\,\mathbf{v}\times\mathbf{B}
+\]
+que los desvía hacia un borde, acumulando carga negativa en un lado y positiva en el otro.
+
+El equilibrio se alcanza cuando la fuerza eléctrica del campo de Hall \(\mathbf{E}_H\) compensa la de Lorentz:
+\begin{equation}
+-e\,\mathbf{E}_H - e\,\mathbf{v}\times\mathbf{B} = 0
+\quad\Rightarrow\quad
+\boxed{E_H = vB}
+\label{eq:hall-E}
+\end{equation}
+
+Esto origina un voltaje transversal:
+\[
+V_H = E_H w = v B w
+\]
+donde \(w\) es el ancho de la muestra.  
+El signo del voltaje de Hall permite determinar si los portadores son positivos (huecos) o negativos (electrones).
+
+% -------------------------------------------------------------
+\item \textbf{Coeficiente de Hall \(R_H\): deducción matemática}
+
+La densidad de corriente longitudinal es:
+\[
+J_x = -n e v_x
+\]
+De \eqref{eq:hall-E}, el campo transversal es \(E_y = -v_x B_z\).
+El coeficiente de Hall se define como:
+\begin{equation}
+R_H = \frac{E_y}{J_x B_z}
+= \frac{-v_x B_z}{(-n e v_x) B_z}
+\quad\Rightarrow\quad
+\boxed{R_H = -\frac{1}{n e}}
+\label{eq:RH}
+\end{equation}
+Este resultado muestra que \(R_H\) depende solo del número de portadores y su carga.  
+En metales, \(R_H\) suele ser negativo (electrones), mientras que en semiconductores puede ser positivo (huecos).
+
+% -------------------------------------------------------------
+\item \textbf{Frecuencia de ciclotrón \(\omega_c\): movimiento en campo magnético}
+
+Si un electrón libre se mueve en un campo magnético uniforme \(\mathbf{B} = B\hat{z}\),
+la ecuación de Newton es:
+\[
+m\dot{\mathbf{v}} = -e\,\mathbf{v}\times\mathbf{B}
+\]
+Descomponiendo en el plano \(xy\):
+\begin{align*}
+m\dot{v}_x &= -e B v_y \\
+m\dot{v}_y &= e B v_x
+\end{align*}
+Derivando y combinando:
+\[
+\ddot{v}_x + \left(\frac{eB}{m}\right)^2 v_x = 0
+\]
+cuyo movimiento es circular uniforme de frecuencia angular:
+\begin{equation}
+\boxed{\omega_c = \frac{eB}{m}}
+\label{eq:wc}
+\end{equation}
+
+Esta es la \textbf{frecuencia de ciclotrón}.  
+En metales, la combinación de colisiones (tiempo \(\tau\)) con esta rotación da lugar a fenómenos de magnetorresistencia y resonancia ciclotrónica.
+
+% -------------------------------------------------------------
+\item \textbf{Ejemplo numérico: estimación de \(R_H\) y \(\omega_c\)}
+
+Consideremos cobre (\(n=8.5\times10^{28}\,\mathrm{m^{-3}}\)) y un campo magnético \(B=1\,\mathrm{T}\).
+
+\medskip
+Coeficiente de Hall:
+\[
+R_H = -\frac{1}{n e}
+= -\frac{1}{(8.5\times10^{28})(1.602\times10^{-19})}
+\approx -7.35\times10^{-11}\;\mathrm{m^{3}/C}
+\]
+Frecuencia de ciclotrón:
+\[
+\omega_c = \frac{eB}{m}
+= \frac{1.602\times10^{-19}}{9.109\times10^{-31}}
+\approx 1.76\times10^{11}\;\mathrm{s^{-1}}
+\]
+que corresponde a una frecuencia de \(\sim 28\,\mathrm{GHz}\).
+
+% -------------------------------------------------------------
+\item \textbf{Conclusión: magnetorresistencia y limitaciones del modelo de Drude}
+
+El modelo de Drude describe exitosamente la relación lineal \(J=\sigma E\), la ley de Ohm y el efecto Hall clásico, pero presenta limitaciones importantes:
+
+\begin{itemize}
+\item No considera la \textbf{distribución de Fermi–Dirac} ni la cuantización de la energía.
+\item Subestima el calor específico electrónico y la conductividad térmica.
+\item Falla al describir magnetorresistencias complejas o dependientes de banda.
+\end{itemize}
+
+A pesar de ello, conserva un gran valor pedagógico: proporciona intuición sobre cómo los electrones libres responden a campos eléctricos y magnéticos, introduciendo conceptos fundamentales como el \textbf{tiempo de relajación}, la \textbf{conductividad compleja} y la \textbf{frecuencia de ciclotrón}, que servirán de base para modelos cuánticos más avanzados (Drude–Sommerfeld, Bloch, etc.).
+
+\end{enumerate}
+
+
+\end{document}

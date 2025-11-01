@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Instrucciones de la tarea}{1}{section.1}%
+\contentsline {section}{Instrucciones de la tarea}{1}{section.1}%

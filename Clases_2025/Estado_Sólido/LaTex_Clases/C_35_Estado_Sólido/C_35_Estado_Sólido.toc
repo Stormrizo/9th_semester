@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Ahora vamos con el análisis de la corriente alterna}{2}{section.1}%
+\contentsline {section}{\numberline {2}Aplicaciones y extensiones del modelo de Drude}{6}{section.2}%

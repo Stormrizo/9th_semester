@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase \#15}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Tipos de citas}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}¿Qué son las referencias bibliográficas?}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Uso y abuso de la información}{2}{subsection.1.3}%

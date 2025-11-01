@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Desplazamiento de átomos en la cadena diátomica}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Vibraciones de una red cúbica simple}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ejemplo}{13}{subsection.1.2}%

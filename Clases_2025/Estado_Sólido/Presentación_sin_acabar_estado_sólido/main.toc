@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Diamante}{3}{0}{1}
+\beamer@sectionintoc {2}{Red ortorrómbica centrada en las bases}{24}{0}{2}
+\beamer@subsectionintoc {2}{1}{Ejemplos}{26}{0}{2}

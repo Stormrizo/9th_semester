@@ -1,0 +1,1394 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Repaso - Examen parcial I}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ 202107583}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Estado sólido}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dra. Ana Lilia González Ronquillo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{301}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\section{Instrucciones de los ejercicios}
+\addcontentsline{toc}{section}{Instrucciones de los ejercicios}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2} 
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=1]
+    \item Indagar sobre la estructura tipo diamante: Descripción de la estructura, número de coordinación, ejemplos de elementos químicos que tienen este tipo de estructura, vectores primitivos. El ángulo entre los enlaces tetraedrales del diamante son los mismos que los ángulos entre las diagonales de un cubo, mostrar que valen aproximadamente $109^\circ$. ¿Cuál es la diferencia con la estructura tipo Blenda de Zinc?
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=2]
+    \item \textbf{Interplanar separation.} Consider a plane $hkl$ in a crystal lattice. 
+    \begin{enumerate}[label=(\alph*)]
+        \item Prove that the reciprocal lattice vector $\mathbf{G} = h \mathbf{b}_1 + k \mathbf{b}_2 + l \mathbf{b}_3$ is perpendicular to this plane. 
+        \item Prove that the distance between two adjacent parallel planes of the lattice is 
+        \[
+        d(hkl) = \frac{2\pi}{|\mathbf{G}|}.
+        \]
+        \item Show for a simple cubic lattice that 
+        \[
+        d^2 = \frac{a^2}{h^2+k^2+l^2}.
+        \]
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=3]
+    \item \textbf{Hexagonal space lattice.} The primitive translation vectors of the hexagonal space lattice may be taken as
+    \[
+    \mathbf{a}_1 = \left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{a}{2}\right)\hat{y}, 
+    \quad \mathbf{a}_2 = -\left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{a}{2}\right)\hat{y}, 
+    \quad \mathbf{a}_3 = c \hat{z}.
+    \]
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that the volume of the primitive cell is $\left(\tfrac{\sqrt{3}}{2}\right)a^2c$.  
+        \item Show that the primitive translations of the reciprocal lattice are  
+        \[
+        \mathbf{b}_1 = \left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}\]
+        \[\mathbf{b}_2 = -\left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}, 
+        \quad \mathbf{b}_3 = \left(\tfrac{2\pi}{c}\right)\hat{z}.
+        \]
+        so that the lattice is its own reciprocal, but with a rotation axes.
+        \item Describe and sketch the first Brillouin zone of the hexagonal space lattice.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=4]
+    \item \textbf{Structure factor of diamond.} The crystal structure of diamond is described in Chapter 1. The basis consists of 8 atoms if the cell is taken as the conventional cube.  
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the structure factor $S$ of this basis.  
+        \item Find the zeros of $S$ and show that the allowed reflections of the diamond structure satisfy $v_1+v_2+v_3=4n$, where all indices are even and $n$ is any integer, or else all indices are odd. (Notice that $h$, $k$, $\ell$ may be written for $v_{1}$, $v_{2}$, $V_{3}$ and this is is often done.)
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=5]
+    \item \textbf{Diatomic line.} Consider a line of atoms ABAB…AB, with an $A-B$ bond length of $\tfrac{1}{2}a$. The form factors are $f_A, f_B$ for atoms A and B, respectively. The incident beam of x-rays is perpendicular to the line of atoms.  
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that the interference condition is $n\lambda = a \cos \theta$, where $\theta$ is the angle between the diffracted beam and the line of atoms.  
+        \item Show that the intensity of the diffracted beam is proportional to $|f_A-f_B|^2$ for $n$ odd, and to $|f_A+f_B|^2$ for $n$ even.  
+        \item Explain what happens if $f_A=f_B$.  
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=6]
+    \item La red monoclínica simple tiene vectores base \(\vec{a}_1, \vec{a}_2\) y \(\vec{a}_3\) cuyas longitudes se relacionan como \(a \neq b \neq c\), sin embargo, uno de ellos (usualmente \(\vec{a}_2\)) es perpendicular al plano formado por los otros dos. En coordenadas rectangulares los vectores primitivos están dados por \(\vec{a}_1 = (a \sin\beta, 0, a \cos\beta)\), \(\vec{a}_2 = (0, b, 0)\) y \(\vec{a}_3 = (0, 0, c)\), siendo \(\beta\) el ángulo entre \(\vec{a}_1\) y \(\vec{a}_3\).
+    \begin{enumerate}[label=(\alph*)]
+        \item Determine el volumen de la celda primitiva.
+        \item Construya los vectores primitivos del espacio recíproco.
+        \item Determine el volumen de la celda recíproca.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=7]
+    \item Calcule el factor de estructura de una red FCC. Para ello, considere una base de 4 átomos y suponga que el factor de forma es el mismo para todos.
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=8]
+    \item El difractograma que tiene un elemento presenta picos de difracción en los siguientes ángulos \(2\theta= 40, 58, 73, 86.5, 100.4\) y \(114.7\) grados. La longitud de onda de los rayos X incidentes utilizados es de \(0.154\ \mathrm{nm},\)\\
+    a) Determinar si tiene estructura BCC o FCC.\\
+    b) Determinar el parámetro de red “\(a\)”.\\
+    \textbf{TIP:} Para resolver este ejercicio puede serle útil revisar el video de youtube \url{https://youtu.be/QALB-XpWsdA}\\
+    A partir del minuto 21.
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=9]
+    \item Muestre que cualquier celda primitiva (la que tiene un átomo por celda) tiene un factor de estructura \(S=f\).
+\end{enumerate}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=10]
+    \item Calcule las intensidades de difracción de una red rectangular con vectores de la red \(\vec{r}_n = n_1 \vec{a}_1 + n_2 \vec{a}_2\) donde \(\vec{a}_1 = 2a\,\hat{x}\) y \(\vec{a}_2 = a\,\hat{y}\). La red tiene una base de átomos en \((0,0)\) y \((\tfrac{1}{2}, \tfrac{1}{2})\). ¿Cuándo se tienen extinciones (valores nulos) de la señal?
+\end{enumerate}
+
+\end{multicols}
+
+
+\tableofcontents \newpage
+
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{2cm}
+
+\section{Desarrollo}
+
+\subsection{P-1}
+
+\textbf{Marco teórico ampliado.}  
+La llamada \emph{estructura diamante} es una de las más importantes en física del estado sólido porque es la que adoptan materiales semiconductores básicos (C, Si, Ge). A menudo genera confusión porque, a primera vista, parece un nuevo tipo de red de Bravais. En realidad, no lo es: se trata de un \emph{Bravais cúbico centrado en las caras} (fcc) con una \textbf{base de dos átomos idénticos}.  
+
+Una forma intuitiva de describirlo es la siguiente: imagina que colocas átomos en todas las posiciones de una red fcc convencional. Ahora, repites el mismo patrón, pero lo desplazas un poco, exactamente un cuarto de la diagonal del cubo: \(\big(\tfrac14,\tfrac14,\tfrac14\big)a\). El resultado es que terminas con dos \emph{subredes fcc interpenetradas}. Esa duplicación es lo que distingue al diamante de un fcc “vacío”.
+
+Formalmente, el diamante pertenece al grupo espacial \(Fd\bar{3}m\) (No.~227). Cada átomo tiene alrededor suyo cuatro vecinos en posiciones \emph{tetraédricas}, con los que forma enlaces covalentes. Por eso se suele decir que la estructura diamante es un “tetraedro 3D infinito”.
+
+\medskip
+\textbf{(i) Número de coordinación.}  
+En cristalografía, el \emph{número de coordinación} (CN) es el número de vecinos más cercanos que rodean a un átomo. En un metal fcc simple, el CN es 12. Pero en el diamante, debido al desplazamiento de la base, cada átomo solo encuentra \textbf{cuatro vecinos directos}, exactamente en los vértices de un tetraedro regular. Este CN reducido explica propiedades físicas: menor densidad y enlaces covalentes direccionales.
+
+\medskip
+\textbf{(ii) Ejemplos reales.}  
+- Carbono en su forma diamante: extremadamente duro por la rigidez de los enlaces C–C.  
+- Silicio (Si): base de toda la microelectrónica.  
+- Germanio (Ge): utilizado en semiconductores más especializados.  
+- Estaño gris (\(\alpha\)-Sn): estable a bajas temperaturas, metálico en otra fase.  
+
+\medskip
+\textbf{(iii) Vectores primitivos.}  
+Como Bravais fcc, se puede describir mediante tres vectores primitivos:
+\[
+\mathbf{a}_1=\tfrac{a}{2}(0,1,1),\quad
+\mathbf{a}_2=\tfrac{a}{2}(1,0,1),\quad
+\mathbf{a}_3=\tfrac{a}{2}(1,1,0).
+\]
+Estos generan todos los puntos de la red fcc. La \textbf{base} añade dos átomos idénticos:
+\[
+\boldsymbol{\tau}_1=(0,0,0),\qquad
+\boldsymbol{\tau}_2=\tfrac{1}{4}(\mathbf{a}_1+\mathbf{a}_2+\mathbf{a}_3)=\big(\tfrac14,\tfrac14,\tfrac14\big)a.
+\]
+Con esto, ya está reconstruida toda la estructura diamante.
+
+\medskip
+\textbf{(iv) Ángulo tetraédrico.}  
+Si tomamos vectores desde un átomo hacia sus cuatro vecinos:
+\[
+\mathbf{u}_1=(1,1,1),\quad
+\mathbf{u}_2=(1,-1,-1),\quad
+\mathbf{u}_3=(-1,1,-1),\quad
+\mathbf{u}_4=(-1,-1,1),
+\]
+vemos que el ángulo entre cualquiera de ellos no es recto ni agudo, sino de:
+\[
+\cos\theta=\frac{-1}{3}\;\Rightarrow\;\theta=\arccos(-\tfrac{1}{3})\approx 109.47^\circ.
+\]
+Este ángulo tetraédrico es clave para la hibridación \(sp^3\) en química.
+
+\medskip
+\textbf{(v) Diferencia con la blenda de zinc.}  
+La zincblende (ZnS, GaAs) tiene la misma geometría y el mismo CN=4, pero con la diferencia de que la \textbf{base contiene dos especies distintas}:  
+\[
+\boldsymbol{\tau}_A=(0,0,0),\qquad 
+\boldsymbol{\tau}_B=\big(\tfrac14,\tfrac14,\tfrac14\big)a,
+\]
+con \(A\neq B\). Esto rompe la equivalencia entre átomos, generando diferencias en el factor de estructura y en la difracción. En el diamante todos los átomos son iguales (\(A=B\)), mientras que en zincblende no lo son.
+
+\medskip
+\textbf{Resumen para examen.}
+\begin{itemize}
+\item El diamante es un fcc con base de dos átomos idénticos.  
+\item Cada átomo tiene CN=4 en una disposición tetraédrica.  
+\item El ángulo característico es \(109.47^\circ\).  
+\item Ejemplos: C, Si, Ge, Sn (\(\alpha\)-Sn).  
+\item Diferencia con zincblende: en diamante los átomos son todos iguales, en zincblende son de dos tipos distintos.  
+\end{itemize}
+
+
+\subsection{P-2}
+
+\textbf{Marco teórico ampliado.}  
+Para describir la orientación de los planos cristalinos usamos los \textbf{índices de Miller} \((hkl)\). Estos índices codifican de forma compacta la geometría de las familias de planos dentro de la celda unitaria. La difracción de rayos X (u otras sondas) depende directamente de la \emph{separación interplanar} \(d(hkl)\), que es justamente la distancia entre dos planos consecutivos de la familia \((hkl)\).
+
+\medskip
+\noindent\textit{Pausa conceptual (celda unitaria y parámetros de red).}  
+La \emph{celda unitaria} es el “ladrillo” mínimo que, repetido por traslaciones, reconstruye todo el cristal. Puede escogerse una \emph{celda convencional}, más grande y con simetría evidente, o la \emph{celda primitiva}, que es la más pequeña posible y contiene un único nodo de red.  
+Los \textbf{parámetros de red} (aristas y ángulos) determinan toda la geometría: por ejemplo, en un cubo simple el único parámetro es la arista \(a\), y todos los ángulos son rectos.
+
+\medskip
+\noindent\textit{Pausa conceptual (índices de Miller).}  
+Un plano \((hkl)\) se define a partir de sus interceptos con los ejes cristalográficos: corta al eje \(x\) en \(a/h\), al eje \(y\) en \(a/k\), y al eje \(z\) en \(a/l\). Si alguno de los índices es cero, el plano es paralelo a ese eje.  
+Todos los planos paralelos y periódicamente espaciados forman una \emph{familia} \((hkl)\). Cuanto mayores sean \(h,k,l\), más “densos” son los planos y más pequeña resulta la separación \(d\).
+
+\medskip
+Para conectar estas familias con cantidades de difracción, se introduce la \textbf{red recíproca}. Dados los vectores primitivos de la red directa \(\mathbf{a}_1,\mathbf{a}_2,\mathbf{a}_3\), definimos:
+\[
+\mathbf{b}_1 = 2\pi \frac{\mathbf{a}_2 \times \mathbf{a}_3}{\mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3)}, \quad
+\mathbf{b}_2 = 2\pi \frac{\mathbf{a}_3 \times \mathbf{a}_1}{\mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3)}, \quad
+\mathbf{b}_3 = 2\pi \frac{\mathbf{a}_1 \times \mathbf{a}_2}{\mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3)}.
+\]
+Cualquier vector recíproco se escribe como
+\[
+\mathbf{G} = h\mathbf{b}_1 + k\mathbf{b}_2 + l\mathbf{b}_3.
+\]
+
+\medskip
+\noindent\textit{Pausa conceptual (por qué “recíproca” y el \(2\pi\)).}  
+La red recíproca está definida de modo que \(\mathbf{a}_i \cdot \mathbf{b}_j = 2\pi \delta_{ij}\). Ese \(2\pi\) asegura que las fases \(e^{i\mathbf{G}\cdot\mathbf{r}}\) sean invariantes al trasladarse una celda: moverse una vez en el espacio real equivale a acumular una fase \(2\pi\), condición ideal para la interferencia y la difracción.
+
+\bigskip
+\textbf{(a) Perpendicularidad de \(\mathbf{G}\) al plano \((hkl)\).}  
+Los planos \((hkl)\) se describen como el conjunto de puntos que cumplen
+\[
+\mathbf{G}\cdot \mathbf{r} = 2\pi n, \qquad n\in\mathbb{Z}.
+\]
+Esta es la ecuación de un plano cuya normal es \(\mathbf{G}\). Por construcción, \(\mathbf{G}\) es \emph{perpendicular} a todos los planos \((hkl)\).
+
+\medskip
+\noindent\textit{Lectura física.}  
+En difracción, el vector de dispersión \(\mathbf{q}\) debe coincidir con un \(\mathbf{G}\) para que haya interferencia constructiva (condición de Laue). Esa coincidencia selecciona una familia de planos y da lugar a un pico.
+
+\bigskip
+\textbf{(b) Distancia interplanar \(d(hkl)\).}
+
+Los planos consecutivos de la familia \((hkl)\) están dados por
+\[
+\Pi_n:\ \mathbf{G}\!\cdot\!\mathbf{r}=2\pi n,
+\qquad
+\Pi_{n+1}:\ \mathbf{G}\!\cdot\!\mathbf{r}=2\pi (n+1).
+\]
+La \emph{distancia interplanar} \(d(hkl)\) es la mínima distancia entre un punto \(\mathbf{r}_1\in\Pi_n\) y un punto \(\mathbf{r}_2\in\Pi_{n+1}\):
+\[
+d(hkl)=\min_{\substack{\mathbf{r}_1\in\Pi_n\\ \mathbf{r}_2\in\Pi_{n+1}}}\ \|\mathbf{r}_2-\mathbf{r}_1\|.
+\]
+
+\textit{Derivación con multiplicadores de Lagrange.}  
+Definimos \(\Delta\mathbf{r}=\mathbf{r}_2-\mathbf{r}_1\) y minimizamos \(\|\Delta\mathbf{r}\|^2\) sujeto a
+\[
+\mathbf{G}\!\cdot\!\Delta\mathbf{r}=2\pi.
+\]
+El funcional de Lagrange es
+\[
+\mathcal{L}(\Delta\mathbf{r},\lambda)=\Delta\mathbf{r}\!\cdot\!\Delta\mathbf{r}+\lambda\big(\mathbf{G}\!\cdot\!\Delta\mathbf{r}-2\pi\big).
+\]
+Condición de estacionariedad:
+\[
+\frac{\partial\mathcal{L}}{\partial\,\Delta\mathbf{r}}=2\,\Delta\mathbf{r}+\lambda\,\mathbf{G}=0
+\quad\Longrightarrow\quad
+\Delta\mathbf{r}=-\frac{\lambda}{2}\,\mathbf{G}.
+\]
+Imponiendo la restricción:
+\[
+\mathbf{G}\!\cdot\!\Delta\mathbf{r}=-\frac{\lambda}{2}\,\|\mathbf{G}\|^2=2\pi
+\quad\Rightarrow\quad
+\lambda=-\,\frac{4\pi}{\|\mathbf{G}\|^2}.
+\]
+Sustituyendo:
+\[
+\Delta\mathbf{r}=\frac{2\pi}{\|\mathbf{G}\|^2}\,\mathbf{G}
+\quad\Rightarrow\quad
+\|\Delta\mathbf{r}\|=\frac{2\pi}{\|\mathbf{G}\|}.
+\]
+Así,
+\[
+\boxed{\,d(hkl)=\tfrac{2\pi}{\|\mathbf{G}\|}\,}.
+\]
+
+\textit{Equivalente geométrico.}  
+Tomando \(\hat{\mathbf{n}}=\mathbf{G}/\|\mathbf{G}\|\), si \(\mathbf{r}(s)=\mathbf{r}_1+s\hat{\mathbf{n}}\), la condición para caer en el plano siguiente es
+\(\mathbf{G}\cdot\mathbf{r}(s)=2\pi(n+1)\). Esto se cumple en
+\[
+s=\frac{2\pi}{\|\mathbf{G}\|},
+\]
+que es exactamente la separación interplanar.
+
+\medskip
+\noindent\textit{Lectura geométrica y experimental.}  
+- Planos más cercanos (pequeño \(d\)) implican \(|\mathbf{G}|\) grande.  
+- En la Ley de Bragg, \(2d\sin\theta=\lambda\): un \(d\) menor produce picos a mayor ángulo \(\theta\).  
+El difractograma es, en esencia, un mapa de estas separaciones interplanares.
+
+\bigskip
+\textbf{(c) Caso de una red cúbica simple.}  
+Si \(\mathbf{a}_1=a\hat{x},\ \mathbf{a}_2=a\hat{y},\ \mathbf{a}_3=a\hat{z}\),
+\[
+\mathbf{b}_1=\tfrac{2\pi}{a}\hat{x},\quad
+\mathbf{b}_2=\tfrac{2\pi}{a}\hat{y},\quad
+\mathbf{b}_3=\tfrac{2\pi}{a}\hat{z}.
+\]
+Entonces
+\[
+\mathbf{G}=\tfrac{2\pi}{a}(h\,\hat{x}+k\,\hat{y}+l\,\hat{z}),\qquad
+|\mathbf{G}|=\tfrac{2\pi}{a}\sqrt{h^2+k^2+l^2}.
+\]
+Sustituyendo:
+\[
+d(hkl) = \frac{a}{\sqrt{h^2+k^2+l^2}}.
+\]
+
+\medskip
+\noindent\textit{Ejemplos rápidos.}  
+\[
+d(100)=a,\qquad d(110)=\tfrac{a}{\sqrt{2}},\qquad d(111)=\tfrac{a}{\sqrt{3}}.
+\]
+
+\bigskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item \(\mathbf{G}=h\mathbf{b}_1+k\mathbf{b}_2+l\mathbf{b}_3\) es la normal al plano \((hkl)\).
+\item La separación interplanar es \(d(hkl)=2\pi/|\mathbf{G}|\).
+\item En cúbico simple: \(d(hkl)=a/\sqrt{h^2+k^2+l^2}\).
+\item Los picos de difracción a mayor \(\theta\) corresponden a planos más densos (menor \(d\)).  
+\end{itemize}
+
+
+
+\subsection{P-3}
+
+\textbf{Marco teórico ampliado.}  
+El sistema \textbf{hexagonal} es uno de los siete sistemas cristalinos fundamentales. Se caracteriza por tener dos parámetros de red: \(a\) (en el plano basal) y \(c\) (a lo largo del eje vertical). En el plano basal, los vectores \(\mathbf{a}_1\) y \(\mathbf{a}_2\) forman un ángulo de \(120^\circ\), mientras que \(\mathbf{a}_3\) es perpendicular a dicho plano.  
+
+Los vectores primitivos de la red hexagonal pueden escribirse como:
+\[
+\mathbf{a}_1 = \left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{a}{2}\right)\hat{y}, 
+\qquad
+\mathbf{a}_2 = -\left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{a}{2}\right)\hat{y}, 
+\qquad
+\mathbf{a}_3 = c \hat{z}.
+\]
+
+\medskip
+\noindent\textit{Pausa conceptual (celda unitaria vs. celda primitiva).}  
+Imagina el cristal como una construcción infinita hecha con bloques.  
+La \emph{celda unitaria} es justamente ese bloque repetitivo: el ladrillo con el que “pavimentamos” todo el espacio.  
+Ahora bien, no siempre usamos la pieza más pequeña. A veces elegimos una \textbf{celda convencional}, que es más grande y simétrica, porque hace más fácil visualizar la estructura completa.  
+En contraste, la \emph{celda primitiva} es la versión mínima: el bloque más compacto que ya contiene toda la información de periodicidad del cristal.  
+
+Decir que tiene “exactamente un nodo de red” significa lo siguiente: en esa celda está la mínima cantidad de puntos de la red de Bravais necesarios para, al repetirla, regenerar el cristal entero.  
+Por ejemplo, en cúbica simple esa celda es el cubo de arista $a$; en fcc o bcc, la celda primitiva es un paralelepípedo más inclinado, no el cubo convencional que solemos dibujar.  
+
+En el sistema \textbf{hexagonal}, la celda convencional se suele representar como un prisma hexagonal (muy vistoso y acorde a la simetría del sistema).  
+Pero la celda \textbf{primitiva}, que es la que usamos para cálculos de volumen, red recíproca, etc., es más reducida y se describe con tres vectores no ortogonales.  
+
+
+\bigskip
+\textbf{(a) Volumen de la celda primitiva.}  
+El volumen de una celda primitiva en cualquier red cristalina puede calcularse usando el llamado 
+\emph{producto mixto} (también conocido como \textbf{determinante escalar triple}):
+\[
+V_c = \mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3).
+\]
+Geométricamente, esta expresión da el volumen del \emph{paralelepípedo} generado por los tres vectores primitivos 
+$\mathbf{a}_1, \mathbf{a}_2, \mathbf{a}_3$.  
+Dicho en palabras: $\mathbf{a}_2 \times \mathbf{a}_3$ nos da un vector perpendicular al plano 
+definido por $\mathbf{a}_2$ y $\mathbf{a}_3$, con módulo igual al área del paralelogramo que ellos forman.  
+Al tomar luego el producto punto con $\mathbf{a}_1$, proyectamos ese área en la dirección de $\mathbf{a}_1$ 
+y obtenemos el volumen total.  
+
+\medskip
+En el caso de la red hexagonal, los vectores primitivos son:
+\[
+\mathbf{a}_1 = \left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{1}{2}a\right)\hat{y}, 
+\qquad
+\mathbf{a}_2 = -\left(\tfrac{\sqrt{3}}{2}a\right)\hat{x} + \left(\tfrac{1}{2}a\right)\hat{y}, 
+\qquad
+\mathbf{a}_3 = c \hat{z}.
+\]
+
+\medskip
+Calculamos primero el producto cruzado:
+\[
+\mathbf{a}_2 \times \mathbf{a}_3 
+= \begin{vmatrix}
+\hat{x} & \hat{y} & \hat{z} \\
+-\tfrac{\sqrt{3}}{2}a & \tfrac{1}{2}a & 0 \\
+0 & 0 & c
+\end{vmatrix}
+= \left(\tfrac{ac}{2}\right)\hat{x} + \left(\tfrac{\sqrt{3}ac}{2}\right)\hat{y}.
+\]
+
+\medskip
+Después, hacemos el producto punto con $\mathbf{a}_1$:
+\[
+\mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3) 
+= \left(\tfrac{\sqrt{3}}{2}a\right)\left(\tfrac{ac}{2}\right) 
++ \left(\tfrac{a}{2}\right)\left(\tfrac{\sqrt{3}ac}{2}\right)
+= \frac{\sqrt{3}}{2}a^2 c.
+\]
+
+\medskip
+Finalmente, el volumen de la celda primitiva queda:
+\[
+\boxed{\,V_c = \tfrac{\sqrt{3}}{2}\, a^2 c\,}.
+\]
+
+\medskip
+\noindent\textit{Nota conceptual.}  
+Este resultado tiene también una interpretación geométrica sencilla: la base de la celda 
+(hexágono regular dividido en 6 triángulos equiláteros) tiene un área de 
+$\tfrac{\sqrt{3}}{2}a^2$, y al multiplicar por la altura $c$ se obtiene el mismo volumen.  
+Esto es una buena forma de verificar que el cálculo algebraico concuerda con la intuición geométrica.
+
+
+\medskip
+\noindent\textit{Interpretación.}  
+El factor \(\tfrac{\sqrt{3}}{2}\) refleja la geometría del plano basal: no es un cuadrado, sino un hexágono regular formado por triángulos equiláteros.
+
+\bigskip
+\textbf{(b) Vectores de la red recíproca.}  
+La red recíproca se obtiene con:
+\[
+\mathbf{b}_1 = 2\pi \frac{\mathbf{a}_2 \times \mathbf{a}_3}{V_c}, \quad
+\mathbf{b}_2 = 2\pi \frac{\mathbf{a}_3 \times \mathbf{a}_1}{V_c}, \quad
+\mathbf{b}_3 = 2\pi \frac{\mathbf{a}_1 \times \mathbf{a}_2}{V_c}.
+\]
+Ya teníamos \(\mathbf{a}_2 \times \mathbf{a}_3 = \tfrac{ac}{2}\hat{x} + \tfrac{\sqrt{3}ac}{2}\hat{y}\). Entonces:
+\[
+\mathbf{b}_1 = \frac{2\pi}{V_c} \Big(\tfrac{ac}{2}\hat{x} + \tfrac{\sqrt{3}ac}{2}\hat{y}\Big)
+= \left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}.
+\]
+De forma análoga:
+\[
+\mathbf{b}_2 = -\left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}, 
+\qquad
+\mathbf{b}_3 = \left(\tfrac{2\pi}{c}\right)\hat{z}.
+\]
+
+\medskip
+\noindent\textit{Pausa conceptual (autodualidad).}  
+Decimos que la red hexagonal es “autodual” porque su red recíproca tiene la misma simetría hexagonal, solo que en el espacio recíproco y con escalas inversas. Es decir, hexágono en directo \(\to\) hexágono en recíproco.
+
+\bigskip
+\textbf{(c) Primera zona de Brillouin.}  
+La primera zona de Brillouin se construye como la celda de Wigner–Seitz de la red recíproca. Para el sistema hexagonal:
+- En el plano basal, se obtiene un hexágono regular centrado en el origen.  
+- En la dirección \(z\), los límites los marcan planos perpendiculares a \(\mathbf{b}_3\).  
+El resultado es un \textbf{prisma hexagonal} en el espacio recíproco.
+
+\medskip
+\noindent\textit{Pausa conceptual (zona de Brillouin).}  
+La zona de Brillouin es el análogo en espacio recíproco de la celda de Wigner–Seitz. Tiene enorme importancia: describe las condiciones de propagación de ondas electrónicas y fonónicas en el cristal.
+
+\bigskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item Volumen primitivo: \(V_c = \tfrac{\sqrt{3}}{2}a^2c\).  
+\item Vectores recíprocos:
+\[
+\mathbf{b}_1 = \left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}, \quad
+\mathbf{b}_2 = -\left(\tfrac{2\pi}{\sqrt{3}a}\right)\hat{x} + \left(\tfrac{2\pi}{a}\right)\hat{y}, \quad
+\mathbf{b}_3 = \left(\tfrac{2\pi}{c}\right)\hat{z}.
+\]
+\item La red hexagonal es autodual.  
+\item La primera zona de Brillouin es un prisma hexagonal en el espacio recíproco.  
+\end{itemize}
+
+
+\subsection{P-4}
+
+\textbf{Marco teórico ampliado.}  
+En difracción, la periodicidad (red de Bravais) fija \emph{dónde} puede haber interferencia constructiva (vectores recíprocos \(\mathbf{G}\)), pero la \emph{base atómica} decide \emph{cuánta} intensidad aparece o si se anula por completo (extinción).  
+Esa “firma” de la base está codificada en el \textbf{factor de estructura}:
+\[
+S(hkl)=\sum_{j=1}^{N_\text{base}} f_j\,e^{i\mathbf{G}\cdot \mathbf{r}_j},
+\qquad \mathbf{G}=h\mathbf{b}_1+k\mathbf{b}_2+\ell\mathbf{b}_3.
+\]
+Aquí \(f_j\) es el factor de forma del átomo \(j\) y \(\mathbf{r}_j\) su posición dentro de la celda (coordenadas fraccionarias).  
+Usaremos \(\mathbf{G}\cdot \mathbf{r}=2\pi(hx+ky+\ell z)\) cuando \(\mathbf{r}=(x,y,z)\) son fraccionarias en la celda cúbica convencional.
+
+\medskip
+\noindent\textit{Pausa conceptual (por qué “firma”).}  
+Si todos los átomos están en posiciones que añaden fases que se cancelan, \(S=0\): el pico “permitido” por la red de Bravais \emph{desaparece}. Si las fases suman coherentemente, \(S\) es grande y el pico aparece intenso.
+
+\bigskip
+\textbf{Diamante visto en celda cúbica fcc (parámetro \(a\)).}  
+Diamante = red fcc + base de dos átomos idénticos. En la celda convencional fcc hay 4 nodos de Bravais:
+\[
+\mathbf{t}_1=(0,0,0),\quad \mathbf{t}_2=(0,\tfrac12,\tfrac12),\quad
+\mathbf{t}_3=(\tfrac12,0,\tfrac12),\quad \mathbf{t}_4=(\tfrac12,\tfrac12,0).
+\]
+La base (dos posiciones por nodo) puede tomarse como
+\[
+\boldsymbol{\tau}_1=(0,0,0),\qquad
+\boldsymbol{\tau}_2=\Big(\tfrac14,\tfrac14,\tfrac14\Big).
+\]
+Por tanto, las 8 posiciones explícitas dentro de la celda son:
+\[
+\begin{aligned}
+&(0,0,0),\ (0,\tfrac12,\tfrac12),\ (\tfrac12,0,\tfrac12),\ (\tfrac12,\tfrac12,0),\\
+&(\tfrac14,\tfrac14,\tfrac14),\ (\tfrac14,\tfrac34,\tfrac34),\ (\tfrac34,\tfrac14,\tfrac34),\ (\tfrac34,\tfrac34,\tfrac14).
+\end{aligned}
+\]
+
+\medskip
+\noindent\textit{Pausa conceptual (por qué conviene factorizar).}  
+Sumar 8 exponenciales \emph{a mano} es posible, pero tedioso. Observa que cada posición es “un nodo fcc” \(\mathbf{t}_\alpha\) \emph{más} uno de los dos desplazamientos de la base \(\boldsymbol{\tau}_s\).  
+Eso sugiere factorizar la suma como: \(\sum_{\alpha,s} e^{i\mathbf{G}\cdot(\mathbf{t}_\alpha+\boldsymbol{\tau}_s)} = \big(\sum_s e^{i\mathbf{G}\cdot\boldsymbol{\tau}_s}\big)\big(\sum_\alpha e^{i\mathbf{G}\cdot\mathbf{t}_\alpha}\big)\).
+
+\bigskip
+\textbf{Factorización de \(S\).}  
+Suponiendo átomos idénticos \(f_j=f\), entonces
+\[
+S(hkl)= f \sum_{\alpha=1}^{4}\sum_{s=1}^{2} e^{\,i\mathbf{G}\cdot(\mathbf{t}_\alpha+\boldsymbol{\tau}_s)}
+= f\underbrace{\Big(\sum_{s=1}^{2} e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}_s}\Big)}_{\displaystyle B(hkl)}\;
+\underbrace{\Big(\sum_{\alpha=1}^{4} e^{\,i\mathbf{G}\cdot\mathbf{t}_\alpha}\Big)}_{\displaystyle F_\text{fcc}(hkl)}.
+\]
+A \(B\) lo llamaremos \emph{factor de base} y a \(F_\text{fcc}\) \emph{factor fcc}.
+
+\bigskip
+\textbf{Cálculo del factor fcc \(F_\text{fcc}\).}  
+Usando \(\mathbf{G}\cdot(x,y,z)=2\pi(hx+ky+\ell z)\):
+\[
+\begin{aligned}
+F_\text{fcc}
+&= 1
++ e^{\,i2\pi(0\cdot h+\tfrac12 k+\tfrac12 \ell)}
++ e^{\,i2\pi(\tfrac12 h+0\cdot k+\tfrac12 \ell)}
++ e^{\,i2\pi(\tfrac12 h+\tfrac12 k+0\cdot \ell)}\\[2pt]
+&= 1 + e^{\,i\pi(k+\ell)} + e^{\,i\pi(h+\ell)} + e^{\,i\pi(h+k)}\\
+&= 1 + (-1)^{k+\ell} + (-1)^{h+\ell} + (-1)^{h+k}.
+\end{aligned}
+\]
+\emph{Clasificación por paridad}. Sea \(p_h=(-1)^h\), etc. Entonces:
+\[
+F_\text{fcc}= 1 + p_k p_\ell + p_h p_\ell + p_h p_k.
+\]
+- Si \(h,k,\ell\) son \textbf{todos pares}: \(p_h=p_k=p_\ell=+1 \Rightarrow F_\text{fcc}=4\).  
+- Si \(h,k,\ell\) son \textbf{todos impares}: \(p_h=p_k=p_\ell=-1\Rightarrow p_kp_\ell=p_hp_\ell=p_hp_k=+1\Rightarrow F_\text{fcc}=4\).  
+- Si hay \textbf{paridades mezcladas} (p.ej. uno par y dos impares), uno de los productos vale \(+1\) y otro \(-1\), y al sumar se anulan \(\Rightarrow F_\text{fcc}=0\).  
+
+\[
+\boxed{\,F_\text{fcc}=4\ \text{si todos pares o todos impares;\quad }F_\text{fcc}=0\ \text{si hay mezcla de paridades.}\,}
+\]
+
+\bigskip
+\textbf{Cálculo del factor de base \(B\).}  
+Con \(\boldsymbol{\tau}_1=(0,0,0)\) y \(\boldsymbol{\tau}_2=(\tfrac14,\tfrac14,\tfrac14)\):
+\[
+B= e^{\,i2\pi(h\cdot 0+k\cdot 0+\ell\cdot 0)} + e^{\,i2\pi\big(\tfrac14 h+\tfrac14 k+\tfrac14 \ell\big)}
+= 1 + e^{\,i\frac{\pi}{2}(h+k+\ell)}.
+\]
+Es útil escribir
+\[
+\boxed{\,B(hkl)=1+i^{\,h+k+\ell}\,}.
+\]
+
+\bigskip
+\textbf{(a) Expresión final de \(S\).}  
+Reuniendo,
+\[
+\boxed{\,S(hkl)= f\,[1+i^{\,h+k+\ell}]\,[\,1+(-1)^{k+\ell}+(-1)^{h+\ell}+(-1)^{h+k}\,].\,}
+\]
+
+\bigskip
+\textbf{(b) Reglas de selección (extinciones) y reflexiones permitidas.}
+
+\emph{Paso 1:} aplicar la regla fcc \(F_\text{fcc}\).  
+\[
+F_\text{fcc}=
+\begin{cases}
+4, & \text{si } h,k,\ell \text{ todos pares o todos impares},\\
+0, & \text{si paridades mezcladas (extinción fcc)}.
+\end{cases}
+\]
+
+\emph{Paso 2:} cuando \(F_\text{fcc}=4\), el valor de \(S\) lo controla \(B=1+i^{\,h+k+\ell}\).
+
+\medskip
+\underline{Caso A: \(h,k,\ell\) todos pares.}  
+Entonces \(h+k+\ell\) es par. Distinguimos módulo 4:
+\[
+i^{\,h+k+\ell}=
+\begin{cases}
++1, & h+k+\ell\equiv 0\ (\mathrm{mod}\ 4),\\
+-1, & h+k+\ell\equiv 2\ (\mathrm{mod}\ 4).
+\end{cases}
+\]
+Por tanto:
+\[
+B=
+\begin{cases}
+2, & h+k+\ell\equiv 0\ (\mathrm{mod}\ 4)\quad(\text{permitido}),\\
+0, & h+k+\ell\equiv 2\ (\mathrm{mod}\ 4)\quad(\text{extinción adicional de diamante}).
+\end{cases}
+\]
+
+\underline{Caso B: \(h,k,\ell\) todos impares.}  
+Aquí \(h+k+\ell\) es impar \(\Rightarrow i^{\,h+k+\ell}=\pm i\), y luego \(B=1\pm i\neq 0\): \emph{permitido}.
+
+\medskip
+Juntando todo:
+\[
+\boxed{\text{Reflexiones permitidas en diamante:}\quad
+\begin{cases}
+\text{todos impares},\\
+\text{todos pares con } h+k+\ell=4n.
+\end{cases}}
+\]
+Es exactamente la forma pedida: si los índices son pares, deben sumar un múltiplo de 4; si son impares, también difractan.
+
+\bigskip
+\textbf{Intensidades relativas (cuando es permitido).}  
+Usando \(S=f\,B\,F_\text{fcc}\) con \(|F_\text{fcc}|=4\):
+\[
+|B|=
+\begin{cases}
+2, & \text{pares con } h+k+\ell\equiv 0\ (\mathrm{mod}\ 4),\\
+\sqrt{2}, & \text{todos impares}.
+\end{cases}
+\qquad\Longrightarrow\qquad
+|S|=
+\begin{cases}
+8\,|f|, & \text{pares con } h+k+\ell=4n,\\
+4\sqrt{2}\,|f|, & \text{todos impares}.
+\end{cases}
+\]
+\[
+\boxed{\,I\propto |S|^2=
+\begin{cases}
+64\,|f|^2, & \text{pares con } h+k+\ell=4n,\\
+32\,|f|^2, & \text{todos impares}.
+\end{cases}}
+\]
+
+\bigskip
+\noindent\textit{Comprobación directa (opcional).}  
+Si uno suma las 8 contribuciones explícitas (las listadas arriba) y agrupa en dos bloques (los 4 nodos fcc con \(\boldsymbol{\tau}_1\) y los 4 con \(\boldsymbol{\tau}_2\)), aparece exactamente el mismo resultado:
+\[
+S=f\Big[\underbrace{(1+(-1)^{k+\ell}+(-1)^{h+\ell}+(-1)^{h+k})}_{F_\text{fcc}}\Big]\Big[\underbrace{1+e^{\,i\frac{\pi}{2}(h+k+\ell)}}_{B}\Big].
+\]
+
+\bigskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item \(S(hkl)= f\,[1+i^{\,h+k+\ell}]\,[1+(-1)^{k+\ell}+(-1)^{h+\ell}+(-1)^{h+k}]\).
+\item Permitidos: (i) todos impares; (ii) todos pares con \(h+k+\ell=4n\).
+\item Extinciones: paridades mixtas (fcc) y pares con \(h+k+\ell\equiv 2\ (\mathrm{mod}\ 4)\) (diamante).
+\item Intensidades relativas: \(64|f|^2\) (pares con suma \(4n\)) y \(32|f|^2\) (todos impares).
+\end{itemize}
+
+
+
+\subsection{P-5}
+
+\textbf{Marco teórico ampliado.}  
+Consideramos una \emph{línea diatómica} \( \cdots\text{A}\text{B}\text{A}\text{B}\cdots \) a lo largo del eje \(x\).  
+La distancia A--B es \(a/2\), luego la distancia entre átomos \emph{equivalentes} (A$\to$A o B$\to$B) es \(a\).  
+Tomamos \(N\) celdas (1D) con sitios:
+\[
+x_{m,\text{A}} = m a, 
+\qquad 
+x_{m,\text{B}} = m a + \frac{a}{2},
+\qquad m=0,1,\dots,N-1.
+\]
+El haz incidente es \emph{perpendicular} a la línea (tomemos \(\mathbf{k}_i=k\,\hat{y}\) con \(k=2\pi/\lambda\)).  
+La onda dispersada en dirección \(\theta\) (medida respecto al eje \(x\)) es
+\[
+\mathbf{k}_s = k(\cos\theta\,\hat{x}+\sin\theta\,\hat{y}),
+\]
+de modo que el vector de dispersión es \(\mathbf{q}=\mathbf{k}_s-\mathbf{k}_i\) y su componente a lo largo de la cadena vale
+\[
+q_x=\mathbf{q}\!\cdot\!\hat{x}=k\cos\theta=\frac{2\pi}{\lambda}\cos\theta.
+\]
+
+\bigskip
+\textbf{Amplitud de dispersión (suma de fases).}  
+La amplitud compleja hacia \(\theta\) es la suma coherente de todas las contribuciones:
+\[
+\begin{aligned}
+F(\theta)
+&=\sum_{m=0}^{N-1}\Big[f_A\,e^{\,iq_x x_{m,\text{A}}}+f_B\,e^{\,iq_x x_{m,\text{B}}}\Big] \\
+&=\sum_{m=0}^{N-1}\Big[f_A\,e^{\,iq_x m a}+f_B\,e^{\,iq_x (m a + a/2)}\Big]\\
+&=\underbrace{\Big(f_A+f_B\,e^{\,i q_x a/2}\Big)}_{\displaystyle S_{\text{base}}(q_x)}
+\underbrace{\sum_{m=0}^{N-1} e^{\,i q_x m a}}_{\displaystyle L(q_x)}.
+\end{aligned}
+\]
+Así, la física se separa en: \emph{factor de base} \(S_{\text{base}}\) (dos átomos por celda) y \emph{factor de red} \(L\) (arreglo periódico).
+
+\medskip
+\noindent\textit{Suma geométrica 1D.}  
+Para \(|r|\neq 1\), \(\sum_{m=0}^{N-1} r^m = \frac{1-r^N}{1-r}\). Con \(r=e^{i q_x a}\), obtenemos
+\[
+\begin{aligned}
+L(q_x)
+&=\frac{1-e^{\,iN q_x a}}{1-e^{\,i q_x a}}
+= e^{\,i q_x a (N-1)/2}\,\frac{e^{-\,i q_x a N/2}-e^{\,i q_x a N/2}}{e^{-\,i q_x a /2}-e^{\,i q_x a /2}}\\[2pt]
+&= e^{\,i q_x a (N-1)/2}\,\frac{-\,2i\sin\!\big(N q_x a/2\big)}{-\,2i\sin\!\big(q_x a/2\big)}
+= e^{\,i q_x a (N-1)/2}\,\frac{\sin\!\big(N q_x a/2\big)}{\sin\!\big(q_x a/2\big)}.
+\end{aligned}
+\]
+De aquí:
+\[
+|L(q_x)|^2=\Bigg[\frac{\sin\!\big(N q_x a/2\big)}{\sin\!\big(q_x a/2\big)}\Bigg]^2,
+\]
+que es el \emph{núcleo de Dirichlet}: picos angostos donde el numerador se anula “como \(N\)” y el denominador no.
+
+\bigskip
+\textbf{(a) Condición de interferencia (máximos principales).}  
+Los máximos principales de \( |L|^2 \) ocurren cuando
+\[
+\frac{q_x a}{2}=n\pi \quad\Longleftrightarrow\quad q_x=\frac{2\pi n}{a},\qquad n\in\mathbb{Z},
+\]
+pues allí \(\sin(N q_x a/2)=\sin(N\pi n)=0\) pero el límite \(\lim_{x\to n\pi}\sin(Nx)/\sin x=N\) da el pico de altura \(\sim N^2\).  
+Usando \(q_x=\tfrac{2\pi}{\lambda}\cos\theta\), se obtiene
+\[
+\boxed{\,n\lambda=a\cos\theta\,}.
+\]
+\emph{Nota de ángulos:} si midieras desde la \emph{normal} a la línea, \(\phi=90^\circ-\theta\), la condición adopta la forma de rejilla usual \(a\sin\phi=n\lambda\).
+
+\bigskip
+\textbf{(b) Intensidades para órdenes pares e impares (papel de la base).}  
+En los máximos, \(q_x a=2\pi n\), por lo que
+\[
+S_{\text{base}}(q_x)=f_A+f_B\,e^{\,i q_x a/2}=f_A+f_B\,e^{\,i\pi n}=f_A+(-1)^n f_B.
+\]
+Cerca del máximo, \(|L|^2\) define el ancho y altura del pico, \emph{común} a todos los órdenes a igualdad de \(N\); la diferencia de intensidad entre órdenes la fija el módulo de \(S_{\text{base}}\):
+\[
+\boxed{\,I_n \ \propto\ |S_{\text{base}}|^2=
+\begin{cases}
+|f_A+f_B|^2, & n\ \text{par},\\[3pt]
+|f_A-f_B|^2, & n\ \text{impar}.
+\end{cases}\,}
+\]
+\emph{Derivación explícita:} en \(n\) par, \(e^{i\pi n}=+1\Rightarrow S_{\text{base}}=f_A+f_B\); en \(n\) impar, \(e^{i\pi n}=-1\Rightarrow S_{\text{base}}=f_A-f_B\).
+
+\bigskip
+\textbf{(c) Caso \(f_A=f_B\) (extinciones sistemáticas).}  
+Si los átomos son indistinguibles a la longitud de onda (misma forma electrónica efectiva):
+\[
+S_{\text{base}}=
+\begin{cases}
+2f_A, & n\ \text{par},\\
+0, & n\ \text{impar},
+\end{cases}
+\qquad\Longrightarrow\qquad
+\boxed{\,I_n=0\ \text{para}\ n\ \text{impar}\,}.
+\]
+Físicamente, para órdenes impares las contribuciones de A y B llegan desfasadas en \(\pi\) y se anulan exactamente.
+
+\bigskip
+\textbf{Detalle fino (ancho de pico y límite \(N\to\infty\)).}  
+\[
+|L(q_x)|^2=\Bigg[\frac{\sin\!\big(N q_x a/2\big)}{\sin\!\big(q_x a/2\big)}\Bigg]^2
+\ \xrightarrow[N\to\infty]{}\ 
+(2\pi)\,\frac{2}{a}\sum_{n\in\mathbb{Z}}\delta\!\Big(q_x-\frac{2\pi n}{a}\Big),
+\]
+en sentido de distribuciones: los picos se vuelven delta de Dirac sobre las condiciones de interferencia. En muestras finitas, cada pico tiene ancho \(\Delta q_x\sim 2\pi/(Na)\), de modo que \(\Delta\theta\sim \frac{\lambda}{Na\sin\theta}\).
+
+\bigskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item \textbf{Condición de máximos:} \(n\lambda=a\cos\theta\).
+\item \textbf{Factor de base:} \(S_{\text{base}}=f_A+(-1)^n f_B\).
+\item \textbf{Intensidades:} \(I_n\propto|f_A+f_B|^2\) (n par) y \(I_n\propto|f_A-f_B|^2\) (n impar).
+\item \textbf{Extinciones:} si \(f_A=f_B\), desaparecen todos los órdenes impares.
+\item \textbf{Ancho de pico:} \(|L|^2\) define el perfil (Dirichlet), con \(\Delta q_x\sim 2\pi/(Na)\).
+\end{itemize}
+
+
+\subsection{P-6}
+
+\textbf{Marco teórico breve.}  
+La red \emph{monoclínica simple} es una de las 14 redes de Bravais. Se caracteriza porque \(a\neq b\neq c\), con un ángulo \(\beta\) distinto de \(90^\circ\) entre los vectores \(\mathbf{a}_1\) y \(\mathbf{a}_3\), mientras que \(\mathbf{a}_2\) es perpendicular al plano definido por \(\mathbf{a}_1\) y \(\mathbf{a}_3\).  
+En coordenadas cartesianas, los vectores primitivos se pueden representar como:
+\[
+\mathbf{a}_1=(a\sin\beta,0,a\cos\beta),\quad 
+\mathbf{a}_2=(0,b,0),\quad 
+\mathbf{a}_3=(0,0,c).
+\]
+
+\medskip
+\textbf{(a) Volumen de la celda primitiva.}  
+El volumen se obtiene por el producto mixto:
+\[
+V_c=\mathbf{a}_1\cdot(\mathbf{a}_2\times\mathbf{a}_3).
+\]
+Calculamos:
+\[
+\mathbf{a}_2\times\mathbf{a}_3=
+\begin{vmatrix}
+\hat{x} & \hat{y} & \hat{z}\\
+0 & b & 0\\
+0 & 0 & c
+\end{vmatrix}
+=(bc,\,0,\,0).
+\]
+Entonces,
+\[
+V_c=(a\sin\beta,0,a\cos\beta)\cdot(bc,0,0)=abc\sin\beta.
+\]
+\(\Rightarrow\) El volumen de la celda monoclínica es
+\[
+\boxed{V_c=abc\sin\beta.}
+\]
+
+\medskip
+\textbf{(b) Vectores primitivos de la red recíproca.}  
+Los vectores recíprocos se definen como:
+\[
+\mathbf{b}_1=2\pi\frac{\mathbf{a}_2\times\mathbf{a}_3}{V_c},\quad 
+\mathbf{b}_2=2\pi\frac{\mathbf{a}_3\times\mathbf{a}_1}{V_c},\quad 
+\mathbf{b}_3=2\pi\frac{\mathbf{a}_1\times\mathbf{a}_2}{V_c}.
+\]
+
+- Ya tenemos \(\mathbf{a}_2\times\mathbf{a}_3=(bc,0,0)\). Entonces:
+\[
+\mathbf{b}_1=\frac{2\pi}{abc\sin\beta}(bc,0,0)=\left(\tfrac{2\pi}{a\sin\beta},0,0\right).
+\]
+
+- Para \(\mathbf{a}_3\times\mathbf{a}_1\):
+\[
+\mathbf{a}_3\times\mathbf{a}_1=
+\begin{vmatrix}
+\hat{x} & \hat{y} & \hat{z}\\
+0&0&c\\
+a\sin\beta&0&a\cos\beta
+\end{vmatrix}
+=(0,ac\sin\beta,0).
+\]
+Así,
+\[
+\mathbf{b}_2=\frac{2\pi}{abc\sin\beta}(0,ac\sin\beta,0)=\left(0,\tfrac{2\pi}{b},0\right).
+\]
+
+- Para \(\mathbf{a}_1\times\mathbf{a}_2\):
+\[
+\mathbf{a}_1\times\mathbf{a}_2=
+\begin{vmatrix}
+\hat{x}&\hat{y}&\hat{z}\\
+a\sin\beta&0&a\cos\beta\\
+0&b&0
+\end{vmatrix}
+=(-ab\cos\beta,0,ab\sin\beta).
+\]
+Así,
+\[
+\mathbf{b}_3=\frac{2\pi}{abc\sin\beta}(-ab\cos\beta,0,ab\sin\beta)
+=\left(-\tfrac{2\pi\cos\beta}{c\sin\beta},0,\tfrac{2\pi}{c}\right).
+\]
+
+\medskip
+\textbf{Resultado:}  
+\[
+\mathbf{b}_1=\left(\tfrac{2\pi}{a\sin\beta},0,0\right),\qquad
+\mathbf{b}_2=\left(0,\tfrac{2\pi}{b},0\right),\qquad
+\mathbf{b}_3=\left(-\tfrac{2\pi\cos\beta}{c\sin\beta},0,\tfrac{2\pi}{c}\right).
+\]
+
+\medskip
+\textbf{(c) Volumen de la celda recíproca.}  
+Por definición:
+\[
+V_c^*=\mathbf{b}_1\cdot(\mathbf{b}_2\times\mathbf{b}_3).
+\]
+Se cumple la relación general:
+\[
+V_c^*=\frac{(2\pi)^3}{V_c}.
+\]
+Sustituyendo:
+\[
+V_c^*=\frac{(2\pi)^3}{abc\sin\beta}.
+\]
+
+\medskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item Volumen directo: \(V_c=abc\sin\beta\).
+\item Vectores recíprocos:
+\[
+\mathbf{b}_1=\left(\tfrac{2\pi}{a\sin\beta},0,0\right),\quad
+\mathbf{b}_2=\left(0,\tfrac{2\pi}{b},0\right),\quad
+\mathbf{b}_3=\left(-\tfrac{2\pi\cos\beta}{c\sin\beta},0,\tfrac{2\pi}{c}\right).
+\]
+\item Volumen recíproco: \(V_c^*=(2\pi)^3/(abc\sin\beta).\)
+\end{itemize}
+
+
+\subsection{P-7}
+
+\textbf{Marco teórico breve.}  
+El \emph{factor de estructura} \(S(hkl)\) para una reflexión con índices de Miller \((hkl)\) se define como la suma compleja de las contribuciones de todos los átomos de la \emph{base} (motivo) ponderadas por su fase:
+\[
+S(hkl)=\sum_{j=1}^{N_{\text{base}}} f_j\,e^{\,i\mathbf{G}\cdot \mathbf{r}_j},\qquad 
+\mathbf{G}=h\mathbf{b}_1+k\mathbf{b}_2+\ell\mathbf{b}_3,
+\]
+donde \(f_j\) es el factor de forma atómico y \(\mathbf{r}_j\) la posición del átomo \(j\) en coordenadas fraccionarias de la celda \emph{convencional} usada.  
+Para una \textbf{red FCC} (Bravais fcc) con \textbf{4 átomos idénticos} en la celda cúbica convencional, las posiciones típicas (centros de cara más el origen) son:
+\[
+\mathbf{r}_1=(0,0,0),\quad 
+\mathbf{r}_2=\Big(0,\tfrac12,\tfrac12\Big),\quad
+\mathbf{r}_3=\Big(\tfrac12,0,\tfrac12\Big),\quad
+\mathbf{r}_4=\Big(\tfrac12,\tfrac12,0\Big).
+\]
+Suponemos \(f_j=f\) (mismo factor de forma para todos).
+
+\medskip
+\textbf{Desarrollo.}  
+El factor de estructura resulta
+\[
+\begin{aligned}
+S(hkl)
+&= f\Big[
+e^{\,i2\pi(0\cdot h+0\cdot k+0\cdot \ell)}
++e^{\,i2\pi\big(h\cdot 0+k\cdot\tfrac12+\ell\cdot\tfrac12\big)}
++e^{\,i2\pi\big(h\cdot\tfrac12+k\cdot 0+\ell\cdot\tfrac12\big)} \\
+&\hspace{2.2cm}
++e^{\,i2\pi\big(h\cdot\tfrac12+k\cdot\tfrac12+\ell\cdot 0\big)}
+\Big] \\
+&= f\Big[
+1
++e^{\,i\pi(k+\ell)}
++e^{\,i\pi(h+\ell)}
++e^{\,i\pi(h+k)}
+\Big].
+\end{aligned}
+\]
+Usando \(e^{\,i\pi n}=(-1)^n\) para \(n\in\mathbb{Z}\),
+\[
+\boxed{\,S(hkl)=
+f\Big[\,1+(-1)^{k+\ell}+(-1)^{h+\ell}+(-1)^{h+k}\,\Big].\,}
+\]
+
+\medskip
+\textbf{Reglas de selección (extinciones sistemáticas FCC).}  
+Analizando paridades de \(h,k,\ell\):
+\[
+S(hkl)=\begin{cases}
+4f, & \text{si } h,k,\ell\ \text{son todos pares o todos impares},\\[4pt]
+0, & \text{si hay mezcla de paridades (alguno par y otro impar).}
+\end{cases}
+\]
+Esto produce las \emph{extinciones} características de FCC: reflexiones con paridades mezcladas no aparecen.
+
+\medskip
+\textbf{Intensidad relativa.}  
+La intensidad de difracción \(I\propto |S|^2\) (ignorando otros factores como Lorentz–polarización, multiplicidad y \(f(s)\) dependiente de \(\sin\theta/\lambda\)). Por tanto:
+\[
+I(hkl)\propto
+\begin{cases}
+16\,|f|^2, & h,k,\ell\ \text{todos pares o todos impares},\\[3pt]
+0, & \text{en otro caso}.
+\end{cases}
+\]
+
+\medskip
+\textbf{Ejemplos prácticos (permitidos vs. prohibidos).}
+\begin{itemize}
+\item \emph{Permitidos (todos impares):} \((111),(311),(331),(511),\dots\)
+\item \emph{Permitidos (todos pares):} \((200),(220),(222),(400),(420),(422),\dots\)
+\item \emph{Prohibidos (paridades mixtas):} \((100),(110),(210),(221),(310),\dots\)
+\end{itemize}
+En difracción de polvos, las primeras líneas de una red FCC típica se indexan con la secuencia de \(h^2+k^2+\ell^2\) para estos \((hkl)\) permitidos: \(3,\,4,\,8,\,11,\,12,\dots\) que corresponden, por ejemplo, a \((111),(200),(220),(311),(222),\dots\)
+
+\medskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item Para FCC con 4 átomos idénticos por celda convencional:
+\[
+S(hkl)=
+f\Big[1+(-1)^{k+\ell}+(-1)^{h+\ell}+(-1)^{h+k}\Big].
+\]
+\item \textbf{Permitidos:} \(h,k,\ell\) todos pares o todos impares \(\Rightarrow S=4f\).
+\item \textbf{Extinción:} paridades mixtas \(\Rightarrow S=0\).
+\item \(\,I\propto |S|^2\): vale \(16|f|^2\) en los casos permitidos (despreciando otros factores).
+\end{itemize}
+
+
+\subsection{P-8}
+
+\textbf{Datos.}  
+Picos en \(2\theta=\{40^\circ,\,58^\circ,\,73^\circ,\,86.5^\circ,\,100.4^\circ,\,114.7^\circ\}\) con \(\lambda=0.154\,\mathrm{nm}\).
+
+\medskip
+\textbf{Marco teórico breve.}  
+Para un cristal cúbico, la ley de Bragg con primer orden (\(n=1\)) se escribe
+\[
+2d\sin\theta=\lambda \quad\Rightarrow\quad d=\frac{\lambda}{2\sin\theta}.
+\]
+En redes cúbicas, la separación interplanar satisface
+\[
+\frac{1}{d^2}=\frac{h^2+k^2+\ell^2}{a^2}
+\quad\Longleftrightarrow\quad
+d=\frac{a}{\sqrt{h^2+k^2+\ell^2}}.
+\]
+Por tanto, para una \emph{misma fase} cristalina, \( \sin^2\theta \propto (h^2+k^2+\ell^2)\).  
+Las \textbf{secuencias permitidas} son:
+\begin{itemize}
+\item \(\mathrm{BCC}\): \(h+k+\ell\) par \(\Rightarrow (h^2{+}k^2{+}\ell^2)=2,4,6,8,10,12,\dots\) (proporciones \(1{:}2{:}3{:}4{:}5{:}6:\dots\) al dividir por 2).
+\item \(\mathrm{FCC}\): todos pares o todos impares \(\Rightarrow (h^2{+}k^2{+}\ell^2)=3,4,8,11,12,16,19,20,\dots\)
+\end{itemize}
+
+\medskip
+\textbf{(a) Identificación de la estructura (BCC vs FCC).}  
+Calculamos \( \sin^2\theta \) y lo normalizamos con respecto al primer pico:
+\[
+\theta=\frac{2\theta}{2},\qquad 
+\sin^2\theta=\{\;0.11698,\;0.23504,\;0.35381,\;0.46948,\;0.59026,\;0.70893\;\},
+\]
+\[
+\frac{\sin^2\theta}{\sin^2\theta_{(1)}}\approx 
+\{\,1.00,\;2.01,\;3.02,\;4.01,\;5.05,\;6.06\,\}\ \approx\ \{1,2,3,4,5,6\}.
+\]
+Esto calza \textbf{exactamente} con la secuencia de \(\mathrm{BCC}\).  
+\(\Rightarrow\) \(\boxed{\text{La estructura es BCC.}}\)
+
+\medskip
+\textbf{(b) Asignación de índices y cálculo de \(a\).}  
+Para \(\mathrm{BCC}\), los primeros seis picos corresponden típicamente a:
+\[
+(110),(200),(211),(220),(310),(222),
+\]
+con \(N\equiv h^2{+}k^2{+}\ell^2=\{2,4,6,8,10,12\}\).  
+Obtenemos cada \(d\) con \(d=\lambda/(2\sin\theta)\) y luego
+\[
+a = d\,\sqrt{N}.
+\]
+
+\textbf{Cálculo numérico (resumen).}
+\[
+\begin{array}{c|c|c|c}
+2\theta~(\mathrm{deg}) & \theta~(\mathrm{deg}) & d~(\mathrm{nm}) & a_i=d\,\sqrt{N}~(\mathrm{nm})\\
+\hline
+40.0 & 20.0 & 0.22513 & 0.31839\ \ (N{=}2)\\
+58.0 & 29.0 & 0.15883 & 0.31765\ \ (N{=}4)\\
+73.0 & 36.5 & 0.12945 & 0.31709\ \ (N{=}6)\\
+86.5 & 43.25 & 0.11238 & 0.31786\ \ (N{=}8)\\
+100.4 & 50.2 & 0.10022 & 0.31693\ \ (N{=}10)\\
+114.7 & 57.35 & 0.09145 & 0.31680\ \ (N{=}12)
+\end{array}
+\]
+
+Promediando:
+\[
+\boxed{\,a = (0.31745 \pm 0.00056)\ \mathrm{nm}\,} 
+\quad\text{(i.e. } a \approx 3.1745 \pm 0.0056\ \text{\AA)}.
+\]
+
+\medskip
+\textbf{Conclusión.}  
+La muestra es \(\mathrm{BCC}\) (secuencia \(1,2,3,4,5,6,\dots\) en \(\sin^2\theta\)) y el parámetro de red es
+\[
+\boxed{\,a \approx 0.3175\ \mathrm{nm}\ (3.175\ \text{\AA})\,}.
+\]
+
+\medskip
+\textbf{Notas para examen.}
+\begin{itemize}
+\item Clasifica la red \(\mathrm{BCC/FCC}\) \emph{solo} con las razones \(\sin^2\theta/\sin^2\theta_{(1)}\).
+\item Luego asigna \((hkl)\) mínimos compatibles y promedia \(a=d\sqrt{N}\).
+\item Si hubiera ligera desviación angular, el promedio de varios picos reduce el error.
+\end{itemize}
+
+
+\subsection{P-9}
+
+\textbf{Marco teórico breve.}  
+El \emph{factor de estructura} para una reflexión con índices \((hkl)\) es
+\[
+S(hkl)=\sum_{j=1}^{N_{\text{base}}} f_j\,e^{\,i\mathbf{G}\cdot\mathbf{r}_j},
+\qquad
+\mathbf{G}=h\mathbf{b}_1+k\mathbf{b}_2+\ell\mathbf{b}_3,
+\]
+donde \(f_j\) es el factor de forma del átomo \(j\) y \(\mathbf{r}_j\) su posición dentro de la celda \emph{elegida} (directa o convencional).  
+Si la celda es \textbf{primitiva} \emph{y} hay \textbf{un átomo por celda} (\(N_{\text{base}}=1\)), la base queda reducida a una única posición \(\boldsymbol{\tau}\).
+
+\medskip
+\textbf{Demostración.}  
+Con un solo átomo en la base,
+\[
+S(hkl)= f\,e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}}.
+\]
+Podemos \emph{elegir el origen} en la posición del átomo (esto es, tomar \(\boldsymbol{\tau}=\mathbf{0}\) sin pérdida de generalidad, ya que un corrimiento del origen no altera la física medible).  
+Entonces
+\[
+\boxed{\,S(hkl)=f\,}.
+\]
+Más generalmente, si no movemos el origen,
+\[
+S(hkl)= f\,e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}},
+\]
+pero la intensidad observable
+\[
+I(hkl)\ \propto\ |S|^2=|f|^2
+\]
+es \emph{invariante} a la fase global \(e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}}\). Es decir, la elección del origen sólo introduce una fase que no afecta la intensidad.
+
+\medskip
+\textbf{Consecuencias.}
+\begin{itemize}
+\item Una celda primitiva con un átomo \emph{no} introduce extinciones por motivo (no hay interferencia destructiva entre múltiples sitios en la base).
+\item Las posibles condiciones de selección provendrían \emph{exclusivamente} de la \emph{geometría de red} (p.\,ej. si se usara una celda \emph{no} primitiva como una cúbica convencional de una red centrada, aparecerían reglas tipo BCC/FCC). En una descripción verdaderamente \emph{primitiva} no hay tales extinciones geométricas.
+\item La dependencia angular y con \(s=\sin\theta/\lambda\) queda en \(f=f(s)\) (disminuye con el ángulo por la distribución electrónica).
+\end{itemize}
+
+\medskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item Con un átomo por celda primitiva: \(S=f\,e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}}\) \(\Rightarrow\) eligiendo el origen en el átomo, \(S=f\).
+\item Intensidad: \(I\propto |f|^2\), independiente de la fase de origen.
+\end{itemize}
+ 
+ 
+ \subsection{P-10}
+
+\textbf{Marco teórico breve.}  
+Consideramos una \textbf{red rectangular 2D} con vectores primitivos
+\[
+\mathbf{a}_1 = 2a\,\hat{x}, \qquad \mathbf{a}_2 = a\,\hat{y},
+\]
+y posiciones de red \(\mathbf{r}_{n}=n_1\mathbf{a}_1+n_2\mathbf{a}_2\) con \(n_1,n_2\in\mathbb{Z}\).  
+La \textbf{base} tiene dos átomos en coordenadas fraccionarias (respecto a \(\mathbf{a}_1,\mathbf{a}_2\)):
+\[
+\boldsymbol{\tau}_1=(0,0), \qquad \boldsymbol{\tau}_2=\Big(\tfrac12,\tfrac12\Big).
+\]
+Geométricamente, esto equivale a una red rectangular \emph{centrada} en 2D (traslación centering \((\mathbf{a}_1+\mathbf{a}_2)/2\)).
+
+\medskip
+\textbf{Red recíproca 2D.}  
+Los vectores recíprocos \(\mathbf{b}_i\) satisfacen \(\mathbf{a}_i\cdot\mathbf{b}_j=2\pi\delta_{ij}\).  
+Como \(|\mathbf{a}_1|=2a\) y \(|\mathbf{a}_2|=a\) (y son ortogonales), se obtiene
+\[
+\mathbf{b}_1=\frac{2\pi}{2a}\,\hat{x}=\frac{\pi}{a}\,\hat{x}, 
+\qquad 
+\mathbf{b}_2=\frac{2\pi}{a}\,\hat{y}.
+\]
+Cualquier vector de red recíproca es \(\mathbf{G}=h\mathbf{b}_1+k\mathbf{b}_2\), con \(h,k\in\mathbb{Z}\).
+
+\medskip
+\textbf{Factor de estructura 2D (con base de dos átomos).}  
+El factor de estructura para la reflexión \((hk)\) es
+\[
+S(hk)=\sum_{j=1}^{2} f_j\,e^{\,i\mathbf{G}\cdot\boldsymbol{\tau}_j}.
+\]
+Usando coordenadas fraccionarias \((u_j,v_j)\) y que \(\mathbf{G}\cdot\boldsymbol{\tau}_j=2\pi(hu_j+kv_j)\),
+\[
+S(hk)= f_1\,e^{\,i2\pi(h\cdot 0 + k\cdot 0)} + f_2\,e^{\,i2\pi\big(h\cdot \tfrac12 + k\cdot \tfrac12\big)}
+= f_1 + f_2\,e^{\,i\pi(h+k)}.
+\]
+
+\medskip
+\textbf{Intensidades y extinciones.}  
+La intensidad es \(I(hk)\propto |S(hk)|^2\). Dos casos relevantes:
+
+\begin{itemize}
+\item \textbf{Átomos idénticos} en la base: \(f_1=f_2=f\).  
+Entonces
+\[
+S(hk)= f\big[\,1+(-1)^{\,h+k}\big] 
+=
+\begin{cases}
+2f, & h+k \ \text{par},\\
+0,  & h+k \ \text{impar}.
+\end{cases}
+\]
+Por tanto,
+\[
+\boxed{\,I(hk)\propto 4|f|^2 \ \ \text{si } h+k \text{ es par}; \quad I(hk)=0 \ \ \text{si } h+k \text{ es impar.}\,}
+\]
+Estas son \textbf{extinciones sistemáticas} de una red rectangular centrada (regla \(h{+}k\) par).
+
+\item \textbf{Átomos distintos} (\(f_1\neq f_2\)).  
+En este caso
+\[
+S(hk)=
+\begin{cases}
+f_1+f_2, & h+k\ \text{par},\\
+f_1-f_2, & h+k\ \text{impar},
+\end{cases}
+\qquad
+I(hk)\propto 
+\begin{cases}
+|f_1+f_2|^2, & h+k\ \text{par},\\
+|f_1-f_2|^2, & h+k\ \text{impar}.
+\end{cases}
+\]
+Sólo hay extinción completa en \(h{+}k\) impar si \(\,f_1=f_2\). Si \(f_1\neq f_2\), los picos con \(h{+}k\) impar quedan \emph{debilitados} pero no desaparecen.
+\end{itemize}
+
+\medskip
+\textbf{Posición de picos en el espacio recíproco.}  
+La condición de Laue/Bragg en 2D selecciona \(\mathbf{q}=\mathbf{G}\). Las posiciones de los picos están en
+\[
+\mathbf{G}(h,k)=\Big(\tfrac{\pi}{a}\,h\Big)\hat{x} + \Big(\tfrac{2\pi}{a}\,k\Big)\hat{y},
+\]
+y su \emph{peso} está modulado por \(|S(hk)|^2\) según la regla anterior.
+
+\medskip
+\textbf{Resumen operativo.}
+\begin{itemize}
+\item Estructura 2D: rectangular \emph{centrada} (\(\boldsymbol{\tau}_2=\tfrac12,\tfrac12\)).
+\item Red recíproca: \(\mathbf{b}_1=\pi/a\,\hat{x}\), \(\mathbf{b}_2=2\pi/a\,\hat{y}\).
+\item \(\displaystyle S(hk)=f_1+f_2\,(-1)^{h+k}\).
+\item \textbf{Extinción (átomos idénticos):} \(h{+}k\) impar \(\Rightarrow S=0\).  
+\item \textbf{Intensidad (átomos idénticos):} si \(h{+}k\) par \(\Rightarrow I\propto 4|f|^2\).
+\end{itemize}
+
+
+\end{document}

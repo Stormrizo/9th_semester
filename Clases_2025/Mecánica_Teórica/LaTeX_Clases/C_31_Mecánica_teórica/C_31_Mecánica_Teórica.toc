@@ -1,0 +1,6 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Próximo examen: problema de Kepler (dos cuerpos)}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Caso con plano $z=0$}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Lagrangiana útil a recordar (coordenadas polares en el plano)}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Caso para determinar la geometría y el marco de referencia}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Iniciamos el curso con la segunda ley de Newton}{9}{subsection.1.4}%

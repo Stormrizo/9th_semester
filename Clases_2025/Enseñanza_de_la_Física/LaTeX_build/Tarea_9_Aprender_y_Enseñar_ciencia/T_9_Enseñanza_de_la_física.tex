@@ -1,0 +1,249 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+	\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+		\leftmargin=80pt % Indentation on the left
+		\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+	\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+			\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+	\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+	\usepackage{graphicx}
+	
+	\usepackage{titling}
+	
+	\input{colores.tex}
+	
+	%%Producir signos de cita textual``Asignatura''
+	
+	\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+	
+	\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Tarawera}{\textbf{T-\textcolor{Sun}{\textbf{9}}}}: \textcolor{Cinnabar}{\textbf{Resumen del capítulo 1: \textcolor{orange(colorwheel)}{\textbf{Aprender y enseñar ciencia. Del conocimiento cotidiano al conocimiento científico}}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ 202107583}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Enseñanza de la física }
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+	\let \footnote \thanks
+	{\LARGE \@title \par}%
+	\vskip 1em%
+	%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+	\noindent\begin{tabular}{@{}ll}
+		{\bfseries{Profesor}} & Dr. Apolonio Juárez Nuñez\\
+		\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+		\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{1FM4}} /  \textcolor{trueblue}{\bfseries{104}}   
+	\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\section*{Instrucciones de la actividad}
+\addcontentsline{toc}{section}{Instrucciones de la actividad}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2} % Comienza las dos columnas
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Ej}. \arabic*.0}}}, start=1]
+		\item De este texto: \textbf{Aprender y enseñar ciencia. Del conocimiento cotidiano al conocimiento científico} \\
+		Realizar un \textbf{resumen y opinión personal} del \textbf{capítulo 1}.
+		
+		\item Entregar una \textbf{hoja con la información} que consideren relevante sobre el \textbf{cometa 3I/Atlas}.
+		
+	\end{enumerate}
+\end{multicols}
+
+\vspace{2cm}
+
+
+
+\tableofcontents  \vspace{2cm}
+
+
+ \section*{Capítulo 1 — \textit{Aprender y enseñar ciencia. Del conocimiento cotidiano al conocimiento científico}}
+\addcontentsline{toc}{section}{Capítulo 1 — Aprender y enseñar ciencia}
+
+\begin{tcolorbox}[enhanced,breakable,
+  colback=white, colframe=black, boxrule=0.8pt,
+  left=6mm,right=6mm,top=3mm,bottom=3mm,
+  title={\large \textbf{Resumen narrativo}}]
+
+La obra abre con un diagnóstico incómodo: la mayor parte del estudiantado atraviesa cursos de ciencias sin construir explicaciones profundas ni transferibles. Abundan las definiciones, las listas y los ejercicios tipo, pero escasea el trabajo con ideas poderosas que permitan pensar fenómenos nuevos. El problema no es tanto la dificultad intrínseca de la física, la química o la biología, sino la incongruencia entre la naturaleza del conocimiento científico y la manera en que la escuela lo encierra en productos acabados. La ciencia vive de construir modelos, ponerlos a prueba, discutirlos públicamente y revisarlos a la luz de evidencia; la escuela, en cambio, suele exigir respuestas puntuales y premiar la memoria literal. Esa desalineación fabrica aprendizajes frágiles: lo aprendido se recuerda el día del examen y se olvida cuando realmente se necesita.
+
+El texto propone entonces un cambio de cultura: enseñar ciencias no como catálogo de resultados, sino como práctica de modelización con criterios públicos de validez. Aprender deja de equivaler a “descubrir lo que ya está” y pasa a significar “elaborar una explicación mejor de la que tenía”, incorporando ideas, relaciones y representaciones que aumentan el poder para describir, predecir y justificar. En ese marco, el estudiante no es un receptor pasivo de datos, sino un agente epistémico que moviliza saberes previos, formula hipótesis, estima órdenes de magnitud, elabora representaciones (gráficas, matemáticas, verbales), contrasta predicciones con experiencias y defiende su posición con argumentos. El papel docente se reorienta: menos exposición de respuestas finales y más diseño de situaciones-problema, mediación de la modelización, andamiaje para la argumentación y evaluación formativa que visibiliza cómo mejora una explicación con sucesivas revisiones.
+
+Una pieza central es la imagen de ciencia que se ofrece al alumnado. Conceptos, leyes y teorías no son espejos de la realidad, sino herramientas conceptuales con alcance y límites, adoptadas por su poder explicativo y predictivo. Por eso la enseñanza debería organizarse alrededor de principios estructurantes —por ejemplo, conservación, interacción, equilibrio, estructura–propiedad— capaces de conectar muchos contenidos dispersos. Los artificios típicos del trabajo científico —idealización, casos límite, cambio de escala, análisis dimensional, coherencia entre representaciones— dejan de ser “trucos” del profesorado y se convierten en prácticas legítimas y explícitas de aula. Con esa transparencia, el alumnado entiende por qué un modelo que simplifica puede explicar mejor que una lista larga de hechos sueltos.
+
+El texto integra, además, lo que sabemos del aprendizaje. Toda novedad conceptual se apoya en estructuras previas; nadie parte de cero. Muchas veces, ideas intuitivas funcionan bien en contextos cotidianos, pero resultan insuficientes o abiertamente equivocadas ante fenómenos de micro o macroescala. Ignorarlas no ayuda: si la instrucción no las activa y confronta, sobreviven debajo del vocabulario escolar. De ahí la importancia de secuencias que empiecen por explicitar lo que el grupo cree, generen conflictos cognitivos bien orientados, ofrezcan múltiples formas de representar lo mismo y exijan explicaciones cada vez más coherentes con evidencia. La metacognición ocupa un lugar clave: se aprende más cuando se entiende por qué la explicación anterior no funcionaba y qué la mejora en la nueva versión.
+
+El contexto social refuerza la urgencia del cambio. En una época de sobreabundancia informativa, la competencia decisiva no es recordar más datos, sino comprender mejor: distinguir fuentes, evaluar evidencias, ponderar riesgos y consecuencias, y tomar decisiones informadas sobre salud, energía, ambiente o tecnología. La alfabetización científica deja de ser un lujo para especialistas y se vuelve un componente de la ciudadanía. Este horizonte empuja a reducir la obsesión por “cubrir todo el temario” y a elegir menos temas con más profundidad, conectados por grandes ideas y anclados en problemas con sentido para el alumnado. También orienta hacia proyectos de indagación y productos comunicables —informes, pósters, debates— donde se hagan públicos los criterios de una buena explicación.
+
+Cambiar de cultura implica, inevitablemente, cambiar la evaluación. Si la calificación sigue midiendo la reproducción literal o la aplicación mecánica de algoritmos, cualquier intento de modelización y argumentación quedará en gesto. Evaluar ciencias, en coherencia con la propuesta, significa valorar la calidad explicativa (consistencia interna, ajuste a datos, uso de principios), la coherencia entre representaciones (gráficos, ecuaciones, texto), la capacidad de transferir a situaciones nuevas y la disposición a revisar las propias respuestas. Instrumentos como rúbricas de explicación, diarios de laboratorio, comparaciones de modelos y ciclos de retroalimentación con reentrega son coherentes con esa finalidad.
+
+La equidad aparece entonces no como eslogan, sino como criterio técnico. Una escuela que “selecciona” premia rapidez y memoria; una escuela que “forma” sostiene procesos largos donde todos pueden mejorar su forma de explicar, cada quien con apoyos diferenciados. Hacer sitio a la duda y al error —bien gestionados— no ablanda la exigencia, la desplaza al lugar correcto: no se pide acertar a la primera, se pide mostrar cómo mejora una explicación cuando se somete a reglas públicas de evidencia y razonamiento. Esa es, justamente, la ética de la ciencia que la escuela puede compartir.
+
+Nada de esto prospera si se actúa aisladamente. La propuesta reclama coherencia entre tres planos: selección y organización de contenidos (priorizar ideas de gran alcance), metodología de aula (centrada en modelización, discusión y contraste) y evaluación (orientada a la explicación y la transferencia). Hace falta, además, desarrollo profesional docente, tiempos realistas, materiales y un marco institucional que alinee pruebas externas con las metas de comprensión profunda. De otro modo, el aula queda atrapada en un doble mandato: se le pide profundidad, pero se la examina por cobertura. El capítulo, en suma, no ofrece un recetario, sino un mapa: si la enseñanza se parece más a cómo la ciencia construye conocimiento —con modelos, evidencia y razones—, entonces los aprendizajes dejan de ser frágiles y se convierten en herramientas para pensar el mundo dentro y fuera de la escuela.
+
+\end{tcolorbox}
+
+% ----- Opinión personal (opcional, misma estética simple para asegurar compilación) -----
+\begin{tcolorbox}[enhanced,breakable,
+  colback=white, colframe=black, boxrule=0.8pt,
+  left=6mm,right=6mm,top=3mm,bottom=3mm,
+  title={\large \textbf{Opinión personal}}]
+
+El texto convence porque une dos planos que rara vez se tratan juntos: una epistemología clara de la ciencia como modelización con evidencia y una teoría del aprendizaje que reconoce la fuerza de las ideas previas y la necesidad de reorganizarlas. La exigencia aumenta, no disminuye: ya no alcanza con resolver ejercicios tipo, hay que sostener explicaciones que resistan preguntas, datos y contraejemplos. También es acertada la crítica a la “cobertura” curricular: profundizar en principios de gran alcance produce más comprensión y más transferencia que memorizar listas extensas.
+
+Veo, eso sí, dos condiciones de posibilidad. La primera es la evaluación: si los instrumentos siguen premiando memoria puntual, el profesorado recibirá señales contradictorias. La segunda es el acompañamiento docente: diseñar buenas tareas de modelización, conducir discusiones ricas y dar retroalimentación utilizable requiere práctica y comunidad profesional. Aun con esas exigencias, el horizonte que plantea el capítulo es el correcto: hacer de la ciencia escolar una práctica pública de explicación, donde el error es palanca de revisión y el criterio, un bien compartido. Ese cambio devolvería sentido al estudio de las ciencias y las convertiría en lo que deben ser: herramientas para pensar y actuar en un mundo complejo.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,breakable, colback=white, colframe=black, boxrule=0.8pt, left=6mm,right=6mm,top=3mm,bottom=3mm, title={\large \textbf{Características e implicaciones del cometa 3I/ATLAS}}] \section*{Características principales del cometa 3I/ATLAS} \addcontentsline{toc}{section}{Características principales} \begin{itemize} \item \textbf{Origen interstellar}: El cometa 3I/ATLAS se diferencia de la mayoría de los objetos en nuestro sistema solar por su origen. Su trayectoria hiperbólica, con una excentricidad confirmada de $e \approx 6.14$, es una clara evidencia de que no está gravitacionalmente ligado al Sol. Esto lo convierte en el objeto interestelar más excéntrico y rápido conocido hasta la fecha, superando a otros como 'Oumuamua y el cometa Borisov. \item \textbf{Velocidad y comportamiento}: Al entrar en la órbita de nuestro sistema, su velocidad era de aproximadamente $58 \text{ km/s}$ con respecto al Sol. A medida que se acerque a su punto más cercano al Sol (perihelio), previsto para el 14 de enero de 2026, su velocidad se incrementará hasta los $68 \text{ km/s}$. A diferencia de los cometas típicos, que desarrollan una coma y una cola de polvo masivas, las observaciones de 3I/ATLAS muestran una actividad de sublimación de gas y polvo relativamente limitada. Su cola, aunque presente, es tenue, lo que sugiere una baja volatilidad de sus componentes. \item \textbf{Aproximaciones cercanas}: El cometa pasará por varias regiones planetarias. Se espera que su máximo acercamiento a la Tierra ocurra el 19 de diciembre de 2025, a una distancia segura de $1.80 \text{ UA}$ (aproximadamente $269$ millones de kilómetros). Su aproximación más cercana al Sol será a $0.94 \text{ UA}$, lo que lo mantendrá a una distancia segura del perihelio. \item \textbf{Visibilidad y observación}: Debido a su distancia y su baja actividad, el cometa no será visible a simple vista. Su observación requiere telescopios de al menos $7.6 \text{ cm}$ de apertura. La comunidad astronómica está empleando telescopios terrestres de gran potencia, como los del Complejo Pan-STARRS y el Telescopio Espacial Hubble, para seguir su trayectoria y analizar su composición. \end{itemize} \section*{Implicaciones científicas} \addcontentsline{toc}{section}{Implicaciones científicas} El estudio detallado del cometa 3I/ATLAS proporciona una ventana invaluable a las condiciones y la composición de otros sistemas estelares, un campo conocido como astroquímica y astrobiología. \begin{itemize} \item \textbf{Composición}: Las mediciones de su polarización luminosa han revelado una composición de polvo significativamente distinta a la de los cometas de nuestro sistema solar. La dispersión de la luz polarizada indica la presencia de partículas de polvo únicas, lo que sugiere que se formó en un ambiente de disco protoplanetario con una química diferente a la de nuestro propio sistema. \item \textbf{Validación de modelos cosmogonicos}: Al analizar los compuestos volátiles y la estructura de su núcleo, los científicos pueden validar o ajustar los modelos teóricos de la formación planetaria. Un objeto como 3I/ATLAS nos ofrece una "muestra" prístina de las nebulosas estelares distantes, lo que nos permite entender mejor los procesos de acreción de material y la evolución de los discos planetarios en otras regiones de la Vía Láctea. \item \textbf{Un muevo enfoque en la Astrobiología}: La presencia de objetos interestelares abre nuevas vías para la investigación astrobiológica. El cometa puede transportar material orgánico o prebiótico de su sistema de origen, ofreciendo pistas sobre la ubicuidad de los ingredientes de la vida en la galaxia y sobre la posibilidad de que la vida misma pueda ser transferida entre sistemas estelares. \end{itemize}  \end{tcolorbox} 
+
+
+\end{document}

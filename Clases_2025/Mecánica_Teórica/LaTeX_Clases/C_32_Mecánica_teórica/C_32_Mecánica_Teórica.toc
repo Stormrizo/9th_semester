@@ -1,0 +1,15 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}área de una Elipse}{1}{section.1}%
+\contentsline {section}{\numberline {2}Capítulo IV: Ecuaciones de Hamilton}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Grados de libertad}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Constricciones holonomas}{2}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Espacio de configuraciones}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Principio de Hamilton}{4}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Momento generalizado}{4}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Formulación hamiltoniana}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Espacio fase}{6}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Transformación de Legengre}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Ejemplos}{7}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Ejemplo 1}{7}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Ejemplo $f(x) = \dfrac {x^{3}}{3}$}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Otro ejemplo}{10}{subsection.3.3}%

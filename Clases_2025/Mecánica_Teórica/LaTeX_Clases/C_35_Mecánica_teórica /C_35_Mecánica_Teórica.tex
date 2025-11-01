@@ -1,0 +1,582 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 35 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase 35: Formulación Hamiltoniana}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{1.png}
+    \caption{Representación esquemática de la construcción de la función Hamiltoniana a partir de la Lagrangiana \(L(q_i, \dot{q}_i, t)\). 
+    Se definen los momentos generalizados \(p_i = \frac{\partial L}{\partial \dot{q}_i}\), 
+    y se realiza la transformación de Legendre que conduce a 
+    \(H(q_i, p_i, t) = \sum_{i=1}^{n} p_i \dot{q}_i - L(q_i, \dot{q}_i)\).}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Partimos de una Lagrangiana general dependiente de las coordenadas generalizadas, sus velocidades y el tiempo:
+\[
+L = L(q_i, \dot{q}_i, t)
+\]
+
+Mediante la \textbf{transformada de Legendre} definimos el momento canónico asociado a cada coordenada:
+\[
+p_i \equiv \frac{\partial L}{\partial \dot{q}_i}
+\]
+
+De modo que, si existen \(n\) coordenadas, tenemos el conjunto:
+\[
+p_1 = \frac{\partial L}{\partial \dot{q}_1}, \quad 
+p_2 = \frac{\partial L}{\partial \dot{q}_2}, \quad 
+\dots, \quad
+p_n = \frac{\partial L}{\partial \dot{q}_n}
+\]
+
+Lo anterior permite expresar las velocidades como funciones de las variables \((q_i, p_i, t)\):
+\[
+\dot{q}_i = \dot{q}_i(q_i, p_i, t)
+\]
+
+Así, la \textbf{función Hamiltoniana} se define como:
+\[
+H(q_i, p_i, t) \equiv \sum_{i=1}^{n} p_i\,\dot{q}_i(q_i, p_i, t) - L\big(q_i, \dot{q}_i(q_i, p_i, t)\big)
+\]
+
+\noindent
+De esta forma, el sistema de ecuaciones de movimiento hamiltonianas viene dado por:
+
+\[
+\boxed{
+\dot{q}_{i} = \frac{\partial H}{\partial p_{i}},
+\qquad
+\dot{p}_{i} = -\,\frac{\partial H}{\partial q_{i}}
+}
+\]
+\[
+\text{(con } i = 1, 2, \dots, n)
+\]
+
+Si la Lagrangiana no depende explícitamente del tiempo, entonces:
+\[
+\frac{\partial H}{\partial t} = -\,\frac{\partial L}{\partial t} = 0
+\]
+lo cual implica que la energía total \(H\) es una constante del movimiento.
+
+\subsection{Sobre la función generatriz}
+
+En la formulación hamiltoniana, aparece una función \(S\) denominada \textbf{función generatriz}, que está relacionada con las transformaciones canónicas. 
+Esta función puede emplearse para obtener un nuevo conjunto de variables \((Q_i, P_i)\) en el cual la forma de las ecuaciones de Hamilton se conserva.
+
+En general, no podemos encontrar una transformación de punto que haga que la Lagrangiana se anule de manera idéntica; sin embargo, 
+mediante la función generatriz \(S\) sí es posible transformar la descripción del sistema manteniendo la estructura del formalismo.
+
+\subsection{Ejemplo introductorio}
+
+Partimos de un problema en una dimensión, y lo extendemos al caso de dos dimensiones con un sistema libre. 
+El vínculo entre ambas formulaciones —lagrangiana y hamiltoniana— se revela aquí con claridad: 
+el paso de \(L\) a \(H\) no solo reescribe la dinámica, sino que revela las simetrías profundas del sistema.
+
+\[
+\text{¡Es realmente notable cómo la estructura se conserva bajo la transformación de Legendre!}
+\]
+
+\subsection{Sobre la singularidad de la Lagrangiana y la transformada de Legendre}
+
+Sea la Lagrangiana de un sistema
+\[
+L = L(q_i, \dot{q}_i, t)
+\]
+y definamos la \textbf{matriz hessiana} (también llamada \emph{matriz de Legendre}) como
+\[
+W_{ij}(q,\dot q,t) \equiv \frac{\partial^2 L}{\partial \dot q_i\,\partial \dot q_j},
+\qquad
+\Delta \equiv \det(W_{ij})
+\]
+
+\paragraph{Caso no singular (regular).}
+Si \(\Delta \neq 0\), la relación entre las velocidades y los momentos canónicos
+\[
+p_i = \frac{\partial L}{\partial \dot{q}_i}
+\]
+puede invertirse mediante el teorema de la función inversa, de modo que existen funciones
+\[
+\dot q_i = \dot q_i(q,p,t)
+\]
+que permiten definir sin ambigüedad la \textbf{transformada de Legendre}:
+\[
+H(q,p,t) = \sum_{i=1}^{n} p_i\,\dot q_i(q,p,t) - L\big(q,\dot q(q,p,t),t\big)
+\]
+En este caso, el formalismo hamiltoniano es completamente equivalente al lagrangiano:
+\[
+\boxed{
+\dot q_i = \frac{\partial H}{\partial p_i},
+\qquad
+\dot p_i = -\frac{\partial H}{\partial q_i}
+}
+\]
+
+\paragraph{Caso singular (degenerado).}
+Si, en cambio, \(\Delta = 0\), la Lagrangiana se denomina \textbf{singular} o \textbf{degenerada}.
+En este escenario, no todas las velocidades pueden resolverse en términos de \((q,p,t)\).
+Surgen entonces relaciones entre las variables canónicas:
+\[
+\phi_a(q,p,t) = 0
+\]
+denominadas \textbf{restricciones primarias}.
+Esto implica que el número de grados de libertad efectivos es menor que el número de coordenadas generalizadas \(n\).
+
+El formalismo adecuado para tratar estos casos es el \textbf{formalismo de Dirac–Bergmann},
+que clasifica las restricciones en:
+\begin{itemize}
+    \item \textbf{Primarias} y \textbf{secundarias}, según si provienen directamente de la definición de \(p_i\) o de la consistencia temporal;
+    \item \textbf{De primera clase} o \textbf{de segunda clase}, según si generan simetrías (\emph{gauge}) o fijan valores concretos.
+\end{itemize}
+
+El número de grados de libertad físicos en el espacio de fase viene dado por:
+\[
+\boxed{ \text{gdl} = n - F - \tfrac{S}{2} }
+\]
+donde \(F\) es el número de restricciones de primera clase y \(S\) el de segunda clase.
+
+
+Consideremos
+\[
+L = \tfrac{m}{2}\,(\dot q_1 - \dot q_2)^2
+\]
+Sus momentos canónicos son:
+\[
+p_1 = m(\dot q_1 - \dot q_2),
+\qquad
+p_2 = -m(\dot q_1 - \dot q_2)
+\]
+De donde se obtiene una restricción primaria:
+\[
+p_1 + p_2 = 0
+\]
+La matriz hessiana en este caso es:
+\[
+W_{ij} = m
+\begin{pmatrix}
+1 & -1\\[3pt]
+-1 & 1
+\end{pmatrix},
+\qquad
+\det W_{ij} = 0
+\]
+Por tanto, el sistema es singular y posee una restricción que reduce su número efectivo de grados de libertad.
+
+
+Una Lagrangiana singular indica la presencia de \textbf{simetrías o dependencias entre las coordenadas},
+por lo que las variables iniciales \((q_i, \dot q_i)\) no son independientes.
+El paso a la formulación hamiltoniana, en estos casos, exige identificar dichas restricciones
+y construir el \textbf{Hamiltoniano extendido} con multiplicadores de Lagrange:
+\[
+H_T = H + \lambda_a\,\phi_a(q,p,t)
+\]
+garantizando que la dinámica preserve las condiciones de consistencia en el tiempo.
+
+
+La regularidad de la Lagrangiana —determinada por el valor de \(\det W_{ij}\)— 
+es el criterio que decide si la \textbf{transformada de Legendre} puede aplicarse directamente o no.
+Cuando la Lagrangiana es singular, el formalismo de Dirac provee las herramientas necesarias
+para formular la dinámica reducida y determinar correctamente los grados de libertad físicos.
+
+
+\subsection{¿Cuántos grados de libertad tiene el fotón?}
+
+Si queremos estudiar la mecánica hamiltoniana, debemos estudiar formalismo de Dirac.
+
+\subsection{Nos fijamos en ele ejemplo}
+
+
+\[ L = \frac{m}{2} \left(  \dot{x}^{2} +  \dot{y}^{2} +  \dot{z}^{2} \right) \]
+
+Tenemos:
+
+
+\[ p_{x} = \frac{\partial L}{\partial \dot{x}} = m\dot{x} \quad \dot{x} = \frac{p_{x}}{m} \]
+
+Y así con las demás componentes:
+
+es decir:
+
+\[  \boxed{ \dot{y} = \frac{ p_{y}}{m}} \quad \boxed{ \dot{z} = \frac{ p_{z}}{m}}   \]
+
+
+El hamiltoniano no depende de las velocidades generalidades, no viven en el espacio de configuraciones, debemos escribirlas en posiciones iniciales, momentos iniciales, tiempos iniciales.
+
+
+\[ H = \dot{x} p_{x} + \dot{y}p_{y} + \dot{z}p_{y} - \frac{1}{2}m\left( \dot{x}^{2} + \dot{y}^{2} + \dot{z}^{2}   \right)\]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{2.png}
+    \caption{.}
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+\subsection{Calculando las ecuaciones de hamilton}
+
+Observemos que $x,y,z$ son coordenadas cíclicas en la lagrangiana entonces en la hamiltoniana no van a aparecer.
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{3.png}
+    \caption{.}   
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Estas tres ecuaciones ne forma vectorial dicen:
+
+\[ \vec{r} = \vec{r}_{0} + \frac{\vec{P_{0}}}{m}t \]
+
+momento:
+
+\[ \vec{p}(t) = \vec{P_{0}}(t)  \]
+
+\subsection{Ejemplo: Partícula de masa m y carga q sujeta la interacción dada por un campo magnético uniforme}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{4.png}
+    \caption{.}   
+    \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+El potencial vectorial $A$ no es único. 
+
+Podría se un problema de examen.
+
+Tenemos:
+
+\[  p_{x} = \frac{\partial L}{\partial \dot{x}} = m\dot{x} - \frac{m\omega_{0}}{2}y \]
+
+\[  p_{y} = \frac{\partial L}{\partial \dot{y}} = m\dot{y} + \frac{m\omega_{0}}{2}x \]
+
+\[  p_{z} = \frac{\partial L}{\partial \dot{z}} = m\dot{z} \]
+
+
+La idea es la siguiente, hacer los despejes correspondientes:
+
+
+\[ \dot{x} = \frac{p_{x}}{m} + \frac{\omega_{0}}{2} y\]
+
+\[\dot{y} = \frac{p_{y}}{m} - \frac{\omega_{0}}{2}x  \]
+
+\[ \dot{z} = \frac{p_{z}}{m} \]
+
+
+NO siempre vamos a tener problemas en donde se puedan despejar de esta forma las velocidades. puede ser que en el examen tengamos que calcularlos de diferente manera.
+
+Tenemos así la \textbf{Hamiltoniana}:
+
+
+\[ H = \dot{x}p_{x}+\dot{y}p_{y}+\dot{z}p_{z}-L \]
+
+\[H = p_{x} \left(   \right)  \]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.8\textwidth]{5.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Si realizamos las cuentas llegamos al \textbf{hamiltoniano} siguiente:
+
+
+\[  H(\vec{r},\vec{p}, t) = \frac{1}{2m} \left( p^{2}_{x} + p^{2}_{y} + p^{2}_{z} \right) \ + \frac{\omega_{0}}{2} \left( yp_{x}-xp_{y}  \right) +\frac{m\omega_{0}^{2}}{8} \left( x^{2} + y^{2} \right) \]
+
+Calculamos las ecuaciones canónicas de hamilton:
+
+Considerando que tenemos \[ q_{1} = x; \quad  q_{2} = y; \quad q_{3} = z\]
+
+
+La componente $p_{x}$,$p_{y}$,$p_{z}$ son generadores de traslaciones
+
+\[ \dot{q}_{i} = \frac{\partial H}{\partial p_{i}}; \quad \dot{p}_{i} =- \frac{\partial H}{\partial q_{i}} \]
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{6.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Este es un sistema de 6 incognitas y es lo que tenemos que resolver:
+
+\section{Principio de Hamilton}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{7.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+
+Si las contricciones son holonomas, la trayectoria que corresponde a la diámica del sistema mećanico es aquellla que hace estarionaria a la acción denretro de todo el conjunto de trayentoria, si es que hacmeos variaciones infinitesimales, es decir difieren muy poco una de otra las trayectorias.
+
+\[ \delta{S}^{1} =0 \quad \Longleftrightarrow \quad \frac{d}{dt} \left(  \frac{\partial L}{\partial \dot{q}_{i}} \right) - \frac{\partial L}{\partial q_{i}} =0 \]
+
+\subsection{Espacio fase}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{8.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+¿Cómo determinamos la curva? 
+
+
+Se puede determinar de la siguiente manera:
+
+
+Existe otra forma de escribir la lagrangiana:
+
+\subsubsection{Principio de Hamilton modificado}
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{9.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Tenemos:
+
+\[ L = L (q_{i},\dot{q}_{i}, t ) \]
+
+
+Tenemos la nueva Lagrangiana:
+
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{10.png}
+    \caption{.}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+En la acción básicas depende de cordenada generalizada
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{11.png}
+    \caption{Ecuaciones de Hamilton}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Tenemos haciendo el análisis para $L_{H}$:
+
+\begin{figure}[H]
+    \centering
+	    \includegraphics[width=0.7\textwidth]{12.png}
+    \caption{Ecuaciones de Hamilton}   
+ \label{fig:hamiltoniana_transformacion}
+\end{figure}
+
+Tenemos:
+
+
+\[ L_{H} = \dot{q}p - H(q,p,t)  \]
+
+
+\[L^{\prime} = L + \frac{dF}{dt} (q,t)  \]
+
+\[ L^{\prime}_{H} = L_{H} + \frac{dF}{dt}(q,p,t) \]
+
+\[  = L_{H} + \frac{\partial F}{\partial q}\dot{q}+\frac{\partial F}{\partial p}\dot{p} + \frac{\partial F}{\partial t} \]
+
+
+Formulación hamiltoniana tiene su desarrollo por sí mismo, en principio es independiente de la formulación hamiltoniana.
+
+\end{document}

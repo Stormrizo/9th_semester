@@ -1,0 +1,9 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase de hoy: Transformaciones canónicas}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Espacio de configuraciones y espacio fase}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ejemplo ilustrativo de las transformaciones canónicas}{6}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Corchetes de Poisson}{8}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Ejemplo de aplicaicón de los paréntesis de poisson}{9}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Ejemplos no tan triviales}{9}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Nuevo ejemplo}{10}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Definición formal de paréntesis de poisson y propiedades}{12}{subsection.1.7}%
