@@ -5,33 +5,47 @@ title: 9º Semestre - Física FCFM-BUAP
 
 # 9º Semestre - Física FCFM-BUAP
 
-Bienvenido al sitio web del material académico del noveno semestre de Física en la FCFM-BUAP.
+Bienvenido al sitio web del material académico del noveno semestre de Física  
+de **Julio Alfredo Ballinas García** — FCFM-BUAP.
 
 ## Navegación Rápida
 
-- [📚 Clases 2025](../clases_2025/)
-- [🔬 Bitácora Caffeine Lab](../bitacora_caffeine/)
+- 📚 [Clases 2025]({{ site.baseurl }}/clases_2025/)
+- 🧪 [Bitácora Caffeine Lab]({{ site.baseurl }}/bitacora_caffeine/)
+
+---
 
 ## Cursos
 
-Material organizado por asignatura del semestre:
+Selecciona una asignatura para acceder al material correspondiente:
 
-- Física Estadística
-- Mecánica Cuántica Avanzada
-- Física Computacional
-- Laboratorio de Investigación
+- 🧲 [Electrodinámica]({{ site.baseurl }}/clases_2025/electrodinamica/)
+- 📊 [Mecánica Estadística]({{ site.baseurl }}/clases_2025/mecanica_estadistica/)
+- ⚙️ [Mecánica Teórica]({{ site.baseurl }}/clases_2025/mecanica_teorica/)
+- 🧮 [Funciones Especiales]({{ site.baseurl }}/clases_2025/funciones_especiales/)
+- 🧪 [Estado Sólido]({{ site.baseurl }}/clases_2025/estado_solido/)
+- 📘 [Enseñanza de la Física]({{ site.baseurl }}/clases_2025/ensenanza_de_la_fisica/)
+- ✍️ [Escritura de Textos Científicos]({{ site.baseurl }}/clases_2025/escritura_de_textos_cientificos/)
+- 🧠 [Redes Neuronales]({{ site.baseurl }}/clases_2025/redes_neuronales/)
+- 🧾 [SS / Servicio Social]({{ site.baseurl }}/clases_2025/ss/)
+- 🧪 [CINVESTAV]({{ site.baseurl }}/clases_2025/cinvestav/)
+- 📄 [PP]({{ site.baseurl }}/clases_2025/pp/)
+- 🎓 [Tesis]({{ site.baseurl }}/clases_2025/tesis/)
 
-_El contenido se actualiza regularmente conforme avanza el semestre._
+---
 
 ## Proyectos
 
-### Caffeine Lab
+### ☕ Caffeine Lab
 
-Bitácora del trabajo realizado en el laboratorio, incluyendo experimentos, análisis de datos y reportes.
+Bitácora del trabajo realizado en laboratorio, incluyendo:
 
-### Material de Clases
+- Experimentos
+- Análisis de datos
+- Reportes y notas técnicas
 
-Notas, tareas, presentaciones y recursos complementarios para cada curso.
+Acceso directo:
+- 🧪 [Bitácora Caffeine Lab]({{ site.baseurl }}/bitacora_caffeine/)
 
 ---
 
