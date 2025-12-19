@@ -1,9 +1,3 @@
----
-theme: jekyll-theme-cayman
-title: 🌌 9th Semester - Physics Undergraduate Program
-description: Benemérita Universidad Autónoma de Puebla | FCFM
----
-
 # 9th Semester - Physics Undergraduate Program
 
 ## Overview
