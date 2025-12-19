@@ -1,0 +1,582 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 46 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase del día de hoy}
+
+Partimos del hamiltoniano:
+
+\[  H= H(q,p,t) = \frac{p^{2}}{m}  \]
+
+
+¿Cómo funciona la teoría de Hamilton-Jacobi? 
+
+Introducimos una función generatriz de tipo $F_{2}$
+
+Tenemos:
+
+
+\subsection{Función generatriz de tipo $F_{2}$}
+
+
+Tenemos:
+
+
+\[ F_{2} = F_{2}(q,P) = S(q,P)  \]
+
+
+
+Tenemos:
+
+
+\[ p = \frac{\partial S}{\partial q}; Q=\frac{\partial S}{\partial P}   \]
+
+
+SI depende explicitamente dle tiempo, nosotros tendríamos:
+
+
+\[  K = H + \frac{\partial S}{\partial t}    \]
+
+
+Tenemos:
+
+
+\[ K(Q,P,t) = H(q,p,t) + \frac{\partial S}{\partial t}(q,P,t) \]
+
+
+
+Tenemos:
+
+
+\[ \dot{Q} = \frac{\partial K}{\partial P} =0 \]
+
+
+\[  \dot{P} = - \frac{\partial K}{\partial Q} =0  \]
+
+
+Tenemos también:
+
+\[ Q(t) = Q_{0} \]
+
+\[ P(t) = P_{0} \]
+
+SI nosotros tenemos una función $S$, nosotros podemos llevar a cabo este procedimiento. 
+
+Existe este tipo de función generatriz, esta $S$?
+
+Si la $S$ existe se debe de cumplir esta condición: 
+
+
+\[ H(q,p,t) + \frac{\partial S}{\partial t} (q,P,t) =0 \]
+
+
+EL nuevo gamiltoniano sea identicamente $0$. 
+
+Tenemos:
+
+
+\[ H\left( q, \frac{\partial S}{\partial q}, t  \right) + \frac{\partial S}{\partial t} =0 \]
+
+
+Es una ecuación diferencial en derivadas parciales y esta recibe el nombre de \textbf{ecuación de Hamilton-Jacobi}.
+
+
+Tendriamos que resolver la ecuación anterior para ver si la $S$ existe. 
+
+
+Para poder determinar la transformación canónica, necesitamos conocer a $S$.
+
+
+Para cada valor de $P$, esta es es solución de la ecuación de \textbf{Hamilton-Jacobi}.
+
+Tenemos una familia de soluciones que viene etiquetada por cada una de los parámetros d ela $P$ mayúscula. Necesitamos una función generatriz que dependa de $q$, $P$ y también el tiempo $t$.
+
+
+Tendríamos nosotros:
+
+
+\[ p = p(q,P,t) \]
+
+
+\[\underbrace{Q = Q(q,P,t)}_{q=q(Q,P,t)} \]
+
+sustituimos $q = q(Q,P,t)$
+
+Y la sustituimos en $p=p(Q,P,t)$
+
+
+Tenemos que tener una familia de soluciones en la ecuación de \textbf{Hamilton-Jacobi}.
+
+Con $S$ generamos las soluciones de \textbf{Hamilton}. 
+
+Requerimos una familia de soluciones de \textbf{Hamilton-Jacobi}.
+
+
+\textcolor{trueblue}{\textbf{Integral completa}}, es decir son las familias de soluciones que resuelven la ecuación de \textbf{Hamilton-Jacobi}. 
+
+\[ \boxed{ \frac{ \partial^{2}S }{ \partial q \partial P } \neq 0 } \]
+
+\subsection{Ejemplo:}
+
+
+\begin{center}
+\includegraphics[width=0.8\linewidth]{1.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{.}
+\end{center}	
+
+Podemos pasar de partícula libre en dos dimensiones al problema de Kepler en 2 dimensiones. 
+
+\subsection{Ejemplo de partícula libre: \textcolor{Cinnabar}{\textbf{Lujo de detalle}}}
+
+Tenemos:
+
+
+\[ H = H(q,p,t) = \frac{p^{2}}{2m} \]
+
+Tenemos las ecuaciones de \textbf{Hamilton}.
+
+
+\[ \dot{q} = \frac{\partial H}{\partial p} = \frac{p}{m} = \frac{p_{0}}{m} \quad \to \quad q(t) = q_{0} + \frac{p_{0}}{m}t  \]
+
+\[ \dot{p} = - \frac{\partial H}{\partial q} = 0. \quad \to \quad p(t)=p_{0}  \]
+
+
+Tenemos:
+
+\begin{center}
+	\includegraphics[width=0.8\linewidth]{2.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{.}
+\end{center}	
+
+
+\[ \boxed{ q(t) = q_{0} + \frac{p_{0}}{m}t  } \]
+
+
+\[  p(t) = p_{0} \]
+
+\[ q(t) =q_{0} \]
+
+\[ \boxed{ q(t) = q_{0} + \frac{p_{0}}{m}t  }  \]
+
+
+Tendriamos sustituyendo el momento canónico en la \textbf{función de Hamilton Jacobi}:
+
+
+\[  \boxed{\frac{1}{2m} \left(  \frac{ \partial S  }{ \partial q }  \right)^{2} + \frac{\partial S  }{\partial t} =0 }  \]
+
+
+POr que al proponer la solución:
+
+\[ S(q,t) = W(q) + T(t) \]
+
+Es una suma, y no un producto.
+
+Tenemos así:
+
+
+\[ \frac{\partial S}{\partial q} = \frac{dW}{dq}, \quad \frac{\partial S}{\partial t} = \frac{dT}{dt}  \]
+
+
+Tenemos:
+
+
+\[ \frac{1}{2m} \left( \frac{dw}{dq}  \right) = - \frac{dT}{dt} = E   \]
+
+\[ \frac{1}{2m} \left(  \frac{dw}{dq} \right)^{2} = E; \quad \frac{dT}{dt} = -E \quad \to \quad T(t)=-Et + C_{0}\]
+
+
+\[ \frac{dW}{dq}= \pm \sqrt{ 2mE  } \quad \to \quad W = \pm \sqrt{ 2mE  } q +C_{1}  \]
+
+
+Tenemos:
+
+
+
+\[ F_{2} = F_{2}(q,P,t) = S(q,P,t) = \pm \sqrt{2mE  } q - Et +C_{2}   \]
+
+Tenemos:
+
+
+\[ p = \frac{\partial S}{\partial q} = \pm \sqrt{ 2mE  }  \]
+
+
+\[ Q = \frac{\partial S}{\partial E} = \pm \frac{ \sqrt{ 2m  }q }{2\sqrt{E}}-t \]
+
+
+Tenemos:
+
+
+\[ P = \pm \sqrt{ 2mE } \]
+
+\[ P^{2} = 2mE \]
+
+
+\[ \boxed{S(q,P,t) = qP - \frac{P^{2}}{2m} t} \]
+
+\[ \frac{ \partial^{2}}{\partial q \partial P} = 1. \quad \textcolor{Cinnabar}{ p = \frac{\partial S}{\partial q} =P; \, Q=\frac{\partial S}{\partial P} = q - \frac{p}{m}t}  \]
+
+
+\begin{center}
+	\includegraphics[width=0.8\linewidth]{3.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{.}
+\end{center}	
+
+\[ p =P \]
+
+
+\[  Q = q- \frac{P}{m}t \]
+
+
+Tenemos:
+
+
+\[q = Q + \frac{p}{m}t  \]
+
+\[ p = P \]
+
+
+Tenemos:
+
+
+\[ \boxed{ Q = q_{0}, \quad P=p_{0}  } \]
+
+
+En las \textbf{transformaciones de Lorentz} tenemos un sistema de referencia inercial.
+
+¿Cuál es la relación en entre una y otra? 
+
+Tenemos que repasar estas definiciones. 
+
+Las transformaciones de Lorentz en realidad son transformaciones muy particulares, las tranformaciones canónicas son mucho más generales.
+
+
+\subsection{Oscilador armónico}.
+
+Tenemos nosotros:
+
+
+\[ H(x,p,t) = \frac{ p^{2} }{m} + \frac{1}{2} m\omega^{2}x^{2} \]
+
+Tenemos:
+
+
+\[ \dot{x} = \frac{\partial H}{\partial p} = \frac{p}{m}  \]
+
+
+Tenemos:
+
+
+\[ \dot{p} = - \frac{\partial H}{\partial x} = -m\omega^{2}{x} \]
+
+
+\[ \dot{x} = \frac{p}{m}\]
+
+
+\[ \dot{p }= -m\omega^{2}{x} \]
+
+
+Tenemos:
+
+\[ x(t) = x_{0}\cos(\omega{t}) + \frac{p_{0}}{m\omega} \sen(\omega{t}) \]
+
+\[ p(t) = p_{0}\cos(\omega{t}) - m\omega x_{0}\sen\omega{t}  \]
+
+
+
+Realizamos una tranformación canónica con función generatriz $S$. 
+
+
+Tenemos:
+
+
+\[ S(x,t,P): \quad K=0 \]
+
+
+\[ K = H + \frac{\partial S}{\partial t}  = 0 \]
+
+Tenemos:
+
+
+
+\[  \frac{1}{2m} \left(  \frac{ \partial S }{\partial x}  \right)^{2} + \frac{1}{2}m\omega^{2}x^{2} + \frac{\partial S}{\partial t} =0    \]
+
+
+Tenemos:
+
+
+\[ S(x,t) = W(x) + T(t)  \]
+
+
+Tenemos:
+
+
+\[  \frac{1}{2m} \left(  \frac{ dw }{dx} \right)^{2} + \frac{1}{2} m\omega^{2}x^{2} + \frac{dT}{dt} =0  \]
+
+
+Tenemos:
+
+
+\[ \frac{1}{2m} \left(  \frac{ dW  }{dx} \right)^{2} + \frac{1}{2} m\omega^{2}x^{2} = - \frac{dT}{dt} \quad \to \quad \frac{dT}{dt} = -E  \]
+
+Tenemos:
+
+
+\[ \frac{dw}{dx} = \pm \sqrt{ 2mE - m^{2}\omega^{2}x^{2}  } \]
+
+
+\[ w(x) = \pm \int\limits \sqrt{  2mE-m^{2}\omega^{2}x^{2}  } dx + C_{1} \]
+
+
+Tenemos:
+
+
+\[ S(x,t,E) = \pm \int\limits \sqrt{  2mE-m^{2}\omega^{2}x^{2}   } dx -Et +C_{3} \]
+
+
+Tenemos:
+
+
+\[ S(x,t,P) = \pm \int\limits \sqrt{ P^{2} - m^{2}\omega^{2}x^{2}  } dx - \frac{P^{2}}{2m}t +C_{3} \]
+
+Con:
+
+
+\[ T(t) = -Et +C_{0} \]
+
+\[   C_{3} = C_{0} +C_{1}  \]
+
+
+También:
+
+
+\[  \frac{1}{2m} \left(   \frac{dw}{dx}  \right)^{2} + \frac{1}{2} m\omega^{2}x^{2} =E    \]
+
+
+
+\[ \left(  \frac{dw}{dx} \right)^{2} + m^{2}\omega^{2}x^{2} =2mE=P^{2}  \]
+
+\[ \frac{dw}{dx} = \pm \sqrt{ P^{2} -m^{2}\omega^{2}x^{2}  } \]
+
+Tenemos:
+
+
+\[ W(x) = \pm \int\limits \sqrt{ P^{2}-m^{2}\omega^{2}x^{2}  }dx \]
+
+\[ E = \frac{P^{2}}{2m} \]
+
+Tenemos:
+
+
+\[ H = \frac{p^{2}}{2m} + \frac{1}{2}m\omega^{2}x^{2}  \]
+
+
+\[  p = \frac{\partial S}{\partial x} = \pm \sqrt{ P^{2}-m^{2}\omega^{2}x^{2}  } \]
+
+
+\[ p^{2} = P^{2}-m^{2}\omega^{2}x^{2}\geq 0 \]
+
+\[p^{2} - m^{2}\omega^{2}x^{2}=P^{2} \]
+
+Tenemos:
+
+
+\[ m^{2}\dot{x}^{2} = P^{2} -m^{2}\omega^{2}x^{2}\geq 0  \]
+
+
+\[ P^{2} = m^{2}\omega^{2}x_{0}^{2}  \]
+
+\[ X_{0} = \pm \sqrt{ \frac{P^{2}}{m^{3}\omega^{2}}  } = \pm \frac{P}{m\omega} \]
+
+
+
+
+\end{document}

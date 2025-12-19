@@ -1,0 +1,1165 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Sun}{\textbf{\textcolor{onyx}{\textbf{{Examen}}}: \textcolor{Cinnabar}{\textbf{Recuperación 1}}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ \textcolor{Tarawera}{\textbf{202107583}}}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{\textbf{Asignatura:} Mecánica Estadística}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus, aula e integrantes
+
+\begin{mybox2}
+\noindent
+\begin{tabular}{@{}p{3.7cm}p{10.4cm}@{}}
+\textbf{Profesor} & Dr. Jorge Velázquez Castro \\[3pt]
+\textbf{Campus / Facultad} & \textcolor{prussianblue}{\textbf{C.U. BUAP}} / \textcolor{trueblue}{\textbf{FCFM}} \\[3pt]
+\textbf{Edificio / Salón} & \textcolor{prussianblue}{\textbf{EMA4}} / \textcolor{trueblue}{\textbf{407}} \\[6pt]
+\end{tabular}
+\end{mybox2}
+\vspace{1cm}
+
+
+% Solo el índice en negro y en negritas
+\hypersetup{linkcolor=black}   % (opcional: urlcolor=black, citecolor=black)
+{\bfseries \tableofcontents}
+\hypersetup{linkcolor=Cerulean} % regresamos a tu paleta
+
+\vspace{0.5cm}
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{0.5cm}
+
+\setlength{\columnsep}{2cm}
+\section*{\textcolor{Tarawera}{\textbf{Lista de problemas y soluciones}}}
+\addcontentsline{toc}{section}{Problemas: \textcolor{Tarawera}{\textbf{Termodinámica}}}
+
+
+%=========================================================
+%                      Problema 1
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 1}}}}
+
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 1}}} \vspace{2mm}
+
+Dos sistemas tienen las siguientes ecuaciones de estado:
+
+\begin{equation}
+\frac{1}{T^{(1)}} = \frac{3}{2}R\,\frac{N^{(1)}}{U^{(1)}}, 
+\qquad
+\frac{P^{(1)}}{T^{(1)}} = R\frac{N^{(1)}}{V^{(1)}} 
+\label{eq:P1_EOS1}
+\end{equation}
+
+\begin{equation}
+\frac{1}{T^{(2)}} = \frac{5}{2}R\,\frac{N^{(2)}}{U^{(2)}}, 
+\qquad
+\frac{P^{(2)}}{T^{(2)}} = R\frac{N^{(2)}}{V^{(2)}}
+\label{eq:P1_EOS2}
+\end{equation}
+
+Los dos sistemas están contenidos en un cilindro cerrado, separados por un pistón fijo, adiábatico e impermeable.  
+Las temperaturas iniciales son \(T^{(1)}_0 = 200\,\mathrm{K}\) y \(T^{(2)}_0 = 300\,\mathrm{K}\), el volumen total son \(20\,\mathrm{L}\) y 
+\(N^{(1)} = N^{(2)}\).  
+El tornillo que sujeta el pistón se quita, y al mismo tiempo el aislante adiabático también se quita.  
+De esta forma el pistón se vuelve móvil, diatérmico pero impermeable.  
+
+\textbf{¿Cuál es la energía, volumen, presión y temperatura en cada subsistema cuando el sistema llega al equilibrio?}
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+En este problema tenemos dos subsistemas \( (1) \) y \( (2) \) contenidos en un
+cilindro cerrado, separados por un pistón inicialmente \emph{fijo}, adiabático e
+impermeable. Las ecuaciones de estado son
+
+\begin{equation}
+\frac{1}{T^{(1)}} = \frac{3}{2}R\,\frac{N^{(1)}}{U^{(1)}},
+\qquad
+\frac{P^{(1)}}{T^{(1)}} = R\frac{N^{(1)}}{V^{(1)}}
+\label{eq:solP1_EOS1}
+\end{equation}
+
+\begin{equation}
+\frac{1}{T^{(2)}} = \frac{5}{2}R\,\frac{N^{(2)}}{U^{(2)}},
+\qquad
+\frac{P^{(2)}}{T^{(2)}} = R\frac{N^{(2)}}{V^{(2)}}
+\label{eq:solP1_EOS2}
+\end{equation}
+
+las cuales corresponden a gases ideales con diferentes capacidades caloríficas.
+Además se cumple \(N^{(1)} = N^{(2)} \equiv N\) y el volumen total es
+
+\[
+V^{(1)} + V^{(2)} = V_{\text{tot}} = 20\,\mathrm{L}
+\]
+
+Las temperaturas iniciales son \(T^{(1)}_{0} = 200\,\mathrm{K}\) y
+\(T^{(2)}_{0} = 300\,\mathrm{K}\).
+
+Cuando se quita el tornillo y el aislante del pistón, éste se vuelve
+\textcolor{Tarawera}{\textbf{móvil y diatérmico pero impermeable}}.  
+El cilindro hacia el exterior se supone adiabático, de modo que:
+
+\begin{itemize}
+  \item[$\bullet$] No hay intercambio de partículas:
+  \(\,N^{(1)}\) y \(N^{(2)}\) se mantienen constantes
+  \item[$\bullet$] No hay intercambio de energía con el exterior:
+  \(\,U^{(1)} + U^{(2)} = \text{cte}\)
+  \item[$\bullet$] En el equilibrio:
+  \(\,T^{(1)} = T^{(2)} \equiv T_{f}\) y \(P^{(1)} = P^{(2)} \equiv P_{f}\)
+\end{itemize}
+
+Nuestro objetivo es encontrar los valores finales
+\(\,U^{(1)}_{f}, U^{(2)}_{f}, V^{(1)}_{f}, V^{(2)}_{f}, P_{f}, T_{f}\).
+
+\vspace{0.4cm}
+\noindent
+\textcolor{Apple Green}{\textbf{1. Energías internas en función de la temperatura}}
+
+De \eqref{eq:solP1_EOS1} y \eqref{eq:solP1_EOS2} despejamos \(U^{(1)}\) y \(U^{(2)}\):
+
+\begin{equation}
+\frac{1}{T^{(1)}} = \frac{3}{2}R\,\frac{N}{U^{(1)}}
+\quad\Rightarrow\quad
+U^{(1)} = \frac{3}{2}R N T^{(1)}
+\label{eq:solP1_U1_deT}
+\end{equation}
+
+\begin{equation}
+\frac{1}{T^{(2)}} = \frac{5}{2}R\,\frac{N}{U^{(2)}}
+\quad\Rightarrow\quad
+U^{(2)} = \frac{5}{2}R N T^{(2)}
+\label{eq:solP1_U2_deT}
+\end{equation}
+
+Esto muestra que el subsistema \textcolor{Lochinvar}{(1)} tiene
+\(\,U^{(1)} = \tfrac{3}{2}NR T^{(1)}\) y el subsistema
+\textcolor{orange(colorwheel)}{(2)} tiene
+\(\,U^{(2)} = \tfrac{5}{2}NR T^{(2)}\).
+
+Las energías \textbf{iniciales} son
+
+\begin{equation}
+\begin{split}
+U^{(1)}_{0}
+&= \frac{3}{2}R N T^{(1)}_{0}
+ = \frac{3}{2}R N (200)
+ = 300\,R N
+\\[4pt]
+U^{(2)}_{0}
+&= \frac{5}{2}R N T^{(2)}_{0}
+ = \frac{5}{2}R N (300)
+ = 750\,R N
+\end{split}
+\label{eq:solP1_U0s}
+\end{equation}
+
+Por tanto, la energía total inicial es
+
+\begin{equation}
+U_{\text{tot}}
+= U^{(1)}_{0} + U^{(2)}_{0}
+= (300 + 750)R N
+= 1050\,R N
+\label{eq:solP1_Utot_inicial}
+\end{equation}
+
+\vspace{0.4cm}
+\noindent
+\textcolor{Apple Green}{\textbf{2. Condiciones de equilibrio final}}
+
+En el equilibrio el pistón es diatérmico y móvil, así que
+
+\[
+T^{(1)}_{f} = T^{(2)}_{f} \equiv T_{f},
+\qquad
+P^{(1)}_{f} = P^{(2)}_{f} \equiv P_{f}
+\]
+
+De \eqref{eq:solP1_U1_deT} y \eqref{eq:solP1_U2_deT} las energías finales son
+
+\begin{equation}
+U^{(1)}_{f} = \frac{3}{2}R N T_{f},
+\qquad
+U^{(2)}_{f} = \frac{5}{2}R N T_{f}
+\label{eq:solP1_Uf_deTf}
+\end{equation}
+
+Como el cilindro es adiabático hacia el exterior,
+\textcolor{Cinnabar}{\textbf{la energía total se conserva}}:
+
+\begin{equation}
+U^{(1)}_{f} + U^{(2)}_{f}
+= U_{\text{tot}}
+\label{eq:solP1_conserv_U}
+\end{equation}
+
+Sustituyendo \eqref{eq:solP1_Uf_deTf} y \eqref{eq:solP1_Utot_inicial} en
+\eqref{eq:solP1_conserv_U} se obtiene
+
+\begin{equation}
+\frac{3}{2}R N T_{f}
++ \frac{5}{2}R N T_{f}
+= 1050\,R N
+\quad\Rightarrow\quad
+4 R N T_{f} = 1050\,R N
+\end{equation}
+
+de donde
+
+\begin{equation}
+\boxed{
+T_{f} = \frac{1050}{4}\,\mathrm{K} = 262.5\,\mathrm{K}
+}
+\label{eq:solP1_Tf}
+\end{equation}
+
+Con esto, las energías finales valen
+
+\begin{equation}
+\begin{split}
+U^{(1)}_{f}
+&= \frac{3}{2}R N T_{f}
+ = \frac{3}{2}R N \left(\frac{1050}{4}\right)
+ = \frac{1575}{4} R N
+ \approx 393.75\,R N
+\\[4pt]
+U^{(2)}_{f}
+&= \frac{5}{2}R N T_{f}
+ = \frac{5}{2}R N \left(\frac{1050}{4}\right)
+ = \frac{2625}{4} R N
+ \approx 656.25\,R N
+\end{split}
+\label{eq:solP1_Uf_num}
+\end{equation}
+
+Verificamos que \(U^{(1)}_{f}+U^{(2)}_{f} = 1050\,R N\), como debe ser.
+
+\vspace{0.4cm}
+\noindent
+\textcolor{Apple Green}{\textbf{3. Volúmenes y presión de equilibrio}}
+
+De las ecuaciones de estado tipo gas ideal,
+
+\begin{equation}
+P^{(i)} V^{(i)} = N R T^{(i)},
+\qquad i=1,2
+\label{eq:solP1_ideal}
+\end{equation}
+
+En el equilibrio, \(T^{(1)}_{f} = T^{(2)}_{f} = T_{f}\) y
+\(P^{(1)}_{f} = P^{(2)}_{f} = P_{f}\).  
+Entonces, para cada subsistema:
+
+\begin{equation}
+P_{f} V^{(1)}_{f} = N R T_{f},
+\qquad
+P_{f} V^{(2)}_{f} = N R T_{f}
+\label{eq:solP1_PfVf}
+\end{equation}
+
+Comparando estas dos expresiones se deduce inmediatamente
+
+\begin{equation}
+V^{(1)}_{f} = V^{(2)}_{f}
+\label{eq:solP1_V1eqV2}
+\end{equation}
+
+pero además el volumen total se conserva,
+
+\[
+V^{(1)}_{f} + V^{(2)}_{f} = V_{\text{tot}} = 20\,\mathrm{L}
+\]
+
+Combinando con \eqref{eq:solP1_V1eqV2} obtenemos
+
+\begin{equation}
+\boxed{
+V^{(1)}_{f} = V^{(2)}_{f} = 10\,\mathrm{L}
+}
+\label{eq:solP1_Vf}
+\end{equation}
+
+Finalmente, de \eqref{eq:solP1_PfVf} la presión de equilibrio es
+
+\begin{equation}
+P_{f}
+= \frac{N R T_{f}}{V^{(1)}_{f}}
+= \frac{N R (262.5\,\mathrm{K})}{10\,\mathrm{L}}
+\label{eq:solP1_Pf_general}
+\end{equation}
+
+Si, por ejemplo, cada subsistema contiene \(N = 1\,\text{mol}\) y usamos
+\(R \approx 0.082\,\mathrm{L\,atm/(mol\,K)}\), entonces
+
+\[
+P_{f} \approx \frac{(1)(0.082)(262.5)}{10}\,\mathrm{atm}
+\approx 2.15\,\mathrm{atm}
+\]
+
+\vspace{0.4cm}
+\noindent
+\textcolor{Tarawera}{\textbf{Resumen del estado de equilibrio}}
+
+Para el sistema descrito, cuando se alcanza el equilibrio con el pistón móvil y
+diatérmico, se tiene:
+
+\begin{itemize}
+  \item[$\bullet$]
+  Temperaturas:
+  \(\displaystyle T^{(1)}_{f} = T^{(2)}_{f} = 262.5\,\mathrm{K}\)
+  \item[$\bullet$]
+  Volúmenes:
+  \(\displaystyle V^{(1)}_{f} = V^{(2)}_{f} = 10\,\mathrm{L}\)
+  \item[$\bullet$]
+  Energías internas:
+  \(\displaystyle
+    U^{(1)}_{f} = \frac{1575}{4} R N,
+    \quad
+    U^{(2)}_{f} = \frac{2625}{4} R N
+  \)
+  \item[$\bullet$]
+  Presión:
+  \(\displaystyle
+    P_{f} = \dfrac{N R T_{f}}{10\,\mathrm{L}}
+  \)
+\end{itemize}
+
+La igualdad de temperaturas y presiones refleja que el sistema ha alcanzado un
+\textcolor{trueblue}{\textbf{equilibrio térmico y mecánico}}, mientras que la
+conservación de \(U_{\text{tot}}\) y \(V_{\text{tot}}\) corresponde a que el cilindro
+está aislado hacia el exterior y de volumen total fijo.
+
+
+%=========================================================
+%                      Problema 2
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 2}}}}
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 2}}} \vspace{2mm}
+
+Un sistema particular obedece las siguientes ecuaciones de estado:
+
+\begin{equation}
+U = \frac{1}{2}\,PV
+\label{eq:P2_U}
+\end{equation}
+
+\begin{equation}
+T^{2} = \frac{A U^{\frac{3}{2}} }{VN^{\frac{1}{2}}}
+\label{eq:P2_T}
+\end{equation}
+
+donde \(A\) es una constante positiva.  
+
+\textbf{Encuentre la ecuación fundamental.}
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+En este problema nos dan dos \textcolor{Tarawera}{\textbf{ecuaciones de estado}}:
+
+\begin{equation}
+U = \frac{1}{2}\,P V
+\label{eq:solP2_U}
+\end{equation}
+
+\begin{equation}
+T^{2} = \frac{A\,U^{3/2}}{V\,N^{1/2}}
+\label{eq:solP2_T2}
+\end{equation}
+
+donde \(A>0\) es constante.  
+Nos piden encontrar la \textcolor{Cinnabar}{\textbf{ecuación fundamental}}, es decir una expresión
+para la entropía \(S(U,V,N)\) tal que, a partir de ella, se recuperen las ecuaciones de estado.
+
+Recordemos que, para un sistema simple con ecuación fundamental \(S(U,V,N)\),
+
+\begin{equation}
+\left(\frac{\partial S}{\partial U}\right)_{V,N} = \frac{1}{T},
+\qquad
+\left(\frac{\partial S}{\partial V}\right)_{U,N} = \frac{P}{T},
+\qquad
+\left(\frac{\partial S}{\partial N}\right)_{U,V} = -\frac{\mu}{T}
+\label{eq:solP2_dS_id}
+\end{equation}
+
+Usaremos las dos primeras igualdades para reconstruir \(S\).
+
+%---------------------------------------------------------
+% 1) Escribir T(U,V,N) y P(U,V,N)
+%---------------------------------------------------------
+
+De \eqref{eq:solP2_T2} obtenemos la temperatura:
+
+\begin{equation}
+T
+= \left(\frac{A\,U^{3/2}}{V\,N^{1/2}}\right)^{1/2}
+= \sqrt{A}\,\frac{U^{3/4}}{V^{1/2}N^{1/4}}
+\label{eq:solP2_T}
+\end{equation}
+
+Por otro lado, de \eqref{eq:solP2_U} obtenemos la presión:
+
+\begin{equation}
+P
+= \frac{2U}{V}
+\label{eq:solP2_P}
+\end{equation}
+
+Por lo tanto
+
+\begin{equation}
+\frac{1}{T}
+= \frac{V^{1/2}N^{1/4}}{\sqrt{A}\,U^{3/4}},
+\qquad
+\frac{P}{T}
+= \frac{2U/V}{T}
+= \frac{2N^{1/4}}{\sqrt{A}}\,\frac{U^{1/4}}{V^{1/2}}
+\label{eq:solP2_1sobreT_y_PsobreT}
+\end{equation}
+
+%---------------------------------------------------------
+% 2) Integrar para obtener S(U,V,N)
+%---------------------------------------------------------
+
+Por la primera relación de \eqref{eq:solP2_dS_id} y la primera de
+\eqref{eq:solP2_1sobreT_y_PsobreT}:
+
+\begin{equation}
+\left(\frac{\partial S}{\partial U}\right)_{V,N}
+= \frac{1}{T}
+= \frac{V^{1/2}N^{1/4}}{\sqrt{A}\,U^{3/4}}
+\label{eq:solP2_dS_dU}
+\end{equation}
+
+Integramos respecto a \(U\), manteniendo \(V\) y \(N\) constantes:
+
+\begin{equation}
+S(U,V,N)
+= \int \frac{V^{1/2}N^{1/4}}{\sqrt{A}\,U^{3/4}}\,\dd U
+  + g(V,N)
+\label{eq:solP2_int_U}
+\end{equation}
+
+donde \(g(V,N)\) es una función “constante de integración” que sólo
+depende de \(V\) y \(N\).  
+La integral es sencilla:
+
+\[
+\int U^{-3/4}\,\dd U
+= \frac{U^{1/4}}{1/4}
+= 4\,U^{1/4}
+\]
+
+Por tanto
+
+\begin{equation}
+S(U,V,N)
+= \frac{4}{\sqrt{A}}\,N^{1/4}V^{1/2}U^{1/4}
+  + g(V,N)
+\label{eq:solP2_S_mas_g}
+\end{equation}
+
+Ahora usamos la segunda relación de \eqref{eq:solP2_dS_id}, es decir
+
+\[
+\left(\frac{\partial S}{\partial V}\right)_{U,N}
+= \frac{P}{T}
+\]
+
+Calculamos la derivada de \eqref{eq:solP2_S_mas_g} respecto a \(V\):
+
+\begin{equation}
+\left(\frac{\partial S}{\partial V}\right)_{U,N}
+= \frac{4}{\sqrt{A}}\,N^{1/4}U^{1/4}\,\frac{1}{2}V^{-1/2}
+  + \left(\frac{\partial g}{\partial V}\right)_{N}
+= \frac{2}{\sqrt{A}}\,N^{1/4}U^{1/4}V^{-1/2}
+  + g_{V}(V,N)
+\label{eq:solP2_dS_dV}
+\end{equation}
+
+Pero de \eqref{eq:solP2_1sobreT_y_PsobreT} sabemos que
+
+\begin{equation}
+\frac{P}{T}
+= \frac{2N^{1/4}}{\sqrt{A}}\,\frac{U^{1/4}}{V^{1/2}}
+\label{eq:solP2_PsobreT_reescrita}
+\end{equation}
+
+Comparando \eqref{eq:solP2_dS_dV} con \eqref{eq:solP2_PsobreT_reescrita}, se ve que
+\(\,g_{V}(V,N)=0\), es decir \(g\) no depende de \(V\) y sólo puede depender de \(N\):
+
+\[
+g(V,N) = h(N)
+\]
+
+Esta función \(h(N)\) daría lugar a un término que sólo cambia el
+\textcolor{vividviolet}{\textbf{origen de la entropía}} (y se relaciona con la dependencia química).
+Para fijar ideas podemos tomar \(h(N)=0\), ya que añadir una función de \(N\) no altera
+las ecuaciones de estado \(T(U,V,N)\) y \(P(U,V,N)\).
+
+Así, una elección conveniente de la ecuación fundamental es
+
+\begin{equation}
+\boxed{
+S(U,V,N)
+= \frac{4}{\sqrt{A}}\,N^{1/4}\,V^{1/2}\,U^{1/4}
+}
+\label{eq:solP2_fundamental}
+\end{equation}
+
+%---------------------------------------------------------
+% 3) Verificación rápida
+%---------------------------------------------------------
+
+Verificamos que recuperamos las ecuaciones de estado:
+
+\[
+\left(\frac{\partial S}{\partial U}\right)_{V,N}
+= \frac{4}{\sqrt{A}}N^{1/4}V^{1/2}\,\frac{1}{4}U^{-3/4}
+= \frac{V^{1/2}N^{1/4}}{\sqrt{A}U^{3/4}}
+= \frac{1}{T}
+\]
+
+\[
+\left(\frac{\partial S}{\partial V}\right)_{U,N}
+= \frac{4}{\sqrt{A}}N^{1/4}U^{1/4}\,\frac{1}{2}V^{-1/2}
+= \frac{2N^{1/4}}{\sqrt{A}}\,\frac{U^{1/4}}{V^{1/2}}
+= \frac{P}{T}
+\]
+
+que son precisamente las relaciones impuestas por
+\eqref{eq:solP2_T2} y \eqref{eq:solP2_U}.  
+Por lo tanto, \eqref{eq:solP2_fundamental} es una ecuación fundamental
+consistente para el sistema.
+
+
+%=========================================================
+%                      Problema 3
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 3}}}}
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 3}}} \vspace{2mm}
+
+Encuentre la energía libre de Helmholtz \(F(T,V,N)\) y las tres ecuaciones de estado en la representación  
+\(F(T,V,N)\) para un sistema con relación fundamental:
+
+\begin{equation}
+u = \left(  \frac{ \theta }{R}  \right)s^{2}e^{-v^{2}/v_{0}^{2}}
+\label{eq:P3_relacion_fundamental}
+\end{equation}
+
+donde \( v_{0}, \theta, \, \text{y}\, R, \, \text{son constantes positivas.}\) Recuerda que $u=U/N$, $s=S/N$ y $v=V/N$
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+La relación fundamental se da en \textcolor{Tarawera}{\textbf{variables específicas}}  
+(energía, entropía y volumen por partícula):
+\begin{equation}
+u(s,v)
+= \left(\frac{\theta}{R}\right) s^{2}
+  e^{-\,v^{2}/v_{0}^{2}}
+\label{eq:solP3_u_sv}
+\end{equation}
+donde
+\[
+u = \frac{U}{N}, \qquad
+s = \frac{S}{N}, \qquad
+v = \frac{V}{N}
+\]
+y \(\theta, v_{0}, R\) son constantes positivas.
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 1) Ecuaciones de estado en (s,v)
+%---------------------------------------------------------
+
+En representación \(u(s,v)\) las ecuaciones de estado son
+\[
+T = \left(\frac{\partial u}{\partial s}\right)_{v},
+\qquad
+P = -\left(\frac{\partial u}{\partial v}\right)_{s},
+\qquad
+u = T s - P v + \mu
+\]
+(donde la última es la relación de Euler, ya en cantidades específicas).
+
+\begin{itemize}
+  \item[\(\bullet\)] \textcolor{Apple Green}{\textbf{Temperatura}}:
+  \begin{equation}
+  T(s,v)
+  = \left(\frac{\partial u}{\partial s}\right)_{v}
+  = \left(\frac{\theta}{R}\right) 2s\,e^{-v^{2}/v_{0}^{2}}
+  = 2\left(\frac{\theta}{R}\right)s\,e^{-v^{2}/v_{0}^{2}}
+  \label{eq:solP3_T_sv}
+  \end{equation}
+  De aquí despejamos
+  \begin{equation}
+  s(T,v)
+  = \frac{R}{2\theta}\,e^{v^{2}/v_{0}^{2}}\,T
+  \label{eq:solP3_s_Tv}
+  \end{equation}
+
+  \item[\(\bullet\)] \textcolor{Cinnabar}{\textbf{Presión}}:
+  \begin{equation}
+  \frac{\partial u}{\partial v}\Big|_{s}
+  = \left(\frac{\theta}{R}\right)s^{2}
+    \frac{\partial}{\partial v}
+    \left(e^{-v^{2}/v_{0}^{2}}\right)
+  = \left(\frac{\theta}{R}\right)s^{2}
+    e^{-v^{2}/v_{0}^{2}}\left(-\frac{2v}{v_{0}^{2}}\right)
+  \end{equation}
+  Por tanto
+  \begin{equation}
+  P(s,v)
+  = -\left(\frac{\partial u}{\partial v}\right)_{s}
+  = \frac{2v}{v_{0}^{2}}\,u(s,v)
+  \label{eq:solP3_P_sv}
+  \end{equation}
+
+  \item[\(\bullet\)] \textcolor{Lochinvar}{\textbf{Potencial químico específico}}:
+  a partir de la relación de Euler
+  \begin{equation}
+  \mu = u - T s + P v
+  \label{eq:solP3_mu_def}
+  \end{equation}
+\end{itemize}
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 2) Reescribir todo en función de (T,v)
+%---------------------------------------------------------
+
+Usamos \eqref{eq:solP3_s_Tv} para expresar \(u\) y \(P\) en términos de \(T\) y \(v\).
+
+\begin{itemize}
+  \item[\(\bullet\)] Sustituyendo \(s(T,v)\) en \eqref{eq:solP3_u_sv}:
+  \begin{equation}
+  u(T,v)
+  = \left(\frac{\theta}{R}\right)
+    \left(\frac{R}{2\theta}\,e^{v^{2}/v_{0}^{2}}T\right)^{2}
+    e^{-v^{2}/v_{0}^{2}}
+  = \frac{R}{4\theta}\,e^{v^{2}/v_{0}^{2}}\,T^{2}
+  \label{eq:solP3_u_Tv}
+  \end{equation}
+
+  \item[\(\bullet\)] Presión en \((T,v)\), usando \eqref{eq:solP3_P_sv}:
+  \begin{equation}
+  P(T,v)
+  = \frac{2v}{v_{0}^{2}}\,u(T,v)
+  = \frac{R}{2\theta}\,\frac{v}{v_{0}^{2}}\,
+    e^{v^{2}/v_{0}^{2}}\,T^{2}
+  \label{eq:solP3_P_Tv}
+  \end{equation}
+
+  \item[\(\bullet\)] Potencial químico específico:
+  primero calculamos
+  \[
+  T s
+  = T\left(\frac{R}{2\theta}e^{v^{2}/v_{0}^{2}}T\right)
+  = \frac{R}{2\theta}e^{v^{2}/v_{0}^{2}}T^{2},
+  \qquad
+  P v
+  = \frac{R}{2\theta}\frac{v^{2}}{v_{0}^{2}}
+    e^{v^{2}/v_{0}^{2}}T^{2}
+  \]
+  y con \eqref{eq:solP3_u_Tv} en \eqref{eq:solP3_mu_def}:
+  \begin{equation}
+  \mu(T,v)
+  = \frac{R}{\theta}e^{v^{2}/v_{0}^{2}}T^{2}
+    \left(
+      -\frac{1}{4} + \frac{v^{2}}{2v_{0}^{2}}
+    \right)
+  \label{eq:solP3_mu_Tv}
+  \end{equation}
+\end{itemize}
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 3) Energía libre de Helmholtz F(T,V,N)
+%---------------------------------------------------------
+
+La energía libre de Helmholtz \textcolor{Tarawera}{\(f(T,v)\)} por partícula se define como
+\[
+f(T,v) = u - Ts
+\]
+Con \eqref{eq:solP3_u_Tv} y \eqref{eq:solP3_s_Tv}:
+
+\begin{equation}
+f(T,v)
+= \frac{R}{4\theta}e^{v^{2}/v_{0}^{2}}T^{2}
+  - \frac{R}{2\theta}e^{v^{2}/v_{0}^{2}}T^{2}
+= -\,\frac{R}{4\theta}\,e^{v^{2}/v_{0}^{2}}\,T^{2}
+\label{eq:solP3_f_Tv}
+\end{equation}
+
+La energía libre total es entonces
+\begin{equation}
+\boxed{
+F(T,V,N)
+= N\,f\!\left(T,\frac{V}{N}\right)
+= -\,\frac{R}{4\theta}\,N\,T^{2}
+   \exp\!\left[\frac{1}{v_{0}^{2}}\left(\frac{V}{N}\right)^{2}\right]
+}
+\label{eq:solP3_F_TVN}
+\end{equation}
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 4) Ecuaciones de estado en la representación F(T,V,N)
+%---------------------------------------------------------
+
+En la representación de Helmholtz las ecuaciones de estado son
+
+\begin{equation}
+S = -\left(\frac{\partial F}{\partial T}\right)_{V,N},
+\qquad
+P = -\left(\frac{\partial F}{\partial V}\right)_{T,N},
+\qquad
+\mu = \left(\frac{\partial F}{\partial N}\right)_{T,V}
+\label{eq:solP3_eos_F}
+\end{equation}
+
+Aplicando estas derivadas a \eqref{eq:solP3_F_TVN} obtenemos:
+
+\begin{itemize}
+  \item[\(\bullet\)] \textcolor{Apple Green}{\textbf{Entropía}}:
+  \begin{equation}
+  \boxed{
+  S(T,V,N)
+  = \frac{R}{2\theta}\,N\,T
+    \exp\!\left[\frac{1}{v_{0}^{2}}\left(\frac{V}{N}\right)^{2}\right]
+  }
+  \label{eq:solP3_S_TVN}
+  \end{equation}
+
+  \item[\(\bullet\)] \textcolor{Cinnabar}{\textbf{Presión}}:
+  \begin{equation}
+  \boxed{
+  P(T,V,N)
+  = \frac{R}{2\theta}\,
+    \frac{V}{N\,v_{0}^{2}}\,
+    T^{2}
+    \exp\!\left[\frac{1}{v_{0}^{2}}\left(\frac{V}{N}\right)^{2}\right]
+  }
+  \label{eq:solP3_P_TVN_final}
+  \end{equation}
+
+  \item[\(\bullet\)] \textcolor{Lochinvar}{\textbf{Potencial químico}}:
+  \begin{equation}
+  \boxed{
+  \mu(T,V,N)
+  = \frac{R}{\theta}\,T^{2}
+    \exp\!\left[\frac{1}{v_{0}^{2}}\left(\frac{V}{N}\right)^{2}\right]
+    \left(
+      -\frac{1}{4}
+      + \frac{1}{2}\frac{1}{v_{0}^{2}}\left(\frac{V}{N}\right)^{2}
+    \right)
+  }
+  \label{eq:solP3_mu_TVN_final}
+  \end{equation}
+\end{itemize}
+
+Estas tres expresiones \eqref{eq:solP3_S_TVN}–\eqref{eq:solP3_mu_TVN_final} son las
+\textcolor{trueblue}{\textbf{ecuaciones de estado}} en la representación \(F(T,V,N)\), y todas ellas
+son coherentes con la relación fundamental original \eqref{eq:solP3_u_sv}.
+
+
+
+%=========================================================
+%                      Problema 4
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 4}}}}
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 4}}} \vspace{2mm}
+
+Complete la siguiente relación de Maxwell:
+
+\begin{itemize}
+  \item[(a)]  
+  \(
+  \left(\frac{\partial \mu}{\partial T}\right)_{V,N}
+  =
+  \)
+
+  \item[(b)]
+  ¿Qué potencial empleaste para encontrar la relación del inciso anterior?
+\end{itemize}
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+En este problema queremos \textcolor{Tarawera}{\textbf{completar una relación de Maxwell}}
+para la derivada
+\(\big(\frac{\partial \mu}{\partial T}\big)_{V,N}\) y, además, identificar
+\emph{qué potencial termodinámico} se utiliza para derivarla.
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 1) Partimos del potencial de Helmholtz F(T,V,N)
+%---------------------------------------------------------
+
+La forma natural de obtener una relación con derivadas a \(T\), \(V\) y \(N\)
+es trabajar con la energía libre de Helmholtz
+\(\,F = F(T,V,N)\,\).  
+Su diferencial termodinámica es
+\begin{equation}
+\begin{split}
+\dd F
+&= -S\,\dd T - P\,\dd V + \mu\,\dd N
+\end{split}
+\label{eq:P4_dF}
+\end{equation}
+
+Comparando \eqref{eq:P4_dF} con la forma general
+\(\dd F = (\partial F/\partial T)_{V,N}\dd T
+     + (\partial F/\partial V)_{T,N}\dd V
+     + (\partial F/\partial N)_{T,V}\dd N\),
+identificamos las \textcolor{Cinnabar}{\textbf{ecuaciones de estado}}:
+
+\begin{equation}
+\begin{split}
+\left(\frac{\partial F}{\partial T}\right)_{V,N}
+&= -\,S \\[4pt]
+\left(\frac{\partial F}{\partial V}\right)_{T,N}
+&= -\,P \\[4pt]
+\left(\frac{\partial F}{\partial N}\right)_{T,V}
+&= \mu
+\end{split}
+\label{eq:P4_eos_desdeF}
+\end{equation}
+
+En particular, para la \textcolor{Lochinvar}{\textbf{energía libre de Helmholtz}}:
+
+\begin{itemize}
+  \item[$\bullet$] \(\mu\) se obtiene como
+  \(\displaystyle
+  \mu = \left(\frac{\partial F}{\partial N}\right)_{T,V}
+  \)
+  \item[$\bullet$] \(S\) se obtiene como
+  \(\displaystyle
+  S = -\left(\frac{\partial F}{\partial T}\right)_{V,N}
+  \)
+\end{itemize}
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 2) Igualdad de derivadas mixtas: relación de Maxwell
+%---------------------------------------------------------
+
+Ahora usamos el hecho matemático de que las \textcolor{trueblue}{\textbf{derivadas cruzadas}}
+de \(F\) son iguales (suponiendo que \(F\) es suficientemente suave):
+
+\begin{equation}
+\frac{\partial}{\partial T}
+\left[
+  \left(\frac{\partial F}{\partial N}\right)_{T,V}
+\right]_{V,N}
+=
+\frac{\partial}{\partial N}
+\left[
+  \left(\frac{\partial F}{\partial T}\right)_{V,N}
+\right]_{T,V}
+\label{eq:P4_mixtas_iguales}
+\end{equation}
+
+El lado izquierdo de \eqref{eq:P4_mixtas_iguales} es
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial T}
+\left(\frac{\partial F}{\partial N}\right)_{T,V}
+&=
+\left(\frac{\partial \mu}{\partial T}\right)_{V,N}
+\end{split}
+\label{eq:P4_lado_izq}
+\end{equation}
+
+El lado derecho, usando \eqref{eq:P4_eos_desdeF}, queda
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial N}
+\left(\frac{\partial F}{\partial T}\right)_{V,N}
+&=
+\frac{\partial}{\partial N}\big[-S(T,V,N)\big]_{T,V} \\[4pt]
+&= -\left(\frac{\partial S}{\partial N}\right)_{T,V}
+\end{split}
+\label{eq:P4_lado_der}
+\end{equation}
+
+Por lo tanto, la igualdad de derivadas mixtas \eqref{eq:P4_mixtas_iguales}
+se convierte en la \textcolor{Apple Green}{\textbf{relación de Maxwell}} buscada:
+
+\begin{equation}
+\boxed{
+\left(\frac{\partial \mu}{\partial T}\right)_{V,N}
+=
+-\,\left(\frac{\partial S}{\partial N}\right)_{T,V}
+}
+\label{eq:P4_Maxwell_final}
+\end{equation}
+
+El término \(\big(\partial S/\partial N\big)_{T,V}\) está relacionado con la
+\textcolor{vividviolet}{\textbf{entropía molar (o específica) por partícula}}, de modo que esta
+relación de Maxwell conecta cómo cambia el potencial químico con la temperatura
+a volumen y número de partículas fijos, con cómo cambia la entropía al añadir
+partículas a \(T\) y \(V\) constantes.
+
+\vspace{0.3cm}
+%---------------------------------------------------------
+% 3) Respuesta al inciso (b)
+%---------------------------------------------------------
+
+\begin{itemize}
+  \item[$\bullet$] \textcolor{Cinnabar}{\textbf{Inciso (a):}}  
+  La relación correcta es
+  \[
+  \left(\frac{\partial \mu}{\partial T}\right)_{V,N}
+  = -\,\left(\frac{\partial S}{\partial N}\right)_{T,V}
+  \]
+
+  \item[$\bullet$] \textcolor{orange(colorwheel)}{\textbf{Inciso (b):}}  
+  El potencial utilizado para obtener esta relación de Maxwell es la
+  \textcolor{Tarawera}{\textbf{energía libre de Helmholtz}} \(F(T,V,N)\).
+\end{itemize}
+
+
+
+
+\end{document}

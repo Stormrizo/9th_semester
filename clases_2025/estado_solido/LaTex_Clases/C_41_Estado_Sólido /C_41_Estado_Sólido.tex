@@ -1,0 +1,478 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 41 - Estado Sólido}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Estado sólido}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dra. Ana Lilia González Ronquillo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{301}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+
+\section{Clase de hoy}
+
+
+Tenemos:
+
+
+\section{\textcolor{orange(colorwheel)}{Dependencia de la temperatura}}
+
+
+
+
+La integral es del tipo de intefrales de Fermi-Dirac:
+
+
+\[  F_{j}(y_{0}) = \int\limits_{0}^{\infty}  \frac{ y^{j}  }{ e^{ (y-y_{0}) +1 }  } dy   \]
+
+Una solució aproximada converge cuando $y_{0}>>1$
+
+
+EN el caso de los metales:
+
+\[  K_{B}T \approx 0\text{.}01\mu \]
+
+
+Nos pidió que avanzaramos en el resultado de:
+
+
+\[   n \approx \frac{1}{3\pi^{2}} \left(  \frac{2m}{\hbar^{2}}  \right)^{\frac{3}{2}} \mu^{\frac{3}{2}} \left[   1+ \frac{ \pi^{2}  }{  8 \left(  \frac{ \mu }{ K_{B}T }  \right)^{2} }    \right]   \]
+
+El número de partículas por unidad de volumen no va cambiar.
+
+
+Por otro lado, sabemos que el número de electrones ñor unidad e volumen no depende de la temperarura, es decir $n$ es constante. Ya teníamos una expresión para $n$:
+
+
+
+\[   n = \frac{  k^{3}_{f} }{3\pi^{2}} = \left(  \frac{2m}{\hbar^{2}}\epsilon_{f}  \right)^{\frac{3}{2}} \frac{1}{3\pi^{2}} \]
+
+
+Las ecuaciones anteiores deben de ser iguales, tenemos así:
+
+
+\[   \left(   \frac{2m}{\hbar^{2}}  \right)^{\frac{3}{2}} \ldots \, \text{falta contenido, checar notas}     \]
+
+
+\textbf{Resultado relevante}
+
+
+Tenemos:
+
+
+\[ \epsilon^{\frac{3}{2}}  \approx \mu^{\frac{3}{2}}  \left[  1 + \frac{ \pi^{2}  }{  8 \left(   \frac{\mu}{  K_{B}T } \right)^{2} }    \right] \]
+
+
+
+
+O bien, despejamos el \textbf{potencial químico} y se tiene: 
+
+
+\[  \mu \approx \epsilon_{f}  \left[  1 + \frac{ \pi^{2}  }{ 8 \left( \frac{\mu}{ K_{B}T  }   \right) }  \right]  \]
+
+¿Qué implica la convergencia de la serie?
+
+
+Recordandoq ue $K_{B}T \approx 0\text{.}01\mu$, podemos usar $(1+x)^{r}\approx 1+rx$ con $x<<1$
+
+
+Tenemos:
+
+
+
+\[ \mu \approx \epsilon_{f} \left[1 - \frac{  (\pi K_{B}T)^{2}  }{12\mu^{2}}    \right]   \]
+
+
+Hemos dicho que cuando $T$ tiende a cero, el \textbf{potencial químico} tiende al nivel de \textbf{Fermi}, es decir:
+
+
+\[   \lim\limits_{T \to } \mu = \epsilon_{f} \]
+
+Como aproximación podemos reemplazar $\mu \to \epsilon_{f}$ en el tpermino proporcional a $T^{2}$,  así finalmente tenemos:
+
+
+\[ \mu \approx \epsilon_{f} \left[    \right]  \]
+
+
+
+De las cosas que hemos hecho con Sommerfield, tenemos nosotros:
+
+
+NOs interesa ahora es una temperatura diferente de cero, tenemos que resolver esta integral (SI es cero, es una función de paso).
+
+\[ \boxed{ \text{ a $T\neq 0^{\circ}K$ } } \]
+
+\[  U/V = \int\limits_{0}^{\infty} \epsilon g(\epsilon) f(\epsilon)d\epsilon = \frac{1}{2}  \]
+
+Tendremos que usar la serie de $F_{j}(y_{0} = \frac{}{})$
+
+
+Hay que considerar lo que vimos.
+
+Donde nos conviene cambiar $\mu$, por el nivel de Fermi. 
+
+De manera general vamos a tener en un cristal:
+
+
+\[ C_{cristal} = AT + BT^{3} \]
+
+LOs semicondutores son tetravalantes, quiero decir que los enclazamos con otros cuatro atomos.
+
+LOs enlaces, tetraedro. 
+
+ENlaces localizados, la distriucuión de carga, en el metal es una estructura periodpica, huecos, electrones y huecos, que se muevem.
+
+\textcolor{Cinnabar}{\textbf{Próximos exámenes}}:
+
+\textbf{Examen de recuperación}: $\boxed{\text{3 de diciembre}}$ (será el primer parcial dado que hay mayor cantidad de no aprobados)
+
+\textbf{Examen de teoría de electrones y teoría de bandas (últimos dos temas)}:  $\boxed{\text{1 de diciembre}}$. 
+
+Las calificaciones finales las mandará el día domingo 7 de diciembre, podemos ir a su cubículo en el \underline{Instituto} por alguna duda. 
+
+\section{Nuevo tema: Teoría de bandas}
+
+Este tema es muy importante. La clasificación de los materiales, nos vamos a enfocar en la teoría de bandas, que explica teoría de bandas y de semiconductores, es una imagen del KIttel, es un diagra de las diapositivas que aún va a subir.
+
+
+Investigar qué es un \textbf{semimetal}. Los materiales 
+
+Recorar la escrutura del diamante dormada pror carnono, los benos los bamos a llamar, aislasntes. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+
+Existen dos tipos de semiconductores, los \textbf{íntrinsecos} y los \textbf{extrinsecos}.
+
+¿Qué son las bandas de energía?
+
+
+SOn conjuntos de niveles de energía. 
+
+Vamos a ver un modelo de por qué aparecen las bandas en un material periódico.
+
+Van a aparecer niveles que son permitidos, cuales no y así. 
+
+
+
+En el caso de los aislante resulta que tenemos muchas bandas permitidas, la última banda en un material aislante está completamente llena, la siguiente banda está vacía.
+
+Necesitamos calentarlo lo suficiente para que puedan hacer el salto, 
+
+Resulta que en los materiales aislantes. 
+
+
+En los metales, la última banda estásn semillenos. Los metales sufren \textbf{Transiciones intrabanda}.
+
+
+NO es necesario calentarlos tanto para llegar a la última banda. 
+
+
+El otro caso es el del caso de los \textbf{semiconductores}. En ese material tenemos bandas permitidas y prohibidas. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{2.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{3.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+
+Nosotros estamos graficando esto:
+
+\[ \text{Relación de dispersión}  \]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{4.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{5.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{6.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{7.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+
+
+Tenemos (recordando espacio recíproco) :
+
+
+\[  v(\vec{r}) = \sum\limits_{\vec{G}} V_{\vec{G}} e^{i \vec{G} \cdot \vec{r} }  \]
+
+
+
+
+\[  \vec{G} = m_{1}\vec{b}_{1} + m_{2}\vec{b}_{2} + m_{3}\vec{b}_{3}  \]
+
+
+
+Tenemos:
+
+
+\[  \sum\limits_{\vec{G}} \to \sum\limits_{m_{1}= - \infty}\sum\limits_{m_{2}= - \infty}\sum\limits_{m_{3}= - \infty}       \]
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{8.png}
+    \caption{Aquí va la descripción de tu figura.}
+    \label{fig:mi_figura_png}
+\end{figure}
+
+
+
+
+\end{document}

@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Activity Instructions}{1}{section*.1}%
+\contentsline {section}{Final Proyect}{3}{section*.4}%
+\contentsline {subsection}{Problem 1: Wave equation in dielectrics}{3}{section*.5}%
+\contentsline {subsection}{Problem 2: TE polarization and relation between $E_y$ and $H_x$}{5}{section*.9}%
+\contentsline {subsection}{Problem 3: Three-layer dielectric structure and boundary conditions ($k_x = 0$)}{6}{section*.14}%
+\contentsline {subsection}{Problem 4: Fields in the three media from the given figure}{9}{section*.18}%
+\contentsline {subsection}{Problem 5: TE slab modes and field profiles (Pochi Yeh, 1988)}{10}{section*.23}%

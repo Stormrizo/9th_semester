@@ -1,0 +1,395 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 44 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase del día de hoy}
+
+
+Tenemos nosotros: 
+
+
+\[ \vec{L} \equiv \vec{r} \times \vec{p} \]
+
+
+Tenemos:
+
+\[ \left[ L_{i},L_{j}   \right] = \epsilon_{ijk}L_{k}  \]
+
+\begin{center}
+\includegraphics[width=1\linewidth]{1.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 1}
+\end{center}	
+
+
+
+Tenemos:
+
+
+\[ \vec{A} = A_{x}\hat{x} + A_{y}\hat{y}+A_{z}\hat{z} \]
+
+
+\[ vec{B} = B_{x}\hat{x}+B_{y}\hat{y}+B_{z}\hat{z} \]
+
+
+Tenemos:
+
+
+\[ \vec{A} \cdot \vec{B} = A_{x}B_{x}+A_{y}B_{y}+A_{z}B_{z}  \]
+
+Tenemos:
+
+
+\[  = A_{1}B_{1}+ A_{2}B_{2} +A_{3}B_{3} \]
+
+
+\[ = \sum\limits_{i=1}^{3}  A_{i}B_{i} = A_{i}B_{i}  \]
+
+
+Tenemos:
+
+
+\[  \vec{A} \cdot \vec{B} = A_{i}B_{i}, \quad i=1.2.3 \]
+
+
+Tenemos:
+
+
+\begin{equation}
+\begin{split}
+\vec{A} \times \vec{B}  &= \left| \begin{array}{ccc}
+\hat{x} & \hat{y} & \hat{z}\\
+A_{x} & A_{y} & A_{z}\\
+B_{x} & B_{y} & B_{z}
+\end{array}\right| \\
+&= \hat{x} (A_{y}B_{z}-A_{z}B_{y}) - \hat{y} (A_{x}B_{z}-A_{z}B_{x}) + \hat{z} (A_{x}B_{y}-A_{y}B_{x})
+\end{split}
+\end{equation}
+
+
+
+
+Tenemos: 
+
+\begin{center}
+\includegraphics[width=1\linewidth]{2.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 2}
+\end{center}	
+
+
+Tenemos:
+
+
+\[ ( \vec{A} \times \vec{B} )_{i} = \epsilon_{ijk} A_{j}B_{k} \]
+
+
+\[  (\vec{A} \times \vec{B})_{1} = \epsilon_{ijk}A_{j}B_{k}  \]
+
+Tenemos:
+
+
+\[ \epsilon_{123} = 1, \epsilon_{213} = -\epsilon_{123} \]
+
+
+Siguiendo estas reglitas podremos desmostrar:
+
+
+\textbf{Cositas importantes}:
+
+\[ \vec{A} \cdot \vec{B} = A_{i}B_{i}  \]
+
+\[ (\vec{A} \times \vec{B})_{i} = \epsilon_{ijk} A_{j}B_{k}  \]
+
+\[ L_{i} = (\vec{r} \times \vec{p})_{i} = \epsilon_{ijk} \times_{j}p_{k} \]
+
+
+Entonces
+
+Cada vez que aparecen dos índices repetidos existe una sumatoria.
+
+Tenemos:
+
+
+\[ L_{i} = (\vec{r} \times \vec{p})_{i} = \epsilon_{is\ell} \times_{s}p_{\ell} \]
+
+
+\[  L_{j} = (\vec{r}\times \vec{p})_{j} = \epsilon_{jnm} \times_{n}p_{m}  \]
+
+
+Tenemos:
+
+
+\[  \left[  L_{i}, L_{j}  \right] = \left[  \epsilon_{is\ell} \times_{s}p_{\ell}, \epsilon_{jnm}\times_{n}p_{m}  \right] \]
+
+\[ = \epsilon_{is\ell}\epsilon_{jnm} \left[ \times_{s} p_{\ell}, \times_{n}p_{m}  \right] \]
+
+
+Tenemos:
+
+
+
+\[ = \epsilon_{is\ell} \epsilon_{jnm} \left\{  \times_{n} \left[ \times_{s}p_{\ell}, p_{m}  \right] + \left[ \times_{s}p_{\ell}, \times_{n}  \right] p_{m}  \right\} \]
+
+
+
+\[ \epsilon_{is\ell} \epsilon_{jnm} \left\{   \times_{n}\times_{s}\underbrace{\left[  p_{\ell}, p_{m}  \right]}_{=0} + \times x_{n} \underbrace{\left[ \times_{s},p_{m}  \right]}_{=\delta_{sm}} p_{\ell} + \times_{s} \underbrace{\left[  p_{\ell}, \times_{n} \right]}_{=-\delta_{\ell n}}p_{m} + \underbrace{\left[ x_{s}, x_{n}  \right]}_{=0} p_{\ell}p_{m} \right\}  \]
+
+\textbf{Corchetes fundamentales de Poisson}
+
+\begin{center}
+\includegraphics[width=1\linewidth]{3.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 3}
+\end{center}	
+
+Tenemos:
+
+
+\[  \epsilon_{is\ell} \epsilon_{jns} = -\epsilon_{si\ell} \epsilon_{sjn} \]
+
+
+\[  = - \left[  \delta_{ij}\delta_{\ell n} - \delta_{in}\delta_{\ell j}  \right] \]
+
+Si nosotros tenemos lo siguiente (\textbf{primer término}):
+
+
+\[ \epsilon_{is\ell} \epsilon_{jns} \times_{n}p_{\ell} \]
+
+
+\[ = - \times_{n} p_{\ell} \left[ \delta_{ij} \delta_{\ell n} - \delta_{in} \delta_{\ell j}    \right] \]
+
+\[  = -\times_{n}p_{n} \delta_{ij}+\times_{i}p_{j} \]
+
+
+Tenemos:
+
+
+\[ \epsilon_{is\ell} \epsilon_{j\ell m} \times_{s}p_{m} = -\epsilon_{\ell is} \epsilon_{\ell jm} \times_{s}p_{m}  \]
+
+
+\[ = -\times_{s}p_{m} \left[   \delta{ij}\delta_{sm}-\delta_{im}\delta_{sj} \right]  \]
+
+
+\[  = -\times_{m}p_{m}\delta_{ij}+\times_{j}p_{i}\]
+
+
+Tenemos:
+
+
+\[  \left[  L_{i}, L_{j}  \right] = - \times_{m}p_{m}\delta_{ij}+\times_{i}p_{j} + \times_{m}p_{m}\delta_{ij}-\times_{j}p_{i} \]
+
+Tenemos:
+
+
+\[ \vec{A} \times\vec{B} = A_{i}B_{i}=A_{n}B_{n}=A_{m}B_{m} \]
+
+
+Llegamos a: \vspace{0.5cm}
+
+\begin{center}
+\includegraphics[width=1\linewidth]{4.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 4}
+\end{center}	
+
+Tenemos: \vspace{0.5cm}
+
+\begin{center}
+\includegraphics[width=1\linewidth]{5.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 4}
+\end{center}	
+
+
+Con esto concluimos con el 
+
+
+
+\end{document}

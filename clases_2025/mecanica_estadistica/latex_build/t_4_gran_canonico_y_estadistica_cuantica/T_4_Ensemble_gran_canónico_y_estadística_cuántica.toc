@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Problemas: \textcolor {Tarawera}{\textbf {Gran canónico y estadística cuántica}}}{1}{section*.2}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 1}}}}{1}{section*.3}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 2}}}}{6}{table.caption.6}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 3}}}}{8}{equation.29}%

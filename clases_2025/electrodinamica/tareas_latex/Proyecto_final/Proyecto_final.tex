@@ -1,0 +1,659 @@
+ \documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{\textcolor{Apple Green}{\textbf{Final proyect}} - \textcolor{Cinnabar}{\textbf{Electrodynamics (guión de ayuda)}}}
+\author{\emph{} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Electrodinámica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Iván Fuentecilla Cárcamo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{EMA4}} /  \textcolor{trueblue}{\bfseries{409}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+%%%%%%%%%%%%%%%%%%% Datos de los integrantes
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Integrante 1}} & Judith Sánchez Tepal\\
+	{\bfseries{Integrante 2}} & Stephani Vianey Francisco Limón\\
+	{\bfseries{Integrante 3}} & Christian Díaz Patiño\\
+	{\bfseries{Integrante 4}} & Julio Alfredo Ballinas García
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+
+
+\section*{Activity Instructions}
+\addcontentsline{toc}{section}{Activity Instructions}
+
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2}
+
+\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Guía}. \arabic*.0}}}, start=1]
+
+  \item Este documento es un guión de ayuda para la presentación del \textbf{5 de diciembre de 2025} a las \textbf{18:00 h} (\textit{Electrodynamics -- Final Project}).
+
+  \item El guión está organizado \textbf{por secciones de la presentación} (portada, contents, introducción, etc.) para que cada integrante pueda leer, adaptar o resumir su parte con confianza.
+
+  \item La idea es que el texto se use como \textbf{apoyo}, no como libreto rígido: pueden recortar frases, cambiar el orden o decirlas con sus propias palabras, siempre conservando las ideas y ecuaciones clave.
+
+\end{enumerate}
+\end{multicols}
+
+\vspace{2cm}
+
+\begin{MyColorPar}{orange(colorwheel)}
+\end{MyColorPar}
+
+\tableofcontents \newpage
+
+\hypersetup{linkcolor=trueblue}
+
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+\end{tikzpicture}
+\end{center}  \vspace{2cm}
+
+\section*{Guión}
+\addcontentsline{toc}{section}{Guión}
+
+%=========================================================
+\subsection*{Portada}
+
+\noindent
+\textbf{Diapositiva: Title page}\\[2mm]
+\textit{Sugerencia de lo que se puede decir:}\\[2mm]
+
+\begin{quote}
+Buenas tardes, nosotros somos \textbf{Judith Sánchez}, \textbf{Stephani Vianey Francisco}, 
+\textbf{Cristian Díaz} y \textbf{Julio Ballinas}, del curso de \textbf{Electrodinámica} de la 
+\textbf{FCFM--BUAP}.\\[2mm]
+En este trabajo vamos a seguir la ruta clásica de la electrodinámica: empezamos en las 
+\textcolor{Apple Green}{ecuaciones de Maxwell}, pasamos a la \textbf{ecuación de onda} en un 
+\textbf{medio dieléctrico}, estudiamos la \textcolor{Apple Green}{polarización TE} (Transverse Electric) 
+y, al final, vemos cómo todo esto se traduce en \textbf{modos guiados TE} dentro de una 
+\textcolor{Tarawera}{guía de onda planar (slab) simétrica}, siguiendo el tratamiento de 
+\textbf{Pochi Yeh (1988)}.\\[2mm]
+La idea es ir conectando la parte teórica con una visualización numérica del campo eléctrico, 
+para ver que las ecuaciones no sólo se quedan en el pizarrón, sino que producen patrones de 
+campo muy concretos.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Contents}
+
+\noindent
+\textbf{Diapositiva: Contents}\\[2mm]
+\textit{Sugerencia:}\\[2mm]
+
+\begin{quote}
+La presentación está organizada de la siguiente manera:\\[2mm]
+Primero, damos una \textbf{introducción} y contamos por qué nos interesa ver ondas electromagnéticas en 
+\textbf{dieléctricos}.\\
+Luego, partimos de las \textcolor{Apple Green}{ecuaciones de Maxwell} y derivamos paso a paso la 
+\textbf{ecuación de onda} en un medio dieléctrico. Ahí es donde aparecen operadores como 
+\(\nabla\cdot\) y \(\nabla\times\).\\
+Después, nos enfocamos en la \textbf{polarización TE} y mostramos la relación explícita entre 
+\(\,E_y\) y los componentes magnéticos \(H_x\) y \(H_z\) usando la ley de Faraday.\\
+Enseguida analizamos una \textbf{estructura de tres medios} y aplicamos las 
+\textbf{condiciones de frontera de Jackson}, que nos dicen qué componentes de \(\vec{E}\) y \(\vec{H}\) 
+deben ser continuas en las interfaces.\\
+Más adelante presentamos la \textbf{guía de onda planar (slab) simétrica}: un núcleo de alto índice 
+rodeado por dos \textcolor{Tarawera}{claddings} (regiones de menor índice), y discutimos los 
+\textbf{modos TE pares e impares}.\\
+Finalmente, mostramos los \textbf{patrones numéricos del campo eléctrico} que obtuvimos en Python 
+y cerramos con unas \textbf{conclusiones} que conectan todo el recorrido.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Sección: Introduction -- Motivation and goals}
+
+\noindent
+\textbf{Diapositiva: Motivation and goals}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+El objetivo general de este proyecto es entender \textbf{cómo viaja una onda electromagnética dentro 
+de un dieléctrico} y qué condiciones necesitamos para que esa onda quede \textbf{atrapada} o 
+\textbf{guiada} en una estructura específica.\\[2mm]
+La base de todo son las \textcolor{Apple Green}{ecuaciones de Maxwell}. A partir de ellas obtenemos 
+la \textbf{ecuación de onda} y la \textbf{relación de dispersión}, que nos dicen cómo están 
+relacionados el número de onda \(k\), la frecuencia \(\omega\), la permitividad \(\varepsilon\) 
+y la permeabilidad \(\mu\).\\[2mm]
+Luego nos centramos en el caso de \textbf{polarización TE}: el campo eléctrico apunta en una sola 
+dirección (el eje \(y\)) y es transversal a la dirección de propagación. Esto nos permite escribir 
+las componentes de \(\vec{E}\) y \(\vec{H}\) de forma muy concreta.\\[2mm]
+Finalmente, llevamos todo a una \textbf{guía de onda planar (slab) simétrica}, que básicamente es 
+una capa de índice alto rodeada por dos capas de índice bajo (\textcolor{Tarawera}{claddings}). 
+Ahí aparecen los \textbf{modos guiados}, que son patrones de campo que se pueden propagar sin 
+escaparse del núcleo. Nuestro objetivo es identificarlos y visualizarlos.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Sección: Wave equation in dielectrics}
+
+\noindent
+\textbf{Diapositiva: Maxwell equations in a dielectric}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Primero recordamos las \textcolor{Apple Green}{ecuaciones de Maxwell} en un medio dieléctrico lineal, 
+homogéneo e isótropo, sin cargas ni corrientes libres. Eso quiere decir que tomamos 
+\(\rho_f = 0\) y \(\vec{J}_f = 0\).\\[2mm]
+Las ecuaciones que usamos son:\\[1mm]
+\(\nabla\cdot\vec{D} = \rho_f\), \quad que aquí se vuelve \(\nabla\cdot\vec{D} = 0\)\\
+\(\nabla\cdot\vec{B} = 0\)\\
+\(\nabla\times\vec{E} = -\dfrac{\partial \vec{B}}{\partial t}\)\\
+\(\nabla\times\vec{H} = \dfrac{\partial \vec{D}}{\partial t}\)\\[2mm]
+y usamos las relaciones constitutivas estándar\\[1mm]
+\(\vec{D} = \varepsilon \vec{E}\), \quad \(\vec{B} = \mu \vec{H}\)\\[2mm]
+Con esto, \(\nabla\cdot\vec{D} = 0\) se traduce en \(\nabla\cdot\vec{E} = 0\), y las ecuaciones 
+de Faraday y Ampère--Maxwell nos acoplan las derivadas temporales de \(\vec{E}\) y \(\vec{H}\).
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Diapositiva: Derivation of the wave equation}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+A partir de estas ecuaciones queremos llegar a una \textbf{ecuación de onda} para \(\vec{E}\). 
+El truco clásico es aplicar el operador \(\nabla\times\) (rotacional) a la ley de Faraday:\\[2mm]
+\(\nabla\times(\nabla\times\vec{E}) = -\mu\,\dfrac{\partial}{\partial t}(\nabla\times\vec{H})\)\\[2mm]
+En el lado derecho sustituimos la ley de Ampère--Maxwell\\[1mm]
+\(\nabla\times\vec{H} = \varepsilon\dfrac{\partial \vec{E}}{\partial t}\)\\[2mm]
+y obtenemos\\[1mm]
+\(\nabla\times(\nabla\times\vec{E}) = -\mu\varepsilon\,\dfrac{\partial^2 \vec{E}}{\partial t^2}\)\\[2mm]
+Después usamos una identidad vectorial muy importante:\\[1mm]
+\(\nabla\times(\nabla\times\vec{E}) = \nabla(\nabla\cdot\vec{E}) - \nabla^2\vec{E}\)\\[2mm]
+Pero ya sabemos que en este medio \(\nabla\cdot\vec{E} = 0\), entonces el primer término se anula 
+y nos queda simplemente\\[1mm]
+\(-\nabla^2\vec{E} = -\mu\varepsilon\,\dfrac{\partial^2 \vec{E}}{\partial t^2}\)\\[2mm]
+o, de forma más limpia, la \textcolor{Tarawera}{ecuación de onda para el campo eléctrico}\\[1mm]
+\(\nabla^2\vec{E} - \mu\varepsilon\,\dfrac{\partial^2 \vec{E}}{\partial t^2} = 0\)\\[2mm]
+De manera análoga, aplicando el mismo procedimiento a \(\vec{H}\), obtenemos la ecuación de onda 
+para el campo magnético. Esta ecuación nos dice que las perturbaciones de \(\vec{E}\) y 
+\(\vec{H}\) viajan como ondas en el medio, con velocidad \(v = 1/\sqrt{\mu\varepsilon}\).
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Diapositiva: Plane wave solution and dispersion relation}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Para ver que una \textbf{onda plana} es solución, proponemos el ansatz\\[1mm]
+\(\vec{E}(\vec{r},t) = \vec{E}_0\,e^{i(\vec{k}\cdot\vec{r} - \omega t)}\)\\[2mm]
+Cuando calculamos \(\nabla^2\vec{E}\), el operador Laplaciano aporta un factor \(-k^2\), y cuando 
+calculamos \(\dfrac{\partial^2\vec{E}}{\partial t^2}\) obtenemos un factor \(-\omega^2\). 
+Al sustituir en la ecuación de onda llegamos a\\[1mm]
+\((-k^2 + \mu\varepsilon\,\omega^2)\,\vec{E} = 0\)\\[2mm]
+Para que el campo no sea trivial, debemos tener la \textbf{relación de dispersión}\\[1mm]
+\(k^2 = \mu\varepsilon\,\omega^2\)\\[2mm]
+Es decir, el número de onda y la frecuencia no son independientes; están ligados por las propiedades 
+del medio, \(\mu\) y \(\varepsilon\). Esto confirma que nuestra onda plana sí es una solución 
+consistente en un dieléctrico.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Sección: TE polarization -- \(E_y\) and \(H_x\)}
+
+\noindent
+\textbf{Diapositiva: TE polarization and field components}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Ahora nos enfocamos en la \textbf{polarización TE}. TE significa \textit{Transverse Electric}, 
+lo que quiere decir que el campo eléctrico es \textbf{perpendicular al plano de incidencia} y no 
+tiene componente en la dirección de propagación.\\[2mm]
+Tomamos la onda propagándose en el plano \(x\)--\(z\). En ese caso elegimos\\[1mm]
+\(\vec{E} = (0,E_y,0)\), \quad es decir, el campo eléctrico apunta sólo en \(y\)\\
+\(\vec{H} = (H_x,0,H_z)\), \quad el campo magnético vive en el plano de incidencia \(x\)--\(z\)\\[2mm]
+Además, asumimos una onda plana del tipo\\[1mm]
+\(E_y(x,z,t) = E_{y0}\,e^{i(k_x x + k_z z - \omega t)}\)\\[2mm]
+y con esto usamos la ley de Faraday \(\nabla\times\vec{E} = -\dfrac{\partial \vec{B}}{\partial t}\) 
+para obtener las componentes de \(\vec{H}\) en función de \(E_y\).
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Diapositiva: Relations between \(E_y\) and \(\vec H\)}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Si calculamos el rotacional de \(\vec{E}\), las componentes relevantes son:\\[1mm]
+\((\nabla\times\vec{E})_x = \dfrac{\partial E_y}{\partial z} = i k_z E_y\)\\
+\((\nabla\times\vec{E})_z = -\dfrac{\partial E_y}{\partial x} = -i k_x E_y\)\\[2mm]
+Por otro lado, del lado derecho de la ley de Faraday tenemos\\[1mm]
+\(-\mu\,\dfrac{\partial \vec{H}}{\partial t} = i\omega\mu\,\vec{H}\)\\[2mm]
+Al igualar componentes obtenemos las \textbf{relaciones TE}\\[1mm]
+\(H_x = \dfrac{k_z}{\omega\mu}\,E_y\), \qquad
+\(H_z = -\dfrac{k_x}{\omega\mu}\,E_y\)\\[2mm]
+En el caso especial de \textbf{incidencia normal}, tomamos \(k_x = 0\). Entonces el componente 
+\(H_z\) desaparece y nos queda\\[1mm]
+\(H_x = \dfrac{k_z}{\omega\mu} E_y\), \quad \(H_z = 0\)\\[2mm]
+Esta relación es importante porque es la que vamos a usar en las \textbf{condiciones de frontera} 
+cuando pongamos interfaces entre distintos medios.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Sección: Three-layer structure and boundary conditions}
+
+\noindent
+\textbf{Diapositiva: Three-layer dielectric structure}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Ahora pasamos a una geometría muy utilizada en óptica: una \textbf{estructura de tres capas planas}.\\[2mm]
+La idea es la siguiente:\\[1mm]
+\(\bullet\) Medio I: \(z<0\), con índice de refracción \(n_1\)\\
+\(\bullet\) Medio II: \(0<z<d\), con índice \(n_2\) (la capa central)\\
+\(\bullet\) Medio III: \(z>d\), otra vez índice \(n_1\)\\[2mm]
+Tomamos otra vez incidencia normal y polarización TE, así que seguimos con\\[1mm]
+\(\vec{E} = (0,E_y,0)\), \quad \(\vec{H} = (H_x,0,0)\)\\[2mm]
+En cada región escribimos el campo tangencial \(E_y\) como \textbf{suma de ondas planas}:\\[1mm]
+\(\text{Región I: } E_y^{(I)}(z) = A\,e^{i k_{1z} z} + B\,e^{-i k_{1z} z}\)\\
+\(\text{Región II: } E_y^{(II)}(z) = C\,e^{i k_{2z} z} + D\,e^{-i k_{2z} z}\)\\
+\(\text{Región III: } E_y^{(III)}(z) = F\,e^{i k_{1z} z}\)\\[2mm]
+donde los coeficientes representan la onda incidente, la reflejada, las ondas internas 
+y la transmitida. Esta es precisamente la construcción que pide el \textbf{Problema 3}.
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Diapositiva: Jackson's boundary conditions}\\[2mm]
+\textit{Guión:}\\[2mm]
+
+\begin{quote}
+Para conectar lo que pasa en cada capa usamos las \textbf{condiciones de frontera de Jackson}. 
+En general, si no hay carga superficial \(\sigma\) ni corriente superficial \(\vec{K}\), se cumple que:\\[1mm]
+\(\bullet\) La componente normal de \(\vec{D}\) es continua\\
+\(\bullet\) La componente normal de \(\vec{B}\) es continua\\
+\(\bullet\) La componente tangencial de \(\vec{E}\) es continua\\
+\(\bullet\) La componente tangencial de \(\vec{H}\) es continua\\[2mm]
+En nuestra geometría, la normal es \(\hat{z}\), así que las componentes \textbf{tangenciales} 
+son \(E_y\) y \(H_x\). Esto significa que en \(z=0\) debemos imponer\\[1mm]
+\(E_y^{(I)}(0) = E_y^{(II)}(0)\), \quad \(H_x^{(I)}(0) = H_x^{(II)}(0)\)\\[2mm]
+y en \(z=d\)\\[1mm]
+\(E_y^{(II)}(d) = E_y^{(III)}(d)\), \quad \(H_x^{(II)}(d) = H_x^{(III)}(d)\)\\[2mm]
+Usando que \(\,H_x = \dfrac{k_z}{\omega\mu} E_y\), estas condiciones se convierten en un 
+\textbf{sistema de cuatro ecuaciones} que relacionan las amplitudes \(A,B,C,D,F\). Ese sistema 
+es el que nos permite obtener los coeficientes de reflexión y transmisión, así como el campo 
+dentro de la capa central. Esa es la esencia de los \textbf{Problemas 3 y 4}.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Section: TE slab waveguide (Pochi Yeh)}
+
+\noindent
+\textbf{Slide: Symmetric slab waveguide}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+Based on the experience with the three-layer system, we now move on to a 
+\textbf{symmetric planar (slab) waveguide}.\\[2mm]
+The picture is that of a \textbf{sandwich}:\\[1mm]
+\(\bullet\) In the middle lies the \textcolor{Apple Green}{core} with refractive index \(n_2\) and 
+thickness \(d\) along the \(x\)-direction.\\
+\(\bullet\) Above and below there are two \textcolor{Tarawera}{claddings} with lower refractive index 
+\(n_1\), which are regions where the field becomes evanescent.\\[2mm]
+The structure is infinite in the \(y\) and \(z\) directions; it is only finite in \(x\). 
+In the example discussed by \textbf{Pochi Yeh}, the values are chosen as\\[1mm]
+\(n_2 = 2.5\), \quad \(n_1 = 1.5\), \quad \(d = \lambda\)\\[2mm]
+The key physics here is that, due to \textbf{total internal reflection} at the boundaries 
+\(x = \pm d/2\), the wave can remain \textbf{confined} within the core and propagate along \(z\) 
+as a \textbf{guided mode}.
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Slide: TE mode profiles and eigenvalue equations}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+To describe these TE modes we write the field as\\[1mm]
+\(E_y(x,z,t) = E_m(x)\,e^{i(\omega t - \beta z)}\)\\[2mm]
+where \(E_m(x)\) is the \textbf{transverse profile} of mode number \(m\), and \(\beta\) is the 
+\textbf{propagation constant} along \(z\).\\[2mm]
+The form of \(E_m(x)\) is different in the core and in the claddings:\\[1mm]
+\(\bullet\) In the core \(|x|<d/2\), the field is \textbf{oscillatory} (a combination of sines and cosines).\\
+\(\bullet\) In the claddings \(|x|>d/2\), the field is \textbf{evanescent}, that is, it decays as 
+exponentials of the type \(e^{-q(|x|-d/2)}\).\\[2mm]
+By imposing the continuity of \(E_y\) and its derivative (related to \(H_z\)) at \(x = \pm d/2\), 
+two families of solutions appear:\\[1mm]
+\(\bullet\) \textbf{Even TE modes}: the profile is symmetric with respect to \(x=0\), it can be written 
+mainly in terms of \(\cos(hx)\), and they satisfy the eigenvalue equation\\[1mm]
+\(h \tan\!\left(\dfrac{h d}{2}\right) = q\)\\[2mm]
+\(\bullet\) \textbf{Odd TE modes}: the profile is antisymmetric (it changes sign when crossing \(x=0\)), 
+it is written in terms of \(\sin(hx)\), and they satisfy\\[1mm]
+\(h \cot\!\left(\dfrac{h d}{2}\right) = -q\)\\[2mm]
+These two equations determine which values of \(\beta\) (and therefore of \(h\) and \(q\)) are allowed 
+for the waveguide; that is, they determine the \textbf{guided modes}.
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Slide: Effective indices for the first four TE modes}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+If we apply these equations to Yeh’s example, with \(n_2 = 2.5\), \(n_1 = 1.5\), and \(d = \lambda\), 
+we find that the waveguide supports \textbf{four guided TE modes}, which we label as 
+\(m = 0,1,2,3\).\\[2mm]
+For each mode, we define the \textbf{effective index} as\\[1mm]
+\(\bar{\beta}_m = \dfrac{\beta_m}{k_0}\), \quad with \(k_0 = \omega/c\)\\[2mm]
+and it must satisfy\\[1mm]
+\(n_1 < \bar{\beta}_m < n_2\)\\[2mm]
+This means that each mode “sees” an intermediate index between that of the core and that of the 
+claddings. From \(\bar{\beta}_m\) we compute the transverse parameters\\[1mm]
+\(h_m = k_0\sqrt{n_2^{2} - \bar{\beta}_m^{\,2}}\), \quad
+\(q_m = k_0\sqrt{\bar{\beta}_m^{\,2} - n_1^{2}}\)\\[2mm]
+These \(h_m\) and \(q_m\) control, respectively, how the field oscillates in the core and how it 
+decays in the claddings. With these values we can now construct \(E_m(x)\) and move on to the 
+numerical part.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Section: Numerical TE mode patterns}
+
+\noindent
+\textbf{Slide: Numerical simulation setup}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+To visualize the TE modes we carry everything into a \textbf{numerical simulation} in Python using 
+\texttt{matplotlib}.\\[2mm]
+For each mode \(m\), we take the field\\[1mm]
+\(E_y^{(m)}(x,z,t) = E_m(x)\,e^{i(\omega t - \beta_m z)}\)\\[2mm]
+and plot its \textbf{real part} at a fixed time \(t_0\):\\[1mm]
+\(\text{Re}[E_y^{(m)}(x,z,t_0)] = E_m(x)\cos(\beta_m z)\)\\[2mm]
+We build a mesh in the \((x,z)\) plane with, for instance,\\[1mm]
+\(x \in [-d,d]\), \quad \(z \in [0,3d]\)\\[2mm]
+and we use a \textbf{color palette} based on the same tones of the project 
+(Tarawera, Apple Green, etc.), keeping the \textbf{same scale} for all modes, 
+so that their amplitudes can be directly compared.
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Slide: TE slab modes: field patterns}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+In this figure we show the \textbf{spatial patterns} of \(\text{Re}[E_y(x,z)]\) for the 
+\textbf{first four guided TE modes} of the symmetric planar (slab) waveguide.\\[2mm]
+The dashed vertical lines indicate the \textbf{core boundaries} at \(x = \pm d/2\); 
+everything outside corresponds to the cladding.\\[2mm]
+Warm colors (close to \textcolor{Sun}{yellow/orange}) represent \textbf{positive} field values, 
+while dark tones (towards \textcolor{trueblue}{deep blue}) indicate \textbf{negative} values. 
+In this way we can see, at a glance, where the maxima and nodes of each mode are located.
+\end{quote}
+
+\vspace{0.4cm}
+
+\noindent
+\textbf{Slide: Reading the figure: confinement and symmetry}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+By observing the figures we can make several physical interpretations:\\[2mm]
+\(\bullet\) First, we see that the field is \textbf{strongly confined} near the core. 
+In the claddings the amplitude decays rapidly, as expected for an evanescent field produced by 
+\textbf{total internal reflection}.\\[2mm]
+\(\bullet\) Second, as the modal index \(m\) increases, more \textbf{nodes} appear in the \(x\) 
+direction. This means that the field structure becomes more complicated: these are the 
+\textbf{higher-order modes}.\\[2mm]
+\(\bullet\) Third, the \textbf{even} modes are symmetric with respect to \(x=0\) (the field shape is 
+the same on the left and on the right), while the \textbf{odd} modes are antisymmetric and change 
+sign when crossing the center. This is consistent with the \(\cos(hx)\) and \(\sin(hx)\) type 
+solutions.\\[2mm]
+\(\bullet\) Finally, along the \(z\)-direction the field oscillates as \(\cos(\beta_m z)\), which 
+reflects the propagation of the wave along the guide. The periodicity in \(z\) is determined by 
+the value of \(\beta_m\) for each mode.
+\end{quote}
+
+\vspace{0.8cm}
+
+%=========================================================
+\subsection*{Section: Conclusion}
+
+\noindent
+\textbf{Slide: Conclusion}\\[2mm]
+\textit{Script:}\\[2mm]
+
+\begin{quote}
+To conclude, let us briefly recap the path we have followed:\\[2mm]
+\(\bullet\) We started from the \textcolor{Apple Green}{Maxwell equations} for a 
+\textbf{dielectric medium} and, through the curl and a vector identity, we arrived at the 
+\textbf{wave equation} and at the \textbf{dispersion relation} 
+\(k^2 = \mu\varepsilon\,\omega^2\).\\[2mm]
+\(\bullet\) We then focused on the \textbf{TE polarization}, writing \(\vec{E}\) and \(\vec{H}\) 
+explicitly and obtaining clear relations among \(E_y\), \(H_x\), and \(H_z\).\\[2mm]
+\(\bullet\) On this basis, we analyzed a \textbf{three-layer structure}, applying 
+\textbf{Jackson’s boundary conditions} to construct a system of equations that connects the 
+incident, reflected, transmitted waves, and the waves in the intermediate layer.\\[2mm]
+\(\bullet\) Next, we moved on to the \textbf{symmetric planar (slab) waveguide} of 
+\textbf{Pochi Yeh}, and we saw how the \textbf{even and odd TE modes} arise from eigenvalue equations 
+such as \(h\tan(hd/2) = q\) and \(h\cot(hd/2) = -q\).\\[2mm]
+\(\bullet\) Finally, we used these results to \textbf{numerically simulate and visualize} the first 
+four guided TE modes, observing the \textbf{field confinement}, the 
+\textbf{even/odd symmetry}, and the appearance of nodes as the mode order increases.\\[3mm]
+Altogether, the message is that Maxwell’s equations, together with a few boundary conditions, 
+allow us to predict in considerable detail \textbf{how the electric field is distributed} in a 
+real waveguide.\\[2mm]
+\textbf{Thank you very much for your attention.}
+\end{quote}
+
+
+
+\end{document}

@@ -1,0 +1,695 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+
+
+\begin{document}
+
+
+
+\section{Solución al Problema 4.6: Dinámica Lagrangiana y Hamiltoniana}
+
+\section*{Enunciado}
+Una partícula de masa $m$ se mueve sobre el eje real bajo la influencia de una fuerza $F = (\beta\dot{x} + \alpha t)\hat{x}$. El objetivo es determinar el potencial generalizado, la Lagrangiana, el Hamiltoniano y las ecuaciones de Hamilton.
+
+\section*{Ecuación de Movimiento (Newton)}
+
+En primer lugar, se establece la ecuación de movimiento basándose en la Segunda Ley de Newton ($F = ma$):
+\begin{equation}
+    m\ddot{x} = \beta\dot{x} + \alpha t
+\end{equation}
+
+Reordenando la ecuación para agrupar todos los términos en un solo lado de la igualdad, se obtiene:
+\begin{equation}
+    m\ddot{x} - \beta\dot{x} - \alpha t = 0
+    \label{eq:newton_zero}
+\end{equation}
+
+\subsection*{Análisis del sistema}
+\begin{itemize}
+    \item El término $-\beta\dot{x}$ en la ecuación reordenada (o $+\beta\dot{x}$ en la fuerza original) actúa como una ``fricción negativa'' o fuerza impulsora proporcional a la velocidad.
+    \item El término $-\alpha t$ representa una fuerza externa dependiente del tiempo.
+\end{itemize}
+
+\textbf{Nota Importante:} En mecánica clásica, las fuerzas disipativas (o aquellas dependientes linealmente de la velocidad) no se pueden derivar de un potencial escalar estándar $U(x)$ ni de un potencial generalizado simple $U(x, \dot{x})$ en la forma usual $L=T-U$. Para resolver esta limitación, se utiliza el método de \textit{Caldirola-Kanai}, el cual introduce un factor exponencial dependiente del tiempo en la Lagrangiana.
+
+\section*{Construcción de la Lagrangiana ($L$)}
+
+Se busca una función Lagrangiana $L$ tal que la ecuación de Euler-Lagrange,
+\[
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{x}}\right) - \frac{\partial L}{\partial x} = 0,
+\]
+reproduzca la ecuación de Newton multiplicada por un factor integrante $f(t)$.
+
+Se propone un factor exponencial de la forma $e^{\lambda t}$. La ecuación objetivo se convierte en:
+\begin{equation}
+    e^{\lambda t}(m\ddot{x} - \beta\dot{x} - \alpha t) = 0
+\end{equation}
+
+A continuación, comparamos esta expresión con la derivada temporal del momento canónico:
+\[
+\frac{d}{dt}(m\dot{x}e^{\lambda t}) = m\ddot{x}e^{\lambda t} + m\lambda\dot{x}e^{\lambda t} = e^{\lambda t}(m\ddot{x} + m\lambda\dot{x})
+\]
+
+Para que el término de velocidad coincida con el de la ecuación de movimiento ($m\lambda = -\beta$), es necesario elegir:
+\begin{equation}
+    \lambda = -\frac{\beta}{m}
+\end{equation}
+
+De este modo, la Lagrangiana propuesta tendrá la estructura:
+\begin{equation}
+    L(x, \dot{x}, t) = e^{-\frac{\beta}{m}t} \left( \frac{1}{2}m\dot{x}^2 - V(x,t) \right)
+\end{equation}
+
+Ahora se procede a determinar la función $V(x,t)$ para recuperar el término de fuerza restante ($-\alpha t$). La ecuación de Euler-Lagrange para esta $L$ es:
+\begin{align*}
+    e^{-\frac{\beta}{m}t}(m\ddot{x} - \beta\dot{x}) + \frac{\partial (e^{-\frac{\beta}{m}t} V)}{\partial x} &= 0 \\
+    e^{-\frac{\beta}{m}t}(m\ddot{x} - \beta\dot{x}) + e^{-\frac{\beta}{m}t} \frac{\partial V}{\partial x} &= 0
+\end{align*}
+
+Dividiendo toda la expresión por la exponencial:
+\[
+m\ddot{x} - \beta\dot{x} + \frac{\partial V}{\partial x} = 0
+\]
+
+Se requiere que esta ecuación sea equivalente a $m\ddot{x} - \beta\dot{x} - \alpha t = 0$. Por lo tanto:
+\[
+\frac{\partial V}{\partial x} = -\alpha t \implies V(x,t) = -\alpha t x
+\]
+
+\paragraph{Resultado (Lagrangiana):} Sustituyendo $V(x,t)$ en la expresión propuesta, se obtiene la Lagrangiana final:
+\begin{equation}
+    L = e^{-\frac{\beta}{m}t} \left( \frac{1}{2}m\dot{x}^2 + \alpha t x \right)
+\end{equation}
+
+\textit{Nota sobre el ``Potencial Generalizado'':} En este formalismo, no existe un $U$ independiente tal que $L=T-U$ en el sentido clásico. El ``potencial'' efectivo que genera la dinámica es la función completa $V_{eff} = -e^{-\frac{\beta}{m}t} \alpha t x$ junto con la modificación de la métrica temporal en la energía cinética.
+
+\section*{El Hamiltoniano ($H$)}
+
+Para encontrar el Hamiltoniano, primero calculamos el momento generalizado $p$:
+\begin{equation}
+    p = \frac{\partial L}{\partial \dot{x}} = \frac{\partial}{\partial \dot{x}} \left( \frac{1}{2}m\dot{x}^2 e^{-\frac{\beta}{m}t} \right) = m\dot{x} e^{-\frac{\beta}{m}t}
+\end{equation}
+
+Despejando la velocidad $\dot{x}$ en términos de $p$:
+\begin{equation}
+    \dot{x} = \frac{p}{m} e^{\frac{\beta}{m}t}
+    \label{eq:x_dot_p}
+\end{equation}
+
+Ahora se construye el Hamiltoniano utilizando la transformación de Legendre $H = p\dot{x} - L$. Sustituyendo $\dot{x}$:
+\begin{equation}
+    H = p \left( \frac{p}{m} e^{\frac{\beta}{m}t} \right) - e^{-\frac{\beta}{m}t} \left( \frac{1}{2}m \left( \frac{p}{m} e^{\frac{\beta}{m}t} \right)^2 + \alpha t x \right)
+\end{equation}
+
+Simplificamos la expresión paso a paso:
+\begin{itemize}
+    \item Término $p\dot{x}$:
+    \[ \frac{p^2}{m} e^{\frac{\beta}{m}t} \]
+    \item Término Lagrangiano (Cinético):
+    \[ - e^{-\frac{\beta}{m}t} \frac{1}{2}m \frac{p^2}{m^2} e^{2\frac{\beta}{m}t} = - \frac{p^2}{2m} e^{\frac{\beta}{m}t} \]
+    \item Término Lagrangiano (Potencial):
+    \[ - e^{-\frac{\beta}{m}t} (\alpha t x) = - \alpha t x e^{-\frac{\beta}{m}t} \]
+\end{itemize}
+
+Sumando todos los componentes:
+\[
+H(x, p, t) = \left( \frac{p^2}{m} - \frac{p^2}{2m} \right) e^{\frac{\beta}{m}t} - \alpha t x e^{-\frac{\beta}{m}t}
+\]
+
+\paragraph{Resultado (Hamiltoniano):}
+\begin{equation}
+    H = \frac{p^2}{2m} e^{\frac{\beta}{m}t} - \alpha t x e^{-\frac{\beta}{m}t}
+\end{equation}
+
+\section*{Ecuaciones de Hamilton}
+
+Las ecuaciones de movimiento en el formalismo Hamiltoniano se derivan de la siguiente manera:
+
+Ecuación para $\dot{x}$:
+\begin{equation}
+    \dot{x} = \frac{\partial H}{\partial p} = \frac{\partial}{\partial p} \left( \frac{p^2}{2m} e^{\frac{\beta}{m}t} \right) = \frac{p}{m} e^{\frac{\beta}{m}t}
+\end{equation}
+
+Ecuación para $\dot{p}$:
+\begin{equation}
+    \dot{p} = -\frac{\partial H}{\partial x} = -\frac{\partial}{\partial x} \left( -\alpha t x e^{-\frac{\beta}{m}t} \right) = -(-\alpha t e^{-\frac{\beta}{m}t}) = \alpha t e^{-\frac{\beta}{m}t}
+    \label{eq:p_dot}
+\end{equation}
+
+\section*{Comprobacion}
+
+Para verificar la consistencia de los resultados, comprobamos si estas ecuaciones devuelven la ley de Newton original.
+Tomamos la derivada temporal de la ecuación obtenida para $\dot{x}$:
+\begin{align*}
+    \ddot{x} &= \frac{d}{dt} \left( \frac{p}{m} e^{\frac{\beta}{m}t} \right) \\
+    \ddot{x} &= \frac{\dot{p}}{m} e^{\frac{\beta}{m}t} + \frac{p}{m} \left( \frac{\beta}{m} e^{\frac{\beta}{m}t} \right)
+\end{align*}
+
+Sustituimos $\dot{p}$ (de la Ecuación \ref{eq:p_dot}) y $p$ (despejando de la Ecuación \ref{eq:x_dot_p}, donde $\frac{p}{m} = \dot{x} e^{-\frac{\beta}{m}t}$):
+\begin{itemize}
+    \item Sabemos que $\dot{p} = \alpha t e^{-\frac{\beta}{m}t}$.
+\end{itemize}
+
+Sustituyendo en la expresión de $\ddot{x}$:
+\[
+\ddot{x} = \frac{1}{m} (\alpha t e^{-\frac{\beta}{m}t}) e^{\frac{\beta}{m}t} + \frac{\beta}{m} (\dot{x})
+\]
+\[
+\ddot{x} = \frac{\alpha t}{m} + \frac{\beta}{m} \dot{x}
+\]
+
+Multiplicando toda la ecuación por $m$:
+\begin{equation}
+    m\ddot{x} = \alpha t + \beta \dot{x}
+\end{equation}
+
+Esta es exactamente la fuerza dada en el enunciado $F = (\beta\dot{x} + \alpha t)$. 
+
+
+\section{Solución al Problema 4.7: El Problema de Kepler en el Formalismo Hamiltoniano}
+
+
+\section*{Determinación del Hamiltoniano ($H$)}
+
+\subsection*{Coordenadas y Lagrangiana}
+
+Debido a la simetría esférica del potencial $U(r) = -k/r$, es conveniente utilizar coordenadas esféricas $(r, \theta, \phi)$.
+La Lagrangiana del sistema se define como $L = T - U$. Expresando la energía cinética en estas coordenadas, se plantea:
+
+\begin{equation}
+    L = \frac{m}{2}(\dot{r}^2 + r^2\dot{\theta}^2 + r^2\sin^2\theta\dot{\phi}^2) + \frac{k}{r}
+\end{equation}
+
+\subsection*{Momentos Generalizados}
+
+A continuación, calculamos los momentos conjugados definidos por $p_i = \partial L / \partial \dot{q}_i$ para cada coordenada y despejamos las velocidades generalizadas:
+
+\begin{align}
+    p_r &= \frac{\partial L}{\partial \dot{r}} = m\dot{r} \implies \dot{r} = \frac{p_r}{m} \\
+    p_\theta &= \frac{\partial L}{\partial \dot{\theta}} = mr^2\dot{\theta} \implies \dot{\theta} = \frac{p_\theta}{mr^2} \\
+    p_\phi &= \frac{\partial L}{\partial \dot{\phi}} = mr^2\sin^2\theta\dot{\phi} \implies \dot{\phi} = \frac{p_\phi}{mr^2\sin^2\theta}
+\end{align}
+
+\subsection*{Construcción del Hamiltoniano}
+
+Dado que el sistema es conservativo y las coordenadas no dependen explícitamente del tiempo, el Hamiltoniano $H$ corresponde a la energía total expresada en términos de los momentos y las coordenadas ($H = T + U$).
+Sustituyendo las velocidades por sus expresiones en función de los momentos, obtenemos:
+
+\begin{equation}
+    H(r, \theta, \phi, p_r, p_\theta, p_\phi) = \frac{1}{2m}\left( p_r^2 + \frac{p_\theta^2}{r^2} + \frac{p_\phi^2}{r^2\sin^2\theta} \right) - \frac{k}{r}
+\end{equation}
+
+\section*{Ecuaciones de Hamilton}
+
+Las ecuaciones canónicas de movimiento están dadas por $\dot{q}_i = \frac{\partial H}{\partial p_i}$ y $\dot{p}_i = -\frac{\partial H}{\partial q_i}$. Aplicando esto a cada par conjugado:
+
+\paragraph{Para la coordenada $r$:}
+\begin{align}
+    \dot{r} &= \frac{p_r}{m} \\
+    \dot{p}_r &= -\frac{\partial H}{\partial r} = \frac{p_\theta^2}{mr^3} + \frac{p_\phi^2}{mr^3\sin^2\theta} - \frac{k}{r^2}
+\end{align}
+
+\paragraph{Para la coordenada $\theta$:}
+\begin{align}
+    \dot{\theta} &= \frac{p_\theta}{mr^2} \\
+    \dot{p}_\theta &= -\frac{\partial H}{\partial \theta} = \frac{p_\phi^2 \cos\theta}{mr^2\sin^3\theta}
+\end{align}
+
+\paragraph{Para la coordenada $\phi$:}
+\begin{align}
+    \dot{\phi} &= \frac{p_\phi}{mr^2\sin^2\theta} \\
+    \dot{p}_\phi &= -\frac{\partial H}{\partial \phi} = 0 \label{eq:p_phi_dot}
+\end{align}
+
+\section*{Constantes de Movimiento}
+
+A partir de las ecuaciones de Hamilton y observando la estructura de $H$, identificamos las siguientes constantes:
+
+\begin{enumerate}
+    \item \textbf{Momento Angular Azimutal ($p_\phi$):}
+    De la ecuación \eqref{eq:p_phi_dot}, vemos que $\dot{p}_\phi = 0$, por lo que:
+    \[ p_\phi = \text{constante} \]
+    Esto ocurre porque $\phi$ es una coordenada cíclica en $H$.
+
+    \item \textbf{Energía Total ($E$):}
+    Como $H$ no depende explícitamente del tiempo ($\partial H / \partial t = 0$), el Hamiltoniano se conserva:
+    \[ H = E = \text{constante} \]
+
+    \item \textbf{Momento Angular Total ($L^2$):}
+    La cantidad $L^2 = p_\theta^2 + \frac{p_\phi^2}{\sin^2\theta}$ es una constante de movimiento, propiedad característica de las fuerzas centrales.
+\end{enumerate}
+
+\section*{Determinación de las Trayectorias}
+
+Para resolver la trayectoria analíticamente, simplificamos el problema utilizando la conservación del momento angular. Sabemos que el movimiento ocurre en un plano fijo. Elegimos el sistema de coordenadas de tal manera que el plano del movimiento coincida con el plano ecuatorial ($\theta = \pi/2$).
+
+\subsection*{Restricciones del plano}
+Al fijar $\theta = \pi/2$, tenemos:
+\begin{itemize}
+    \item $\sin\theta = 1, \quad \cos\theta = 0$.
+    \item $p_\theta = 0$ (ya que no hay movimiento en $\theta$).
+    \item El momento angular constante se denota como $l = p_\phi$.
+\end{itemize}
+
+\subsection*{Hamiltoniano reducido y ecuación de órbita}
+El Hamiltoniano reducido al plano queda expresado como:
+\begin{equation}
+    H = \frac{1}{2m}\left( p_r^2 + \frac{l^2}{r^2} \right) - \frac{k}{r} = E
+\end{equation}
+
+Despejamos el momento radial $p_r$ de la ecuación de energía:
+\begin{equation}
+    p_r = \pm \sqrt{2m\left(E + \frac{k}{r}\right) - \frac{l^2}{r^2}}
+\end{equation}
+
+Usamos ahora la relación geométrica para eliminar la dependencia temporal. Sabemos que $p_r = m\dot{r}$ y que $\dot{\phi} = \frac{l}{mr^2}$. Aplicamos la regla de la cadena:
+\begin{equation}
+    p_r = m \frac{dr}{dt} = m \frac{dr}{d\phi} \frac{d\phi}{dt} = m \frac{dr}{d\phi} \frac{l}{mr^2} = \frac{l}{r^2} \frac{dr}{d\phi}
+\end{equation}
+
+Igualamos las dos expresiones obtenidas para $p_r$:
+\begin{equation}
+    \frac{l}{r^2} \frac{dr}{d\phi} = \sqrt{2mE + \frac{2mk}{r} - \frac{l^2}{r^2}}
+\end{equation}
+
+Separamos variables e integramos (utilizando el cambio de variable $u = 1/r$):
+\begin{equation}
+    \phi - \phi_0 = \int \frac{l/r^2 dr}{\sqrt{2mE + \frac{2mk}{r} - \frac{l^2}{r^2}}} = -\int \frac{du}{\sqrt{\frac{2mE}{l^2} + \frac{2mk}{l^2}u - u^2}}
+\end{equation}
+
+Esta es una integral estándar cuya solución corresponde a un arcoseno (o arcocoseno), lo que nos lleva directamente a la ecuación de una cónica:
+\begin{equation}
+    \frac{1}{r} = \frac{mk}{l^2} \left( 1 + e \cos(\phi - \phi_0) \right)
+\end{equation}
+
+Donde la excentricidad está dada por:
+\begin{equation}
+    e = \sqrt{1 + \frac{2El^2}{mk^2}}
+\end{equation}
+
+\paragraph{Conclusión:}
+Las trayectorias obtenidas son secciones cónicas (elipses, parábolas o hipérbolas) determinadas por los valores de la energía $E$ y el momento angular $l$.
+
+\section{Solución al Problema 4.8}
+
+
+\section*{Definición de Coordenadas y Posiciones}
+
+Se trabaja en el plano $yz$ (donde $x=0$). Para describir el sistema, definimos las siguientes dos coordenadas generalizadas:
+\begin{itemize}
+    \item $\theta$: Ángulo del centro de la barra (CM) con respecto a la vertical negativa ($-\hat{z}$).
+    \item $\phi$: Ángulo de la barra con respecto a la vertical.
+\end{itemize}
+
+Las coordenadas del centro de la barra $(y_{cm}, z_{cm})$ están dadas por:
+\begin{equation}
+    y_{cm} = a \sin \theta, \quad z_{cm} = -a \cos \theta
+\end{equation}
+
+Las posiciones de las dos masas ($m_1$ y $m_2$), situadas a una distancia $l/2$ del centro en direcciones opuestas, se definen como sigue:
+
+\paragraph{Para la masa 1:}
+\begin{align}
+    y_1 &= y_{cm} + \frac{l}{2} \sin \phi = a \sin \theta + \frac{l}{2} \sin \phi \\
+    z_1 &= z_{cm} - \frac{l}{2} \cos \phi = -a \cos \theta - \frac{l}{2} \cos \phi
+\end{align}
+
+\paragraph{Para la masa 2:}
+\begin{align}
+    y_2 &= y_{cm} - \frac{l}{2} \sin \phi = a \sin \theta - \frac{l}{2} \sin \phi \\
+    z_2 &= z_{cm} + \frac{l}{2} \cos \phi = -a \cos \theta + \frac{l}{2} \cos \phi
+\end{align}
+
+\section*{Cálculo de la Energía Cinética ($T$)}
+
+Para obtener la energía cinética total, calculamos la velocidad al cuadrado para cada masa ($v^2 = \dot{y}^2 + \dot{z}^2$).
+
+\subsection*{Velocidades de la masa 1}
+Derivamos las posiciones con respecto al tiempo:
+\begin{align}
+    \dot{y}_1 &= a \dot{\theta} \cos \theta + \frac{l}{2} \dot{\phi} \cos \phi \\
+    \dot{z}_1 &= a \dot{\theta} \sin \theta + \frac{l}{2} \dot{\phi} \sin \phi
+\end{align}
+
+Elevamos al cuadrado y sumamos ambas componentes:
+\begin{equation}
+    v_1^2 = \left(a \dot{\theta} \cos \theta + \frac{l}{2} \dot{\phi} \cos \phi\right)^2 + \left(a \dot{\theta} \sin \theta + \frac{l}{2} \dot{\phi} \sin \phi\right)^2
+\end{equation}
+
+Desarrollando los binomios cuadrados:
+\[
+v_1^2 = a^2 \dot{\theta}^2 (\cos^2\theta + \sin^2\theta) + \frac{l^2}{4} \dot{\phi}^2 (\cos^2\phi + \sin^2\phi) + 2a\frac{l}{2}\dot{\theta}\dot{\phi}(\cos\theta\cos\phi + \sin\theta\sin\phi)
+\]
+
+Utilizando las identidades trigonométricas fundamentales ($\cos^2 x + \sin^2 x = 1$) y la identidad del coseno de la diferencia ($\cos(\theta-\phi)$), obtenemos:
+\begin{equation}
+    v_1^2 = a^2 \dot{\theta}^2 + \frac{l^2}{4} \dot{\phi}^2 + a l \dot{\theta} \dot{\phi} \cos(\theta - \phi)
+\end{equation}
+
+\subsection*{Velocidades de la masa 2}
+Debido a los signos menos en la posición, las derivadas resultan ser:
+\begin{align}
+    \dot{y}_2 &= a \dot{\theta} \cos \theta - \frac{l}{2} \dot{\phi} \cos \phi \\
+    \dot{z}_2 &= a \dot{\theta} \sin \theta - \frac{l}{2} \dot{\phi} \sin \phi
+\end{align}
+
+El cálculo de $v_2^2$ es idéntico al de $v_1^2$, con la diferencia de que el término cruzado ("el doble producto") tendrá un signo negativo:
+\begin{equation}
+    v_2^2 = a^2 \dot{\theta}^2 + \frac{l^2}{4} \dot{\phi}^2 - a l \dot{\theta} \dot{\phi} \cos(\theta - \phi)
+\end{equation}
+
+\subsection*{Energía Cinética Total}
+La energía cinética del sistema es la suma de las energías de ambas masas:
+\begin{equation}
+    T = \frac{1}{2} m v_1^2 + \frac{1}{2} m v_2^2 = \frac{1}{2} m (v_1^2 + v_2^2)
+\end{equation}
+
+Al sumar $v_1^2 + v_2^2$, los términos cruzados $+al\dots$ y $-al\dots$ se cancelan mutuamente:
+\[
+v_1^2 + v_2^2 = 2(a^2 \dot{\theta}^2) + 2\left(\frac{l^2}{4} \dot{\phi}^2\right) = 2a^2 \dot{\theta}^2 + \frac{l^2}{2} \dot{\phi}^2
+\]
+
+Sustituyendo este resultado en la expresión de $T$:
+\begin{align}
+    T &= \frac{1}{2} m \left( 2a^2 \dot{\theta}^2 + \frac{l^2}{2} \dot{\phi}^2 \right) \nonumber \\
+    T &= m a^2 \dot{\theta}^2 + \frac{1}{4} m l^2 \dot{\phi}^2
+\end{align}
+
+\section*{Cálculo de la Energía Potencial ($U$)}
+
+La energía potencial total es la suma de las energías potenciales gravitatorias de cada masa ($U = m g z$):
+\begin{equation}
+    U = m g z_1 + m g z_2 = m g (z_1 + z_2)
+\end{equation}
+
+Sustituimos las expresiones de las alturas $z_1$ y $z_2$:
+\[
+z_1 + z_2 = \left(-a \cos \theta - \frac{l}{2} \cos \phi\right) + \left(-a \cos \theta + \frac{l}{2} \cos \phi\right)
+\]
+
+Al simplificar, observamos que los términos que contienen $\phi$ se cancelan:
+\[
+z_1 + z_2 = -2a \cos \theta
+\]
+
+Por lo tanto, la energía potencial es:
+\begin{equation}
+    U = -2 m g a \cos \theta
+\end{equation}
+
+\section*{La Lagrangiana ($L$)}
+
+Definimos la Lagrangiana como $L = T - U$. Sustituyendo los resultados previos:
+\begin{equation}
+    L = m a^2 \dot{\theta}^2 + \frac{1}{4} m l^2 \dot{\phi}^2 + 2 m g a \cos \theta
+\end{equation}
+
+\section*{El Hamiltoniano ($H$)}
+
+Para transitar al formalismo Hamiltoniano, calculamos primero los momentos generalizados:
+\begin{align}
+    p_\theta &= \frac{\partial L}{\partial \dot{\theta}} = 2 m a^2 \dot{\theta} \implies \dot{\theta} = \frac{p_\theta}{2 m a^2} \\
+    p_\phi &= \frac{\partial L}{\partial \dot{\phi}} = \frac{1}{2} m l^2 \dot{\phi} \implies \dot{\phi} = \frac{2 p_\phi}{m l^2}
+\end{align}
+
+Construimos el Hamiltoniano. Dado que el sistema es conservativo, $H = T + U$ (expresado en términos de los momentos y coordenadas):
+\begin{equation}
+    H = m a^2 \left( \frac{p_\theta}{2 m a^2} \right)^2 + \frac{1}{4} m l^2 \left( \frac{2 p_\phi}{m l^2} \right)^2 - 2 m g a \cos \theta
+\end{equation}
+
+Simplificando la expresión:
+\begin{equation}
+    H = \frac{p_\theta^2}{4 m a^2} + \frac{p_\phi^2}{m l^2} - 2 m g a \cos \theta
+\end{equation}
+
+\section*{Ecuaciones de Hamilton}
+
+Finalmente, aplicamos las ecuaciones canónicas $\dot{q} = \frac{\partial H}{\partial p}$ y $\dot{p} = -\frac{\partial H}{\partial q}$.
+
+\paragraph{Para la coordenada $\theta$:}
+\begin{align}
+    \dot{\theta} &= \frac{p_\theta}{2 m a^2} \\
+    \dot{p}_\theta &= -\frac{\partial H}{\partial \theta} = -\frac{\partial}{\partial \theta}(-2mga \cos \theta) = -2mga \sin \theta
+\end{align}
+
+\paragraph{Para la coordenada $\phi$:}
+\begin{align}
+    \dot{\phi} &= \frac{2 p_\phi}{m l^2} \\
+    \dot{p}_\phi &= -\frac{\partial H}{\partial \phi} = 0
+\end{align}
+
+\section{Solución del Problema 4.9: Invariancia de las Ecuaciones de Hamilton}
+
+
+\section*{Definición de la Nueva Lagrangiana}
+
+Partimos de la Lagrangiana modificada presentada en la Ecuación:
+\begin{equation}
+    \mathcal{L}_{H}^{\prime}(q, p, \dot{q}, \dot{p}, t) = \mathcal{L}_{H} + \frac{dF(q, p, t)}{dt}
+    \label{eq:LH_prime}
+\end{equation}
+
+Donde la Lagrangiana original del espacio fase está dada por la Ecuación:
+\begin{equation}
+    \mathcal{L}_{H} = p\dot{q} - H(q, p, t)
+\end{equation}
+
+Procedemos a expandir la derivada total $\frac{dF}{dt}$ utilizando la regla de la cadena:
+\begin{equation}
+    \frac{dF}{dt} = \frac{\partial F}{\partial q}\dot{q} + \frac{\partial F}{\partial p}\dot{p} + \frac{\partial F}{\partial t}
+\end{equation}
+
+Sustituyendo esta expresión en $\mathcal{L}_{H}^{\prime}$, obtenemos la forma explícita de la nueva Lagrangiana:
+\begin{equation}
+    \mathcal{L}_{H}^{\prime} = p\dot{q} - H(q, p, t) + \frac{\partial F}{\partial q}\dot{q} + \frac{\partial F}{\partial p}\dot{p} + \frac{\partial F}{\partial t}
+\end{equation}
+
+A continuación, aplicamos las ecuaciones de Euler-Lagrange a las variables $q$ y $p$ por separado para encontrar las ecuaciones de movimiento.
+
+\section*{Ecuación de Movimiento para la coordenada $q$}
+
+La ecuación de Euler-Lagrange para la coordenada $q$ es:
+\begin{equation}
+    \frac{d}{dt}\left( \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial \dot{q}} \right) - \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial q} = 0
+\end{equation}
+
+\subsection*{Paso A: Derivada respecto a $\dot{q}$}
+Observamos la expresión de $\mathcal{L}_{H}^{\prime}$. Los términos que dependen explícitamente de $\dot{q}$ son $p\dot{q}$ y $\frac{\partial F}{\partial q}\dot{q}$. Derivando:
+\begin{equation}
+    \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial \dot{q}} = p + \frac{\partial F}{\partial q}
+\end{equation}
+
+\subsection*{Paso B: Derivada temporal total}
+Aplicamos el operador $\frac{d}{dt}$ al resultado anterior:
+\begin{align}
+    \frac{d}{dt}\left( p + \frac{\partial F}{\partial q} \right) &= \dot{p} + \frac{d}{dt}\left( \frac{\partial F}{\partial q} \right) \nonumber \\
+    &= \dot{p} + \left( \frac{\partial^2 F}{\partial q^2}\dot{q} + \frac{\partial^2 F}{\partial p \partial q}\dot{p} + \frac{\partial^2 F}{\partial t \partial q} \right)
+\end{align}
+
+\subsection*{Paso C: Derivada respecto a $q$}
+Ahora derivamos $\mathcal{L}_{H}^{\prime}$ respecto a $q$. Notamos que el término $\frac{dF}{dt}$ depende implícitamente de $q$ a través de las derivadas parciales de $F$:
+\begin{align}
+    \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial q} &= -\frac{\partial H}{\partial q} + \frac{\partial}{\partial q}\left( \frac{dF}{dt} \right) \nonumber \\
+    &= -\frac{\partial H}{\partial q} + \frac{\partial}{\partial q}\left( \frac{\partial F}{\partial q}\dot{q} + \frac{\partial F}{\partial p}\dot{p} + \frac{\partial F}{\partial t} \right) \nonumber \\
+    &= -\frac{\partial H}{\partial q} + \left( \frac{\partial^2 F}{\partial q^2}\dot{q} + \frac{\partial^2 F}{\partial q \partial p}\dot{p} + \frac{\partial^2 F}{\partial q \partial t} \right)
+\end{align}
+
+\subsection*{Paso D: Restar (Paso B - Paso C)}
+Al restar las expresiones obtenidas en el Paso B y el Paso C, imponemos la condición igual a cero:
+\begin{equation}
+    \left[ \dot{p} + \dots \right] - \left[ -\frac{\partial H}{\partial q} + \dots \right] = 0
+\end{equation}
+
+Observamos que todos los términos que involucran segundas derivadas de $F$ son idénticos en ambos lados. entonces el orden de derivación parcial no altera el resultado ($\frac{\partial^2 F}{\partial p \partial q} = \frac{\partial^2 F}{\partial q \partial p}$). Por lo tanto, estos términos se cancelan mutuamente, quedando:
+\begin{equation}
+    \dot{p} - \left( -\frac{\partial H}{\partial q} \right) = 0 \implies \dot{p} = -\frac{\partial H}{\partial q}
+\end{equation}
+De este modo, recuperamos la segunda ecuación de Hamilton.
+
+\section*{Ecuación de Movimiento para la coordenada $p$}
+
+La ecuación de Euler-Lagrange para la coordenada $p$ es:
+\begin{equation}
+    \frac{d}{dt}\left( \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial \dot{p}} \right) - \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial p} = 0
+\end{equation}
+
+\subsection*{Paso A: Derivada respecto a $\dot{p}$}
+En $\mathcal{L}_{H}^{\prime}$, el único término que contiene $\dot{p}$ es $\frac{\partial F}{\partial p}\dot{p}$.
+\begin{equation}
+    \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial \dot{p}} = \frac{\partial F}{\partial p}
+\end{equation}
+
+\subsection*{Paso B: Derivada temporal total}
+\begin{equation}
+    \frac{d}{dt}\left( \frac{\partial F}{\partial p} \right) = \frac{\partial^2 F}{\partial q \partial p}\dot{q} + \frac{\partial^2 F}{\partial p^2}\dot{p} + \frac{\partial^2 F}{\partial t \partial p}
+\end{equation}
+
+\subsection*{Paso C: Derivada respecto a $p$}
+Derivamos $\mathcal{L}_{H}^{\prime}$ respecto a $p$. Se debe prestar atención al término $p\dot{q}$ en la Lagrangiana original:
+\begin{align}
+    \frac{\partial \mathcal{L}_{H}^{\prime}}{\partial p} &= \dot{q} - \frac{\partial H}{\partial p} + \frac{\partial}{\partial p}\left( \frac{dF}{dt} \right) \nonumber \\
+    &= \dot{q} - \frac{\partial H}{\partial p} + \left( \frac{\partial^2 F}{\partial p \partial q}\dot{q} + \frac{\partial^2 F}{\partial p^2}\dot{p} + \frac{\partial^2 F}{\partial p \partial t} \right)
+\end{align}
+
+\subsection*{Paso D: Restar (Paso B - Paso C)}
+Nuevamente, todos los términos con segundas derivadas de $F$ se cancelan exactamente con los obtenidos en el Paso B:
+\begin{equation}
+    0 - \left( \dot{q} - \frac{\partial H}{\partial p} \right) = 0
+\end{equation}
+\begin{equation}
+    -\dot{q} + \frac{\partial H}{\partial p} = 0 \implies \dot{q} = \frac{\partial H}{\partial p}
+\end{equation}
+De este modo, recuperamos la primera ecuación de Hamilton.
+
+\section*{Conclusión}
+
+Se ha demostrado que el Lagrangiano modificado $\mathcal{L}_{H}^{\prime} = \mathcal{L}_{H} + \frac{dF}{dt}$ proporciona exactamente las mismas ecuaciones de movimiento (las Ecuaciones de Hamilton) que el Lagrangiano original.
+Esto confirma que la Lagrangiana no es única.
+
+\section{Solución al Problema 4.10: El Péndulo Esférico}
+
+\section*{Definición de Coordenadas}
+
+El sistema presenta 2 grados de libertad, dado que la partícula se encuentra restringida a moverse sobre la superficie de una esfera de radio constante $r=l$.
+Para describir el movimiento, utilizamos coordenadas esféricas $(\theta, \phi)$:
+
+\begin{itemize}
+    \item $\theta$ (ángulo polar): Medido desde el eje vertical hacia abajo (eje $z$). La posición $\theta = 0$ corresponde al equilibrio estable (el punto más bajo).
+    \item $\phi$ (ángulo azimutal): Medido en el plano horizontal $xy$ desde el eje $x$.
+\end{itemize}
+
+La posición en coordenadas cartesianas se expresa como:
+\begin{align}
+    x &= l \sin\theta \cos\phi \\
+    y &= l \sin\theta \sin\phi \\
+    z &= -l \cos\theta \quad \text{(Tomando el origen en el punto de suspensió)n.}
+\end{align}
+
+\section*{La Lagrangiana ($L$)}
+
+La función Lagrangiana se define como la diferencia entre la energía cinética y la potencial: $L = T - U$.
+
+\subsection*{Energía Cinética ($T$)}
+La velocidad al cuadrado en coordenadas esféricas con radio constante ($\dot{r}=0, r=l$) está dada por:
+\begin{equation}
+    v^2 = l^2 \dot{\theta}^2 + l^2 \sin^2\theta \dot{\phi}^2
+\end{equation}
+
+Por lo tanto, la energía cinética es:
+\begin{equation}
+    T = \frac{1}{2} m v^2 = \frac{1}{2} m l^2 (\dot{\theta}^2 + \sin^2\theta \dot{\phi}^2)
+\end{equation}
+
+\subsection*{Energía Potencial ($U$)}
+ Si definimos el potencial cero en el punto de suspensión ($z=0$):
+\begin{equation}
+    U = -mgz = -mgl \cos\theta
+\end{equation}
+
+\paragraph{Resultado (Lagrangiana):}
+Sustituyendo $T$ y $U$, obtenemos:
+\begin{equation}
+    L = \frac{1}{2} m l^2 (\dot{\theta}^2 + \sin^2\theta \dot{\phi}^2) + mgl \cos\theta
+\end{equation}
+
+\section*{Momentos Generalizados}
+
+A continuación, calculamos los momentos conjugados correspondientes a las coordenadas $\theta$ y $\phi$:
+
+\paragraph{Momento $p_\theta$:}
+\begin{equation}
+    p_\theta = \frac{\partial L}{\partial \dot{\theta}} = m l^2 \dot{\theta}
+\end{equation}
+Despejando la velocidad angular $\dot{\theta}$:
+\begin{equation}
+    \dot{\theta} = \frac{p_\theta}{m l^2}
+\end{equation}
+
+\paragraph{Momento $p_\phi$:}
+\begin{equation}
+    p_\phi = \frac{\partial L}{\partial \dot{\phi}} = m l^2 \sin^2\theta \dot{\phi}
+\end{equation}
+Despejando la velocidad angular $\dot{\phi}$:
+\begin{equation}
+    \dot{\phi} = \frac{p_\phi}{m l^2 \sin^2\theta}
+\end{equation}
+
+\section*{El Hamiltoniano ($H$)}
+
+Como el sistema es conservativo y las coordenadas no dependen explícitamente del tiempo, el Hamiltoniano es igual a la energía total mecánica ($T+U$) expresada en términos de los momentos.
+\[ H = T + U \]
+
+Sustituimos las expresiones de las velocidades en la energía cinética $T$:
+\begin{align}
+    T &= \frac{1}{2} m l^2 \left[ \left(\frac{p_\theta}{m l^2}\right)^2 + \sin^2\theta \left(\frac{p_\phi}{m l^2 \sin^2\theta}\right)^2 \right] \nonumber \\
+    T &= \frac{1}{2} m l^2 \left[ \frac{p_\theta^2}{m^2 l^4} + \frac{p_\phi^2}{m^2 l^4 \sin^2\theta} \right] \nonumber \\
+    T &= \frac{p_\theta^2}{2 m l^2} + \frac{p_\phi^2}{2 m l^2 \sin^2\theta}
+\end{align}
+
+Sumamos el potencial $U = -mgl \cos\theta$:
+
+\paragraph{Resultado (Hamiltoniano):}
+\begin{equation}
+    H(\theta, \phi, p_\theta, p_\phi) = \frac{p_\theta^2}{2 m l^2} + \frac{p_\phi^2}{2 m l^2 \sin^2\theta} - mgl \cos\theta
+\end{equation}
+
+\section*{Ecuaciones de Hamilton}
+
+Las ecuaciones canónicas de movimiento se derivan a continuación:
+
+\subsection*{Para la coordenada $\theta$}
+\begin{equation}
+    \dot{\theta} = \frac{\partial H}{\partial p_\theta} \implies \dot{\theta} = \frac{p_\theta}{m l^2}
+\end{equation}
+
+Para $\dot{p}_\theta = -\frac{\partial H}{\partial \theta}$, debemos derivar los dos términos que dependen de $\theta$ (el término centrífugo y el gravitacional).
+\begin{itemize}
+    \item Derivada del término de $p_\phi$: $\frac{\partial}{\partial \theta}(\sin^{-2}\theta) = -2\sin^{-3}\theta \cos\theta$.
+    \item Derivada del potencial: $\frac{\partial}{\partial \theta}(-mgl \cos\theta) = mgl \sin\theta$.
+\end{itemize}
+
+Sustituyendo en la ecuación canónica:
+\begin{align}
+    \dot{p}_\theta &= - \left[ \frac{p_\phi^2}{2 m l^2} \left( \frac{-2 \cos\theta}{\sin^3\theta} \right) + mgl \sin\theta \right] \nonumber \\
+    \dot{p}_\theta &= \frac{p_\phi^2 \cos\theta}{m l^2 \sin^3\theta} - mgl \sin\theta
+\end{align}
+
+\subsection*{Para la coordenada $\phi$}
+\begin{equation}
+    \dot{\phi} = \frac{\partial H}{\partial p_\phi} \implies \dot{\phi} = \frac{p_\phi}{m l^2 \sin^2\theta}
+\end{equation}
+
+Para $\dot{p}_\phi = -\frac{\partial H}{\partial \phi}$, observamos que $\phi$ no aparece explícitamente en el Hamiltoniano (es una coordenada cíclica):
+\begin{equation}
+    \dot{p}_\phi = 0
+\end{equation}
+
+\section*{Resumen de Resultados e Interpretación}
+
+\textbf{Hamiltoniano:}
+\begin{equation}
+    H = \frac{1}{2ml^2}\left(p_\theta^2 + \frac{p_\phi^2}{\sin^2\theta}\right) - mgl \cos\theta
+\end{equation}
+
+\textbf{Ecuaciones de Movimiento:}
+\begin{align}
+    \dot{\theta} &= \frac{p_\theta}{ml^2} \\
+    \dot{p}_\theta &= \frac{p_\phi^2 \cos\theta}{ml^2 \sin^3\theta} - mgl \sin\theta \\
+    \dot{\phi} &= \frac{p_\phi}{ml^2 \sin^2\theta} \\
+    \dot{p}_\phi &= 0
+\end{align}
+
+\textbf{Interpretación Física:}
+La ecuación $\dot{p}_\phi = 0$ implica que $p_\phi$ (que corresponde a la componente vertical del momento angular, $L_z$) es una constante de movimiento. Esto es consecuencia directa de la simetría rotacional del sistema alrededor del eje vertical $z$.
+
+\end{document}
+

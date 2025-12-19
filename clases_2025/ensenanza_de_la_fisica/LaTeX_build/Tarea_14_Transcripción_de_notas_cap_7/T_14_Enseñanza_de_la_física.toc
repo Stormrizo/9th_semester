@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Instrucciones de la actividad}{1}{section*.1}%
+\contentsline {section}{\textcolor {Tarawera}{ \textbf { \textcolor {Mantle}{\textbf {Cap V:}} Del conocimiento cotidiano al conocimiento científico: más allá del cambio conceptual}}}{2}{section*.3}%
+\contentsline {subsection}{La hipótesis de la compatibilidad o la acumulación de saberes}{2}{section*.4}%
+\contentsline {subsection}{La hipótesis de la incompatibilidad o el cambio conceptual}{2}{section*.5}%
+\contentsline {subsection}{La hipótesis de la independencia o el uso del conocimiento según el contexto}{2}{section*.6}%
+\contentsline {subsection}{La hipótesis de la integración jerárquica o los diferentes niveles de representación y conocimiento}{3}{section*.7}%
+\contentsline {subsection}{Los procesos de construcción del conocimiento científico}{3}{section*.8}%
+\contentsline {subsection}{El proceso de reestructuración}{4}{section*.10}%
+\contentsline {subsection}{El proceso de explicitación progresiva}{4}{section*.11}%
+\contentsline {subsection}{El proceso de integración jerárquica}{5}{section*.12}%

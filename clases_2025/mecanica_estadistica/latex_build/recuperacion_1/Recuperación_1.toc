@@ -1,0 +1,6 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Problemas: \textcolor {Tarawera}{\textbf {Termodinámica}}}{1}{section*.2}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 1}}}}{1}{section*.3}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 2}}}}{4}{equation.18}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 3}}}}{6}{equation.32}%
+\contentsline {subsection}{\textcolor {Apple Green}{\textbf {\underline {Problema 4}}}}{8}{equation.48}%

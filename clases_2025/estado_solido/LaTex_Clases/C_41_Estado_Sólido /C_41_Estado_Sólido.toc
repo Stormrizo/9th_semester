@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase de hoy}{1}{section.1}%
+\contentsline {section}{\numberline {2}\textcolor {orange(colorwheel)}{Dependencia de la temperatura}}{1}{section.2}%
+\contentsline {section}{\numberline {3}Nuevo tema: Teoría de bandas}{3}{section.3}%

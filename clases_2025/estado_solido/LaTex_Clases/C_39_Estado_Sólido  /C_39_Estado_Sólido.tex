@@ -1,0 +1,443 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 39 - Estado Sólido}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Estado sólido}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dra. Ana Lilia González Ronquillo\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{301}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+
+Proximamente veremos como se generan las bandas en materiales semiconductores. 
+
+Nos quedamos en la parte anterior, las diapositivas ya están en clase:
+
+\section{Modelo de Sommerfield}
+
+
+\[ \boldsymbol{K} = (k_{x},k_{y},k_{z})  \]
+
+
+
+
+$\bullet$ Se hizo la analogía con el estacionamiento automático de la BUAP.
+
+
+Tenemos que revisar la solución del atómo de hidrógeno, en el spin tenemos dos posibilidades. 
+
+
+\[ \psi_{n\ell m s} \]
+
+
+Eso nos justificada que en el espacio de momentos, $\boldsymbol{K}$ estaba relacionado con el momento lineal de las partículas, fuimos dandole significado, entonces se propone una función de onda que tiene el compartamiento siguiente.
+
+
+\[  \psi(\boldsymbol{r}) = \frac{1}{\sqrt{V}} e^{i\boldsymbol{K} \cdot \boldsymbol{r}}    \]
+
+Resulta que la onda va teniendo sentido físico, dado que:
+
+
+\[ \boldsymbol{K} = \boldsymbol{p} \quad \text{partícula libre} \]
+
+¿Cuántos electrones tenemos en un sólido dependiendo de la densidad, tenemos aproximadamente $10^{22}, 10^{24}$, es decir muchísimos. 
+
+
+\[ \epsilon_{\boldsymbol{K}}   = \frac{  \hbar^{2 } \boldsymbol{K}^{2} }{2m}\]
+
+
+Dos electrones están ocupando lugares con spin up ($\uparrow$) y spin down ($\downarrow$).
+
+
+EL espacio de energías es un espacio degenerado dado que existirán electrones que tendrán el mismo nivel de energía. 
+
+\[  \epsilon_{(1,0,0)} = \frac{\hbar^{2} }{2m} \left[ \frac{2\pi}{L} \sqrt{1} \right]  = \epsilon_{(0,0,1)} = \epsilon_{(0,1,0)} = \epsilon_{(-1,0,0)} = \epsilon_{(0,-1,0)} = \epsilon_{(0,0,-1)} \]
+
+
+Le energía total del sistema es:
+
+
+\[ E = \sum\limits_{k_{x}, k_{y}, k_{z} } \epsilon_{\boldsymbol{k}} \]
+
+\[ \epsilon_{f} \to \text{Nivel de Fermi} \]
+
+\[ \epsilon_{f} = \frac{ \hbar^{2} k_{f}^{2}  }{2m}   \]
+
+
+\[ k_{f} = \text{\# de onda de fermi}\]
+
+\[ \vec{k_{f}} = vector de onda de fermi \]
+
+
+
+
+
+
+En cada nivel podemos acomodar 2 electrones (Principio de Exc. Paulli):
+
+
+\[ N = 2 \left( \frac{ k_{f}^{3} }{6\pi^{2}}  \right) V \quad \to \quad \frac{ k_{f}^{3} }{3\pi^{2}}   \]
+
+
+O bien:
+
+
+\[ n = \frac{   }{}   \]
+
+
+
+¿Qué es la temperatura de fermi? 
+
+
+Electrones en el máximo nivel asociado. 
+
+\[ \epsilon_{f} = \frac{ \hbar^{2} k_{f}^{2}  }{2m} = \frac{ \hbar^{2} }{2m} \left( 3\pi^{2} n  \right)^{\frac{2}{3}}  \]
+
+
+\[ v_{f} = \frac{ \hbar k^{2}_{f} }{m}; \quad T_{f} = \frac{\epsilon_{f}}{K_{B}} \]
+
+
+
+
+
+Entonces tenemos:
+
+
+\textbf{Densidad de estados de un electrón libre}
+
+
+Para calcular la densidad podemos partir del número de estados en el volumen de un cascarón de grosor $dk$. 
+
+\underline{Principio de equipartición}.
+
+La temperatura de fermi relaciona con la energía de fermi, están en el máxmo nivel ocupado, pero no es la temperatura de todo el sólido. 
+
+
+Temperatura asocidada a los electrone slibres en el maximo nivel ocupado en un sólido. 
+
+\[  g(k)dk = \frac{V_{shell}}{V_{1pto}} =  \frac{\frac{ 4 }{3} \pi (k+dk)^{3} - \frac{4}{3}\pi k^{3}}{ \left( \frac{2\pi}{L}  \right)^{3}   } \]
+
+
+\[  g(k)\underbrace{dk}_{k + dk} = \boxed{ \frac{Vk^{2}}{2\pi^{2}} dk } \]
+
+
+EN el espacio de energía hay que tomar en cuentalos nivel de energía de los spines.
+
+
+
+
+En el espacio de energía, hay que tomar en cuenta el spin:
+
+
+\[ g(\epsilon) = 2g(k)dk = \frac{ Vk^{2} }{\pi^{2}}dk  \]
+
+
+En la UNAM hay un investigador que utilizan ondas de sonido, se usan en la pirámide. Aplicaban ondas de sonido. Pudieron cartografear un tipo de túnel. 
+
+Podemos entender el espacio de momentos como un espacio infinito.
+
+
+En el caso de los fonones encontrabamos $g(k)$:
+
+
+\textbf{Fonones}:
+
+
+\[ g(k) \to g(\omega) \to E \to T \to C_{v} \]
+
+
+e$^{\prime}$s
+
+
+\[ g(k) \to g(\epsilon) \quad \epsilon = \hbar \omega, \omega = vk, \epsilon = \hbar{v}k \quad \epsilon(k)  \]
+
+
+
+
+Tenemos:
+
+
+\[ g(\epsilon) = \frac{Vk^{2}}{\pi^{2}}  \frac{dk}{d\epsilon} \]
+
+
+Como estamos estudiando partícula libre, la relación de dispersión es:
+
+
+\[ \epsilon{\boldsymbol{k}} = \frac{ \hbar^{2} k^{2} }{2m}    \]
+
+
+\[ g(\epsilon) = \frac{V}{2\pi^{2}} \left( \frac{2m}{\hbar^{2}}   \right)^{\frac{3}{2}} e^{\frac{1}{2}}   \]
+
+
+O bien, la densidad de niveles de energía por unidad de volumen es: 
+
+
+la de estados es g(k).
+
+
+
+\[ \frac{g(\epsilon)}{V} = \frac{1}{2\pi^{2}} \left( \frac{2m}{\hbar^{2}} \right)^{\frac{3}{2}} e^{\frac{1}{2}}  \]
+
+
+La energía total para un gas de N electrones es: 
+
+
+\[   E = \sum\limits_{k \leq k_{f} } \epsilon_{k} = \sum\limits_{ k \leq k_{f} } \frac{ \hbar^{2} k^{2}   }{2m}  = \sum\limits_{nx}\sum\limits_{ny}\sum\limits_{nz} \frac{ \hbar^{2}k^{2}  }{2m}     \]
+
+
+\[ k = \sqrt{ k_{x}^{2} + k_{y}^{2} + k_{z}^{2}  }  = \sqrt{ n_{x}^{2} + n_{y}^{2} + n_{z}^{2}    }  \left( \frac{2\pi}{L}  \right)  \]
+
+
+
+
+COmo N es muy grande, podemos cambiar la suma por una integral.
+
+
+\[  \int\limits_{0}^{\epsilon_{f}} \epsilon g(\epsilon) d\epsilon \]
+
+
+
+Sustituyendo tenemos:
+
+
+
+\[\frac{ E  }{V} = \frac{1}{5\pi^{2}} \left(  \frac{2m}{\hbar^{2}}   \right)^{\frac{3}{2}} e^{\frac{5}{2}}_{f}  \]
+
+
+\[ \epsilon = \text{nivel de Fermi} \]
+
+Hay que realizar la integral en los límites, desde la energía mínima que es 0 a la energía máxima que es la de Fermi.
+
+
+
+EL día miércoles metemos el efecto de le temperatura. 
+
+Examen parcial 3 queda para el miércoles 03 de diciembre y el de recuperación el lunes 01 de diciembre. 
+
+
+
+
+
+\end{document}

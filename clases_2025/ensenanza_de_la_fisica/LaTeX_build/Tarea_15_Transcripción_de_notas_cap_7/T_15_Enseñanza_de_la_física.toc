@@ -1,0 +1,22 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Instrucciones de la actividad}{1}{section*.1}%
+\contentsline {section}{\textcolor {Sun}{ \textbf { \textcolor {Mantle}{\textbf {Cap VII:}} El aprendizaje de la física}}}{2}{section*.3}%
+\contentsline {subsection}{La física en la educación secundaria}{2}{section*.4}%
+\contentsline {subsection}{Dificultades específicas en el aprendizaje de la física}{2}{section*.5}%
+\contentsline {subsection}{La energía}{2}{section*.6}%
+\contentsline {subsection}{El problema de la interacción}{2}{section*.7}%
+\contentsline {subsection}{El problema de la conservación}{3}{section*.8}%
+\contentsline {subsection}{El problema de la cuantificación}{3}{section*.9}%
+\contentsline {subsection}{Fuerza y movimiento}{3}{section*.10}%
+\contentsline {subsection}{El problema de la interacción y el principio de la acción y la reacción}{3}{section*.11}%
+\contentsline {subsection}{El problema del equilibrio y el principio de la inercia}{3}{section*.12}%
+\contentsline {subsection}{El problema de la cuantificación y el principio fundamental de la dinámica}{3}{section*.13}%
+\contentsline {subsection}{Electricidad y magnetismo. Los circuitos eléctricos}{3}{section*.14}%
+\contentsline {subsection}{El problema de la interacción en los circuitos eléctricos}{4}{section*.15}%
+\contentsline {subsection}{El problema de la conservación en los circuitos eléctricos}{4}{section*.16}%
+\contentsline {subsection}{El problema de la cuantificación en el estudio de los circuitos eléctricos}{4}{section*.17}%
+\contentsline {subsection}{Los procedimientos para hacer y aprender física}{4}{section*.18}%
+\contentsline {subsection}{Problemas cualitativos}{4}{section*.19}%
+\contentsline {subsection}{Problemas cuantitativos}{4}{section*.20}%
+\contentsline {subsection}{Pequeñas investigaciones}{4}{section*.21}%
+\contentsline {subsection}{Opinión personal sobre el Capítulo VII}{5}{section*.22}%

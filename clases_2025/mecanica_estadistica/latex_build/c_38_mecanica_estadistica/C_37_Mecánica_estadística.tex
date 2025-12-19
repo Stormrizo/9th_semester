@@ -1,0 +1,405 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 37 - Mecánica Estadística}
+\author{\emph{Notas de clase} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica Estadística}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Jorge Velázquez Castro\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{Salón}}    & 	\textcolor{prussianblue}{\bfseries{EMA4}} /  \textcolor{trueblue}{\bfseries{407}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase de hoy: Gases con grados de libertad internos}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{1.png}
+    \caption{Esquema general de un gas con grados de libertad internos.}
+    \label{fig:derivada_total_H}
+\end{figure}
+
+La \textbf{Hamiltoniana} del sistema anterior corresponde a la suma de todas las partículas, es decir, una suma sobre la variable $n$:
+
+\[
+\mathcal{H} = \sum\limits_{n} \left[ \mathcal{H}_{\text{tras}}^{(n)} + \mathcal{H}_{\text{rot}}^{(n)} + \mathcal{H}_{\text{vib}}^{(n)} \right]
+\]
+
+Como el Hamiltoniano está definido como una suma, en el \textbf{ensamble canónico} podemos aplicar la propiedad de \textbf{factorización}. De este modo, la función de partición total se expresa como:
+
+\[
+Z(T,V,N) = \frac{1}{N!}\, Z_{\text{tras}}^{N}\, Z_{\text{rot}}^{N}\, Z_{\text{vib}}^{N}
+\]
+
+donde cada $Z$ representa la función de partición correspondiente (traslacional, rotacional o vibracional).  
+Por lo tanto, la \textbf{energía libre de Helmholtz} puede escribirse como:
+
+\[
+F(T,V,N) = F_{\text{tras}}(T,V,N) + F_{\text{rot}}(T,V,N) + F_{\text{vib}}(T,V,N)
+\]
+
+\subsection{Parte traslacional}
+
+El Hamiltoniano traslacional es:
+
+\[
+\mathcal{H}_{\text{tras}} = \frac{\vec{p}^{\,2}}{2m}
+\]
+
+y su función de partición:
+
+\[
+Z_{\text{tras}} = V \left( \frac{2\pi m k_{B} T}{h^{2}} \right)^{\!\frac{3}{2}}
+\]
+
+
+\subsection{Parte rotacional}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{2.png}
+    \caption{Cuerpo rígido con momento de inercia $I$.}
+    \label{fig:rotacional}
+\end{figure}
+
+Existe un momento de inercia asociado a la rotación, una característica propia del cuerpo rígido.  
+Para no complicar el análisis, asumimos que la molécula posee un solo momento de inercia relevante, mientras que los otros son pequeños y pueden despreciarse. En otras palabras, consideramos que sólo rota alrededor de un eje principal.
+
+El Hamiltoniano rotacional se escribe como:
+
+\[
+\mathcal{\hat{H}}_{rot} = \frac{\hat{L}^{2}}{2I}
+\]
+
+donde el acento indica que puede tratarse tanto del caso clásico como del cuántico.  
+$I$ representa el \textcolor{Apple Green}{\textbf{momento de inercia}} y $L$ el \textcolor{Sun}{\textbf{momento angular}} .
+
+Cuando analizamos sistemas cuánticos, las variables clásicas se promueven a \textbf{operadores}, y los valores medibles corresponden a los \textcolor{Cinnabar}{\textbf{autovalores}} de dichos operadores, determinados por las condiciones de frontera del sistema.
+
+Así, los \textbf{niveles energéticos} resultan ser:
+
+\[
+\epsilon_{\ell} = \frac{\ell (\ell +1)\hbar^{2}}{2I}, 
+\qquad \ell = 0,1,2,\ldots
+\]
+
+Además, aparece el concepto de \textbf{degeneración}.  
+Podemos imaginar un cuerpo rotando: existen distintas maneras de hacerlo con la misma energía.  
+La degeneración correspondiente es:
+
+\[
+\omega_{\ell} = 2\ell +1
+\]
+
+Esto se interpreta como el número de orientaciones posibles de rotación para cada $\ell$.  
+Por ejemplo, a energías bajas ($\ell=1$) hay tres formas de giro: hacia arriba, horizontal y hacia abajo.  
+A medida que el momento angular aumenta, crece también el número de formas posibles, hasta que el comportamiento se asemeja al de un cuerpo macroscópico.
+
+Por tanto, la función de partición rotacional es:
+
+\[
+Z_{\text{rot}} = \sum\limits_{\ell=0}^{\infty} (2\ell +1)\,
+e^{ -\beta \frac{\ell (\ell +1)\hbar^{2} }{2I} }
+\]
+
+Esta suma no puede resolverse de \underline{manera cerrada}, por lo que se aproxima mediante una integral, válida en el régimen de \textbf{altas temperaturas}.
+
+
+\subsubsection*{Aproximación de Euler--Maclaurin}
+
+Para altas temperaturas utilizamos la fórmula de \textbf{Euler--Maclaurin}:
+
+\[
+\sum\limits_{\ell =0}^{\infty} f(\ell) \approx
+\int_{0}^{\infty} f(x)\,dx + \frac{1}{2}f(0)
+- \frac{1}{12} f^{\prime}(0) + \frac{1}{720} f^{\prime\prime\prime}(0) + \ldots
+\]
+
+donde:
+\[
+f(x) = (2x+1)e^{ -\frac{\Theta}{T}x(x+1) },
+\qquad
+\Theta = \frac{\hbar^{2}}{2I k_{B}}
+\]
+es la \textbf{temperatura característica} del sistema.
+
+Evaluando la integral principal:
+
+\[
+\int_{0}^{\infty} f(x)\,dx
+= \int_{0}^{\infty} (2x+1)e^{- \frac{\Theta}{T} x(x+1) } dx
+\simeq \frac{T}{\Theta}
+\]
+
+Aplicando los términos de corrección:
+
+\[
+Z_{\text{rot}} \approx 
+\frac{T}{\Theta} + \frac{1}{3} + \frac{1}{15}\frac{\Theta}{T}
++ \frac{4}{315}\left( \frac{\Theta}{T} \right)^{2} + \ldots
+\]
+
+A \textbf{temperaturas altas} ($T\to\infty$):
+
+\[
+\boxed{Z_{\text{rot}} \approx \frac{T}{\Theta}
+= \frac{2I k_{B}T}{\hbar^{2}}}
+\]
+
+Mientras que a \textbf{temperaturas bajas} sólo se conservan los primeros términos:
+
+\[
+Z_{\text{rot}}(T\to 0) \approx
+1 + 3e^{ - \frac{2\Theta}{T} } + 5e^{ - \frac{6\Theta}{T} } + \ldots
+\]
+
+\subsection{Parte vibracional}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{4.png}
+    \caption{Modos vibracionales de una molécula.}
+    \label{fig:vibracional}
+\end{figure}
+
+La \textcolor{vividviolet}{\textbf{Hamiltoniana vibracional}}  es:
+
+\[
+\mathcal{H}_{\text{vib}} = 
+\sum\limits_{i=1}^{f} \left(
+\frac{p_{i}^{2}}{2B_{i}} + 
+\frac{1}{2}B_{i}\omega^{2}q_{i}^{2}
+\right)
+\]
+
+donde $f$ son los modos de vibración de la molécula, $B_{i}$ la masa reducida y $\omega$ la frecuencia del modo.
+
+La función de partición vibracional resulta:
+
+\[
+Z_{\text{vib}} = 
+\prod\limits_{i=1}^{f} 
+\left[ 
+2\sinh\!\left( 
+\frac{1}{2}\beta\hbar\omega_{i}
+\right)
+\right]^{-1}
+\]
+
+y el calor específico asociado a los modos vibracionales es:
+
+\[
+C_{V}^{(\text{vib})} = 
+\sum\limits_{i=1}^{f}k_{B}(\beta\hbar\omega_{i})^{2}
+\frac{e^{\beta\hbar\omega_{i}}}{( e^{\beta\hbar\omega_{i}} -1 )^{2}}
+\]
+
+\subsection{Interpretación física y discusión (\textcolor{orange(colorwheel)}{\textbf{¡importante!}}) }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth]{5.png}
+    \caption{Comportamiento del calor específico con la temperatura.}
+    \label{fig:cv}
+\end{figure}
+
+En los experimentos, la forma de la curva del calor específico $\boldsymbol{C_{V}}$ muestra cómo distintos grados de libertad se van activando con la temperatura.
+
+A bajas temperaturas, sólo se aprecian los grados de libertad \textbf{traslacionales}, con un $C_{V} = \tfrac{3}{2}k_{B}$.  
+Al aumentar la temperatura, comienzan a excitarse los grados de libertad \textbf{rotacionales}, lo que añade aproximadamente $k_{B}$ adicional, dando $C_{V} = \tfrac{5}{2}k_{B}$ en gases diatómicos.
+
+En moléculas \textbf{triatómicas} se suman más contribuciones, pues existen más ejes de rotación y modos vibracionales.  
+Cada nuevo grado de libertad aporta aproximadamente otra cantidad de orden $k_{B}T$, según el teorema de la equipartición.
+
+Los grados de libertad \textbf{vibracionales} no se observan a bajas temperaturas porque la mayoría de las moléculas permanecen en el nivel vibracional más bajo.  
+Al aumentar la temperatura, estos niveles comienzan a excitarse, y eventualmente también los grados de libertad \textbf{electrónicos}.  
+A energías aún mayores podrían activarse los grados de libertad \textbf{nucleares}, e incluso los asociados a las \textbf{fuerzas fuertes} dentro de los quarks.
+
+Por eso, los \textbf{aceleradores de partículas} pueden interpretarse metafóricamente como verdaderos “\underline{hornos}” que permiten alcanzar energías tan altas que revelan los grados de libertad internos más profundos de la materia.
+
+Como un ejercicio de práctica (\underline{no se califica	}) el profesor sugiere que probemos valores para graficar y ver el comportamiento, puede ser en \textcolor{Sun}{\textbf{python}}, \textcolor{Logan}{\textbf{matlab}}, \textcolor{Tarawera}{\textbf{Wolfram}} etc. 
+
+\subsection{Aviso como recordatorio ya hay tarea en la plataforma. Examen 7 de noviembre de lo de ensemble canónico.}
+
+
+\end{document}
+
+

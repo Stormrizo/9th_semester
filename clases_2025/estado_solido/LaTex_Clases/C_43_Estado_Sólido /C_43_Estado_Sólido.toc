@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase de hoy: Electrones bajo un potencial periódico \underline {débil}}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Resolviendo}{5}{subsection.1.1}%

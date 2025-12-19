@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Clase de hoy: Ensamble gran canónico}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Ejemplo de otro potencial y su función de partición }{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Gas ideal (Gran canónico)}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3} Fluctuaciones del gran canónico }{6}{subsection.1.3}%

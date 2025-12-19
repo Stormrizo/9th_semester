@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Unit 3: Magnetostatics}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Steady current with emf}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Unicidad de las soluciones a la ecuación de laplace.}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Condición de frontera de Dirichlet}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Condición de frontera de Neumann}{4}{subsubsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.3}Parte física. Regiones en el espacio en donde no es asociada a fenómenos eléctricos}{5}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Fuerza de Lorentz}{5}{subsubsection.1.3.1}%

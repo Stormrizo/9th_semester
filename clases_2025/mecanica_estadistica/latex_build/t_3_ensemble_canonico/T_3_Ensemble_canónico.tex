@@ -1,0 +1,1281 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Sun}{\textbf{Tarea ensemble: \textcolor{Cinnabar}{\textbf{canónico}}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ \textcolor{Tarawera}{\textbf{202107583}}}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{\textbf{Asignatura:} Mecánica Estadística}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus, aula e integrantes
+
+\begin{mybox2}
+\noindent
+\begin{tabular}{@{}p{3.7cm}p{10.4cm}@{}}
+\textbf{Profesor} & Dr. Jorge Velázquez Castro \\[3pt]
+\textbf{Campus / Facultad} & \textcolor{prussianblue}{\textbf{C.U. BUAP}} / \textcolor{trueblue}{\textbf{FCFM}} \\[3pt]
+\textbf{Edificio / Salón} & \textcolor{prussianblue}{\textbf{EMA4}} / \textcolor{trueblue}{\textbf{407}} \\[6pt]
+\end{tabular}
+\end{mybox2}
+\vspace{1cm}
+
+
+% Solo el índice en negro y en negritas
+\hypersetup{linkcolor=black}   % (opcional: urlcolor=black, citecolor=black)
+{\bfseries \tableofcontents}
+\hypersetup{linkcolor=Cerulean} % regresamos a tu paleta
+
+\vspace{0.5cm}
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{0.5cm}
+
+\setlength{\columnsep}{2cm}
+\section*{\textcolor{Tarawera}{\textbf{Lista de problemas y soluciones}}}
+\addcontentsline{toc}{section}{Problemas: \textcolor{Tarawera}{\textbf{Ensamble canónico}}}
+
+%=============================
+% PR. 1.1 — Gas en trampa magnética (formato narrativo con eqref)
+%=============================
+\begin{AGbox}[8]
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.1}}}, start=1]
+		\item \textbf{Gas en trampa magnética}  
+		En los experimentos actuales con gases atómicos confinados por trampas magnéticas, existe un tipo de trampa que puede modelarse por un potencial sencillo
+		\begin{equation}
+			\begin{split}
+				V_{\text{ext}}(\vec r)
+				&= A\big(|\vec r|^{2}\big)^{1/2} \\
+				&= A r
+			\end{split}\label{eq:Vext_trampa_lineal}
+		\end{equation}
+		donde $A$ es una constante. Considerando que se tienen $N$ átomos confinados y que para el gas ideal la hamiltoniana del sistema es
+		\begin{equation}
+			\begin{split}
+				H
+				&= \sum_{i=1}^{N} \frac{\vec{p}_i^{\,2}}{2m}
+				+ \sum_{i=1}^{N} V_{\text{ext}}(\vec{r}_i)
+			\end{split}\label{eq:H_ideal_trampa}
+		\end{equation}
+		suponiendo que el gas está en equilibrio a temperatura $T$ y que obedece la mecánica clásica, encuentre la energía libre de Helmholtz, la entropía y el potencial químico
+		
+		¿Cuál debería ser la condición de validez sobre $A$ de modo que se aplique la mecánica clásica?  
+		Exprese su respuesta en términos de $A$, $m$, $N$ y $T$
+	\end{enumerate}
+\end{AGbox}
+
+
+\textcolor{Cinnabar}{\textbf{Solución:}}
+
+
+La clave para resolver este problema es reconocer que, en el ensamble canónico clásico, la física de equilibrio queda \textbf{comprimida} en la función de partición. En tus notas (sección de \textit{densidad clásica de estados} y ecuación análoga a la 16.68) se enfatiza que, en el régimen clásico, los microestados se cuentan como \textit{volúmenes} en el espacio de fase divididos por $h^3$. Esto nos da un camino directo: primero calculamos la \textbf{partición de una partícula} $z_1$ integrando $e^{-\beta H}$ sobre todo $(\vec r,\vec p)$; después levantamos el resultado a $N$ partículas indistinguibles con $Z=z_1^N/N!$. Con $Z$ en mano, recuperamos \textbf{energía libre} $F=-k_B T\ln Z$, \textbf{energía interna} $U$, \textbf{entropía} $S$ y \textbf{potencial químico} $\mu$. Finalmente damos una \underline{condición de validez clásica} explícita en términos de $A,m,N,T$ usando la longitud térmica de De Broglie y el \textit{volumen efectivo} que induce el potencial lineal $V_{\text{ext}}=Ar$
+
+
+
+Cada átomo (masa $m$) está sujeto al potencial lineal \textit{radial}
+\begin{equation}
+\begin{split}
+V_{\text{ext}}(\vec r)
+&= A\,|\vec r| 
+\end{split}\label{eq:Vext_trampa_lineal_desarrollo}
+\end{equation}
+y su Hamiltoniano de partícula es
+\begin{equation}
+\begin{split}
+H(\vec r,\vec p)
+&= \frac{p^2}{2m}+A r
+\end{split}\label{eq:H_particula_desarrollo}
+\end{equation}
+donde $r=|\vec r|$. Trabajaremos a \textit{temperatura fija} $T$ con $\beta=1/(k_B T)$ y consideraremos un gas ideal de $N$ partículas \textbf{indistinguibles} en equilibrio
+
+
+
+En el régimen clásico, la función de partición de una partícula es la integral de Boltzmann sobre \textit{todo} el espacio de fase, con el factor de normalización $h^{-3}$:
+\begin{equation}
+\begin{split}
+z_1
+&= \frac{1}{h^3}\int_{\mathbb{R}^3}\!\!\!d^3r\int_{\mathbb{R}^3}\!\!\!d^3p\;\exp\!\left[-\beta\left(\frac{p^2}{2m}+A r\right)\right]
+\end{split}\label{eq:z1_def_espacio_fase}
+\end{equation}
+La separación del Hamiltoniano en \textit{cinético} $+\,$\textit{potencial} implica factorizar el integrando, lo que nos permite separar la integral:
+\begin{equation}
+\begin{split}
+z_1
+&= \frac{1}{h^3}\left(\int_{\mathbb{R}^3}\!d^3p\,e^{-\beta p^2/2m}\right)
+\left(\int_{\mathbb{R}^3}\!d^3r\,e^{-\beta A r}\right)
+\end{split}\label{eq:z1_separada_espacio_fase}
+\end{equation}
+
+
+
+La parte de momento contiene $e^{-\beta p^2/2m}$, que es una \textbf{gaussiana} en cada componente cartesiana. Usamos la identidad unidimensional
+\begin{equation}
+\begin{split}
+\int_{-\infty}^{\infty} e^{-a x^2}\,dx
+&= \sqrt{\frac{\pi}{a}}
+\end{split}\label{eq:gauss_1D_identidad}
+\end{equation}
+con $a=\beta/(2m)$. Por independencia de $p_x,p_y,p_z$, la integral 3D factoriza:
+\begin{equation}
+\begin{split}
+\int_{\mathbb{R}^3} d^3p\,e^{-\beta p^2/2m}
+&= \left(\int_{-\infty}^{\infty} e^{-(\beta/2m) p_x^2}\,dp_x\right)
+   \left(\int_{-\infty}^{\infty} e^{-(\beta/2m) p_y^2}\,dp_y\right)
+   \left(\int_{-\infty}^{\infty} e^{-(\beta/2m) p_z^2}\,dp_z\right)\\
+&= \left(\sqrt{\frac{2\pi m}{\beta}}\right)^3\\
+&= \left(2\pi m k_B T\right)^{3/2}
+\end{split}\label{eq:int_momento_gauss_3D}
+\end{equation}
+
+
+Para la parte espacial usamos coordenadas esféricas $d^3r=4\pi r^2 dr$ y el hecho de que el potencial depende solo de $r$:
+\begin{equation}
+\begin{split}
+\int_{\mathbb{R}^3} d^3r\,e^{-\beta A r}
+&= 4\pi\int_{0}^{\infty} r^2 e^{-(\beta A) r}\,dr
+\end{split}\label{eq:int_posicion_previa_gamma}
+\end{equation}
+La integral radial es un caso de la integral Gamma con $n=2$:
+\begin{equation}
+\begin{split}
+\int_{0}^{\infty} r^n e^{-c r}\,dr
+&= \frac{n!}{c^{n+1}},\qquad n\in\mathbb{N},\;c>0
+\end{split}\label{eq:gamma_tabla}
+\end{equation}
+Tomando $n=2$ y $c=\beta A$:
+\begin{equation}
+\begin{split}
+\int_{\mathbb{R}^3} d^3r\,e^{-\beta A r}
+&= 4\pi\cdot \frac{2}{(\beta A)^3}\\
+&= \frac{8\pi}{(\beta A)^3}\\
+&= 8\pi\left(\frac{k_B T}{A}\right)^3
+\end{split}\label{eq:int_posicion_resuelto}
+\end{equation}
+
+
+
+Juntando \eqref{eq:int_momento_gauss_3D} y \eqref{eq:int_posicion_resuelto} en \eqref{eq:z1_separada_espacio_fase}:
+\begin{equation}
+\begin{split}
+z_1
+&= \frac{1}{h^3}\left(2\pi m k_B T\right)^{3/2}\,8\pi\left(\frac{k_B T}{A}\right)^3
+\end{split}\label{eq:z1_final_compacto}
+\end{equation}
+Es útil introducir el \textbf{volumen efectivo térmico} inducido por el potencial
+\begin{equation}
+\begin{split}
+V_{\text{ef}}
+&:= \int d^3r\,e^{-\beta A r} 
+= 8\pi\left(\frac{k_B T}{A}\right)^3
+\end{split}\label{eq:Vef_def}
+\end{equation}
+y reconocer que la parte de momento es el “volumen” efectivo en $p$-espacio, $(2\pi m k_B T)^{3/2}$. En ese sentido, $z_1$ luce como un “volumen en fase” dividido por $h^3$:
+\begin{equation}
+\begin{split}
+z_1
+&= \frac{1}{h^3}\left(2\pi m k_B T\right)^{3/2} V_{\text{ef}}
+\end{split}\label{eq:z1_forma_volumen_ef}
+\end{equation}
+\textit{Lectura física}: $A$ controla qué tan agresivo es el “embudo” del potencial. A mayor $A$, el gas queda más comprimido hacia $r=0$ y $V_{\text{ef}}$ disminuye cúbicamente. A mayor $T$, la exploración térmica de $r$ compite con la trampa: $V_{\text{ef}}$ crece como $T^3$
+
+\subsection*{Energía libre de Helmholtz}
+
+Para $N$ partículas indistinguibles:
+\begin{equation}
+\begin{split}
+Z
+&= \frac{z_1^{\,N}}{N!}
+\end{split}\label{eq:Z_total_final}
+\end{equation}
+y la energía libre resulta de
+\begin{equation}
+\begin{split}
+F
+&= -k_B T \ln Z
+\end{split}\label{eq:F_def_canonico}
+\end{equation}
+Aplicando Stirling $\ln N!\simeq N\ln N - N$:
+\begin{equation}
+\begin{split}
+F
+&\simeq -N k_B T \ln z_1 + N k_B T \ln N - N k_B T
+\end{split}\label{eq:F_stirling}
+\end{equation}
+Este $F$ \textit{ya} contiene, en forma compacta, la dependencia en $A,m,T$ y la indistinguibilidad (vía $N!$), asegurando la \textbf{extensividad} correcta
+
+\subsection*{Energía interna: chequeo doble por equipartición y derivada en $\beta$}
+
+Podemos verificar $U$ por dos rutas. Primero, por \textbf{equipartición} y promedios espaciales: la parte cinética en 3D aporta $\tfrac{3}{2}k_B T$ por partícula; para el potencial lineal, con el peso de \eqref{eq:int_posicion_resuelto}, se obtiene $\langle r\rangle=3/(\beta A)$ y por tanto $\langle V\rangle=3 k_B T$. Así, por partícula:
+\begin{equation}
+\begin{split}
+\langle E\rangle
+&= \frac{3}{2}k_B T + 3 k_B T
+= \frac{9}{2} k_B T
+\end{split}\label{eq:E_media_particula}
+\end{equation}
+y para $N$ partículas:
+\begin{equation}
+\begin{split}
+U
+&= \frac{9}{2} N k_B T
+\end{split}\label{eq:U_por_equiparticion}
+\end{equation}
+Segundo, por la identidad canónica $U=-\partial_\beta\ln Z$: como $\ln Z = N\ln z_1 - \ln N!$ y $z_1\propto T^{3/2} T^3 = T^{9/2}$, obtenemos $U= \tfrac{9}{2} N k_B T$. Ambas rutas coinciden, como debe ser
+
+\subsection*{Entropía: expresión compacta y dependencia en $T$}
+
+Usamos $S=(U-F)/T$, sustituyendo \eqref{eq:U_por_equiparticion} y \eqref{eq:F_stirling}:
+\begin{equation}
+\begin{split}
+S
+&= N k_B\left[\ln\!\left(\frac{z_1}{N}\right) + \frac{11}{2}\right]
+\end{split}\label{eq:S_compacto}
+\end{equation}
+Esta forma deja ver de inmediato dos cosas: (i) el término logarítmico contiene toda la dependencia “geométrica” de fase (momento $\times$ $V_{\text{ef}}$) y (ii) la parte constante $11/2$ proviene de combinar la contribución energética $U/T$ con la corrección entrópica de Stirling
+
+\subsection*{Potencial químico y su lectura}
+
+De \eqref{eq:F_stirling}:
+\begin{equation}
+\begin{split}
+\mu
+&= \left(\frac{\partial F}{\partial N}\right)_{T}
+= k_B T \ln\!\left(\frac{N}{z_1}\right)
+\end{split}\label{eq:mu_resultado}
+\end{equation}
+\textit{Lectura}: al aumentar $A$ se reduce $V_{\text{ef}}$ y, por ende, $z_1$; esto tiende a \textbf{elevar} $\mu$ (más “caro” añadir una partícula), coherente con una trampa más apretada
+
+\subsection*{Condición de validez del régimen clásico: $n_{\text{ef}}\lambda_T^3\ll 1$}
+
+La condición de \textit{no degeneración cuántica} compara la densidad efectiva $n_{\text{ef}}$ con la celda cuántica $\lambda_T^3$, donde
+\begin{equation}
+\begin{split}
+\lambda_T
+&= \frac{h}{\sqrt{2\pi m k_B T}}
+\end{split}\label{eq:lambda_termica}
+\end{equation}
+y la densidad efectiva se define con el volumen efectivo \eqref{eq:Vef_def}:
+\begin{equation}
+\begin{split}
+n_{\text{ef}}
+&= \frac{N}{V_{\text{ef}}}
+= \frac{N}{8\pi}\left(\frac{A}{k_B T}\right)^3
+\end{split}\label{eq:n_ef_def}
+\end{equation}
+Exigiendo $n_{\text{ef}}\lambda_T^3\ll 1$:
+\begin{equation}
+\begin{split}
+\frac{N}{8\pi}\left(\frac{A}{k_B T}\right)^3
+\frac{h^3}{(2\pi m k_B T)^{3/2}}
+&\ll 1
+\end{split}\label{eq:criterio_clasico_final}
+\end{equation}
+\textbf{Interpretación}: a temperatura fija, un $A$ \textit{demasiado grande} comprime al gas, aumenta $n_{\text{ef}}$ y puede empujarnos fuera del régimen clásico. A la inversa, $T$ alto y $m$ grande favorecen la validez clásica al hacer más pequeña $\lambda_T$
+
+
+\begin{itemize}
+\item[$\bullet$] \textit{Límite $A\to 0^+$}: el potencial lineal “desaparece” y $V_{\text{ef}}\to\infty$. El problema, como está planteado, \underline{no tiene volumen geométrico} explícito; $V_{\text{ef}}$ \textit{hace} ese papel. En el límite $A\to 0$ hay que recuperar una descripción con volumen físico $V$ si se pretende comparar con el gas ideal uniforme
+\item[$\bullet$] \textit{Límite $T\to\infty$}: $z_1\propto T^{9/2}$ y $U\sim \tfrac{9}{2}Nk_B T$ crecen linealmente, como dicta equipartición. Además, la condición clásica se cumple cada vez mejor porque $\lambda_T\propto T^{-1/2}$ decrece
+\item[$\bullet$] \textit{Dimensionalmente}: $A$ tiene unidades de energía por longitud, $V_{\text{ef}}\sim (k_B T/A)^3$ tiene unidades de volumen, y $z_1$ es adimensional gracias al $h^{-3}$ multiplicado por el “volumen” en fase $(2\pi m k_B T)^{3/2}V_{\text{ef}}$
+\end{itemize}
+
+
+
+
+\vspace{2mm}
+
+\begin{empheq}[box={\mymath[colback=Saffron!40,drop lifted shadow]}]{equation*}
+\begin{aligned}
+z_1&=\frac{1}{h^3}\left(2\pi m k_B T\right)^{3/2}\,8\pi\left(\frac{k_B T}{A}\right)^3,\quad
+Z=\frac{z_1^{\,N}}{N!}\\[2mm]
+F&\simeq -Nk_B T\ln z_1+Nk_B T\ln N-Nk_B T\\[2mm]
+U&=\frac{9}{2}Nk_B T,\qquad
+S=Nk_B\left[\ln\left(\frac{z_1}{N}\right)+\frac{11}{2}\right]\\[2mm]
+\mu&=k_B T\ln\left(\frac{N}{z_1}\right),\qquad
+V_{\text{ef}}=8\pi\left(\frac{k_B T}{A}\right)^3\\[2mm]
+\textcolor{trueblue}{\textbf{Validez clásica:}}\;&\displaystyle 
+\frac{N}{8\pi}\left(\frac{A}{k_B T}\right)^3\frac{h^3}{(2\pi m k_B T)^{3/2}}\ll 1
+\end{aligned}
+\end{empheq}
+
+
+
+
+%=============================
+% PR. 1.2 — Gas ideal bidimensional
+%=============================
+\begin{AGbox}[8]
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.2}}}, start=1]
+		\item \textbf{Gas ideal bidimensional} \;
+		Moléculas monoatómicas son absorbidas sobre una superficie y son libres de moverse en ella, tal que pueden considerarse como un gas ideal clásico \textit{bidimensional}. A temperatura $T$ calcule la \textbf{capacidad calorífica} del gas absorbido para una superficie de área fija.
+	\end{enumerate}
+\end{AGbox}
+
+\textcolor{Cinnabar}{\textbf{Solución:}}
+
+
+El sistema consiste en moléculas monoatómicas \textit{adsorbidas} en una superficie, libres de desplazarse sólo dentro del plano. Físicamente, esto es un gas ideal \textbf{bidimensional} clásico a \underline{área fija} $A$ y temperatura $T$. Nuestro objetivo es determinar la \textbf{capacidad calorífica} del gas en estas condiciones. Un argumento de \textit{equipartición} sugiere de entrada que, en $d$ dimensiones traslacionales, cada partícula aporta $\tfrac{d}{2}k_B T$ de energía interna, de modo que en $2$D esperaríamos $U/N = k_B T$ y, por ende, una capacidad calorífica por partícula $c_A = k_B$. Sin embargo, para dejarlo sólido —y para que quede enlazado con tu marco canónico de las capturas— lo derivaremos paso a paso desde la función de partición clásica en espacio de fase, resaltando: indistinguibilidad, extensividad, ecuación de estado \textit{superficial} y criterio de validez clásica en $2$D
+
+\vspace{4pt}
+\noindent Trabajaremos en tres etapas: (i) función de partición de una partícula sobre el plano $z_1^{(2D)}$, (ii) partição total $Z^{(2D)}= [z_1^{(2D)}]^N/N!$ y energía libre $F^{(2D)}$, (iii) derivación de $U^{(2D)}$, $S^{(2D)}$, la ecuación de estado superficial y, finalmente, la capacidad calorífica a área fija $C_A$
+
+
+En el ensamble canónico clásico, los microestados se cuentan como \textit{volúmenes} en el espacio de fase divididos por $h^d$; para movimiento en el plano $d=2$. Con Hamiltoniano libre $H=\frac{p^2}{2m}$, la partición de una partícula es
+\begin{equation}
+\begin{split}
+z_1^{(2D)}
+&= \frac{1}{h^2}\int_{\mathbb{R}^2}\!d^2r\int_{\mathbb{R}^2}\!d^2p\;\exp\!\left[-\beta\,\frac{p^2}{2m}\right]
+\end{split}\label{eq:z1_2D_def_can}
+\end{equation}
+El integrando \textit{no} depende de la posición cuando no hay potencial externo en el plano, por lo que la integral espacial produce el área accesible
+\begin{equation}
+\begin{split}
+\int_{\mathbb{R}^2} d^2r
+&= A
+\end{split}\label{eq:int_area_A}
+\end{equation}
+y $z_1^{(2D)}$ se reduce a un factor geométrico $A$ multiplicado por una integral gaussiana en el espacio de momentos
+
+
+
+La integral de momento factoriza en dos gaussianas unidimensionales porque $p^2=p_x^2+p_y^2$. Usamos la identidad
+\begin{equation}
+\begin{split}
+\int_{-\infty}^{\infty} e^{-a x^2}\,dx
+&= \sqrt{\frac{\pi}{a}},\qquad a>0
+\end{split}\label{eq:gauss_1D_2D}
+\end{equation}
+con $a=\beta/(2m)$. Entonces
+\begin{equation}
+\begin{split}
+\int_{\mathbb{R}^2} d^2p\,\exp\!\left[-\beta\,\frac{p^2}{2m}\right]
+&= \left(\int_{-\infty}^{\infty}e^{-(\beta/2m)p_x^2}\,dp_x\right)
+   \left(\int_{-\infty}^{\infty}e^{-(\beta/2m)p_y^2}\,dp_y\right)\\
+&= \left(\sqrt{\frac{2\pi m}{\beta}}\right)^2\\
+&= \frac{2\pi m}{\beta}\\
+&= 2\pi m k_B T
+\end{split}\label{eq:int_p_gauss_2D}
+\end{equation}
+Sustituyendo \eqref{eq:int_area_A} y \eqref{eq:int_p_gauss_2D} en \eqref{eq:z1_2D_def_can}, obtenemos la forma compacta y útil
+\begin{equation}
+\begin{split}
+z_1^{(2D)}
+&= \frac{1}{h^2}\,A\,\left(2\pi m k_B T\right)
+\end{split}\label{eq:z1_2D_final}
+\end{equation}
+Esta expresión deja claro el \textit{escalamiento} clave: en 2D, $z_1^{(2D)}\propto A\,T$. El factor $A$ captura la extensividad superficial y la temperatura aparece linealmente por la dimensión del espacio de momentos accesible en el plano
+
+
+Para $N$ partículas indistinguibles,
+\begin{equation}
+\begin{split}
+Z^{(2D)}
+&= \frac{\left[z_1^{(2D)}\right]^N}{N!}
+\end{split}\label{eq:Z_total_2D}
+\end{equation}
+La energía libre de Helmholtz es
+\begin{equation}
+\begin{split}
+F^{(2D)}
+&= -k_B T \ln Z^{(2D)}\\
+&= -k_B T \left(N \ln z_1^{(2D)} - \ln N!\right)
+\end{split}\label{eq:F_2D_def}
+\end{equation}
+Usando Stirling, $\ln N!\simeq N\ln N - N$, hallamos
+\begin{equation}
+\begin{split}
+F^{(2D)}
+&\simeq -N k_B T \ln z_1^{(2D)} + N k_B T \ln N - N k_B T
+\end{split}\label{eq:F_2D_stirling}
+\end{equation}
+Si sustituimos \eqref{eq:z1_2D_final} dentro de \eqref{eq:F_2D_stirling} y agrupamos términos, queda explícito que $F^{(2D)}$ depende de $A$ sólo a través de $\ln A$, como corresponde a un gas ideal superficial
+
+
+
+\paragraph{Ruta canónica} Usamos $U^{(2D)}=-\partial_{\beta}\ln Z^{(2D)}$ con \eqref{eq:Z_total_2D}. Como $\ln Z^{(2D)}=N\ln z_1^{(2D)}-\ln N!$ y $z_1^{(2D)}\propto T\propto \beta^{-1}$, se tiene
+\begin{equation}
+\begin{split}
+U^{(2D)}
+&= -N\,\frac{\partial}{\partial \beta}\ln z_1^{(2D)}
+= -N\,\frac{\partial}{\partial \beta}\left[\ln\!\left(\frac{A}{h^2}\right)+\ln\!\left(\frac{2\pi m}{\beta}\right)\right]\\
+&= -N\,\left(-\frac{1}{\beta}\right)\\
+&= \frac{N}{\beta}\\
+&= N k_B T
+\end{split}\label{eq:U_2D_canonico}
+\end{equation}
+
+\paragraph{Ruta de equipartición} En 2D hay dos grados de libertad \textit{traslacionales} por partícula; cada cuadrático aporta $\tfrac{1}{2}k_B T$. Luego
+\begin{equation}
+\begin{split}
+U^{(2D)}
+&= N\left(\frac{2}{2}\right)k_B T\\
+&= N k_B T
+\end{split}\label{eq:U_2D_equiparticion}
+\end{equation}
+Ambas rutas coinciden, validando que el modelo captura correctamente la física traslacional en el plano
+
+
+
+La entropía se obtiene de $S^{(2D)}=(U^{(2D)}-F^{(2D)})/T$. A partir de \eqref{eq:U_2D_canonico} y \eqref{eq:F_2D_stirling} puede mostrarse de manera directa que
+\begin{equation}
+\begin{split}
+S^{(2D)}
+&= N k_B\left[\ln\!\left(\frac{z_1^{(2D)}}{N}\right)+2\right]
+\end{split}\label{eq:S_2D_compacto}
+\end{equation}
+Sustituyendo \eqref{eq:z1_2D_final} en \eqref{eq:S_2D_compacto} y reescribiendo en términos de la longitud térmica de De Broglie $\lambda_T = h/\sqrt{2\pi m k_B T}$, resulta
+\begin{equation}
+\begin{split}
+S^{(2D)}
+&= N k_B\left[
+\ln\!\left(\frac{A}{N \lambda_T^2}\right) + 2
+\right]
+\end{split}\label{eq:S_2D_lambda}
+\end{equation}
+Esta expresión es la análoga bidimensional de la forma \textit{Sackur–Tetrode} del gas ideal, con $A$ jugando el papel de $V$ y $\lambda_T^2$ el de la celda cuántica superficial. Observa que $S^{(2D)}$ crece logarítmicamente con $A$ y decrece cuando la densidad superficial $n_{2D}=N/A$ se concentra
+
+
+La magnitud conjugada al área es la \textit{presión superficial} $\Pi$, definida por
+\begin{equation}
+\begin{split}
+\Pi
+&= -\left(\frac{\partial F^{(2D)}}{\partial A}\right)_{T,N}
+\end{split}\label{eq:Pi_def}
+\end{equation}
+Con \eqref{eq:F_2D_stirling} y \eqref{eq:z1_2D_final}, se obtiene
+\begin{equation}
+\begin{split}
+\Pi
+&= \frac{N k_B T}{A}
+\end{split}\label{eq:Pi_eos}
+\end{equation}
+o equivalentemente,
+\begin{equation}
+\begin{split}
+\Pi A
+&= N k_B T
+\end{split}\label{eq:eos_superficial}
+\end{equation}
+que es la ecuación de estado ideal \textit{en 2D}, en perfecta analogía con $PV=Nk_B T$ en 3D. Esta consistencia es un chequeo importante: la dependencia en $\ln A$ en $F^{(2D)}$ conduce a la ley ideal superficial
+
+
+La capacidad calorífica relevante es a \underline{área fija} $A$:
+\begin{equation}
+\begin{split}
+C_A
+&= \left(\frac{\partial U^{(2D)}}{\partial T}\right)_{N,A}
+\end{split}\label{eq:CA_def_2D}
+\end{equation}
+Usando \eqref{eq:U_2D_canonico} o \eqref{eq:U_2D_equiparticion}:
+\begin{equation}
+\begin{split}
+C_A
+&= \left(\frac{\partial}{\partial T} N k_B T\right)_{N,A}\\
+&= N k_B
+\end{split}\label{eq:CA_resultado}
+\end{equation}
+Por partícula $c_A=C_A/N=k_B$. Obsérvese que, a diferencia de 3D, aquí no hay términos de energía potencial ni de rotación/vibración (modelo monoatómico), por lo que la linealidad de $U^{(2D)}$ con $T$ es exacta en el marco clásico. Si uno definiera procesos a \textit{presión superficial} constante $\Pi$, aparecerían calores específicos análogos a $C_P$ con relación de Mayer en 2D, pero el problema pide explícitamente \textbf{área fija}
+
+\subsection*{Criterio de validez del régimen clásico en 2D}
+
+El límite clásico requiere evitar degeneración cuántica superficial:
+\begin{equation}
+\begin{split}
+n_{2D}\,\lambda_T^2
+&\ll 1
+\end{split}\label{eq:criterio_clasico_2D}
+\end{equation}
+donde $n_{2D}=N/A$ es la densidad superficial y $\lambda_T=h/\sqrt{2\pi m k_B T}$. En palabras: temperaturas suficientemente altas o masas grandes (que reducen $\lambda_T$) y áreas suficientemente grandes (que reducen $n_{2D}$) garantizan que el tratamiento clásico sea adecuado. En caso contrario, para bosones o fermiones adsorbidos, aparecerían correcciones de estadística cuántica en 2D que \textit{modifican} la capacidad calorífica a bajas temperaturas
+
+
+
+
+\begin{empheq}[box={\mymath[colback=Saffron!40,drop lifted shadow]}]{equation*}
+\begin{aligned}
+z_1^{(2D)}&=\dfrac{A}{h^2}\left(2\pi m k_B T\right),\qquad
+Z^{(2D)}=\dfrac{\left[z_1^{(2D)}\right]^N}{N!}\\[2mm]
+F^{(2D)}&\simeq -N k_B T\ln z_1^{(2D)} + N k_B T\ln N - N k_B T\\[2mm]
+U^{(2D)}&=N k_B T,\qquad
+S^{(2D)}=N k_B\!\left[\ln\!\left(\dfrac{A}{N \lambda_T^2}\right)+2\right]\\[2mm]
+\Pi A&=N k_B T,\qquad
+\textbf{Capacidad calorífica a área fija:}\;\; C_A=N k_B\\[2mm]
+\text{Validez clásica:}\;\;& n_{2D}\lambda_T^2=\dfrac{N}{A}\,\dfrac{h^2}{2\pi m k_B T}\ll 1
+\end{aligned}
+\end{empheq}
+
+
+%=============================
+% PR. 1.3 — Un sólido con átomos de tres estados
+%=============================
+\begin{AGbox}[8]
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.3}}}, start=1]
+		\item \textbf{Un sólido con átomos de tres estados} \;
+		Considere un sólido cristalino con $N$ átomos, uno en cada sitio de la red. Cada átomo puede estar en tres estados, cuyas energías son $-\epsilon_0$, $0$ y $\epsilon_0$. Suponiendo que el cristal se encuentra a temperatura $T$, calcule:
+		\begin{enumerate}[label=\textbf{(\alph*)}]
+			\item La \textbf{función de partición canónica}
+			\item La \textbf{probabilidad} de hallar un átomo con energía $\epsilon_0$
+			\item La \textbf{energía total promedio} y la \textbf{capacidad calorífica} (graficar). Discuta los \textbf{límites de baja y alta temperatura}
+			\item La \textbf{entropía}. Discuta los \textbf{límites de baja y alta temperatura}
+			\item Calcule la \textbf{entropía en el ensamble microcanónico} y verifique que se obtiene el mismo resultado que en el inciso anterior
+		\end{enumerate}
+	\end{enumerate}
+\end{AGbox}
+
+\textcolor{Cinnabar}{\textbf{Solución:}}
+
+
+Consideramos un sólido cristalino con $N$ sitios independientes. En cada sitio el átomo puede ocupar uno de \textit{tres} niveles no degenerados con energías $\{-\epsilon_0,0,+\epsilon_0\}$. Supondremos equilibrio térmico a temperatura $T$ en el régimen clásico-estadístico (sin interacción entre sitios). El objetivo es construir, de manera sistemática, las cantidades termodinámicas pedidas:
+
+\begin{itemize}
+\item[$\bullet$] \textbf{Función de partición canónica} total $Z$ y de una partícula $z$
+\item[$\bullet$] \textbf{Probabilidad} de encontrar un átomo en el nivel $+\epsilon_0$
+\item[$\bullet$] \textbf{Energía interna promedio} $U$ y \textbf{capacidad calorífica} $C$, con discusión de límites $T\to 0$ y $T\to\infty$
+\item[$\bullet$] \textbf{Entropía} $S$ y sus límites térmicos
+\item[$\bullet$] \textbf{Entropía microcanónica} $S_{\text{micro}}$ y verificación de equivalencia con el resultado canónico
+\end{itemize}
+
+Para la notación, usaremos $\beta=1/(k_B T)$ y, por conveniencia, el parámetro \underline{adimensional}
+\begin{equation}
+\begin{split}
+x
+&= \beta\,\epsilon_0
+\end{split}\label{eq:def_x}
+\end{equation}
+
+\subsection*{(a) Función de partición canónica}
+
+La función de partición \textit{de una partícula} es la suma de Boltzmann sobre los tres niveles:
+\begin{equation}
+\begin{split}
+z
+&= e^{-\beta(-\epsilon_0)} + e^{-\beta\cdot 0} + e^{-\beta(+\epsilon_0)}\\
+&= e^{+\beta\epsilon_0} + 1 + e^{-\beta\epsilon_0}\\
+&= 1 + 2\cosh(\beta\epsilon_0)
+\end{split}\label{eq:z_una_particula}
+\end{equation}
+Para $N$ sitios \textbf{indistinguibles e independientes}:
+\begin{equation}
+\begin{split}
+Z
+&= z^{\,N}
+\end{split}\label{eq:Z_total_tres_niveles}
+\end{equation}
+(no aparece factor $N!$ porque no estamos permutando partículas en un gas: cada sitio del sólido tiene un átomo asignado; el \textit{producto} de particiones factoriza como $z^N$)
+
+\subsection*{(b) Probabilidad de hallar un átomo con energía $+\epsilon_0$}
+
+Por definición canónica, la probabilidad de ocupar el nivel $E_i$ es $p_i=e^{-\beta E_i}/z$. Para $+\epsilon_0$:
+\begin{equation}
+\begin{split}
+p_{+}
+&= \frac{e^{-\beta\epsilon_0}}{z}
+= \frac{e^{-x}}{1+2\cosh x}
+\end{split}\label{eq:prob_p}
+\end{equation}
+Análogamente, $p_{-}=e^{+\beta\epsilon_0}/z=\dfrac{e^{+x}}{1+2\cosh x}$ y $p_{0}=1/z=\dfrac{1}{1+2\cosh x}$
+
+\subsection*{(c) Energía interna promedio y capacidad calorífica}
+
+La energía media \textit{por átomo} es el promedio de niveles:
+\begin{equation}
+\begin{split}
+u
+&= (-\epsilon_0)\,p_{-} + 0\cdot p_{0} + (+\epsilon_0)\,p_{+}\\
+&= \epsilon_0\,(p_{+}-p_{-})\\
+&= \epsilon_0\left(\frac{e^{-x}-e^{+x}}{1+2\cosh x}\right)\\
+&= -\,\epsilon_0\,\frac{2\sinh x}{1+2\cosh x}
+\end{split}\label{eq:u_por_atom}
+\end{equation}
+La energía total es $U=N\,u$:
+\begin{equation}
+\begin{split}
+U
+&= -\,N\,\epsilon_0\,\frac{2\sinh x}{1+2\cosh x}
+\end{split}\label{eq:U_total}
+\end{equation}
+
+La capacidad calorífica (a volumen fijo del sólido) es $C = (\partial U/\partial T)_{N}$, o equivalentemente $C=N\,(\partial u/\partial T)$. Derivamos \eqref{eq:u_por_atom} usando $x=\epsilon_0/(k_B T)$ y $dx/dT=-x/T$. Sea
+\begin{equation}
+\begin{split}
+f(x)
+&= \frac{2\sinh x}{1+2\cosh x}
+\end{split}\label{eq:def_f}
+\end{equation}
+Con regla del cociente, $f'(x)=\dfrac{2\cosh x\,(1+2\cosh x)-2\sinh x\,(2\sinh x)}{(1+2\cosh x)^2}=\dfrac{2\cosh x+4}{(1+2\cosh x)^2}$. Entonces
+\begin{equation}
+\begin{split}
+\frac{du}{dT}
+&= -\epsilon_0\,f'(x)\,\frac{dx}{dT}\\
+&= -\epsilon_0\,\frac{2\cosh x+4}{\left(1+2\cosh x\right)^2}\left(-\frac{x}{T}\right)\\
+&= \frac{\epsilon_0\,x}{T}\,\frac{2\cosh x+4}{\left(1+2\cosh x\right)^2}
+\end{split}\label{eq:du_dT_intermedio}
+\end{equation}
+Usando $x=\epsilon_0/(k_B T)$, se simplifica $\dfrac{\epsilon_0 x}{T}=\dfrac{\epsilon_0^2}{k_B T^2}=k_B\,x^2$. Por tanto, la \textbf{capacidad calorífica por átomo} es
+\begin{equation}
+\begin{split}
+c
+&= \frac{du}{dT}\\
+&= k_B\,x^2\,\frac{2\cosh x+4}{\left(1+2\cosh x\right)^2}
+\end{split}\label{eq:c_por_atom}
+\end{equation}
+y la capacidad calorífica total
+\begin{equation}
+\begin{split}
+C
+&= N\,c
+= N k_B\,x^2\,\frac{2\cosh x+4}{\left(1+2\cosh x\right)^2}
+\end{split}\label{eq:C_total}
+\end{equation}
+
+\subsubsection*{Comentario para graficar $C(T)$}
+
+Para la figura solicitada, basta graficar \eqref{eq:c_por_atom} como función de $x=\epsilon_0/(k_B T)$ o de $T$ eligiendo $\epsilon_0$ como escala (en eje $T/\epsilon_0$). La curva presenta un \textit{pico amplio} tipo-Schottky, análogo al de un sistema de dos niveles, pero suavizado por el nivel intermedio en $0$
+
+\subsection*{Graficas}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{three_level_energy.png}
+\caption{\textbf{Energía interna por partícula} $u/\epsilon_0$ como función de $k_B T/\epsilon_0$. 
+A bajas temperaturas ($k_B T \ll \epsilon_0$), el sistema se congela en el estado fundamental de energía $-\epsilon_0$. 
+A altas temperaturas ($k_B T \gg \epsilon_0$), las tres energías se vuelven equiprobables y el promedio tiende a $0$.}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{three_level_capacity.png}
+\caption{\textbf{Capacidad calorífica por partícula} $c/k_B$ como función de $k_B T/\epsilon_0$. 
+La curva presenta un \emph{pico amplio} tipo Schottky: a bajas $T$ el calor específico es casi nulo pues sólo se ocupa el estado fundamental; 
+a temperaturas intermedias ocurre excitación térmica significativa y $c$ alcanza un máximo; 
+a altas temperaturas los niveles se pueblan de forma casi uniforme y $c$ decae de nuevo.}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{three_level_entropy.png}
+\caption{\textbf{Entropía por partícula} $s/k_B$ como función de $k_B T/\epsilon_0$. 
+La entropía es casi cero a bajas temperaturas (orden perfecto: todos en el estado fundamental). 
+A altas temperaturas, los tres estados se ocupan de manera equiprobable y la entropía se aproxima al valor de mezcla máxima $\ln 3$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{three_level_probabilities.png}
+\caption{\textbf{Probabilidades de ocupación} $p_{-}, p_{0}, p_{+}$ en función de $k_B T/\epsilon_0$. 
+A bajas temperaturas domina el nivel $-\epsilon_0$; 
+al aumentar la temperatura se pueblan progresivamente los niveles de mayor energía. 
+En el límite $k_B T \gg \epsilon_0$, los tres niveles se vuelven equiprobables con $p_{-}\approx p_0 \approx p_{+}\approx 1/3$.}
+\end{figure}
+
+
+\subsection*{Límites de baja y alta temperatura}
+
+\paragraph{Baja temperatura $T\to 0^+$ ($x\to +\infty$).} Se puebla el \underline{estado fundamental} $-\epsilon_0$: $p_{-}\to 1$, $p_0,p_{+}\to 0$. Entonces
+\begin{equation}
+\begin{split}
+u
+&\to -\epsilon_0
+\end{split}\label{eq:lim_T0_u}
+\end{equation}
+\begin{equation}
+\begin{split}
+c
+&\sim k_B\,x^2\,e^{-x}\to 0
+\end{split}\label{eq:lim_T0_c}
+\end{equation}
+
+\paragraph{Alta temperatura $T\to \infty$ ($x\to 0^+$).} Las ocupaciones tienden a \textit{equiprobables}: $p_{-}\approx p_0\approx p_{+}\approx 1/3$. Usando expansiones $\sinh x\approx x$, $\cosh x\approx 1+\tfrac{x^2}{2}$:
+\begin{equation}
+\begin{split}
+u
+&= -\,\epsilon_0\,\frac{2x}{3+\mathcal{O}(x^2)}
+\;\approx\; -\frac{2}{3}\,\frac{\epsilon_0^2}{k_B T}
+\end{split}\label{eq:lim_Th_u}
+\end{equation}
+\begin{equation}
+\begin{split}
+c
+&\approx \frac{2}{3}\,k_B\,x^2
+\;\to\; 0
+\end{split}\label{eq:lim_Th_c}
+\end{equation}
+En ambos extremos $c\to 0$, por lo que existe un \textit{máximo} a temperatura intermedia (pico de Schottky)
+
+\subsection*{(d) Entropía canónica y límites térmicos}
+
+Usamos $F=-Nk_B T\ln z$ y $S=(U-F)/T$. Primero, por átomo:
+\begin{equation}
+\begin{split}
+f
+&= -k_B T\ln z
+\end{split}\label{eq:f_por_atom}
+\end{equation}
+\begin{equation}
+\begin{split}
+s
+&= \frac{u-f}{T}
+= k_B\left[\ln z+\beta u\right]
+\end{split}\label{eq:s_por_atom_base}
+\end{equation}
+Sustituyendo \eqref{eq:z_una_particula} y \eqref{eq:u_por_atom}:
+\begin{equation}
+\begin{split}
+s
+&= k_B\left[
+\ln\!\big(1+2\cosh x\big)
+- x\,\frac{2\sinh x}{1+2\cosh x}
+\right]
+\end{split}\label{eq:s_por_atom}
+\end{equation}
+y $S=N\,s$.
+
+\paragraph{Baja temperatura.} Con $x\to\infty$:
+\begin{equation}
+\begin{split}
+s
+&\to 0
+\end{split}\label{eq:s_T0}
+\end{equation}
+cumpliendo el \textit{tercer principio} (nivel fundamental no degenerado)
+
+\paragraph{Alta temperatura.} Con $x\to 0$ y $z\to 3$:
+\begin{equation}
+\begin{split}
+s
+&\to k_B\ln 3
+\end{split}\label{eq:s_Th}
+\end{equation}
+que es la entropía de mezclar equiprobablemente tres niveles
+
+\subsection*{(e) Entropía microcanónica y equivalencia canónica}
+
+En el ensamble microcanónico fijamos $N$ y la \underline{energía total} $E$. Sea $n_{-}$, $n_0$ y $n_{+}$ el número de sitios ocupando $-\epsilon_0$, $0$ y $+\epsilon_0$, con las restricciones
+\begin{equation}
+\begin{split}
+N
+&= n_{-}+n_0+n_{+}
+\end{split}\label{eq:restric_N}
+\end{equation}
+\begin{equation}
+\begin{split}
+E
+&= -\epsilon_0\,n_{-} + 0\cdot n_0 + \epsilon_0\,n_{+}
+= \epsilon_0\,(n_{+}-n_{-})
+\end{split}\label{eq:restric_E}
+\end{equation}
+La multiplicidad es el número de microestados compatibles:
+\begin{equation}
+\begin{split}
+\Omega(N,E)
+&= \frac{N!}{n_{-}!\,n_{0}!\,n_{+}!}
+\end{split}\label{eq:Omega_multinomial}
+\end{equation}
+La entropía microcanónica es
+\begin{equation}
+\begin{split}
+S_{\text{micro}}
+&= k_B\ln\Omega
+\end{split}\label{eq:S_micro_def}
+\end{equation}
+En el límite termodinámico, usando Stirling, definimos fracciones $p_{-}=n_{-}/N$, $p_0=n_0/N$, $p_{+}=n_{+}/N$. Se obtiene
+\begin{equation}
+\begin{split}
+\frac{S_{\text{micro}}}{N k_B}
+&= -\left[p_{-}\ln p_{-} + p_0\ln p_0 + p_{+}\ln p_{+}\right]
+\end{split}\label{eq:S_micro_stirling}
+\end{equation}
+bajo las restricciones
+\begin{equation}
+\begin{split}
+p_{-}+p_0+p_{+}
+&= 1
+\end{split}\label{eq:rest_p_sum1}
+\end{equation}
+\begin{equation}
+\begin{split}
+\frac{E}{N}
+&= \epsilon_0\,(p_{+}-p_{-})
+= u
+\end{split}\label{eq:rest_p_energy}
+\end{equation}
+Maximizamos \eqref{eq:S_micro_stirling} con multiplicadores de Lagrange para \eqref{eq:rest_p_sum1} y \eqref{eq:rest_p_energy}. El extremal cumple
+\begin{equation}
+\begin{split}
+p_i
+&\propto e^{-\tilde\beta E_i}
+\end{split}\label{eq:Boltzmann_from_micro}
+\end{equation}
+con un parámetro $\tilde\beta$ fijado por \eqref{eq:rest_p_energy}. Identificando $\tilde\beta=\beta$, recobramos exactamente
+\begin{equation}
+\begin{split}
+p_{-}
+&= \frac{e^{+x}}{1+2\cosh x},\qquad
+p_{0}=\frac{1}{1+2\cosh x},\qquad
+p_{+}=\frac{e^{-x}}{1+2\cosh x}
+\end{split}\label{eq:pis_final_micro}
+\end{equation}
+Sustituyendo \eqref{eq:pis_final_micro} en \eqref{eq:S_micro_stirling}, se obtiene
+\begin{equation}
+\begin{split}
+S_{\text{micro}}
+&= N k_B\left[\ln\!\big(1+2\cosh x\big) - x\,\frac{2\sinh x}{1+2\cosh x}\right]
+\end{split}\label{eq:S_micro_final}
+\end{equation}
+que \underline{coincide} con \eqref{eq:s_por_atom} al multiplicar por $N$. Esto verifica la \textbf{equivalencia de ensambles} para este sistema no interactuante
+
+\vspace{2mm}
+
+\begin{empheq}[box={\mymath[colback=Saffron!40,drop lifted shadow]}]{equation*}
+\begin{aligned}
+&\textbf{Partición una partícula:}\quad z=1+2\cosh(\beta\epsilon_0)\\[3pt]
+&\textbf{Partición total:}\quad Z=z^{\,N}\\[3pt]
+&\textbf{Probabilidad nivel }(+\epsilon_0):\quad p_{+}=\dfrac{e^{-\beta\epsilon_0}}{1+2\cosh(\beta\epsilon_0)}\\[3pt]
+&\textbf{Energía por átomo:}\quad u=-\,\epsilon_0\,\dfrac{2\sinh(\beta\epsilon_0)}{1+2\cosh(\beta\epsilon_0)},\qquad U=N\,u\\[3pt]
+&\textbf{Capacidad por átomo:}\quad c=k_B\,x^2\,\dfrac{2\cosh x+4}{\left(1+2\cosh x\right)^2},\; x=\dfrac{\epsilon_0}{k_B T},\qquad C=N\,c\\[3pt]
+&\textbf{Entropía por átomo:}\quad s=k_B\!\left[\ln\!\big(1+2\cosh x\big)-x\,\dfrac{2\sinh x}{1+2\cosh x}\right],\qquad S=N\,s\\[3pt]
+&\textbf{Límites:}\;\; T\to 0:\; u\to -\epsilon_0,\; c\to 0,\; s\to 0\;;\quad T\to\infty:\; u\sim -\dfrac{2}{3}\dfrac{\epsilon_0^2}{k_B T},\; c\to 0,\; s\to k_B\ln 3\\[3pt]
+&\textbf{Microcanónico:}\;\; S_{\text{micro}}=N k_B\!\left[\ln\!\big(1+2\cosh x\big)-x\,\dfrac{2\sinh x}{1+2\cosh x}\right]=S
+\end{aligned}
+\end{empheq}
+
+
+%=============================
+% PR. 1.4 — Átomo de hidrógeno: ocupación del estado p
+%=============================
+\begin{AGbox}[8]
+	\begin{enumerate}[label={{\textcolor{trueblue}{\textbf{Pr.} \arabic*.4}}}, start=1]
+		\item \textbf{Un átomo de hidrógeno} en equilibrio con un campo de radiación a temperatura $T$ puede estar en su estado base orbital (nivel “s” que tiene una degeneración 2 debido al spin y energía $\epsilon_0$), o puede estar en su primer estado excitado “p” (con degeneración ocho y energía $\epsilon_1$). Desprecia la probabilidad de niveles superiores. ¿Cuál es la probabilidad de que el átomo se encuentre en un estado orbital p?
+	\end{enumerate}
+\end{AGbox}
+
+
+\textcolor{Cinnabar}{\textbf{Solución:}} 
+
+
+Queremos la \underline{probabilidad térmica} de que un \textit{átomo de hidrógeno} en equilibrio con un campo de radiación a temperatura $T$ se encuentre en \textbf{cualquier} subnivel del primer multiplete \textit{p}. Restringimos el espectro a dos multipletes:
+\begin{itemize}
+\item[$\bullet$] \textbf{Nivel $s$} (estado base efectivo), energía $\epsilon_{0}$ y \textbf{degeneración} $g_s=2$ por espín
+\item[$\bullet$] \textbf{Nivel $p$} (primer excitado efectivo), energía $\epsilon_{1}$ y \textbf{degeneración} $g_p=8$ 
+\end{itemize}
+
+El \textit{campo de radiación} asegura equilibrio detallado; despreciamos todos los niveles por arriba de $p$. Definimos los atajos estándar
+\begin{equation}
+\begin{split}
+\beta &= \frac{1}{k_B T},\qquad 
+\Delta = \epsilon_1-\epsilon_0
+\end{split}\label{eq:def_beta_delta}
+\end{equation}
+
+
+Para un sistema con niveles discretos $\{\epsilon_i\}$ y degeneraciones $\{g_i\}$, la partición canónica de \textit{una} entidad es
+\begin{equation}
+\begin{split}
+z &= \sum_i g_i\,e^{-\beta \epsilon_i}
+\end{split}\label{eq:z_general}
+\end{equation}
+Particularizando a $s$ y $p$:
+\begin{equation}
+\begin{split}
+z &= g_s\,e^{-\beta \epsilon_0}+g_p\,e^{-\beta \epsilon_1}
+\end{split}\label{eq:z_sp}
+\end{equation}
+Factorizamos $e^{-\beta\epsilon_0}$ para explicitar la dependencia en $\Delta$:
+\begin{equation}
+\begin{split}
+z &= e^{-\beta\epsilon_0}\,\Big(g_s+g_p\,e^{-\beta\Delta}\Big)
+\end{split}\label{eq:z_sp_factor}
+\end{equation}
+
+
+
+Por definición de ensamble canónico, la probabilidad de ocupar el multiplete $i$ es
+\begin{equation}
+\begin{split}
+P(i) &= \frac{g_i\,e^{-\beta \epsilon_i}}{z}
+\end{split}\label{eq:Pi}
+\end{equation}
+Aplicando \eqref{eq:Pi} al multiplete $p$:
+\begin{equation}
+\begin{split}
+P(p) &= \frac{g_p\,e^{-\beta \epsilon_1}}{g_s\,e^{-\beta \epsilon_0}+g_p\,e^{-\beta \epsilon_1}}
+\end{split}\label{eq:Pp_raw}
+\end{equation}
+Dividimos numerador y denominador por $g_p\,e^{-\beta\epsilon_1}$:
+\begin{equation}
+\begin{split}
+P(p) &= \frac{1}{\dfrac{g_s}{g_p}\,e^{\beta(\epsilon_1-\epsilon_0)}+1}
+= \frac{1}{1+\dfrac{g_s}{g_p}\,e^{\beta\Delta}}
+\end{split}\label{eq:Pp_clean}
+\end{equation}
+Sustituyendo $g_s=2$ y $g_p=8$:
+\begin{equation}
+\begin{split}
+P(p) &= \frac{1}{1+\tfrac{1}{4}\,e^{\beta\Delta}}
+\end{split}\label{eq:Pp_final_main}
+\end{equation}
+De igual forma,
+\begin{equation}
+\begin{split}
+P(s) &= \frac{g_s\,e^{-\beta \epsilon_0}}{z}
+= \frac{\tfrac{1}{4}\,e^{\beta\Delta}}{1+\tfrac{1}{4}\,e^{\beta\Delta}}
+\end{split}\label{eq:Ps_final_main}
+\end{equation}
+y se verifica la normalización $P(s)+P(p)=1$ sustituyendo \eqref{eq:Pp_final_main}–\eqref{eq:Ps_final_main}
+
+
+
+La expresión \eqref{eq:Pp_final_main} admite presentaciones que son \textit{útiles en reportes y ajuste de datos}:
+\begin{equation}
+\begin{split}
+P(p) &= \frac{1}{1+\tfrac{1}{4}e^{\beta\Delta}}
+= \frac{1}{1+\exp\!\Big[\beta\Delta - \ln 4\Big]}
+= \frac{1}{2}\left[1-\tanh\!\left(\frac{\beta\Delta-\ln 4}{2}\right)\right]
+\end{split}\label{eq:Pp_three_forms}
+\end{equation}
+La segunda forma muestra que la \textit{degeneración} entra como un \underline{desplazamiento aditivo} $\ln(g_p/g_s)=\ln 4$ en el “exponente térmico”; la tercera forma enfatiza el carácter \textbf{sigmoidal} de la curva $P(p)$ vs $1/T$
+
+
+
+El cociente directo es especialmente transparente:
+\begin{equation}
+\begin{split}
+\frac{P(p)}{P(s)} &= \frac{g_p}{g_s}\,e^{-\beta(\epsilon_1-\epsilon_0)}
+= \frac{g_p}{g_s}\,e^{-\beta\Delta}
+\end{split}\label{eq:ratio_ps}
+\end{equation}
+La ley \eqref{eq:ratio_ps} coincide con la \textit{condición de equilibrio radiativo} de Einstein para procesos $s\leftrightarrow p$ bajo un baño térmico de temperatura $T$, y constituye un chequeo cinético–termodinámico
+
+
+\paragraph{Baja temperatura $T\to 0^+$} ($\beta\to\infty$). La penalización energética domina:
+\begin{equation}
+\begin{split}
+P(p) &\sim 4\,e^{-\beta\Delta} \;\longrightarrow\; 0,\qquad P(s)\to 1
+\end{split}\label{eq:lowT_limit}
+\end{equation}
+La constante $4=g_p/g_s$ aparece como prefactor entópico al “intentar” poblar $p$
+
+\paragraph{Alta temperatura $T\to\infty$} ($\beta\to 0$). La energía deja de discriminar y manda la degeneración:
+\begin{equation}
+\begin{split}
+P(p) &\to \frac{g_p}{g_s+g_p}=\frac{8}{10}=\frac{4}{5},\qquad
+P(s)\to \frac{1}{5}
+\end{split}\label{eq:highT_limit}
+\end{equation}
+La \textit{primera corrección} a altas $T$ se obtiene expandiendo $e^{\beta\Delta}=1+\beta\Delta+\mathcal{O}(\beta^2)$ en \eqref{eq:Pp_final_main}:
+\begin{equation}
+\begin{split}
+P(p) &\approx \frac{4}{5}\left[1 - \frac{1}{5}\,\beta\Delta\right]
+= \frac{4}{5} - \frac{4}{25}\,\frac{\Delta}{k_B T}
+\end{split}\label{eq:highT_expansion}
+\end{equation}
+
+
+
+Probamos que $P(p)$ es \textbf{monótonamente creciente} con $T$ y obtenemos la \textit{temperatura característica} $T_\star$ de cruce $P(p)=P(s)$:
+\begin{equation}
+\begin{split}
+P(p) &= \frac{1}{1+\alpha\,e^{\beta\Delta}},\qquad \alpha=\frac{g_s}{g_p}=\frac{1}{4}
+\end{split}\label{eq:Pp_alpha}
+\end{equation}
+Derivando con respecto a $T$ y usando $d\beta/dT=-1/(k_B T^2)$:
+\begin{equation}
+\begin{split}
+\frac{dP(p)}{dT} 
+&= \frac{\alpha e^{\beta\Delta}}{\big(1+\alpha e^{\beta\Delta}\big)^2}\,\frac{\Delta}{k_B T^2} > 0
+\end{split}\label{eq:dP_dT}
+\end{equation}
+Por tanto, $P(p)$ \textbf{aumenta} con $T$ y es cóncava hacia abajo a temperaturas altas. La \textit{temperatura de cruce} se obtiene imponiendo $P(p)=1/2$:
+\begin{equation}
+\begin{split}
+\frac{1}{2} &= \frac{1}{1+\alpha e^{\beta\Delta}} 
+\;\Longrightarrow\; \alpha e^{\beta\Delta}=1
+\end{split}\label{eq:half_cond}
+\end{equation}
+y de aquí 
+\begin{equation}
+\begin{split}
+T_\star &= \frac{\Delta}{k_B \ln(g_p/g_s)} = \frac{\Delta}{k_B \ln 4}
+\end{split}\label{eq:T_star}
+\end{equation}
+Numéricamente, si tomamos como escala $\Delta\simeq 10.2\,\text{eV}$ ($1s\!\to\!2p$), entonces $T_\star\sim \Delta/[k_B\ln 4]\sim \mathcal{O}(10^5)\,\text{K}$, lo cual explica por qué \underline{a temperaturas de laboratorio} predomina el estado $s$
+
+
+
+Para extraer $\Delta$ de datos experimentales de poblaciones relativas:
+\begin{equation}
+\begin{split}
+\ln\!\frac{P(s)}{P(p)} &= \ln\!\frac{g_s}{g_p} + \beta\Delta 
+= -\ln 4 + \frac{\Delta}{k_B}\,\frac{1}{T}
+\end{split}\label{eq:linear_fit}
+\end{equation}
+Un ajuste lineal de $\ln[P(s)/P(p)]$ contra $1/T$ proporciona pendiente $\Delta/k_B$ e intercepto $-\ln 4$. Alternativamente, despejando de \eqref{eq:Pp_clean}:
+\begin{equation}
+\begin{split}
+\Delta &= k_B T\,\ln\!\left[\frac{g_p}{g_s}\,\frac{1-P(p)}{P(p)}\right]
+= k_B T\,\ln\!\left[4\,\frac{1-P(p)}{P(p)}\right]
+\end{split}\label{eq:delta_from_P}
+\end{equation}
+
+
+La energía media por átomo usando dos niveles es
+\begin{equation}
+\begin{split}
+u &= \epsilon_0\,P(s)+\epsilon_1\,P(p)
+= \epsilon_0+\Delta\,P(p)
+\end{split}\label{eq:u_mean}
+\end{equation}
+y la entropía por átomo (mezcla de dos cajas con pesos $P(s)$ y $P(p)$) es
+\begin{equation}
+\begin{split}
+s &= -k_B\Big[P(s)\ln P(s)+P(p)\ln P(p)\Big]
+\end{split}\label{eq:s_mix}
+\end{equation}
+A bajas temperaturas $P(p)\to 0$ y $s\to 0$, como exige el \textit{tercer principio}; a altas temperaturas $P(p)\to 4/5$ y $s\to -k_B\big[\tfrac{1}{5}\ln\tfrac{1}{5}+\tfrac{4}{5}\ln\tfrac{4}{5}\big]$, que es la entropía de una \textit{mezcla binaria} con pesos fijados por la degeneración
+
+
+El valor $g_p=8$ resume la multiplicidad combinada de subniveles $p$ con espín. En un tratamiento espectroscópico fino podrían desdoblarse subniveles por \textit{acoplamiento espín–órbita} y campos externos, pero a la escala térmica relevante del problema basta con \underline{agruparlos} en un multiplete efectivo. Cualquier refinamiento que altere $g_p$ entra en \eqref{eq:Pp_clean} \textit{únicamente} a través de la razón $g_p/g_s$
+
+\vspace{2mm}
+
+\begin{empheq}[box={\mymath[colback=Saffron!40,drop lifted shadow]}]{equation*}
+\begin{aligned}
+&\textbf{Probabilidad orbital p:}\quad 
+P(p) \;=\; \dfrac{g_p\,e^{-\beta\epsilon_1}}{g_s\,e^{-\beta\epsilon_0}+g_p\,e^{-\beta\epsilon_1}}
+\;=\; \dfrac{1}{1+\dfrac{g_s}{g_p}\,e^{\beta(\epsilon_1-\epsilon_0)}}
+\;=\; \dfrac{1}{1+\dfrac{1}{4}\,e^{\beta\Delta}}\\[6pt]
+&\textbf{Razón de poblaciones:}\quad \dfrac{P(p)}{P(s)}=\dfrac{g_p}{g_s}\,e^{-\beta\Delta}\\[6pt]
+&\textbf{Límites:}\quad T\to 0:\; P(p)\sim 4\,e^{-\beta\Delta}\to 0\;;\qquad 
+T\to\infty:\; P(p)\to \dfrac{g_p}{g_s+g_p}=\dfrac{4}{5}\\[6pt]
+&\textbf{Temperatura de cruce:}\quad T_\star=\dfrac{\Delta}{k_B\ln 4}\\[6pt]
+&\textbf{Formas equivalentes:}\quad 
+P(p)=\dfrac{1}{1+\tfrac{1}{4}e^{\beta\Delta}}
+=\dfrac{1}{1+\exp\!\big[\beta\Delta-\ln 4\big]}
+=\dfrac{1}{2}\!\left[1-\tanh\!\Big(\dfrac{\beta\Delta-\ln 4}{2}\Big)\right]
+\end{aligned}
+\end{empheq}
+
+
+\end{document}

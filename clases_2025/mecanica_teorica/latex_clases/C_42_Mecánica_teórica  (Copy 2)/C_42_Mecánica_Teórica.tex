@@ -1,0 +1,465 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=black, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{Clase \# 42 - Mecánica Teórica}
+\author{\emph{JA} $\boldsymbol{\mid}$}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{Mecánica teórica}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null
+\vskip 1em%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+\par
+\vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus y aula
+
+\begin{mybox}
+\noindent\begin{tabular}{@{}ll}
+	{\bfseries{Profesor}} & Dr. Gilberto Silva Ortigoza\\
+	\textcolor{prussianblue}{\bfseries{Campus}} / \textcolor{trueblue}{\bfseries{Facultad}}  & \textcolor{prussianblue}{\bfseries{C.U. BUAP}} /  \textcolor{trueblue}{\bfseries{FCFM}} \\
+	\textcolor{prussianblue}{\bfseries{Edificio}} /  \textcolor{trueblue}{\bfseries{EMA4}}    & 	\textcolor{prussianblue}{\bfseries{FM9}} /  \textcolor{trueblue}{\bfseries{302}}   
+\end{tabular} 
+\end{mybox} \vspace{1cm}
+
+\tableofcontents
+
+\vspace{2cm}
+
+\section{Clase del día de hoy}
+
+
+
+
+Tenemos nosotros:
+
+
+\[ Q_{i} \equiv q_{i} + \epsilon \frac{ \partial G }{\partial p_{i}} \]
+
+\[ P_{i} = p_{i} - \epsilon \frac{\partial G}{\partial q_{i}} \]
+
+
+\[ \left[ Q_{i},Q_{jJ}  \right] =0 \]
+
+\[ \left[ Q_{i},P_{jJ}  \right] = \delta_{ij} \]
+
+\[ \left[ P_{i},P_{jJ}  \right]  \]
+
+
+
+En todos los cálculos de TCI (transformación canónica infinitesimal), $\epsilon$, $\epsilon^{2}=0$, $\epsilon^{3}=0 \quad \ldots$
+
+
+Tenemos:
+
+
+\[ \delta{q}_{i} \equiv Q_{i}-q_{i} = \epsilon \frac{\partial G}{\partial p_{i}}  \]
+
+
+\[ \delta{p_{i}} \equiv P_{i} - p_{i} = - \epsilon \frac{\partial G  }{\partial q_{i}}  \]
+
+
+\[ G = G(q_{i},p_{i},t)  \]
+
+
+
+
+
+Tenemos:
+
+
+
+\[  K(Q_{k},P_{k},t) = H(q_{j}, p_{j},t) + \epsilon \frac{\partial G}{\partial t}\]
+
+
+Tenemos por definición de función generatriz de segunda clase:
+
+
+\[ F_{2} = \sum\limits_{i=1}^{n}  q_{i}p_{i} + \epsilon G(q_{j},p_{i},t) \]
+
+
+Tenemos:
+
+
+\[ \partial H = H(Q_{k}, P_{k},t ) - K(Q_{k},P_{k},t)   \]
+
+
+Tenemos:
+
+\[  \partial H = H(q_{i} +  \epsilon \frac{\partial G}{\partial p_{i}}, p_{k} - \epsilon \frac{\partial G}{\partial q_{k}}, t   )  - H(q_{k},p_{k},t) -\epsilon \frac{\partial G}{\partial t} \]
+
+Hacemos un desarrollo en serie de potencia, desarrollamos alrededor de $0$.
+
+
+Tenemos por ejemplo:
+
+
+
+\[ f(x) = f(0) + \left. \frac{df}{dx} \right|_{x=0} x  \]
+
+
+AHora tenemos:
+
+
+\[ f(\epsilon) = f(0) + \left. \frac{df}{d\epsilon} \right|_{\epsilon=0}  \]
+
+
+
+Tenemos así nosotros:
+
+
+\[  = H(q_{k}, p_{k},t) + \left.\left[    \frac{ \partial H  }{ \partial ( q_{k} + \epsilon \frac{\partial G}{\partial p_{k}} )  }     \right] \right|_{\epsilon =0}  \epsilon + \left. \left[  \frac{ \partial H }{ \partial (p_{k}-\epsilon \frac{\partial G}{\partial q_{k}}) }      \right] \right|_{\epsilon=0} \epsilon - H(q_{k},p_{k},t) - \epsilon \frac{\partial G}{\partial t}\]
+
+Tenemos nosotros:
+
+
+\[ \partial H = \left(  \frac{\partial H}{\partial q_{k}} \frac{\partial G}{\partial p_{k}}   \right)  \]
+
+A continuación usamos las ecuaciones de hamilton:
+
+\begin{center}
+\includegraphics[width=0.85\linewidth]{1.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 1}
+\end{center}
+
+Tenemos:
+
+
+El término siguiente nos genera la identidad:
+
+
+\[  \sum\limits_{i=1}^{n} q_{i}p_{i}  \]
+
+
+Tenemos así:
+
+
+\[  \partial H = - \frac{dG}{dt}\epsilon \]
+
+
+Tenemos:
+
+
+
+\[ F_{2} = \sum\limits_{i=1}^{n} q_{i}p_{i} + \epsilon G(q_{i}.p_{i},t) \]
+
+Tenemos:
+
+
+\[ 0 =\hat{\mathbb{I}} + \epsilon \]
+
+
+Una contante de movimiento es aquella que no cambia en el tiempo, entonces su derivada es cero. Las constantes de movimiento son funciones generatrices para el sistema hamiltoniano, tal que el hamiltoniano queda invariante ante este tipo de transformación.
+
+
+
+Los teoremas de conservaciones que hemos visto en este curso son caso particulares de la función generatriz anterior.
+
+
+\subsection{Ejemplo}
+
+Tenemos nosotros:
+
+
+\[ \delta_{q_{k}} = \epsilon \frac{\partial G}{\partial p_{k}} \]
+
+\[ \delta p_{k} = - \epsilon \frac{\partial G}{\partial q_{k}} \]
+
+Fijamos:
+
+
+\[ \boxed{ \epsilon = dt }\, dt=\text{es un intervalo de tiempo}\]
+
+Entonces, si tomamos $\delta{q_{k}}$ tenemos:
+
+
+\[  \delta{q_{k}} = dt \frac{\partial G}{\partial p_{k}}  \]
+
+
+\[ \delta{p_{k}} = - dt \frac{\partial G}{\partial q_{k}}  \]
+
+\textbf{Tensores cartesianos}
+
+G es la función generatriz de la función infinitesimal canónica. 
+
+
+Es una funcion genetriz de una función canonica infinitesimal.
+
+
+\textbf{Traslación en el tiempo}. EL hamiltoniano genera una transformación temporal, genera una evolución.
+
+
+\begin{center}
+\includegraphics[width=0.85\linewidth]{2.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 2}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.85\linewidth]{3.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 3}
+\end{center}
+
+
+Tenemos:
+
+
+\[ \frac{\partial H}{\partial q_{i}}  =0 \quad \Rightarrow \quad p_{i} \quad \text{es una constante de movimiento}\]
+
+Tenemos:
+
+
+\[ G = p_{1}\]
+
+
+Tenemos:
+
+
+\[  Q_{i} = q_{i} + \epsilon \frac{\partial G}{\partial p_{i}}; \quad Q_{i} = q_{i} + \epsilon \frac{\partial p_{1}}{p_{i}} = q_{i}+\epsilon \delta_{1i} \]
+
+\[ P_{i} = p_{i} - \epsilon \frac{\partial G}{\partial q_{i}}; \quad P_{i} = p_{i} - \epsilon \frac{\partial p_{1}}{\partial q_{i}} = p_{i} \]
+
+
+\begin{center}
+\includegraphics[width=0.85\linewidth]{4.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 3}
+\end{center}
+
+
+Tenemos:
+
+Es la siguiente traslación:
+
+
+\[ \boxed{Q_{1}= q_{1}  + \epsilon} \quad P_{1} = p_{1}\]
+
+\[ Q_{2} = q_{2} \quad P_{2} = p_{2} \]
+
+\[ Q_{n} = q_{n} \quad P_{n} = p_{n} \]
+
+La función generatriz va a generar una función canónica infinitesimal. 
+
+\textcolor{orange(colorwheel)}{\textbf{Lo que el profe Ortigoza dijo que viene en el próximo examen}}
+
+
+En este problema debemos realizar el desarrollo mecánico completo del sistema:
+
+1. Escribir explícitamente las \textbf{ecuaciones de constricción} que impone la geometría,
+   y a partir de ellas determinar el número de \textbf{grados de libertad} del sistema.
+
+2. Definir el \textbf{conjunto de ecuaciones} que describen la configuración en términos
+   de las coordenadas generalizadas independientes $q_i$.
+
+3. Construir la \textbf{Lagrangiana}
+\[
+\mathcal{L}(q,\dot q,t)=T(q,\dot q,t)-V(q,t)
+\]
+expresando todas las cantidades en función de los $q_i$ y $\dot q_i$.
+
+4. Obtener las \textbf{ecuaciones de Lagrange}
+\[
+\frac{d}{dt}\!\left(\frac{\partial\mathcal{L}}{\partial\dot q_i}\right)
+-\frac{\partial\mathcal{L}}{\partial q_i}=0,
+\]
+(no es necesario resolverlas explícitamente).
+
+5. Realizar la \textbf{transformación de Legendre} para definir los momentos conjugados
+\[
+p_i=\frac{\partial\mathcal{L}}{\partial \dot q_i},
+\]
+y calcular el \textbf{Hamiltoniano} mediante:
+\[
+H(q,p,t)=\sum_i p_i\dot q_i - \mathcal{L}(q,\dot q,t),
+\]
+reescribiéndolo únicamente en términos de $(q_i,p_i)$.
+
+6. Escribir las \textbf{ecuaciones de Hamilton}
+\[
+\dot q_i=\frac{\partial H}{\partial p_i},
+\qquad
+\dot p_i=-\frac{\partial H}{\partial q_i},
+\]
+las cuales forman el conjunto completo de ecuaciones de evolución del sistema.
+
+7. Identificar las \textbf{constantes de movimiento} verificando:
+   - coordenadas cíclicas $\Rightarrow$ $p_i$ constante.
+
+Parece que igual dijo que hay que resolver esas ecuaciones.
+
+
+
+\begin{center}
+\includegraphics[width=0.85\linewidth]{5.png} % <-- Sustituye esta ruta
+\\[2mm]
+\textbf{Figure 3}
+\end{center}
+
+
+
+
+\end{document}

@@ -1,0 +1,74 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\textcolor {Apple Green}{\textbf {Problemas: segundo parcial}}}{1}{section*.1}%
+\contentsline {section}{\numberline {1}Problema 1}{5}{section.1}%
+\contentsline {paragraph}{Densidad volumétrica $\rho _{b}$}{5}{section*.4}%
+\contentsline {paragraph}{Densidad superficial $\sigma _{b}$}{5}{section*.5}%
+\contentsline {paragraph}{Campo para $r < R$ (interior de la esfera)}{6}{section*.7}%
+\contentsline {paragraph}{Campo para $r > R$ (exterior)}{7}{section*.8}%
+\contentsline {section}{\numberline {2}Problema 2}{8}{section.2}%
+\contentsline {paragraph}{Carga de volumen}{9}{section*.11}%
+\contentsline {paragraph}{Carga superficial}{9}{section*.12}%
+\contentsline {paragraph}{(i) Caso $L \gg a$ (cilindro muy largo)}{11}{section*.14}%
+\contentsline {paragraph}{(ii) Caso $L \ll a$ (cilindro muy corto, tipo ``pastilla’’)}{11}{section*.15}%
+\contentsline {paragraph}{(iii) Caso $L \approx a$ (longitud comparable al radio)}{12}{section*.16}%
+\contentsline {section}{\numberline {3}Problema 3}{12}{section.3}%
+\contentsline {paragraph}{Densidad volumétrica $\rho _{b}$}{13}{section*.18}%
+\contentsline {paragraph}{Densidad superficial $\sigma _{b}$}{14}{section*.19}%
+\contentsline {paragraph}{Condiciones de frontera (como para un bebé)}{15}{section*.21}%
+\contentsline {paragraph}{Interior ($s<a$)}{16}{section*.23}%
+\contentsline {paragraph}{Exterior ($s>a$)}{16}{section*.24}%
+\contentsline {section}{\numberline {4}Problema 4}{17}{section.4}%
+\contentsline {paragraph}{(a) Carga ligada de volumen $\rho _{b}$}{17}{section*.27}%
+\contentsline {paragraph}{(b) Carga ligada superficial $\sigma _{b}$}{18}{section*.28}%
+\contentsline {paragraph}{Carga ligada de volumen.}{19}{section*.30}%
+\contentsline {paragraph}{Cargas ligadas superficiales.}{20}{section*.31}%
+\contentsline {paragraph}{Suma total.}{20}{section*.32}%
+\contentsline {paragraph}{(i) Región $r<a$ (hueco interno)}{20}{section*.34}%
+\contentsline {paragraph}{(ii) Región $a<r<b$ (dentro del dieléctrico)}{21}{section*.35}%
+\contentsline {paragraph}{(iii) Región $r>b$ (exterior)}{21}{section*.36}%
+\contentsline {section}{\numberline {5}Problema 5 (versión “para bebé nerd de física”)}{22}{section.5}%
+\contentsline {paragraph}{Capacitor 1 (dieléctrico):}{23}{section*.40}%
+\contentsline {paragraph}{Capacitor 2 (vacío):}{24}{section*.41}%
+\contentsline {paragraph}{Capacitores en serie:}{24}{section*.42}%
+\contentsline {paragraph}{Comparación con $C_{0}$}{25}{section*.43}%
+\contentsline {paragraph}{Condición sobre $\mathbf {D}$ en serie}{26}{section*.45}%
+\contentsline {paragraph}{Relaciones constitutivas}{26}{section*.46}%
+\contentsline {paragraph}{Relación con el potencial $V$}{27}{section*.47}%
+\contentsline {paragraph}{Campos $\mathbf {E}_{1}$ y $\mathbf {E}_{2}$ en función de $V$}{27}{section*.48}%
+\contentsline {paragraph}{Polarización $\mathbf {P}$}{28}{section*.49}%
+\contentsline {paragraph}{Cargas libres}{28}{section*.50}%
+\contentsline {paragraph}{Cargas ligadas}{28}{section*.51}%
+\contentsline {paragraph}{Comparación con $C_{0}$}{29}{section*.54}%
+\contentsline {paragraph}{Campo $\mathbf {D}$ y polarización en cada región}{30}{section*.56}%
+\contentsline {paragraph}{Cargas libres}{30}{section*.57}%
+\contentsline {paragraph}{Cargas ligadas}{31}{section*.58}%
+\contentsline {section}{\numberline {6}Problema 6}{31}{section.6}%
+\contentsline {paragraph}{Región I (conductor, $r<a$)}{33}{section*.62}%
+\contentsline {paragraph}{Región II (dieléctrico, $a<r<b$)}{33}{section*.63}%
+\contentsline {paragraph}{Región III (vacío, $r>b$)}{33}{section*.64}%
+\contentsline {paragraph}{3.1. Condición de continuidad del potencial}{34}{section*.67}%
+\contentsline {paragraph}{3.2. Condición de continuidad de $D_{r}$}{34}{section*.68}%
+\contentsline {paragraph}{Paso 1: despejar $C$ de \eqref {eq:sis1}}{35}{section*.70}%
+\contentsline {paragraph}{Paso 2: sustituir $C$ en \eqref {eq:sis2}}{36}{section*.71}%
+\contentsline {paragraph}{Paso 3: agrupar términos con $A$}{36}{section*.72}%
+\contentsline {paragraph}{Componente radial $E_{r}$}{38}{section*.74}%
+\contentsline {paragraph}{Componente angular $E_{\theta }$}{39}{section*.75}%
+\contentsline {paragraph}{Resultado vectorial}{39}{section*.76}%
+\contentsline {section}{\numberline {7}Problema 7}{40}{section.7}%
+\contentsline {paragraph}{Caras perpendiculares al eje $x$}{40}{section*.80}%
+\contentsline {paragraph}{Caras perpendiculares al eje $y$}{41}{section*.81}%
+\contentsline {paragraph}{Caras perpendiculares al eje $z$}{41}{section*.82}%
+\contentsline {paragraph}{Carga de volumen}{41}{section*.84}%
+\contentsline {paragraph}{Carga superficial}{41}{section*.85}%
+\contentsline {paragraph}{Suma total}{41}{section*.86}%
+\contentsline {section}{\numberline {8}Problema 8}{41}{section.8}%
+\contentsline {section}{\numberline {9}Problema 9}{46}{section.9}%
+\contentsline {paragraph}{Componente en $\hat {\mathbf {x}}$}{51}{section*.113}%
+\contentsline {paragraph}{Componente en $\hat {\mathbf {z}}$}{51}{section*.114}%
+\contentsline {section}{\numberline {10}Problema 10}{52}{section.10}%
+\contentsline {section}{\numberline {11}Problema 11}{53}{section.11}%
+\contentsline {section}{\numberline {12}Problema 12}{55}{section.12}%
+\contentsline {paragraph}{Interior ($r<R$)}{59}{section*.131}%
+\contentsline {paragraph}{Exterior ($r>R$)}{60}{section*.132}%
+\contentsline {paragraph}{Energía interior $U_{\text {in}}$}{60}{section*.134}%
+\contentsline {paragraph}{Energía exterior $U_{\text {out}}$}{61}{section*.135}%

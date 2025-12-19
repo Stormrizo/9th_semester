@@ -1,0 +1,10 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Problemas: \textcolor {Tarawera}{\textbf {Ensamble canónico}}}{1}{section*.2}%
+\contentsline {paragraph}{Ruta canónica}{6}{section*.8}%
+\contentsline {paragraph}{Ruta de equipartición}{6}{section*.9}%
+\contentsline {paragraph}{Baja temperatura $T\to 0^+$ ($x\to +\infty $).}{12}{section*.21}%
+\contentsline {paragraph}{Alta temperatura $T\to \infty $ ($x\to 0^+$).}{12}{section*.22}%
+\contentsline {paragraph}{Baja temperatura.}{13}{section*.24}%
+\contentsline {paragraph}{Alta temperatura.}{13}{section*.25}%
+\contentsline {paragraph}{Baja temperatura $T\to 0^+$}{15}{section*.27}%
+\contentsline {paragraph}{Alta temperatura $T\to \infty $}{15}{section*.28}%

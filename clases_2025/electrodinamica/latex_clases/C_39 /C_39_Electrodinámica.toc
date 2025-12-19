@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Final Proyect}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Proyecto final es en equipos}{7}{subsection.1.1}%

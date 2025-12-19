@@ -1,0 +1,1709 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{statistics}
+\usepackage[left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{tasks} %Paquete necesario para la producción de items horizontales para algunos ejercicios de tarea empleando el comando /begin{multicols}}{#}.../end{multicols} para ayudarnos a reducir las páginas
+\usepackage{pdflscape} %comando que permite cambiar a orientación horizontal las hojas%
+\usepackage{soul} %Paquete para permitir la compilación de acentos usando el comando {\hl{}}}\\
+\sethlcolor{yellow(munsell)} %comando para definir el color para el subrayado usando el comando \hl
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{icomma}
+\usepackage{ragged2e}		
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=Cerulean, citecolor=green]{hyperref}
+\usepackage{pdfpages}
+\usepackage{blindtext} %Paquete que genera texto ficticio (dummy text) con el comando: \blindtext
+\usepackage{cancel} %in the preamble gives you four different modes of striking through: \cancel{text to cancel} draws a diagonal line (slash) through its argument, \bcancel{text to cancel} uses the negative slope (a backslash), \xcancel{text to cancel} draws an X (actually \cancel plus \bcancel), \cancelto{〈value〉}{〈expression〉} draws a diagonal arrow through the 〈expression〉pointing to the 〈value〉 (math-mode only)
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{parskip} 
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{multicol}%Paquete que permite la creación aislada de columnas de texto. De esta forma se reduce la cantidad de páginas en nuestro documento
+\usepackage{lipsum} %Paquete que genera texto de relleno al igual que \usepackage{blindtext}, se usa con el comando \lipsum[#-#] los #(hashtags) delimitan el número de páginas que deseamos ocupar del paquete lipsum para usarlos como relleno. 
+
+% Definir el comando personalizado para la nota
+\newcommand{\mynote}[1]{%
+\begin{tikzpicture}[baseline=-0.75ex]
+\node[draw, circle, fill=Apple Green!60, inner sep=2pt] (note) {\textbf{Nota:}};
+\end{tikzpicture}%
+\ \textit{#1}%
+}
+
+% Definición de comandos para variables con barra
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\ybar}{\overline{y}}
+
+\newenvironment{Figura}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+\usepackage{caption}
+\usepackage[
+backend=biber,
+sorting=none,
+url=true
+]{biblatex} %bibliografía
+\addbibresource{biblio.bib}
+% Establecer el espacio entre las entradas de la bibliografía
+\setlength{\bibitemsep}{1\baselineskip} % Puedes ajustar el valor según tus preferencias
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{pifont} %Permite la compilación del comando \xmark: es el símbolo de la tachita
+\usepackage{mathtools} %permite la compilación de símbolos para matrices
+\usepackage{empheq} %Paquete que se relaciona con \usepackage[most]{tcolorbox} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto usando la línea de comando: \begin{empheq}[box={\mymath[colback=orange(webcolor)!70,drop lifted shadow]}]{equation*} \end{empheq}
+\usepackage[most]{tcolorbox} %Paquete que se relaciona con \usepackage{empheq} para la creación de cuadros/cajas de colores para delimitar los resultados matemáticos o líneas de texto
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usetikzlibrary{positioning,decorations.pathreplacing} %Paquete que permite la compilación de llaves para cuadros sinópticos (brace diagram) 
+\usepackage{schemata} %The schemata package is designed just for these brace diagrams
+\usepackage{booktabs}
+
+\newcommand\AB[2]{\schema{\schemabox{#1}}{\schemabox{#2}}} %comando o paquete necesario para crear cuadros sinópticos
+
+\newtcbox{\mymath}[1][]{%
+nobeforeafter, math upper, tcbox raise base,
+enhanced, colframe=blue!30!black,
+colback=blue!30, boxrule=1pt,
+#1} %Comando importante para encasillar los resultados matemáticos en cajas de diferentes colores, se relaciona con los paquetes \usepackage{empheq} y \usepackage[most]{tcolorbox} 
+
+\newenvironment{sysmatrix}[1]
+{\left(\begin{array}{@{}#1@{}}}
+{\end{array}\right)}
+\newcommand{\ro}[1]{%
+\xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}% row operation width
+\AtBeginDocument{\setlength{\rowidth}{3em}}  %Comando importante para laproducción de lineas de operaciones entre matrices, método de Gauss o Gauss Jordan se relaciona con \newenvironment{sysmatrix}
+
+%formato para cambiar el horario a español
+\usepackage[spanish]{datetime2}
+\DTMsetdatestyle{spanish}
+
+\renewcommand{\today}{\DTMdisplaydate{\the\year}{\the\month}{\the\day }{-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{datetime}
+\newcommand{\mycurrenttime}{\xxivtime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Caja de color para el título%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myframecolor}{RGB}{1, 45, 75} % Prussian Blue
+\definecolor{myboxcolor}{RGB}{0, 107, 92} % Apple Green
+
+\newtcolorbox{mybox}{
+enhanced,
+colback=myboxcolor!7, % Color de fondo del cuadro
+colframe=myframecolor, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{myframecolor}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Nueva caja%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{mybox2}{
+enhanced,
+colback=Apple Green!7, % Color de fondo del cuadro
+colframe=Apple Green, % Color del marco del cuadro
+arc=0pt,
+boxrule=1pt,
+borderline west={2mm}{-10mm}{Apple Green}, % Borde en el lado izquierdo
+sharp corners=southwest,
+width=\linewidth,
+before=\par\vspace{\bigskipamount}, % Espacio antes del cuadro
+after=\par\vspace{\bigskipamount} % Espacio después del cuadro
+}
+
+
+\newcommand{\euler}{e} %Comando para producir letra e de euler
+\newenvironment{remark}{\par\vfill\footnotesize % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+	\leftmargin=80pt % Indentation on the left
+	\rightmargin=60pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+		\node[draw=Horizon!60,line width=2.5pt,circle,fill=Horizon!25,font=\sffamily\bfseries,inner sep=4pt,outer sep=0pt] at (-19pt,5pt){\textcolor{Horizon}{Nota}};\end{tikzpicture}} % Blue Nota in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\usepackage{graphicx}
+
+\usepackage{titling}
+
+\input{colores.tex}
+
+%%Producir signos de cita textual``Asignatura''
+
+\newcommand{\xmark}{\ding{55}} %%%comando que genera la tachita
+
+\newenvironment{MyColorPar}[1]{%
+\leavevmode\color{#1}\ignorespaces%
+}{%
+}%
+
+%%%%%%%%%%%%%%%%%%% Título de la tarea, Nombre de alumno
+
+\title{ \textcolor{Sun}{\textbf{\textcolor{onyx}{\textbf{{Examen}}}: \textcolor{Cinnabar}{\textbf{Recuperación 2}}}}}
+\author{\emph{Julio Alfredo Ballinas García} $\boldsymbol{\mid}$ \textcolor{Tarawera}{\textbf{202107583}}}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%% Datos de la Materia
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue)}
+\fancyhead[L]{\textbf{Asignatura:} Mecánica Estadística}
+\fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+\newpage
+\null%
+\begin{center}%
+\let \footnote \thanks
+{\LARGE \@title \par}%
+\vskip 1em%
+%{\large \@date}%
+\end{center}%
+}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Por si el color se llama "Apple Green" con espacio en colores.tex:
+\colorlet{AppleGreen}{Apple Green}
+
+% Caja AppleGreen con tono ajustable
+\newenvironment{AGbox}[1][7]% 7 = tono por defecto (más grande => más claro)
+{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    colframe=AppleGreen,
+    colback=AppleGreen!#1,
+    boxrule=1pt,
+    borderline west={2mm}{-10mm}{AppleGreen},
+    sharp corners=southwest,
+    left=14pt,right=14pt,top=10pt,bottom=10pt,
+     boxsep=6pt,
+  ]%
+}{%
+  \end{tcolorbox}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%% Datos del profesor, campus, aula e integrantes
+
+\begin{mybox2}
+\noindent
+\begin{tabular}{@{}p{3.7cm}p{10.4cm}@{}}
+\textbf{Profesor} & Dr. Jorge Velázquez Castro \\[3pt]
+\textbf{Campus / Facultad} & \textcolor{prussianblue}{\textbf{C.U. BUAP}} / \textcolor{trueblue}{\textbf{FCFM}} \\[3pt]
+\textbf{Edificio / Salón} & \textcolor{prussianblue}{\textbf{EMA4}} / \textcolor{trueblue}{\textbf{407}} \\[6pt]
+\end{tabular}
+\end{mybox2}
+\vspace{1cm}
+
+
+% Solo el índice en negro y en negritas
+\hypersetup{linkcolor=black}   % (opcional: urlcolor=black, citecolor=black)
+{\bfseries \tableofcontents}
+\hypersetup{linkcolor=Cerulean} % regresamos a tu paleta
+
+\vspace{0.5cm}
+\begin{center}
+\begin{tikzpicture}
+	% Dibuja círculos rellenos en diferentes colores
+	\fill[bittersweet] (0,0) circle (0.17cm);
+	\fill[Apple Green] (0.6,0) circle (0.17cm);
+	\fill[trueblue] (1.2,0) circle (0.17cm);
+	\fill[Aguamarina] (1.8,0) circle (0.17cm);
+	\fill[Sun] (2.4,0) circle (0.17cm);
+	\fill[orange(colorwheel)] (3.0,0) circle (0.17cm);
+	\fill[Pesto] (3.6,0) circle (0.17cm);
+	\fill[blue-violet] (4.2,0) circle (0.17cm);
+	\fill[ticklemepink] (4.8,0) circle (0.17cm);
+	\fill[Gallery] (5.4,0) circle (0.17cm);
+	\fill[Mantle] (6.0,0) circle (0.17cm);
+	\fill[Nevada] (6.6,0) circle (0.17cm);
+	\fill[onyx] (7.2,0) circle (0.17cm);
+	% Agrega más círculos o modifica los colores según sea necesario
+\end{tikzpicture}
+\end{center}  \vspace{0.5cm}
+
+\setlength{\columnsep}{2cm}
+\section*{\textcolor{Tarawera}{\textbf{Lista de problemas y soluciones}}}
+\addcontentsline{toc}{section}{Problemas: \textcolor{Tarawera}{\textbf{Termodinámica}}}
+
+
+%=========================================================
+%                      Problema 1
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 1}}}}
+
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 1}}} \vspace{2mm}
+
+Considere un sistema formado por dos partículas que no interactúan.  
+Cada partícula puede estar en alguno de los siguientes niveles energéticos  
+\( (0,\, \varepsilon,\, 2\varepsilon) \).  
+
+Para cada uno de los siguientes casos en que el sistema tiene la energía  
+(\(\varepsilon_{0} = 0,\; \varepsilon_{1} = \varepsilon,\; \varepsilon_{2} = 2\varepsilon\)),  
+responda las siguientes preguntas:
+
+\begin{enumerate}
+  \item Escriba todos los posibles microestados en las siguientes condiciones:  
+  \quad i) Las partículas son distinguibles;  
+  \quad ii) Las partículas son indistinguibles.
+  \item Calcule la entropía para cada caso.  
+\end{enumerate}
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+En este problema estudiamos un sistema muy sencillo pero conceptualmente rico:
+dos partículas no interactuantes, cada una de las cuales puede ocupar alguno
+de tres niveles energéticos discretos:
+
+\[
+E_{0} = 0,\qquad E_{1} = \varepsilon,\qquad E_{2} = 2\varepsilon
+\]
+
+La energía total del sistema viene dada por la suma de las energías de las
+dos partículas. Esto nos lleva a considerar tres valores posibles de energía total:
+
+\[
+E_{\mathrm{tot}} = 0,\qquad E_{\mathrm{tot}} = \varepsilon,\qquad E_{\mathrm{tot}} = 2\varepsilon
+\]
+
+El objetivo es:
+
+\begin{itemize}
+  \item Contar explícitamente el número de microestados \(\Omega\) para cada uno de estos
+        valores de energía total
+  \item Hacerlo por separado para el caso de partículas \textbf{distinguibles} y
+        \textbf{indistinguibles}
+  \item Calcular la entropía microcanónica \(S = k_{B}\ln\Omega\) para cada caso
+\end{itemize}
+
+La diferencia crucial entre los dos escenarios radica en cómo definimos un
+\textbf{microestado} del sistema: en el caso distinguible, el orden de las
+partículas importa; en el indistinguible, sólo interesa cuántas partículas hay
+en cada nivel.
+
+%---------------------------------------------------------
+% 1) Microestados con partículas distinguibles
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{1. Conteo de microestados: partículas distinguibles}}
+
+Llamemos a las partículas \(A\) y \(B\).  
+Un microestado se describe entonces como un par ordenado:
+
+\[
+(E_{A},E_{B})
+\]
+
+donde \(E_{A},E_{B} \in \{0,\varepsilon,2\varepsilon\}\).  
+En este contexto, \((0,\varepsilon)\) y \((\varepsilon,0)\) son \emph{distintos}
+microestados, porque podemos distinguir qué partícula está en qué nivel.
+
+Podemos organizar los microestados según la energía total:
+
+\[
+E_{\mathrm{tot}} = E_{A} + E_{B}
+\]
+
+\subsubsection*{Caso a) \(E_{\mathrm{tot}}=0\)}
+
+Para que la energía total sea cero, ambas partículas deben estar en el nivel
+de energía \(0\):
+
+\[
+(E_{A},E_{B}) = (0,0)
+\]
+
+No hay ninguna otra combinación posible, así que
+
+\[
+\boxed{\Omega_{d}(0) = 1}
+\]
+
+\subsubsection*{Caso b) \(E_{\mathrm{tot}}=\varepsilon\)}
+
+La suma \(E_{A} + E_{B} = \varepsilon\) se logra únicamente colocando una
+partícula en \(0\) y la otra en \(\varepsilon\). Hay dos maneras distintas
+de hacerlo:
+
+\[
+(0,\varepsilon),\qquad (\varepsilon,0)
+\]
+
+Por tanto:
+
+\[
+\boxed{\Omega_{d}(\varepsilon) = 2}
+\]
+
+\subsubsection*{Caso c) \(E_{\mathrm{tot}}=2\varepsilon\)}
+
+Ahora queremos todas las combinaciones que sumen \(2\varepsilon\):
+
+\begin{itemize}
+  \item Una partícula en \(2\varepsilon\) y la otra en \(0\):
+  \[
+  (2\varepsilon,0),\qquad (0,2\varepsilon)
+  \]
+  \item Las dos partículas en \(\varepsilon\):
+  \[
+  (\varepsilon,\varepsilon)
+  \]
+\end{itemize}
+
+En total hay tres microestados:
+
+\[
+\boxed{\Omega_{d}(2\varepsilon) = 3}
+\]
+
+Podemos resumir el conteo para el caso distinguible en la tabla:
+
+\begin{center}
+\begin{tabular}{c|c}
+\hline
+\(E_{\mathrm{tot}}\) & Microestados distinguibles \(\Omega_{d}\) \\
+\hline
+\(0\)           & \(1\) \\
+\(\varepsilon\) & \(2\) \\
+\(2\varepsilon\)& \(3\) \\
+\hline
+\end{tabular}
+\end{center}
+
+%---------------------------------------------------------
+% 2) Microestados con partículas indistinguibles
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{2. Conteo de microestados: partículas indistinguibles}}
+
+Cuando las partículas son indistinguibles, ya no podemos etiquetarlas como
+\(A\) y \(B\). Esto significa que configuraciones que difieren sólo en el
+orden de las partículas deben considerarse el mismo microestado.  
+Es más conveniente describir el estado del sistema en términos de \textbf{ocupaciones}
+de los niveles de energía:
+
+\[
+\{n_{0},n_{1},n_{2}\},\qquad n_{0}+n_{1}+n_{2}=2
+\]
+
+donde:
+\begin{itemize}
+  \item \(n_{0}\): número de partículas en el nivel \(E_{0}=0\)
+  \item \(n_{1}\): número de partículas en el nivel \(E_{1}=\varepsilon\)
+  \item \(n_{2}\): número de partículas en el nivel \(E_{2}=2\varepsilon\)
+\end{itemize}
+
+La energía total del sistema vale:
+
+\[
+E_{\mathrm{tot}} = n_{1}\varepsilon + 2n_{2}\varepsilon
+\]
+
+\subsubsection*{Caso a) \(E_{\mathrm{tot}}=0\)}
+
+Para que la energía total sea cero, todas las partículas deben estar en el
+nivel \(E_{0}=0\):
+
+\[
+\{n_{0}=2,\;n_{1}=0,\;n_{2}=0\}
+\]
+
+No hay otra configuración posible, así que:
+
+\[
+\boxed{\Omega_{i}(0) = 1}
+\]
+
+\subsubsection*{Caso b) \(E_{\mathrm{tot}}=\varepsilon\)}
+
+La condición:
+
+\[
+E_{\mathrm{tot}} = n_{1}\varepsilon + 2n_{2}\varepsilon = \varepsilon
+\]
+
+implica:
+
+\[
+n_{1} + 2n_{2} = 1
+\]
+
+Debido a que \(n_{1},n_{2}\) son enteros no negativos, la única solución es:
+
+\[
+n_{1}=1,\qquad n_{2}=0
+\]
+
+Luego, como \(n_{0}+n_{1}+n_{2}=2\), se tiene:
+
+\[
+n_{0} = 1
+\]
+
+Por tanto, la única configuración posible es:
+
+\[
+\{n_{0}=1,\;n_{1}=1,\;n_{2}=0\}
+\]
+
+y
+
+\[
+\boxed{\Omega_{i}(\varepsilon) = 1}
+\]
+
+\subsubsection*{Caso c) \(E_{\mathrm{tot}}=2\varepsilon\)}
+
+Ahora:
+
+\[
+E_{\mathrm{tot}} = n_{1}\varepsilon + 2n_{2}\varepsilon = 2\varepsilon
+\quad\Rightarrow\quad
+n_{1} + 2n_{2} = 2
+\]
+
+Las soluciones enteras no negativas son:
+
+\begin{itemize}
+  \item \(n_{1}=2,\;n_{2}=0\)  \(\Rightarrow\) ambas partículas en \(\varepsilon\)
+  \item \(n_{1}=0,\;n_{2}=1\)  \(\Rightarrow\) una partícula en \(2\varepsilon\) y la otra en \(0\)
+\end{itemize}
+
+En cada caso se determina \(n_{0} = 2-n_{1}-n_{2}\). De esta forma se obtienen
+dos configuraciones distintas:
+
+\[
+\{n_{0}=0,\;n_{1}=2,\;n_{2}=0\},
+\qquad
+\{n_{0}=1,\;n_{1}=0,\;n_{2}=1\}
+\]
+
+Por tanto:
+
+\[
+\boxed{\Omega_{i}(2\varepsilon) = 2}
+\]
+
+Podemos resumir el conteo para el caso indistinguible en la tabla:
+
+\begin{center}
+\begin{tabular}{c|c}
+\hline
+\(E_{\mathrm{tot}}\) & Microestados indistinguibles \(\Omega_{i}\) \\
+\hline
+\(0\)           & \(1\) \\
+\(\varepsilon\) & \(1\) \\
+\(2\varepsilon\)& \(2\) \\
+\hline
+\end{tabular}
+\end{center}
+
+%---------------------------------------------------------
+% 3) Entropía microcanónica y comparación
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{3. Entropía microcanónica}}
+
+La entropía microcanónica se define como:
+
+\[
+S = k_{B}\ln \Omega
+\]
+
+Aplicamos esta definición para cada caso.
+
+\subsubsection*{(a) Partículas distinguibles}
+
+\[
+S_{d}(0) = k_{B}\ln \Omega_{d}(0) = k_{B}\ln 1 = 0
+\]
+
+\[
+S_{d}(\varepsilon) = k_{B}\ln \Omega_{d}(\varepsilon)
+= k_{B}\ln 2
+\]
+
+\[
+S_{d}(2\varepsilon) = k_{B}\ln \Omega_{d}(2\varepsilon)
+= k_{B}\ln 3
+\]
+
+\subsubsection*{(b) Partículas indistinguibles}
+
+\[
+S_{i}(0) = k_{B}\ln \Omega_{i}(0) = k_{B}\ln 1 = 0
+\]
+
+\[
+S_{i}(\varepsilon) = k_{B}\ln \Omega_{i}(\varepsilon)
+= k_{B}\ln 1 = 0
+\]
+
+\[
+S_{i}(2\varepsilon) = k_{B}\ln \Omega_{i}(2\varepsilon)
+= k_{B}\ln 2
+\]
+
+\vspace{0.4cm}
+\textcolor{Tarawera}{\textbf{Resumen y comentario físico}}
+
+\begin{itemize}
+  \item Para partículas distinguibles, el espacio de microestados incluye
+        configuraciones que difieren sólo por el intercambio de las partículas
+        (pares ordenados).
+  \item Para partículas indistinguibles, estos intercambios ya no generan
+        microestados nuevos: sólo importan las ocupaciones de los niveles.
+  \item Como consecuencia, en varios casos se cumple:
+        \[
+          \Omega_{i} < \Omega_{d}
+          \quad\Rightarrow\quad
+          S_{i} < S_{d}
+        \]
+        reflejando una \textbf{reducción del espacio de estados accesibles}
+        cuando se impone indistinguibilidad.
+  \item Este ejemplo simple ilustra el origen estadístico de factores como
+        el \(1/N!\) que aparece en el tratamiento de gases clásicos de partículas
+        idénticas.
+\end{itemize}
+
+%---------------------------------------------------------
+% 1) Microestados distinguibles vs indistinguibles
+%---------------------------------------------------------
+
+% (Aquí escribiremos luego el desarrollo paso a paso)
+
+%---------------------------------------------------------
+% 2) Cálculo de entropía
+%---------------------------------------------------------
+
+
+
+%=========================================================
+%                      Problema 2
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 2}}}}
+
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 2}}} \vspace{2mm}
+
+Considere un sistema de \(N\) osciladores armónicos bi-dimensionales \textbf{clásicos}  
+(es decir, plantear el problema a partir de la hamiltoniana clásica, no a partir  
+de los niveles energéticos cuánticos) con masa \(m\) y frecuencia natural \(\omega\).  
+
+Determine la entropía.  
+Encuentre las ecuaciones de estado.
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+En este problema debemos obtener rigurosamente la entropía microcanónica de un sistema
+formado por \(N\) osciladores armónicos clásicos \textbf{bidimensionales}.
+La solución se construye desde la Lagrangiana, pasando por la Hamiltoniana,
+el conteo explícito de grados de libertad, la evaluación directa de la integral
+microcanónica y el método geométrico por hiperesferas 4D.
+Ambos métodos deben coincidir.  
+
+Esta solución es completamente explícita.
+
+%---------------------------------------------------------
+% 1) Lagrangiana, Hamiltoniana y grados de libertad
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{1. Lagrangiana y Hamiltoniana del oscilador 2D}}
+
+Para un oscilador armónico en dos dimensiones:
+
+\[
+\mathcal{L}(x,y,\dot x,\dot y)
+= \frac{m}{2}(\dot x^{2} + \dot y^{2})
+  - \frac{m\omega^{2}}{2}(x^{2} + y^{2})
+\]
+
+Los momentos canonicos son
+
+\[
+p_{x} = m\dot x,
+\qquad
+p_{y} = m\dot y
+\]
+
+La Hamiltoniana es
+
+\[
+H(x,y,p_{x},p_{y})
+= \frac{p_{x}^{2}+p_{y}^{2}}{2m}
+  + \frac{m\omega^{2}}{2}(x^{2}+y^{2})
+\]
+
+El sistema tiene:
+\[
+s = 2 \text{ coordenadas},\qquad
+K=0 \text{ restricciones}.
+\]
+
+Por la regla:
+\[
+g = 2s - K
+\]
+
+para un oscilador:
+\[
+g = 4
+\]
+
+y para \(N\) osciladores:
+
+\[
+\boxed{g_{\text{tot}} = 4N}
+\]
+
+%---------------------------------------------------------
+% 2) Integral microcanónica: método directo
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{2. Integral microcanónica directa}}
+
+El volumen de fase accesible está definido por:
+
+\[
+\Gamma(E) =
+\int\cdots\int
+\Theta\!\left(
+E - \sum_{i=1}^{N}
+\left[
+\frac{p_{x,i}^{2}+p_{y,i}^{2}}{2m}
++\frac{m\omega^{2}}{2}(x_{i}^{2}+y_{i}^{2})
+\right]
+\right)
+\prod_{i=1}^{N}
+dx_{i}\,dy_{i}\,dp_{x,i}\,dp_{y,i}
+\]
+
+Comencemos con un solo oscilador:
+
+\[
+\Gamma_{1}(E)
+=
+\int dx\,dy\,dp_{x}\,dp_{y}\;
+\Theta\!\left(
+E - \frac{p_{x}^{2}+p_{y}^{2}}{2m}
+     -\frac{m\omega^{2}}{2}(x^{2}+y^{2})
+\right)
+\]
+
+La condición interna define una “elipse 4D” en espacio fase.
+
+Hacemos integrales separadas introduciendo coordenadas polares:
+
+\[
+p_{x} = r_{p}\cos\phi,\qquad
+p_{y} = r_{p}\sin\phi,
+\qquad
+dp_{x}dp_{y}= r_{p}\,dr_{p}\,d\phi
+\]
+
+\[
+x = r_{x}\cos\theta,\qquad
+y = r_{x}\sin\theta,
+\qquad
+dx\,dy = r_{x}\,dr_{x}\,d\theta
+\]
+
+La condición \(H<E\) se escribe:
+
+\[
+\frac{r_{p}^{2}}{2m} + \frac{m\omega^{2}}{2}r_{x}^{2} < E
+\]
+
+En integrales:
+
+\[
+\Gamma_{1}(E)
+=
+\int_{0}^{2\pi}\!\!\int_{0}^{2\pi}
+d\phi\,d\theta
+\int_{0}^{\infty}\!\!\int_{0}^{\infty}
+r_{p} r_{x}
+\;
+\Theta\!\left(
+E - \frac{r_{p}^{2}}{2m} - \frac{m\omega^{2}}{2}r_{x}^{2}
+\right)
+dr_{p}\,dr_{x}
+\]
+
+Las integrales angulares dan:
+
+\[
+(2\pi)(2\pi)=4\pi^{2}
+\]
+
+Queda:
+
+\[
+\Gamma_{1}(E)
+=
+4\pi^{2}
+\int_{0}^{\infty}\!\!\int_{0}^{\infty}
+r_{p}r_{x}\,
+\Theta\!\left(
+E - \frac{r_{p}^{2}}{2m} - \frac{m\omega^{2}}{2}r_{x}^{2}
+\right)
+dr_{p}\,dr_{x}
+\]
+
+Ahora definimos:
+
+\[
+u = \frac{r_{p}^{2}}{2m},
+\qquad
+v = \frac{m\omega^{2}}{2}r_{x}^{2}
+\]
+
+de donde:
+
+\[
+r_{p}\,dr_{p} = m\,du,
+\qquad
+r_{x}\,dr_{x} = \frac{1}{m\omega^{2}}\,dv
+\]
+
+El Jacobiano total es:
+
+\[
+m\cdot \frac{1}{m\omega^{2}} = \frac{1}{\omega^{2}}
+\]
+
+Los límites están dados por:
+
+\[
+u\ge 0,\quad v\ge 0,\quad u+v<E
+\]
+
+La integral queda:
+
+\[
+\Gamma_{1}(E)
+=
+4\pi^{2}
+\frac{1}{\omega^{2}}
+\int_{0}^{E}\!\!\int_{0}^{E-u}
+du\,dv
+\]
+
+Integramos:
+
+\[
+\int_{0}^{E}\left[
+\int_{0}^{E-u} dv
+\right]du
+=
+\int_{0}^{E} (E-u)\,du
+\]
+
+\[
+=
+\left[E u - \frac{u^{2}}{2}\right]_{0}^{E}
+=
+E^{2}-\frac{E^{2}}{2}
+=\frac{E^{2}}{2}
+\]
+
+Entonces:
+
+\[
+\boxed{
+\Gamma_{1}(E) = \frac{2\pi^{2}}{\omega^{2}}E^{2}
+}
+\]
+
+Este resultado se obtuvo *completamente a partir de integrales*.
+
+%---------------------------------------------------------
+% 3) Segundo método: reescalamiento canónico (esfera 4D)
+%---------------------------------------------------------
+
+\textcolor{Apple Green}{\textbf{3. Método geométrico por hiperesferas 4D}}
+
+Definimos el cambio canónico:
+
+\[
+X = x\sqrt{m\omega},\quad
+Y = y\sqrt{m\omega},\quad
+P_{x} = \frac{p_{x}}{\sqrt{m}},\quad
+P_{y} = \frac{p_{y}}{\sqrt{m}}
+\]
+
+La condición \(H<E\) se transforma en:
+
+\[
+P_{x}^{2}+P_{y}^{2}+X^{2}+Y^{2}<\frac{2E}{\omega}
+\]
+
+Es decir una hiperesfera 4D con radio:
+
+\[
+R=\sqrt{\frac{2E}{\omega}}
+\]
+
+El volumen en 4D es:
+
+\[
+V_{4}(R)=\frac{\pi^{2}}{2}R^{4}
+\]
+
+Por tanto:
+
+\[
+\Gamma_{1}(E)
+=
+\frac{\pi^{2}}{2}
+\left(\frac{2E}{\omega}\right)^{2}
+=
+\frac{2\pi^{2}}{\omega^{2}}E^{2}
+\]
+
+que coincide exactamente con el método directo.
+
+%---------------------------------------------------------
+% 4) Volumen de fase para N osciladores
+%---------------------------------------------------------
+
+\[
+\Gamma_{N}(E)
+=
+\frac{1}{N!}
+\left[\Gamma_{1}(E)\right]^{N}
+\]
+
+\[
+\boxed{
+\Gamma_{N}(E)=
+\frac{1}{N!}
+\left[
+\frac{2\pi^{2}}{\omega^{2}}E^{2}
+\right]^{N}
+}
+\]
+
+%---------------------------------------------------------
+% 5) Entropía microcanónica completa
+%---------------------------------------------------------
+
+\[
+S(E)=k_{B}\ln\Gamma_{N}(E)
+\]
+
+\[
+S(E)
+= k_{B}
+\left[
+-\ln N!
++ N\ln\left(\frac{2\pi^{2}}{\omega^{2}}\right)
++ 2N\ln E
+\right]
+\]
+
+Con Stirling:
+
+\[
+\ln N!\approx N\ln N - N
+\]
+
+\[
+\boxed{
+S(E) = k_{B}N
+\left[
+1 - \ln N
++ \ln\left(\frac{2\pi^{2}}{\omega^{2}}\right)
++ 2\ln E
+\right]
+}
+\]
+
+%---------------------------------------------------------
+% 6) Ecuaciones de estado
+%---------------------------------------------------------
+
+\[
+\frac{1}{T}
+=
+\left(\frac{\partial S}{\partial E}\right)_{N}
+=
+\frac{2k_{B}N}{E}
+\]
+
+\[
+\boxed{
+E = 2Nk_{B}T
+}
+\]
+
+Cada oscilador aporta energía:
+
+\[
+\boxed{
+\langle E_{1}\rangle = 2k_{B}T
+}
+\]
+
+El volumen no aparece en la Hamiltoniana:
+
+\[
+\boxed{
+P=0
+}
+\]
+
+\vspace{0.4cm}
+
+\textcolor{Tarawera}{\textbf{Resumen final}}
+
+\begin{itemize}
+  \item La integral microcanónica se evaluó explícitamente por dos métodos:
+        integración directa y reescalamiento a una hiperesfera 4D.
+  \item Ambos métodos producen:
+        \[
+        \Gamma_{1}(E)=\frac{2\pi^{2}}{\omega^{2}}E^{2}
+        \]
+  \item Para \(N\) osciladores:
+        \[
+        \Gamma_{N}(E)=\frac{1}{N!}\left[\frac{2\pi^{2}}{\omega^{2}}E^{2}\right]^{N}
+        \]
+  \item La entropía microcanónica es:
+        \[
+        S(E)=k_{B}N\left[C+2\ln E\right]
+        \]
+  \item La ecuación de estado energética es:
+        \[
+        E=2Nk_{B}T
+        \]
+  \item El sistema no ejerce presión: \(P=0\).
+\end{itemize}
+
+
+
+%---------------------------------------------------------
+% 1) Hamiltoniana clásica y espacio de fases
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+% 2) Cálculo de la entropía microcanónica
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+% 3) Ecuaciones de estado
+%---------------------------------------------------------
+
+
+
+%=========================================================
+%                      Problema 3
+%=========================================================
+
+\addcontentsline{toc}{subsection}{\textcolor{Apple Green}{\textbf{\underline{Problema 3}}}}
+
+\begin{AGbox}[8]
+\textcolor{Apple Green}{\textbf{\underline{Problema 3}}} \vspace{2mm}
+
+Los niveles energéticos de una partícula libre confinada en una caja de 4 dimensiones son
+
+\[
+\epsilon_{i}
+= \frac{h^{2}}{8 m L^{2}}
+  \left( n_{ix}^{2} + n_{iy}^{2} + n_{iz}^{2} + n_{iw}^{2} \right)
+\]
+
+Calcule la entropía de un gas ideal en 4 dimensiones por medio del  
+ensamble microcanónico.  
+
+Encuentre las ecuaciones de estado para este sistema.
+
+\end{AGbox}
+\vspace{0.5cm}
+
+\textcolor{Tuscany}{\textbf{Solución:}}
+
+El problema describe un gas ideal compuesto por partículas libres dentro de un
+\textbf{hipercubo de 4 dimensiones} de lado \(L\). En el régimen cuántico, la energía
+de una partícula viene dada por cuatro números cuánticos positivos
+\((n_{x},n_{y},n_{z},n_{w})\), lo cual sugiere que el espacio de \emph{momentos} 
+relevante está definido en un espacio euclidiano de dimensión \(4\). Nuestro objetivo
+es derivar rigurosamente la entropía microcanónica y las ecuaciones de estado para
+un gas clásico ideal en \(4\) dimensiones.
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{1. Del espectro cuántico al límite clásico}}
+--------------------------------------------------------------------
+
+En la descripción cuántica:
+
+\[
+\epsilon_{n}
+= \frac{h^{2}}{8mL^{2}}\left(n_{x}^{2}+n_{y}^{2}+n_{z}^{2}+n_{w}^{2}\right)
+\]
+
+Identificamos:
+
+\[
+p_{i}
+= \frac{h}{2L}n_{i}
+\qquad i \in \{x,y,z,w\}
+\]
+
+lo que implica:
+
+\[
+n_{x}^{2}+n_{y}^{2}+n_{z}^{2}+n_{w}^{2}
+= \left( \frac{2L}{h} \right)^{2}(p_{x}^{2}+p_{y}^{2}+p_{z}^{2}+p_{w}^{2})
+\]
+
+Sustituyendo en la energía:
+
+\[
+\epsilon
+= \frac{p_{x}^{2}+p_{y}^{2}+p_{z}^{2}+p_{w}^{2}}{2m}
+= \frac{p^{2}}{2m}
+\]
+
+donde \(p\) es el módulo del vector en el espacio euclidiano 4D:
+
+\[
+\vec{p}=(p_{x},p_{y},p_{z},p_{w})
+\qquad \Rightarrow \qquad p^{2}=\sum_{i=1}^{4} p_{i}^{2}
+\]
+
+De este modo, el límite clásico se obtiene considerando que los niveles cuánticos
+son tan densos que pueden tratarse como un continuo en el espacio momentum
+cuadridimensional.
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{2. Hamiltoniano clásico en 4 dimensiones}}
+--------------------------------------------------------------------
+
+Una partícula libre en un espacio físico de \(D=4\) dimensiones tiene Hamiltoniano:
+
+\[
+H(\vec{p}) = \frac{p^{2}}{2m}
+\]
+
+y el espacio fase de una sola partícula es:
+
+\[
+\Gamma_{1} = \mathbb{R}^{4}_{x} \times \mathbb{R}^{4}_{p}
+\]
+
+para un volumen físico:
+
+\[
+V = L^{4}
+\]
+
+Con indistinguibilidad de partículas, el volumen de fase para \(N\) partículas será
+proporcional a \(V^{N}\) y al volumen en el espacio momentum que satisfaga
+\(H<E\).
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{3. Volumen del espacio de momentos en 4D (integración directa)}}
+--------------------------------------------------------------------
+
+En el ensamble microcanónico:
+
+\[
+\Gamma_{p}(E)
+= \int d^{4}p \;
+\Theta\!\left(E-\frac{p^{2}}{2m} \right)
+\]
+
+Escribimos la integral en coordenadas hiperesféricas en 4 dimensiones.  
+Para un espacio euclidiano 4D, el elemento de volumen es:
+
+\[
+d^{4}p = p^{3} \, dp \, d\Omega_{3}
+\]
+
+donde \(d\Omega_{3}\) es el elemento de ángulo sólido tridimensional, y:
+
+\[
+\Omega_{3}
+= \text{área de la 3-esfera}
+= 2\pi^{2}
+\]
+
+(este resultado se obtiene de la generalización de la fórmula del área de la
+superficie de la esfera en 4D).
+
+Por tanto:
+
+\[
+\Gamma_{p}(E)
+= \int_{0}^{\sqrt{2mE}} p^{3}dp \int d\Omega_{3}
+= 2\pi^{2} \int_{0}^{\sqrt{2mE}} p^{3} \, dp
+\]
+
+Integramos:
+
+\[
+\int_{0}^{P} p^{3} dp = \frac{P^{4}}{4}
+\]
+
+entonces:
+
+\[
+\Gamma_{p}(E)
+= 2\pi^{2}\cdot \frac{(2mE)^{2}}{4}
+\]
+
+Simplificando:
+
+\[
+\boxed{
+\Gamma_{p}(E) = \frac{\pi^{2}}{2}(2mE)^{2}
+}
+\]
+
+o equivalentemente:
+
+\[
+\Gamma_{p}(E)=2\pi^{2}m^{2}E^{2}
+\]
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{4. Interpretación geométrica: volumen de la hiperesfera 4D}}
+--------------------------------------------------------------------
+
+En dimensión \(d\), el volumen de una hiperesfera de radio \(R\) es:
+
+\[
+V_{d}(R)=\frac{\pi^{d/2}}{\Gamma(d/2+1)}R^{d}
+\]
+
+Para \(d=4\):
+
+\[
+V_{4}(R)=\frac{\pi^{2}}{\Gamma(3)}R^{4}
+\]
+
+pero:
+
+\[
+\Gamma(3)=2!
+\]
+
+así:
+
+\[
+V_{4}(R)=\frac{\pi^{2}}{2}R^{4}
+\]
+
+Con \(R=\sqrt{2mE}\):
+
+\[
+V_{4}(\sqrt{2mE})
+= \frac{\pi^{2}}{2}(2mE)^{2}
+\]
+
+que coincide con el resultado de la integración directa.
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{5. Volumen de fase para N partículas}} 
+--------------------------------------------------------------------
+
+El espacio fase total incluye posiciones y momentos.  
+Para \(N\) partículas:
+
+- el volumen físico aporta \(V^{N}\),
+- el volumen en momentum aporta \(\Gamma_{p}(E)^{N}\),
+- se divide por \(N!\) por indistinguibilidad,
+- y se divide por \(h^{4N}\) para obtener un número adimensional de celdas cuánticas.
+
+Entonces:
+
+\[
+\Gamma(E,V,N)
+= \frac{1}{N!\,h^{4N}} \,
+V^{N}\,
+\left[\frac{\pi^{2}}{2}(2mE)^{2}\right]^{N}
+\]
+
+Agrupando:
+
+\[
+\boxed{
+\Gamma(E,V,N)
+= \frac{V^{N}}{N!h^{4N}}
+\left(
+2\pi^{2}m^{2}E^{2}
+\right)^{N}
+}
+\]
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{6. Entropía microcanónica S(E,V,N)}}
+--------------------------------------------------------------------
+
+Por definición:
+
+\[
+S(E,V,N)=k_{B}\ln \Gamma(E,V,N)
+\]
+
+Sustituimos:
+
+\[
+S
+= k_{B}
+\left[
+N\ln V - \ln N!
++ N\ln(2\pi^{2}m^{2})
++ 2N\ln E
+- 4N\ln h
+\right]
+\]
+
+Aplicamos Stirling:
+
+\[
+\ln N! \approx N\ln N - N
+\]
+
+Entonces:
+
+\[
+S(E,V,N)
+= k_{B}N\left[
+\ln\left(\frac{V}{N}\right)
++ 1
++ \ln\left(\frac{2\pi^{2}m^{2}}{h^{4}}\right)
++ 2\ln E
+\right]
+\]
+
+Agrupando constantes:
+
+\[
+\boxed{
+S(E,V,N)
+= k_{B}N
+\left[
+\ln\left(\frac{V}{N}\right)
++ 2\ln E
++ C
+\right]
+}
+\]
+
+donde  
+\[
+C = 1 + \ln\left(\frac{2\pi^{2}m^{2}}{h^{4}}\right)
+\]
+es constante aditiva.
+
+--------------------------------------------------------------------
+\section*{\textcolor{Apple Green}{7. Ecuaciones de estado}}
+--------------------------------------------------------------------
+
+---------------------------
+\subsection*{Temperatura}
+---------------------------
+
+\[
+\frac{1}{T}
+= \left(\frac{\partial S}{\partial E}\right)_{V,N}
+= k_{B}N\frac{2}{E}
+\]
+
+Así:
+
+\[
+\boxed{
+E = 2Nk_{B}T
+}
+\]
+
+Esta es la generalización en 4D del resultado de equipartición.
+
+---------------------------
+\subsection*{Presión generalizada en 4D}
+---------------------------
+
+\[
+P = T\left(\frac{\partial S}{\partial V}\right)_{E,N}
+= T \left(k_{B}N\frac{1}{V}\right)
+\]
+
+Así:
+
+\[
+\boxed{
+P = \frac{Nk_{B}T}{V}
+}
+\]
+
+Idéntica forma al gas ideal en 3D.
+
+--------------------------------------------------------------------
+\section*{\textcolor{Tarawera}{Resumen final}}
+--------------------------------------------------------------------
+
+\begin{itemize}
+  \item El espacio momentum en 4D genera volúmenes que escalan como \(E^{2}\).
+  \item El volumen de fase para \(N\) partículas escala como  
+  \[
+  \Gamma \propto V^{N}E^{2N}
+  \]
+  \item La entropía microcanónica es  
+  \[
+  S = k_{B}N\big[\ln(V/N) + 2\ln E + C\big]
+  \]
+  \item La energía promedio es  
+  \[
+  E = 2Nk_{B}T
+  \]
+  \item La ecuación de estado es  
+  \[
+  PV = Nk_{B}T
+  \]
+  \item Todo coincide con la generalización natural del gas ideal clásico a 4 dimensiones.
+\end{itemize}
+
+%=========================================================
+%   FORMULARIO DEFINITIVO — ENSAMBLE MICROCANÓNICO
+%=========================================================
+
+\section*{\textcolor{Tarawera}{\textbf{Guía esencial para examen de Microcanónico}}}
+
+El ensamble microcanónico describe un sistema aislado con:
+
+\[
+E = \text{constante},\qquad V = \text{constante},\qquad N = \text{constante}
+\]
+
+Los microestados accesibles son todos aquellos con energía total menor que \(E\).
+La cantidad central es:
+
+\[
+\boxed{
+\Omega(E,V,N) = \frac{1}{N! h^{fN}} \int_{H<E} d^{fN}q\, d^{fN}p
+}
+\]
+
+donde \(f\) es el número de dimensiones espaciales 
+(o grados de libertad independientes de posición).
+
+La entropía microcanónica es:
+
+\[
+\boxed{
+S(E,V,N) = k_{B}\ln \Omega(E,V,N)
+}
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{1. Regla de grados de libertad}}
+%---------------------------------------------------------
+
+Número total de grados de libertad en el espacio fase:
+
+\[
+\boxed{
+g = 2s - K
+}
+\]
+
+donde:
+
+- \(s\): número de coordenadas independientes  
+- \(K\): número de restricciones
+
+Para un gas libre en \(D\) dimensiones:
+
+\[
+g = 2D
+\qquad\Rightarrow\qquad
+\text{espacio fase por partícula } = \mathbb{R}^{D}_{q} \times \mathbb{R}^{D}_{p}
+\]
+
+Para un oscilador armónico 2D:
+
+\[
+s = 2\quad\Rightarrow\quad g = 4
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{2. Volumen de hiperesfera en \(d\) dimensiones}}
+%---------------------------------------------------------
+
+En integrales microcanónicas aparece constantemente este resultado:
+
+\[
+\boxed{
+V_{d}(R) = \frac{\pi^{d/2}}{\Gamma(d/2 + 1)} R^{d}
+}
+\]
+
+Casos más usados:
+
+\[
+V_{2}(R) = \pi R^{2}
+\]
+
+\[
+V_{3}(R) = \frac{4\pi}{3}R^{3}
+\]
+
+\[
+V_{4}(R) = \frac{\pi^{2}}{2}R^{4}
+\]
+
+Áreas de las hiperesferas:
+
+\[
+\Omega_{3} = 4\pi,\qquad \Omega_{4} = 2\pi^{2}
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{3. Integral microcanónica genérica}}
+%---------------------------------------------------------
+
+Para sistemas libres:
+
+\[
+\Gamma_{p}(E)
+= \int d^{D}p \;\Theta\!\left(E-\frac{p^{2}}{2m}\right)
+= V_{D}\!\left(\sqrt{2mE}\right)
+\]
+
+Por lo tanto:
+
+\[
+\boxed{
+\Gamma_{p}(E) \propto E^{D/2}
+}
+\]
+
+Ejemplos:
+
+- En 3D:
+  \[
+  \Gamma_{p}(E) \propto E^{3/2}
+  \]
+
+- En 4D:
+  \[
+  \Gamma_{p}(E) \propto E^{2}
+  \]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{4. Volumen de fase completo}}
+%---------------------------------------------------------
+
+Para un gas ideal:
+
+\[
+\boxed{
+\Gamma(E,V,N) =
+\frac{1}{N! h^{DN}}
+V^{N}
+\left[\Gamma_{p}(E)\right]^{N}
+}
+\]
+
+Si el momento genera una potencia \(E^{D/2}\), entonces:
+
+\[
+\Gamma \propto
+V^{N} E^{(D/2)N}
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{5. Entropía genérica en D dimensiones}}
+%---------------------------------------------------------
+
+\[
+\boxed{
+S(E,V,N) =
+k_{B}N\left[
+\ln\left(\frac{V}{N}\right)
++ \frac{D}{2}\ln E
++ C
+\right]
+}
+\]
+
+donde \(C\) es una constante aditiva que no afecta ecuaciones de estado.
+
+Casos importantes:
+
+- 1D: \(\frac{D}{2}= \frac{1}{2}\)
+- 2D: \(\frac{D}{2}=1\)
+- 3D: \(\frac{D}{2}=\frac{3}{2}\)
+- 4D: \(\frac{D}{2}=2\)  (este es el de tu problema 3)
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{6. Ecuaciones de estado microcanónicas}}
+%---------------------------------------------------------
+
+\[
+\frac{1}{T} = \left(\frac{\partial S}{\partial E}\right)_{V,N}
+\]
+
+\[
+\frac{P}{T} = \left(\frac{\partial S}{\partial V}\right)_{E,N}
+\]
+
+\[
+-\frac{\mu}{T} = \left(\frac{\partial S}{\partial N}\right)_{E,V}
+\]
+
+Para el gas ideal en \(D\) dimensiones:
+
+\[
+\boxed{
+E = \frac{D}{2} Nk_{B}T
+}
+\]
+
+\[
+\boxed{
+PV = Nk_{B}T
+}
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{7. Equipartición (clásico)}}
+%---------------------------------------------------------
+
+Cada término cuadrático en la energía aporta:
+
+\[
+\boxed{
+\frac{1}{2}k_{B}T
+}
+\]
+
+Ejemplos:
+
+- Gas libre en 4D tiene 4 términos cuadráticos en momentum:
+  \[
+  \langle E \rangle = 4\frac{1}{2}k_{B}T = 2k_{B}T \quad \text{por partícula}
+  \]
+- Oscilador armónico 2D:
+  \[
+  \langle E \rangle = 4\frac{1}{2}k_{B}T = 2k_{B}T
+  \]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{8. Reglas de conteo discreto}}
+%---------------------------------------------------------
+
+Para ejercicios como el Problema 1:
+
+- Si las partículas son \textbf{distinguibles}:  
+  \[
+  \Omega = \text{número de pares ordenados}
+  \]
+
+- Si las partículas son \textbf{indistinguibles}:  
+  \[
+  \Omega = \text{número de ocupaciones } (n_{0},n_{1},\ldots)
+  \]
+
+La entropía es:
+
+\[
+S = k_{B}\ln \Omega
+\]
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{9. Factor \(1/N!\) (paradoja de Gibbs)}}
+%---------------------------------------------------------
+
+Cuando hay partículas indistinguibles:
+
+\[
+\boxed{
+\Omega \rightarrow \frac{\Omega}{N!}
+}
+\]
+
+Razón: eliminar sobrecuenta al permutar partículas idénticas.
+
+---
+
+%---------------------------------------------------------
+\subsection*{\textcolor{Apple Green}{10. Trucos para examen}}
+%---------------------------------------------------------
+
+\begin{itemize}
+  \item Siempre identifica primero el número de grados de libertad.  
+  \item Checa si el Hamiltoniano se separa en suma de términos cuadráticos.  
+  \item Convierte la región \(H<E\) en una hiperesfera mediante reescalamiento.  
+  \item Recuerda que el volumen escala como \(E^{d/2}\).  
+  \item El volumen físico en \(D\) dimensiones es \(V = L^{D}\).  
+  \item Para gases ideales: entropía \(S = k_{B}\ln(V^{N}E^{DN/2})\) + constante.  
+  \item Equipartición SIEMPRE funciona en el límite clásico.  
+  \item Si te piden entropía microcanónica, calcula \(\Omega\).  
+  \item Si te piden ecuaciones de estado, derivadas de \(S(E,V,N)\).  
+  \item Si el sistema no depende del volumen (osciladores), presión = 0.  
+\end{itemize}
+
+
+
+
+
+\end{document}

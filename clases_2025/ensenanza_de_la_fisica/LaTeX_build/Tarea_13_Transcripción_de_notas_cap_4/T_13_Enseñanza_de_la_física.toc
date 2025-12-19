@@ -1,0 +1,19 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Instrucciones de la actividad}{1}{section*.1}%
+\contentsline {section}{\textcolor {Apple Green}{ \textbf { \textcolor {orange(colorwheel)}{\textbf {Cap IV:}} El aprendizaje de conceptos científicos: del aprendizaje significativo al cambio conceptual}}}{2}{section*.3}%
+\contentsline {subsection}{Los contenidos verbales en el currículo: de los datos a los conceptos}{2}{section*.4}%
+\contentsline {subsection}{¿Tienen que aprender datos los alumnos?}{2}{section*.6}%
+\contentsline {subsection}{La comprensión de conceptos: aprendizaje significativo y conocimientos previos}{3}{section*.7}%
+\contentsline {subsection}{El origen de las concepciones alternativas}{4}{section*.9}%
+\contentsline {subsection}{Origen sensorial: las concepciones espontáneas}{4}{section*.10}%
+\contentsline {subsection}{Origen cultural: las representaciones sociales}{5}{section*.12}%
+\contentsline {subsection}{Origen escolar: las concepciones analógicas}{5}{section*.13}%
+\contentsline {subsection}{Las concepciones alternativas como teorías implícitas}{5}{section*.14}%
+\contentsline {subsection}{Principios epistemológicos}{6}{section*.17}%
+\contentsline {subsection}{Principios ontológicos}{6}{section*.19}%
+\contentsline {subsection}{Principios conceptuales}{7}{section*.21}%
+\contentsline {paragraph}{a) Causalidad lineal frente a interacción de sistemas}{8}{section*.23}%
+\contentsline {paragraph}{b) Cambio y transformación frente a conservación y equilibrio}{8}{section*.24}%
+\contentsline {paragraph}{c) Relaciones cualitativas frente a esquemas de cuantificación}{8}{section*.25}%
+\contentsline {subsection}{De las teorías implícitas a las teorías científicas: ¿qué cambia en el cambio conceptual?}{8}{section*.26}%
+\contentsline {subsection}{Cambio epistemológico, ontológico y en las estructuras conceptuales}{9}{section*.28}%
