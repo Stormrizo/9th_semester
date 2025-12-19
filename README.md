@@ -1,148 +1,75 @@
-# 9th Semester - Physics Master's Program
+---
+theme: jekyll-theme-cayman
+title: 🌌 9th Semester - Physics Undergraduate Program
+description: Benemérita Universidad Autónoma de Puebla | FCFM
+---
+
+# 9th Semester - Physics Undergraduate Program
 
 ## Overview
-This repository contains all academic materials, notes, assignments, and projects from the 9th semester of the Master's program in Physics at BUAP (Benemérita Universidad Autónoma de Puebla).
+This repository contains all academic materials, notes, assignments, and projects from the 9th semester of the **Licenciatura en Física** (Undergraduate Program) at BUAP.
 
 ## 📚 Courses
 
 ### Core Physics Courses
 
-#### Estado Sólido (Solid State Physics)
-- **Location**: `clases_2025/estado_solido/`
-- **Content**: 
-  - LaTeX typeset class notes and assignments
-  - PDF compilations of lectures
-  - Problem sets and exams
-  - Reference bibliography (Kittel, Ashcroft & Mermin)
-  - Digital notes (rnote format)
+#### 🧊 Estado Sólido (Solid State Physics)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/estado_solido/)
+- **Content**: LaTeX notes, PDF compilations, Kittel & Ashcroft bibliography.
 
-#### Electrodinámica (Electrodynamics)
-- **Location**: `clases_2025/electrodinamica/`
-- **Content**:
-  - Class notes in LaTeX and PDF formats
-  - Assignments based on Reitz & Milford textbook
-  - Digital handwritten notes
-  - Bibliography references
-  - Final project materials
+#### ⚡ Electrodinámica (Electrodynamics)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/electrodinamica/)
+- **Content**: Assignments (Reitz & Milford), digital handwritten notes.
 
-#### Mecánica Estadística (Statistical Mechanics)
-- **Location**: `clases_2025/mecanica_estadistica/`
-- **Content**:
-  - LaTeX class notes
-  - Homework assignments
-  - Periodic activities
-  - Digital notes and annotations
+#### 📊 Mecánica Estadística (Statistical Mechanics)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/mecanica_estadistica/)
+- **Content**: LaTeX class notes and periodic activities.
 
-#### Mecánica Teórica (Theoretical Mechanics)
-- **Location**: `clases_2025/mecanica_teorica/`
-- **Content**:
-  - Solved physics problems (pendulums, inclined planes, Kepler problem, etc.)
-  - LaTeX formatted solutions
-  - Notes and assignments
-  - Classical mechanics exercises
+#### ⚙️ Mecánica Teórica (Theoretical Mechanics)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/mecanica_teorica/)
+- **Content**: Solved physics problems (Kepler, pendulums) in LaTeX.
 
-#### Funciones Especiales (Special Functions)
-- **Location**: `clases_2025/funciones_especiales/`
-- **Content**:
-  - Lecture notes on mathematical physics
-  - PDF class materials
-  - Digital annotations
+#### 📐 Funciones Especiales (Special Functions)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/funciones_especiales/)
+- **Content**: Mathematical physics lecture notes and annotations.
 
 ### Applied & Specialized Courses
 
-#### Redes Neuronales (Neural Networks)
-- **Location**: `clases_2025/redes_neuronales/`
-- **Content**:
-  - Jupyter notebooks with implementations
-  - PDF lectures on deep learning
-  - Practical exercises and code examples
+#### 🧠 Redes Neuronales (Neural Networks)
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/redes_neuronales/)
+- **Content**: Jupyter notebooks, Deep Learning implementations.
 
-#### Enseñanza de la Física (Physics Education)
-- **Location**: `clases_2025/ensenanza_de_la_fisica/`
-- **Content**:
-  - Pedagogical activities and assignments
-  - Educational bibliography (e.g., Flatland by Abbott)
-  - LaTeX presentations on teaching methodologies
-  - Periodic assignments on science education
+#### 🍎 Enseñanza de la Física
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/ensenanza_de_la_fisica/)
+- **Content**: Pedagogical activities, Flatland (Abbott) bibliography.
 
-#### Escritura de Textos Científicos (Scientific Writing)
-- **Location**: `clases_2025/escritura_de_textos_cientificos/`
-- **Content**:
-  - LaTeX formatted assignments
-  - Scientific article reviews
-  - Writing exercises and methodology
-
-### Seminars & Special Topics
-
-#### CINVESTAV Seminar
-- **Location**: `clases_2025/cinvestav/`
-- **Content**:
-  - Advanced topics in physics
-  - Class notes and PDFs
-  - Research-oriented materials
-
-#### SS (Solid State Seminar)
-- **Location**: `clases_2025/ss/`
-- **Content**:
-  - Periodic activities
-  - Research presentations
-  - Specialized seminars
-
-## 🔬 Research Projects
-
-### CafeLab - Coffee Research
-- **Location**: `clases_2025/cafelab/`
-- **Description**: Research project on coffee bean analysis using spectroscopy
-- **Collaborators**: Julio, Liz
-- **Lab Notebook**: `bitacora_caffeine/`
-  - UV-VIS spectroscopy experiments
-  - Data analysis and results
-
-### Thesis Work
-- **Location**: `clases_2025/tesis/`
-- **Content**: Articles and research materials related to coffee analysis
-
-## 📝 File Organization
-
-All directories follow **snake_case** naming convention for consistency:
-- Lowercase letters only
-- Underscores instead of spaces
-- No accented characters
-- Descriptive folder names
-
-### Common Subdirectories:
-- `latex_clases/` or `LaTeX_Clases/` - LaTeX source files for class notes
-- `pdf_clases/` - Compiled PDF versions of notes
-- `rnote/` - Digital handwritten notes (Rnote app)
-- `xournal++/` - Handwritten notes (Xournal++ app)
-- `tareas/` or `Tareas/` - Homework assignments
-- `bibliografia/` - Reference materials and textbooks
-
-## 🛠️ Tools & Technologies
-
-- **Document Preparation**: LaTeX, BibTeX
-- **Note-taking**: Rnote, Xournal++
-- **Programming**: Python (Jupyter notebooks for neural networks)
-- **Version Control**: Git
-- **Laboratory**: UV-VIS Spectroscopy
-
-## 📖 Key Textbooks & References
-
-- **Solid State**: Kittel "Introduction to Solid State Physics", Ashcroft & Mermin
-- **Electrodynamics**: Reitz & Milford "Foundations of Electromagnetic Theory"
-- **Education**: Abbott "Flatland"
-
-## 📅 Academic Period
-
-**Semester**: 9th  
-**Institution**: FCFM-BUAP (Facultad de Ciencias Físico Matemáticas)  
-**Program**: Master's in Physics
+#### ✍️ Escritura de Textos Científicos
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/escritura_de_textos_cientificos/)
+- **Content**: Article reviews and methodology exercises.
 
 ---
 
-## Notes
+## 🔬 Research Projects
 
-- Most documents are in Spanish
-- LaTeX documents include custom color schemes and BUAP branding
-- Autosave files (`.autosave.xopp`) are working copies
-- Git repository maintains version history of all academic work
+### ☕ CafeLab - Coffee Research
+- **Collaborators**: Julio, Liz
+- **Direct Access**: [📂 Abrir Carpeta](./clases_2025/cafelab/)
+- **Lab Notebook**: [📔 View Bitácora](./bitacora_caffeine/)
+- **Description**: UV-VIS spectroscopy analysis of coffee beans.
+
+### 📜 Thesis Work
+- **Direct Access**: [📂 Thesis Materials](./clases_2025/tesis/)
+- **Content**: Research materials related to coffee molecular analysis.
+
+---
+
+## 🛠️ Tools & Technologies
+- **Document Preparation**: LaTeX, BibTeX
+- **Note-taking**: Rnote, Xournal++
+- **Programming**: Python (Jupyter)
+- **Version Control**: Git
+
+## 📅 Academic Period
+**Semester**: 9th  
+**Institution**: FCFM-BUAP  
+**Program**: Licenciatura en Física (Undergraduate)
