@@ -13,7 +13,7 @@ Repositorio de material académico del noveno semestre de la Licenciatura en Fí
 El repositorio está organizado en las siguientes carpetas principales:
 
 - **[clases_2025/](clases_2025/)** - Material de los cursos del semestre 2025
-- **[bitacora_caffeine/](bitacora_caffeine/)** - Bitácora del laboratorio Caffeine Lab
+- **[bitacora_caffeine/](bitacora_caffeine/)** - Bitácora de extracción de café en el laboratorio de caracterización de materiales.
 
 ## Cómo Actualizar Archivos con Git
 
