@@ -12,7 +12,8 @@ de **Julio Alfredo Ballinas García** — FCFM-BUAP.
 
 - 📚 [Clases 2025]({{ site.baseurl }}/clases_2025/)
 - 🧪 [Bitácora Caffeine Lab]({{ site.baseurl }}/bitacora_caffeine/)
-- 📄 [Colores que uso en LaTeX (PDF)]({{ site.baseurl }}/colors_i_use_in_latex.pdf)
+- 🎨 [Colores que uso en LaTeX (PDF)]({{ site.baseurl }}/clases_2025/colors_i_use_in_latex.pdf)
+
 
 ---
 
