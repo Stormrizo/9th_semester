@@ -1,165 +1,346 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Minimal, clean styling -->
-  <style>
-    :root{
-      --bg: #ffffff;
-      --fg: #111827;
-      --muted: #4b5563;
-      --border: #e5e7eb;
-      --link: #2563eb;
-      --code-bg: #f3f4f6;
-      --quote-bg: #f8fafc;
-      --quote-border: #cbd5e1;
-    }
+    <title>
+      {% if page.title %}{{ page.title }} · {% endif %}9º Semestre · Física FCFM-BUAP
+    </title>
 
-    @media (prefers-color-scheme: dark){
+    <!-- Metadata -->
+    <meta name="description" content="Material académico del 9º semestre — Física FCFM-BUAP" />
+
+    <!-- Favicon (opcional) -->
+    <!-- <link rel="icon" href="{{ '/assets/favicon.png' | relative_url }}"> -->
+
+    <!-- Fonts (solo CSS, sin JS) -->
+    <style>
+      /* ====== Reset básico ====== */
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { margin: 0; }
+
+      /* ====== Paleta (dark elegante) ====== */
       :root{
         --bg: #0b1220;
-        --fg: #e5e7eb;
-        --muted: #9ca3af;
-        --border: #243244;
-        --link: #60a5fa;
-        --code-bg: #111827;
-        --quote-bg: #0f1a2e;
-        --quote-border: #334155;
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.08);
+        --border: rgba(255,255,255,.10);
+        --text: rgba(255,255,255,.88);
+        --muted: rgba(255,255,255,.65);
+        --muted2: rgba(255,255,255,.52);
+        --link: #6dd6ff;
+        --link2: #9cf0ff;
+        --accent: #7cffa7;
+        --shadow: 0 18px 60px rgba(0,0,0,.35);
+        --radius: 18px;
+        --maxw: 980px;
       }
-    }
 
-    html, body { height: 100%; }
-    body{
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: ui-serif, "Libertinus Serif", "Linux Libertine", Georgia, "Times New Roman", Times, serif;
-      line-height: 1.65;
-      font-size: 18px;
-    }
+      /* ====== Tipografía ====== */
+      body{
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+        color: var(--text);
+        line-height: 1.65;
+        background:
+          radial-gradient(1200px 800px at 10% 10%, rgba(109,214,255,.18), transparent 60%),
+          radial-gradient(900px 600px at 90% 15%, rgba(124,255,167,.12), transparent 55%),
+          radial-gradient(1000px 700px at 50% 95%, rgba(155,108,255,.12), transparent 60%),
+          var(--bg);
+      }
 
-    .wrap{
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 18px 80px;
-    }
+      /* ====== Layout ====== */
+      .site{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
 
-    header.site{
-      margin-bottom: 22px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
+      .topbar{
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(10px);
+        background: rgba(11,18,32,.62);
+        border-bottom: 1px solid var(--border);
+      }
 
-    .breadcrumbs{
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 13px;
-      color: var(--muted);
-    }
+      .topbar-inner{
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
 
-    h1, h2, h3{
-      line-height: 1.2;
-      margin: 1.2em 0 0.5em;
-      letter-spacing: -0.01em;
-    }
+      .brand{
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-decoration: none;
+        color: var(--text);
+      }
 
-    h1{ font-size: 2.05rem; margin-top: 0; }
-    h2{ font-size: 1.45rem; border-top: 1px solid var(--border); padding-top: 18px; }
-    h3{ font-size: 1.15rem; }
+      .brand strong{
+        font-size: 14px;
+        letter-spacing: .2px;
+      }
+      .brand span{
+        font-size: 12px;
+        color: var(--muted);
+      }
 
-    p{ margin: 0.8em 0; color: var(--fg); }
-    strong{ font-weight: 700; }
+      .nav{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
 
-    a{
-      color: var(--link);
-      text-decoration: none;
-    }
-    a:hover{ text-decoration: underline; }
+      .chip{
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 13px;
+        transition: transform .12s ease, background .12s ease, border-color .12s ease;
+        white-space: nowrap;
+      }
+      .chip:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,.08);
+        border-color: rgba(255,255,255,.16);
+      }
 
-    hr{
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 26px 0;
-    }
+      .wrap{
+        max-width: var(--maxw);
+        width: 100%;
+        margin: 0 auto;
+        padding: 26px 18px 42px;
+        flex: 1;
+      }
 
-    ul, ol{ padding-left: 1.2em; }
-    li{ margin: 0.5em 0; }
+      /* ====== Hero / Card ====== */
+      .hero{
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 18px 18px 12px;
+        margin-bottom: 18px;
+      }
 
-    blockquote{
-      margin: 18px 0;
-      padding: 12px 14px;
-      background: var(--quote-bg);
-      border-left: 4px solid var(--quote-border);
-      color: var(--fg);
-    }
+      .hero-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
 
-    code{
-      background: var(--code-bg);
-      padding: 0.12em 0.35em;
-      border-radius: 6px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.92em;
-    }
+      .badge{
+        font-size: 12px;
+        color: rgba(0,0,0,.78);
+        background: linear-gradient(90deg, var(--link), var(--accent));
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
 
-    pre code{
-      display: block;
-      padding: 14px;
-      overflow-x: auto;
-    }
+      /* ====== Markdown styling (h1/h2/links/listas) ====== */
+      h1{
+        margin: 0 0 6px;
+        font-size: 34px;
+        line-height: 1.15;
+        letter-spacing: .2px;
+      }
+      h2{
+        margin-top: 26px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+      h3{
+        margin-top: 18px;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
 
-    /* MathJax spacing */
-    mjx-container[jax="CHTML"], mjx-container[jax="SVG"]{
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 0.35em 0;
-    }
-    mjx-container[display="true"]{
-      margin: 0.9em 0;
-    }
+      p{ color: var(--text); margin: 10px 0; }
+      .muted{ color: var(--muted); }
 
-    /* Slightly nicer “content list” look */
-    .content-list li strong a{
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
+      a{
+        color: var(--link);
+        text-decoration: none;
+      }
+      a:hover{ color: var(--link2); text-decoration: underline; }
 
-    footer.site{
-      margin-top: 34px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 14px;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-  </style>
+      hr{
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 18px 0;
+      }
 
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]
-      },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-</head>
+      ul, ol{ padding-left: 22px; }
+      li{ margin: 7px 0; }
 
-<body>
-  <div class="wrap">
-    <header class="site">
-      <div class="breadcrumbs">
-        9th_semester · {{ page.title }}
-      </div>
-    </header>
+      blockquote{
+        margin: 14px 0;
+        padding: 12px 14px;
+        border-left: 3px solid rgba(109,214,255,.55);
+        background: rgba(255,255,255,.05);
+        border-radius: 12px;
+        color: var(--muted);
+      }
 
-    {{ content }}
+      /* ====== “tarjetas” para listas ======
+         Si en Markdown pones listas con títulos en negritas, se ven como cards */
+      .content > ul > li{
+        list-style: none;
+        padding: 12px 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        border-radius: 14px;
+        margin: 10px 0;
+        transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      }
+      .content > ul > li:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,.07);
+        border-color: rgba(255,255,255,.16);
+      }
+      .content > ul > li > ul{
+        margin-top: 8px;
+        padding-left: 18px;
+      }
 
-    <footer class="site">
-      Hecho con GitHub Pages + Jekyll · Material académico
-    </footer>
-  </div>
-</body>
+      /* ====== Code blocks ====== */
+      pre{
+        padding: 14px;
+        border-radius: 14px;
+        background: rgba(0,0,0,.35);
+        border: 1px solid rgba(255,255,255,.10);
+        overflow-x: auto;
+      }
+      code{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: .95em;
+      }
+
+      /* ====== Imágenes ====== */
+      img{
+        max-width: 100%;
+        height: auto;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      }
+
+      /* ====== Footer ====== */
+      footer{
+        border-top: 1px solid var(--border);
+        background: rgba(11,18,32,.72);
+      }
+      .footer-inner{
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 16px 18px;
+        color: var(--muted2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        font-size: 12px;
+      }
+
+      /* ====== MathJax (centrado y con scroll si se pasa) ====== */
+      mjx-container[display="true"]{
+        text-align: center !important;
+        margin: 1rem 0 !important;
+      }
+      mjx-container{
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ====== Responsive ====== */
+      @media (max-width: 640px){
+        h1{ font-size: 28px; }
+        .nav{ justify-content: flex-start; }
+        .hero-title{ flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+
+    <!-- MathJax -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: {
+          skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+
+  <body>
+    <div class="site">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="{{ '/' | relative_url }}">
+            <strong>9º Semestre · Física FCFM-BUAP</strong>
+            <span>{{ site.title | default: "Material académico" }}</span>
+          </a>
+
+          <nav class="nav">
+            <a class="chip" href="{{ '/clases_2025/' | relative_url }}">📚 Clases 2025</a>
+            <a class="chip" href="{{ '/bitacora_caffeine/' | relative_url }}">🧪 Bitácora</a>
+            <a class="chip" href="{{ '/clases_2025/colors_i_use_in_latex.pdf' | relative_url }}">🎨 Colores LaTeX</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="wrap">
+        <section class="hero">
+          <div class="hero-title">
+            <div>
+              <div class="muted" style="font-size:12px; margin-bottom:6px;">
+                {{ page.url }}
+              </div>
+              <div style="font-size:13px; color:var(--muted);">
+                {{ page.title }}
+              </div>
+            </div>
+            <div class="badge">Jekyll · GitHub Pages</div>
+          </div>
+        </section>
+
+        <article class="content">
+          {{ content }}
+        </article>
+      </main>
+
+      <footer>
+        <div class="footer-inner">
+          <div>© {{ "now" | date: "%Y" }} · Julio Alfredo Ballinas García · FCFM-BUAP</div>
+          <div>
+            <a href="{{ '/' | relative_url }}">Inicio</a>
+            ·
+            <a href="{{ '/clases_2025/' | relative_url }}">Clases 2025</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
