@@ -14,7 +14,6 @@ El repositorio está organizado en las siguientes carpetas principales:
 
 - **[clases_2025/](clases_2025/)** - Material de los cursos del semestre 2025
 - **[bitacora_caffeine/](bitacora_caffeine/)** - Bitácora del laboratorio Caffeine Lab
-- **[docs/](docs/)** - Sitio web con GitHub Pages (Jekyll)
 
 ## Cómo Actualizar Archivos con Git
 
