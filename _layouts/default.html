@@ -5,21 +5,161 @@
   <title>{{ page.title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Minimal, clean styling -->
+  <style>
+    :root{
+      --bg: #ffffff;
+      --fg: #111827;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --link: #2563eb;
+      --code-bg: #f3f4f6;
+      --quote-bg: #f8fafc;
+      --quote-border: #cbd5e1;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b1220;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --border: #243244;
+        --link: #60a5fa;
+        --code-bg: #111827;
+        --quote-bg: #0f1a2e;
+        --quote-border: #334155;
+      }
+    }
+
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: ui-serif, "Libertinus Serif", "Linux Libertine", Georgia, "Times New Roman", Times, serif;
+      line-height: 1.65;
+      font-size: 18px;
+    }
+
+    .wrap{
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 18px 80px;
+    }
+
+    header.site{
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .breadcrumbs{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    h1, h2, h3{
+      line-height: 1.2;
+      margin: 1.2em 0 0.5em;
+      letter-spacing: -0.01em;
+    }
+
+    h1{ font-size: 2.05rem; margin-top: 0; }
+    h2{ font-size: 1.45rem; border-top: 1px solid var(--border); padding-top: 18px; }
+    h3{ font-size: 1.15rem; }
+
+    p{ margin: 0.8em 0; color: var(--fg); }
+    strong{ font-weight: 700; }
+
+    a{
+      color: var(--link);
+      text-decoration: none;
+    }
+    a:hover{ text-decoration: underline; }
+
+    hr{
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 26px 0;
+    }
+
+    ul, ol{ padding-left: 1.2em; }
+    li{ margin: 0.5em 0; }
+
+    blockquote{
+      margin: 18px 0;
+      padding: 12px 14px;
+      background: var(--quote-bg);
+      border-left: 4px solid var(--quote-border);
+      color: var(--fg);
+    }
+
+    code{
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.92em;
+    }
+
+    pre code{
+      display: block;
+      padding: 14px;
+      overflow-x: auto;
+    }
+
+    /* MathJax spacing */
+    mjx-container[jax="CHTML"], mjx-container[jax="SVG"]{
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.35em 0;
+    }
+    mjx-container[display="true"]{
+      margin: 0.9em 0;
+    }
+
+    /* Slightly nicer “content list” look */
+    .content-list li strong a{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    footer.site{
+      margin-top: 34px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+
   <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']]
-      }
+      },
+      svg: { fontCache: 'global' }
     };
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
-  <main>
+  <div class="wrap">
+    <header class="site">
+      <div class="breadcrumbs">
+        9th_semester · {{ page.title }}
+      </div>
+    </header>
+
     {{ content }}
-  </main>
+
+    <footer class="site">
+      Hecho con GitHub Pages + Jekyll · Material académico
+    </footer>
+  </div>
 </body>
 </html>
