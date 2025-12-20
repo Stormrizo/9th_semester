@@ -13,7 +13,7 @@ En esta clase se abordan conceptos teóricos acompañados de desarrollo matemát
 
 ## Documento principal
 
-- 📄 **[PDF de la clase](C_29.pdf)**  
+- 📄 **[PDF de la clase](C_29_Electrodinámica.pdf)**  
   Versión compilada final del apunte de la clase.
 
 ---
@@ -22,9 +22,9 @@ En esta clase se abordan conceptos teóricos acompañados de desarrollo matemát
 
 Los siguientes archivos permiten **recompilar el documento** y modificar el contenido:
 
-- 📐 **[Archivo principal LaTeX](C_29.tex)**
+- 📐 **[Archivo principal LaTeX](C_29_Electrodinámica.tex)**
 - 🎨 **[Definición de colores](colores.tex)**
-- 📚 **[Bibliografía (.bib)](bibliografia.bib)**
+- 📚 **[Bibliografía (.bib)](biblio.bib)**
 
 Estos archivos contienen el contenido original, estilos y referencias utilizadas en el documento.
 
@@ -32,26 +32,34 @@ Estos archivos contienen el contenido original, estilos y referencias utilizadas
 
 ## Figuras y esquemas
 
-A continuación se muestran algunas figuras incluidas en la clase:
+A continuación se muestran las figuras incluidas en la clase (las mismas usadas en el documento LaTeX):
 
-<img src="figura_1.png" alt="Figura 1 — Electrodinámica" width="600">
+<img src="1.png" alt="Figura 1 — Electrodinámica" width="650">
 
-<img src="figura_2.png" alt="Figura 2 — Electrodinámica" width="600">
+<img src="2.png" alt="Figura 2 — Electrodinámica" width="650">
 
-*(Las imágenes se muestran directamente desde los archivos utilizados en el documento LaTeX.)*
+<img src="3.png" alt="Figura 3 — Electrodinámica" width="650">
+
+<img src="4.png" alt="Figura 4 — Electrodinámica" width="650">
+
+<img src="5.png" alt="Figura 5 — Electrodinámica" width="650">
+
+<img src="6.png" alt="Figura 6 — Electrodinámica" width="650">
+
+*(Las imágenes se cargan directamente desde los archivos utilizados en la compilación LaTeX.)*
 
 ---
 
 ## Archivos auxiliares
 
-Durante la compilación del documento en un **IDE de LaTeX** (como TeXstudio, Overleaf, VS Code + LaTeX Workshop), se generan automáticamente archivos auxiliares (`.aux`, `.log`, `.out`, etc.).
+Durante la compilación del documento en un **IDE de LaTeX** (TeXstudio, Overleaf, VS Code + LaTeX Workshop), se generan archivos auxiliares (`.aux`, `.log`, `.out`, `.synctex.gz`, etc.).
 
 Estos archivos:
 - ❌ **no contienen contenido académico**
 - ❌ **no requieren edición manual**
-- ✔️ **solo sirven para el proceso de compilación**
+- ✔️ **solo forman parte del proceso de compilación**
 
-Se conservan únicamente por motivos de reproducibilidad y control del proceso.
+Se conservan únicamente por motivos de reproducibilidad.
 
 ---
 
