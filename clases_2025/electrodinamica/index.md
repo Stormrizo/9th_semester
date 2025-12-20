@@ -47,29 +47,23 @@ Estas ecuaciones, junto con las condiciones de frontera adecuadas, permiten reso
 
 ## Contenido del curso
 
-- 📚 **[Bibliografía]**  
-  Referencias y material de consulta para el estudio del curso  
-  {{ '/clases_2025/electrodinamica/bibliografia/' | relative_url }}
+- 📚 **[Bibliografía]({{ '/clases_2025/electrodinamica/bibliografia/' | relative_url }})**  
+  Referencias y material de consulta para el estudio del curso
 
-- 🧪 **[Proyecto final]**  
-  Desarrollo y documentación del proyecto final del curso  
-  {{ '/clases_2025/electrodinamica/final_project/' | relative_url }}
+- 🧪 **[Proyecto final]({{ '/clases_2025/electrodinamica/final_project/' | relative_url }})**  
+  Desarrollo y documentación del proyecto final del curso
 
-- 📐 **[Clases en LaTeX]**  
-  Apuntes y notas de clase en formato LaTeX  
-  {{ '/clases_2025/electrodinamica/latex_clases/' | relative_url }}
+- 📐 **[Clases en LaTeX]({{ '/clases_2025/electrodinamica/latex_clases/' | relative_url }})**  
+  Apuntes y notas de clase en formato LaTeX (incluye PDF compilado y fuentes)
 
-- 📄 **[Clases en PDF]**  
-  Versiones compiladas del material del curso  
-  {{ '/clases_2025/electrodinamica/pdf_clases/' | relative_url }}
+- 📄 **[Clases en PDF]({{ '/clases_2025/electrodinamica/pdf_clases/' | relative_url }})**  
+  Versiones compiladas del material del curso
 
-- ✍️ **[Notas manuscritas (rnote)]**  
-  Notas tomadas durante el curso  
-  {{ '/clases_2025/electrodinamica/rnote/' | relative_url }}
+- ✍️ **[Notas manuscritas (rnote)]({{ '/clases_2025/electrodinamica/rnote/' | relative_url }})**  
+  Notas tomadas durante el curso
 
-- 🧠 **[Tareas (LaTeX)]**  
-  Ejercicios y tareas desarrollados en LaTeX  
-  {{ '/clases_2025/electrodinamica/tareas_latex/' | relative_url }}
+- 🧠 **[Tareas (LaTeX)]({{ '/clases_2025/electrodinamica/tareas_latex/' | relative_url }})**  
+  Ejercicios y tareas desarrollados en LaTeX
 
 ---
 
