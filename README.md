@@ -2,20 +2,20 @@
 
 Repositorio de material académico del noveno semestre de la Licenciatura en Física en la Facultad de Ciencias Físico Matemáticas de la Benemérita Universidad Autónoma de Puebla.
 
-## Tabla de Contenido
+## Tabla de contenido
 
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Cómo Actualizar Archivos con Git](#cómo-actualizar-archivos-con-git)
 - [GitHub Pages](#github-pages)
 
-## Estructura del Repositorio
+## Estructura del repositorio
 
 El repositorio está organizado en las siguientes carpetas principales:
 
 - **[clases_2025/](clases_2025/)** - Material de los cursos del semestre 2025
 - **[bitacora_caffeine/](bitacora_caffeine/)** - Bitácora de extracción de café en el laboratorio de caracterización de materiales.
 
-## Cómo Actualizar Archivos con Git
+## Cómo cctualizar archivos con Git
 
 Para agregar cambios al repositorio, utiliza los siguientes comandos:
 
@@ -26,7 +26,7 @@ git commit -m "Descripción breve"   # Crear commit con mensaje descriptivo
 git push origin main                # Subir cambios al repositorio remoto
 ```
 
-## GitHub Pages
+## GitHub pages
 
 Este repositorio cuenta con un sitio web disponible en GitHub Pages, configurado en la carpeta `/docs` usando Jekyll con el tema Cayman.
 
